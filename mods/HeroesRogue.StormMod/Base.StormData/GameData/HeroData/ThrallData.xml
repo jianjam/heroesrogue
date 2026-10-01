@@ -46,7 +46,13 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   </CEffectCreatePersistent>
 
   <CEffectModifyPlayer id="ThrallWindfuryMaelstromWeaponTalent1stQuestCompletionModifyPlayer">
-    <EffectArray index="0" Operation="Add" Reference="Behavior,WindfurySpeedBuff,Modification.UnifiedMoveSpeedFactor" Value=".1"/>
+    <EffectArray index="0" Operation="Add" Reference="Behavior,WindfurySpeedBuff,Modification.UnifiedMoveSpeedFactor" Value="0.1"/>
+  </CEffectModifyPlayer>
+  <CEffectModifyPlayer id="ThrallWindfuryMaelstromWeaponTalent2ndQuestCompletionModifyPlayer">
+    <EffectArray index="0" Operation="Add" Reference="Behavior,WindfurySpeedBuff,Modification.UnifiedMoveSpeedFactor" Value="0.1"/>
+  </CEffectModifyPlayer>
+  <CEffectModifyPlayer id="ThrallWindfuryWindStalkerTalentCompletionModifyPlayer">
+    <EffectArray index="0" Operation="Add" Reference="Behavior,WindfurySpeedBuff,Modification.UnifiedMoveSpeedFactor" Value="0.1"/>
   </CEffectModifyPlayer>
 
   <CEffectSet id="ThrallEarthquakeDamageSet">

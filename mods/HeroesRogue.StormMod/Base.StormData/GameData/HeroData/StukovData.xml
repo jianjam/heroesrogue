@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  
+  <CAbilEffectTarget id="StukovHealingPathogen">
+    <TargetFilters value="-;Neutral,Missile,Item,Stasis,Dead,Hidden" />
+  </CAbilEffectTarget>
+
+  <CEffectSet id="StukovHealingPathogenInitialCastSet">
+    <ValidatorArray value="StukovHealingPathogenValidOrInStukovHealingPathogenValidatorCombinefestationValid" />
+  </CEffectSet>
+  
+  <CEffectSet id="StukovHealingPathogenMissileImpactSet">
+    <EffectArray index="2" value="StukovHealingPathogenApplyDamageBehavior" />
+    <EffectArray index="3" value="StukovHealingPathogenApplySpreadBehavior" />
+    <EffectArray index="4" value="StukovHealingPathogenTalentSet" />
+    <EffectArray index="5" value="StukovHealingPathogenApplyPrimaryTargetBehavior" />
+    <EffectArray value="StukovHealingPathogenEnemyVisualDummy" />
+  </CEffectSet>
+  <CEffectSet id="StukovHealingPathogenSpreadMissileImpactSet">
+    <EffectArray index="2" value="StukovHealingPathogenApplyDamageBehavior" />
+    <EffectArray index="3" value="StukovHealingPathogenApplySpreadBehavior" />
+    <EffectArray index="4" value="StukovHealingPathogenOneGoodSpreadIncrement" />
+    <EffectArray value="StukovHealingPathogenEnemyVisualDummy" />
+  </CEffectSet>
+
+  <CEffectSet id="StukovHealingPathogenEnemyVisualDummy">
+    <ValidatorArray value="TargetIsEnemy" />
+  </CEffectSet>
+  
+  <CEffectEnumArea id="StukovHealingPathogenSpreadSearch1">
+    <SearchFilters value="-;Neutral,Worker,Missile,Item,Stasis,Dead,Hidden" />
+  </CEffectEnumArea>
+  <CEffectCreatePersistent id="StukovHealingPathogenImpactDelayCreatePersistent">
+    <ValidatorArray value="StukovTargetDoesNotHaveStukovHealingPathogenDamageBehavior" />
+    <ValidatorArray value="StukovHealingPathogenValidatorCombine" />
+  </CEffectCreatePersistent>
+  
+  <CEffectSet id="StukovBioKillSwitchHealingPathogenImpactSet">
+    <EffectArray value="StukovBioKillSwitchDamageSet" />
+    <EffectArray value="StukovBioKillSwitchPoxPopuliIncreaseDamageDuration" />
+  </CEffectSet>
+  <CEffectSet id="StukovBioKillSwitchDamageSet">
+    <ValidatorArray value="TargetIsEnemy" />
+    <EffectArray value="StukovBioKillSwitchDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectEnumTrackedUnits id="StukovBioKillSwitchHealingPathogenSearch">
+    <TrackedUnitFilters value="-;Neutral,Stasis,Dead" />
+  </CEffectEnumTrackedUnits>
+  <CEffectEnumTrackedUnits id="StukovBioKillSwitchHealingPathogenRemovalSearch">
+    <TrackedUnitFilters value="-;Neutral,Stasis,Dead" />
+  </CEffectEnumTrackedUnits>
+  <CEffectSet id="StukovBioKillSwitchHealingPathogenRemoveSet">
+    <EffectArray value="StukovBioKillSwitchRemoveHealingPathogenDamage" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="StukovBioKillSwitchRemoveHealingPathogenDamage">
+    <BehaviorLink value="StukovHealingPathogenDamageBehavior" />
+  </CEffectRemoveBehavior>
+  <CBehaviorUnitTracker id="StukovHealingPathogenTrackingBehavior">
+    <TrackingValidatorArray index="0" value="StukovTargetHasHealingPathogenOrDamagePathogen" />
+  </CBehaviorUnitTracker>
+  
+  <CEffectDamage id="StukovHealingPathogenDamage" parent="StormSpellDot">
+    <MultiplicativeModifierArray index="0" Validator="StukovHasTopOffTalentAndStukovTargetLifeAtThreshold" Modifier="0.3" />
+    <MultiplicativeModifierArray index="1" Validator="StukovHasUniversalCarrierTalent" Modifier="-0.25" />
+    <Amount value="37" />
+  </CEffectDamage>
+
+  <CEffectDamage id="StukovHealingPathogenSuperstrainDamage" parent="StormSpell">
+    <Amount value="300" />
+    <SourceButtonFace value="StukovSuperstrainTalent" />
+  </CEffectDamage>
+
+  <CEffectDamage id="StukovBioKillSwitchDamage" parent="StormSpell">
+    <ValidatorArray value="StukovTargetHasDamagePathogen" />
+    <Marker Link="Effect/StukovHealingPathogenInitialDamage" />
+    <Amount value="435" />
+    <MultiplicativeModifierArray index="0" Validator="StukovHas3orMoreHealingPathogensandhasVigorousReuptakeTalentCombine" Modifier="0.3" Crit="1" />
+  </CEffectDamage>
+
+  <CEffectDamage id="StukovHealingPathogenInitialDamage" parent="StormSpell">
+    <Amount value="87" />
+  </CEffectDamage>
+  
+  <CBehaviorBuff id="StukovHealingPathogenDamageBehavior" parent="StormDot">
+    <RemoveValidatorArray value="TargetNotSpecialDeathState" />
+    <BuffFlags index="RefreshStack" value="1" />
+    <Duration value="4.5" />
+    <Period value="0.75" />
+    <InitialEffect value="StukovHealingPathogenHealingBehaviorInitialSet" />
+    <RefreshEffect value="StukovHealingPathogenAddTrackedUnit" />
+    <PeriodicEffect value="StukovHealingPathogenDamage" />
+    <PeriodicDisplayEffect value="StukovHealingPathogenDamage" />
+    <FinalEffect value="StukovHealingPathogenRemoveTrackedUnit" />
+  </CBehaviorBuff>
+
+  <CBehaviorBuff id="StukovHealingPathogenSpreadBehavior">
+    <RemoveValidatorArray index="0" value="StukovTargetHasHealingPathogenOrDamagePathogen" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="StukovHealingPathogenPrimaryTargetBehavior">
+    <RemoveValidatorArray index="0" value="StukovTargetHasHealingPathogenOrDamagePathogen" />
+  </CBehaviorBuff>
+  <CEffectModifyTokenCount id="StukovHealingPathogenVigorousReuptakeQuestIncrement">
+    <ValidatorArray index="1" value="StukovTargetHasHealingPathogenOrDamagePathogen" />
+  </CEffectModifyTokenCount>
+  
+  <CTalent id="StukovPoxPopuli">
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="StukovBioKillSwitchPoxPopuliIncreaseDamageDuration" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+
+  <CEffectModifyBehaviorBuffDuration id="StukovBioKillSwitchPoxPopuliIncreaseDamageDuration">
+    <ValidatorArray value="TargetIsEnemy" />
+    <Chance value="0" />
+    <WhichUnit Value="Target" />
+    <Behavior value="StukovHealingPathogenDamageBehavior" />
+    <Operation value="Set" />
+    <Value value="3" />
+  </CEffectModifyBehaviorBuffDuration>
+  
+  <CEffectApplyBehavior id="StukovHealingPathogenBioticArmorApplyPhysicalArmorBehavior">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="StukovHealingPathogenApplyHealerBehavior">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="StukovHealingPathogenApplyDamageBehavior">
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="StukovHealingPathogenDamageBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="StukovBioKillSwitchBioticArmorApplyPhysicalArmorBehavior">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectApplyBehavior>
+  <CEffectModifyBehaviorBuffDuration id="StukovBioKillSwitchPoxPopuliIncreaseHealerDuration">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectModifyBehaviorBuffDuration>
+  <CEffectRemoveBehavior id="StukovHealingPathogenBioticArmorRemoveBehavior">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectRemoveBehavior>
+  <CEffectCreateHealer id="StukovBioKillSwitchHeal">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+
+  <CBehaviorAbility id="AffixStukovFlailingSwipeBehaviorAbility">
+    <Buttons Face="StukovFlailingSwipe" Type="AbilCmd" AbilCmd="StukovFlailingSwipe,Execute" />
+  </CBehaviorAbility>
+  
+  <CBehaviorBuff id="StukovMassiveShoveUnstoppable" parent="StormUnstoppableParent" />
+  <CEffectApplyBehavior id="StukovMassiveShoveApplyUnstoppableBehavior">
+    <Chance value="0" />
+    <Behavior value="StukovMassiveShoveUnstoppable" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="StukovMassiveShoveRemoveUnstoppableBehavior">
+    <BehaviorLink value="StukovMassiveShoveUnstoppable" />
+  </CEffectRemoveBehavior>
+
+  <CEffectSet id="StukovMassiveShoveShovingSet">
+    <EffectArray value="StukovMassiveShoveApplyUnstoppableBehavior" />
+  </CEffectSet>
+  <CEffectSet id="StukovMassiveShoveRemoveBehaviorSet">
+    <EffectArray value="StukovMassiveShoveRemoveUnstoppableBehavior" />
+  </CEffectSet>
+
+  <CValidatorCombine id="StukovTargetHasHealingPathogenOrDamagePathogen">
+    <CombineArray value="StukovTargetHasHealingPathogen" />
+    <CombineArray value="StukovTargetHasDamagePathogen" />
+  </CValidatorCombine>
+  
+  <CValidatorUnitCompareBehaviorCount id="StukovTargetHasDamagePathogen">
+    <Compare value="GT" />
+    <Behavior value="StukovHealingPathogenDamageBehavior" />
+    <RequireCasterUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="StukovTargetDoesNotHaveStukovHealingPathogenDamageBehavior">
+    <Behavior value="StukovHealingPathogenDamageBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorCombine id="StukovHealingPathogenValidatorCombine">
+    <CombineArray value="StukovInfestationCombine" />
+    <CombineArray value="StukovActivePathogenCombine" />
+    <CombineArray value="StukovHealingPathogenValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="StukovInfestationCombine">
+    <Type value="And" />
+    <CombineArray value="StukovHasInfestation" />
+    <CombineArray value="StukovInfestationValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="StukovActivePathogenCombine">
+    <Type value="And" />
+    <CombineArray value="StukovHasActivePathogen" />
+    <CombineArray value="StukovActivePathogenValidator" />
+  </CValidatorCombine>
+
+  <CBehaviorBuff id="StukovInfestationCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="StukovActivePathogenCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="StukovHasInfestation">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="StukovInfestationCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="StukovHasActivePathogen">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="StukovActivePathogenCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorUnitFilters id="StukovActivePathogenValidator">
+    <Filters value="-;Heroic,Player,Self,Neutral,Enemy,Structure,Missile,Item,ImmuneToFriendlyAbilities,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="StukovInfestationValidator">
+    <Filters value="-;Player,Self,Neutral,Ally,Missile,Item,Invulnerable,ImmuneToSkillshots,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="StukovHealingPathogenValidator">
+    <Filters value="Heroic;Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  
+  <CActorModel id="StukovHealingPathogenBuff">
+    <On Terms="Behavior.StukovHealingPathogenDamageBehavior.Off" Send="Create StukovPathogenEndSound" />
+    <On Terms="Behavior.StukovHealingPathogenDamageBehavior.Off" Send="AnimBracketStop BSD" />
+    <On Terms="Behavior.StukovHealingPathogenDamageBehavior.Off" Send="Destroy" />
+    <On Terms="Behavior.StukovHealingPathogenHealerBehavior.Off" Send="Destroy" />
+    <On Terms="Effect.StukovHealingPathogenEnemyVisualDummy.Start; At Target" Send="SetTintColor {255,0,255 1}" />
+  </CActorModel>
+
+  <CActorModel id="StukovHealingPathogenImpact">
+    <On Terms="Behavior.StukovHealingPathogenDamageBehavior.On" Send="Create" />
+  </CActorModel>
+
+</Catalog>

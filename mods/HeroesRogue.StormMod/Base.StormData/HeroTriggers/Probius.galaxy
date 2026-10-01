@@ -5,6 +5,8 @@ int libAffx_ProbiusZealotCost = 5;
 int libAffx_ProbiusStalkerCost = 10;
 int libAffx_ProbiusImmortalCost = 30;
 
+int libAffx_ProbiusTurboDurationIncrease;
+
 // ---------------------------------------------------------------
 // Warp Technology
 // ---------------------------------------------------------------
@@ -81,6 +83,14 @@ bool libAffx_ProbiusOptimizedOrdnance (bool testConds, bool runActions) {
         return true;
     }
     UnitBehaviorAdd(createdUnit, "ProbiusOptimizedOrdnanceAttackSpeedBehavior", createdUnit, 1);
+    return true;
+}
+// ---------------------------------------------------------------
+// Turbo
+// ---------------------------------------------------------------
+bool libAffx_ProbiusTurboAffixAdded (bool testConds, bool runActions) {
+    int affixCount = libAffx_EventAffixCount();
+    libAffx_ProbiusTurboDurationIncrease = affixCount * 1;
     return true;
 }
 // ---------------------------------------------------------------

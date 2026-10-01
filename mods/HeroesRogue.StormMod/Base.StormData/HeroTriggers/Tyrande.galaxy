@@ -119,7 +119,7 @@ bool libAffx_TyrandeNightElfBondUnitDied (bool testConds, bool runActions) {
         UnitKill(libAffx_NightElfBondMalfurion);
         UnitRemove(libAffx_NightElfBondMalfurion);
     } else if (deadUnit == libAffx_NightElfBondMalfurion) {
-        UnitCreateEffectUnit(libAffx_NightElfBondMalfurion, "NightElfBondDamage", libGame_gv_players[libAffx_player].lv_heroUnit);
+        UnitCreateEffectUnit(libGame_gv_players[libAffx_player].lv_heroUnit, "NightElfBondDamage", libGame_gv_players[libAffx_player].lv_heroUnit);
     }
 
     return true;
@@ -199,6 +199,46 @@ bool libAffx_TyrandeFlybyAttackTalentGained (bool testConds, bool runActions) {
         return true;
     }
     libAffx_CatalogReferenceModify("Effect,SentinelShotMissileSearchPvE,AreaArray[0].RectangleWidth", libAffx_player, "1.25", c_upgradeOperationAdd);
+
+    return true;
+}
+
+// ============================================================
+// Shadowstalker
+// ============================================================
+
+bool libAffx_TyrandeShadowstalkerEffectUsed (bool testConds, bool runActions) {
+    unit caster = EventPlayerEffectUsedUnit(c_effectUnitCaster);
+    unit unitVar;
+    unitfilter shadowstalkerFilter = UnitFilter(0, 0, (1 << c_targetFilterStructure) | (1 << c_targetFilterHeroic) | (1 << c_targetFilterNeutral) |
+    (1 << c_targetFilterEnemy) | (1 << c_targetFilterCreep) | (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) |
+    (1 << (c_targetFilterHidden - 32)));
+    unitgroup unitGroup = UnitGroup(null, c_playerAny, RegionEntireMap(), shadowstalkerFilter, 0);
+    int i = UnitGroupCount(unitGroup, c_unitCountAll);
+    for (;; i -= 1) {
+        if (i <= 0) { break; }
+        unitVar = UnitGroupUnitFromEnd(unitGroup, i);
+        if (unitVar == null) { continue; }
+        UnitCreateEffectUnit(caster, "TyrandeShadowstalkApplyHealingBehavior", unitVar);
+    }
+
+    return true;
+}
+
+// ============================================================
+// Elune's Wrath
+// ============================================================
+bool libAffx_TyrandeElunesWrathScaling (bool testConds, bool runActions) {
+    int player = libGame_gf_HeroLevelUpPlayer();
+    if (testConds) {
+        if (player != libAffx_player) {
+            return false;
+        }
+    }
+    if (!runActions) {
+        return true;
+    }
+    libAffx_SetDefaultLevelScaling("Effect,LightofEluneDamageTarget,Amount", player);
 
     return true;
 }

@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CAbilEffectTarget id="MedicRedirectHealingBeam">
+    <TargetFilters value="-;Neutral,Missile,Stasis,Dead,Hidden" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="MedicHealingBeam">
+    <TargetFilters value="-;Self,Neutral,Missile,Stasis,Dead,Hidden" />
+  </CAbilEffectTarget>
+
+  <CEffectSwitch id="MedicRedirectHealingBeamSwitch">
+    <ValidatorArray index="1" value="MedicHealingBeamValidOrStabilizerMedpacksValidOrNeurotoxinBeamValid" />
+  </CEffectSwitch>
+
+  <CEffectSet id="MedicHealingBeamCastSet">
+    <ValidatorArray index="1" value="MedicHealingBeamValidOrStabilizerMedpacksValidOrNeurotoxinBeamValid" />
+    <ValidatorArray value="IsNotSelf" />
+  </CEffectSet>
+
+  <CValidatorCombine id="MedicHealingBeamCombine">
+    <Type value="And" />
+    <CombineArray value="TargetIsMinionNotMercLanerORTargetIsHero" />
+    <CombineArray value="MedicHealingBeamValidator" />
+  </CValidatorCombine>
+  <CValidatorUnitFilters id="MedicHealingBeamValidator">
+    <Filters value="-;Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+
+  <CValidatorCombine id="MedicHealingBeamValidOrStabilizerMedpacksValidOrNeurotoxinBeamValid">
+    <CombineArray value="MedicHealingBeamCombine" />
+    <CombineArray value="LtMoralesStabilizerMedpacksCombine" />
+    <CombineArray value="LtMoralesNeurotoxinBeamCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="LtMoralesNeurotoxinBeamCombine">
+    <Type value="And" />
+    <CombineArray value="TargetIsEnemy" />
+    <CombineArray value="LtMoralesHasNeurotoxinBeam" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="LtMoralesStabilizerMedpacksCombine">
+    <Type value="And" />
+    <CombineArray value="TargetIsNotHeroic" />
+    <CombineArray value="TargetIsMinionOrMercOrSummon" />
+    <CombineArray value="TargetIsAlly" />
+    <CombineArray value="NotStructureTarget" />
+    <CombineArray value="TargetNotImmuneToFriendlyAbilities" />
+    <CombineArray value="LtMoralesHasStabilizerMedpacks" />
+  </CValidatorCombine>
+  
+  <CValidatorCombine id="LtMoralesStabilizerMedpacksManaCostCombine">
+    <Type value="And" />
+    <CombineArray value="TargetIsNotHeroic" />
+    <CombineArray value="LtMoralesHasStabilizerMedpacks" />
+  </CValidatorCombine>
+  
+  <CEffectSwitch id="MedicHealingBeamManaCostSwitch">
+    <CaseArray Validator="LtMoralesStabilizerMedpacksManaCostCombine" Effect="MedicHealingBeamDummyManaCostModifyUnit" />
+    <CaseArray Validator="LtMoralesTargetHasChainBeamTarget" Effect="MedicHealingBeamDummyManaCostModifyUnit" />
+  </CEffectSwitch>
+  
+  <CBehaviorBuff id="LtMoralesCellularReactorMaxEnergyCarry" parent="CarryBehaviorParent">
+    <Modification>
+      <VitalMaxArray index="Energy" value="20" />
+    </Modification>
+  </CBehaviorBuff>
+
+  <CEffectSet id="MedicHealingBeamHealingSet">
+    <EffectArray value="MedicHealingBeamDamageSet" />
+  </CEffectSet>
+
+  <CEffectSet id="MedicHealingBeamDamageSet">
+    <Chance value="0" />
+    <EffectArray value="MedicHealingBeamDamage" />
+    <EffectArray value="MedicHealingBeamRevealSet" />
+  </CEffectSet>
+
+  <CEffectSet id="MedicHealingBeamRevealSet">
+    <ValidatorArray value="TargetIsEnemy" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectCreatePersistent id="MedicHealingBeamCreatePersistent">
+    <PeriodicValidator value="MedicHealingBeamPeriodicValidOrNeurotoxinValid" />
+  </CEffectCreatePersistent>
+  
+  <CEffectSet id="MedicHealingBeamPersistentSet">
+    <EffectArray value="LtMoralesChainBeamSwitchSet" />
+  </CEffectSet>
+  
+  <CValidatorCombine id="MedicHealingBeamPeriodicValidOrNeurotoxinValid">
+    <CombineArray value="MedicHealingBeamPeriodicNeurotoxinValidator" />
+    <CombineArray value="MedicHealingBeamPeriodicValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="MedicHealingBeamPeriodicNeurotoxinValidator">
+    <Type value="And" />
+    <CombineArray value="CasterNotDeadOrSilencedOrStasisOrStunned" />
+    <CombineArray value="TargetNotDeadOrStasis" />
+    <CombineArray value="MedicHealingBeamRangeCombine" />
+    <CombineArray value="MedicHasGTHealingBeamManaCost" />
+    <CombineArray value="MedicHealingBeamTargetNotAtExcessiveRange" />
+    <CombineArray value="MedicHealingBeamBehaviorNegatorCombine" />
+    <CombineArray value="TargetNotBenignOrIsHealingDummy" />
+    <CombineArray value="MedicHealingBeamTargetIsTracked" />
+    <CombineArray value="LtMoralesHasNeurotoxinBeam" />
+  </CValidatorCombine>
+  
+  <CValidatorCombine id="MedicHealingBeamPeriodicValidator">
+    <Type value="And" />
+    <CombineArray value="CasterNotDeadOrSilencedOrStasisOrStunned" />
+    <CombineArray value="TargetNotDeadOrStasis" />
+    <CombineArray value="MedicHealingBeamRangeCombine" />
+    <CombineArray value="MedicHasGTHealingBeamManaCost" />
+    <CombineArray value="MedicHealingBeamTargetNotAtExcessiveRange" />
+    <CombineArray value="MedicHealingBeamBehaviorNegatorCombine" />
+    <CombineArray value="TargetIsNotImmuneToFriendlyAbilities" />
+    <CombineArray value="TargetNotBenignOrIsHealingDummy" />
+    <CombineArray value="TargetIsNotEnemy" />
+    <CombineArray value="MedicHealingBeamTargetIsTracked" />
+  </CValidatorCombine>
+  
+  <CEffectApplyBehavior id="MedicHealingBeamFirstResponderTalentApplyMoveSpeedTarget">
+    <ValidatorArray value="TargetIsAlly" />
+  </CEffectApplyBehavior>
+  
+  <CEffectCreateHealer id="MedicHealingBeamCreateHealer">
+    <ValidatorArray value="TargetIsAlly" />
+  </CEffectCreateHealer>
+
+  <CEffectDamage id="MedicHealingBeamDamage" parent="StormSpell">
+    <ValidatorArray value="TargetIsEnemy" />
+    <Amount value="86" />
+    <SourceButtonFace value="MedicHealingBeam" />
+    <MultiplicativeModifierArray index="FirstResponder" Validator="MedicFirstResponderTalentCombine" Modifier="0.2" Crit="1" />
+  </CEffectDamage>
+
+  <CEffectSwitch id="LtMoralesChainBeamSwitchSet">
+    <Chance value="0" />
+    <CaseArray Validator="LtMoralesHasStabilizerMedpacksAndNeurotoxinBeam" Effect="LtMoralesChainBeamStabilizerMedpacksNeurotoxinBeamSet" />
+    <CaseArray Validator="LtMoralesHasStabilizerMedpacksAndDoesNotHaveNeurotoxinBeam" Effect="LtMoralesChainBeamStabilizerMedpacksSet" />
+    <CaseArray Validator="LtMoralesHasNeurotoxinBeamAndDoesNotHaveStabilizerMedpacks" Effect="LtMoralesChainBeamNeurotoxinBeamSet" />
+    <CaseDefault value="LtMoralesChainBeamSet" />
+  </CEffectSwitch>
+
+  <CEffectSet id="LtMoralesChainBeamSet">
+    <EffectArray value="LtMoralesChainBeamSearch" />
+  </CEffectSet>
+  <CEffectSet id="LtMoralesChainBeamStabilizerMedpacksSet">
+    <EffectArray value="LtMoralesChainBeamStabilizerMedpacksSearch" />
+  </CEffectSet>
+  <CEffectSet id="LtMoralesChainBeamStabilizerMedpacksNeurotoxinBeamSet">
+    <EffectArray value="LtMoralesChainBeamStabilizerMedpacksNeurotoxinBeamSearch" />
+  </CEffectSet>
+  <CEffectSet id="LtMoralesChainBeamNeurotoxinBeamSet">
+    <EffectArray value="LtMoralesChainBeamNeurotoxinBeamSearch" />
+  </CEffectSet>
+
+  <CEffectEnumArea id="LtMoralesChainBeamSearch">
+    <ExcludeArray Effect="LtMoralesChainBeamSwitchSet" Value="Target" />
+    <ValidatorArray value="TargetIsMinionNotMercLanerORTargetIsHero" />
+    <SearchFilters value="-;Self,Player,Neutral,Enemy,ImmuneToAOE,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray MaxCount="2" Effect="LtMoralesChainBeamSearchSet">
+      <Radius value="3" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="LtMoralesChainBeamSearchSet">
+    <ValidatorArray value="TargetIsMinionNotMercLanerORTargetIsHero" />
+    <ValidatorArray value="LtMoralesTargetDoesNotHaveChainBeamTarget" />
+    <EffectArray value="MedicHealingBeamChainBeamApplyBehavior" />
+    <EffectArray value="LtMoralesChainBeamPersistent" />
+  </CEffectSet>
+
+  <CEffectEnumArea id="LtMoralesChainBeamStabilizerMedpacksSearch">
+    <ExcludeArray Effect="LtMoralesChainBeamSwitchSet" Value="Target" />
+    <ValidatorArray value="LtMoralesChainBeamStabilizerMedpacksSearchCombine" />
+    <SearchFilters value="-;Self,Player,Neutral,Enemy,ImmuneToAOE,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray MaxCount="2" Effect="LtMoralesChainBeamStabilizerMedpacksSearchSet">
+      <Radius value="3" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="LtMoralesChainBeamStabilizerMedpacksSearchSet">
+    <ValidatorArray value="LtMoralesChainBeamStabilizerMedpacksSearchCombine" />
+    <ValidatorArray value="LtMoralesTargetDoesNotHaveChainBeamTarget" />
+    <EffectArray value="MedicHealingBeamChainBeamApplyBehavior" />
+    <EffectArray value="LtMoralesChainBeamPersistent" />
+  </CEffectSet>
+  <CValidatorCombine id="LtMoralesChainBeamStabilizerMedpacksSearchCombine">
+    <CombineArray value="TargetIsMinionNotMercLanerORTargetIsHero" />
+    <CombineArray value="LtMoralesStabilizerMedpacksCombine" />
+  </CValidatorCombine>
+
+  <CEffectEnumArea id="LtMoralesChainBeamStabilizerMedpacksNeurotoxinBeamSearch">
+    <ExcludeArray Effect="LtMoralesChainBeamSwitchSet" Value="Target" />
+    <ValidatorArray value="MedicHealingBeamValidOrStabilizerMedpacksValidOrNeurotoxinBeamValid" />
+    <SearchFilters value="-;Self,Player,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray MaxCount="2" Effect="LtMoralesChainBeamStabilizerMedpacksNeurotoxinBeamSearchSet">
+      <Radius value="3" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="LtMoralesChainBeamStabilizerMedpacksNeurotoxinBeamSearchSet">
+    <ValidatorArray value="MedicHealingBeamValidOrStabilizerMedpacksValidOrNeurotoxinBeamValid" />
+    <ValidatorArray value="LtMoralesTargetDoesNotHaveChainBeamTarget" />
+    <EffectArray value="MedicHealingBeamChainBeamApplyBehavior" />
+    <EffectArray value="LtMoralesChainBeamPersistent" />
+  </CEffectSet>
+
+  <CEffectEnumArea id="LtMoralesChainBeamNeurotoxinBeamSearch">
+    <ExcludeArray Effect="LtMoralesChainBeamSwitchSet" Value="Target" />
+    <ValidatorArray value="MedicHealingBeamValidOrStabilizerMedpacksValidOrNeurotoxinBeamValid" />
+    <SearchFilters value="-;Self,Player,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray MaxCount="2" Effect="LtMoralesChainBeamNeurotoxinBeamSearchSet">
+      <Radius value="3" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="LtMoralesChainBeamNeurotoxinBeamSearchSet">
+    <ValidatorArray value="MedicHealingBeamValidOrStabilizerMedpacksValidOrNeurotoxinBeamValid" />
+    <ValidatorArray value="LtMoralesTargetDoesNotHaveChainBeamTarget" />
+    <EffectArray value="MedicHealingBeamChainBeamApplyBehavior" />
+    <EffectArray value="LtMoralesChainBeamPersistent" />
+  </CEffectSet>
+
+  <CEffectSet id="LtMoralesChainBeamInitialSet">
+    <EffectArray value="MedicHealingBeamApplyDisplayBuff" />
+    <EffectArray value="MedicHealingBeamApplyTargetLifeNotFullBehavior" />
+    <EffectArray value="MedicHealingBeamExtendedCareTalentApplyHoTCoolup" />
+    <EffectArray value="MedicHealingBeamFirstResponderTalentApplyMoveSpeedTarget" />
+  </CEffectSet>
+  
+  <CEffectApplyBehavior id="MedicHealingBeamApplyTargetLifeNotFullBehavior">
+    <ValidatorArray value="TargetIsAlly" />
+  </CEffectApplyBehavior>
+  
+  <CEffectSet id="MedicHealingBeamExtendedCareTalentProcSet">
+    <EffectArray value="MedicHealingBeamExtendedCareTalentApplyDoT" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="MedicHealingBeamExtendedCareTalentApplyHoT">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="MedicHealingBeamExtendedCareTalentApplyDoT">
+    <Chance value="0" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="MedicHealingBeamExtendedCareTalentDoT" />
+  </CEffectApplyBehavior>
+  
+  <CBehaviorBuff id="MedicHealingBeamExtendedCareTalentDoT">
+    <DisableValidatorArray value="MedicDoesNotHaveHealingBeamDisplayBuffTarget" />
+    <RemoveValidatorArray value="TargetNotDeadAndNoSpecialDeathState" />
+    <MaxStackCount value="5" />
+    <MaxStackCountPerCaster value="1" />
+    <Duration value="3" />
+    <Period value="0.5" />
+    <PeriodCount value="6" />
+    <PeriodicEffect value="MedicHealingBeamExtendedCareTalentDamage" />
+    <PeriodicDisplayEffect value="MedicHealingBeamExtendedCareTalentDamage" />
+    <FinalEffect value="MedicHealingBeamExtendedCareTalentRemoveUIBuff" />
+    <Face value="MedicExtendedCare" />
+  </CBehaviorBuff>
+  
+  <CEffectDamage id="MedicHealingBeamExtendedCareTalentDamage" parent="StormSpellDot">
+    <Amount value="43" />
+  </CEffectDamage>
+
+  <CEffectCreatePersistent id="LtMoralesChainBeamPersistent">
+    <Flags index="PersistUntilDestroyed" value="1" />
+    <TimeScaleSource Value="Caster" />
+    <WhichLocation Value="TargetUnit" />
+    <InitialEffect value="LtMoralesChainBeamInitialSet" />
+    <FinalEffect value="LtMoralesChainBeamFinalSet" />
+    <PeriodicValidator value="LtMoralesTargetHasChainBeamTargetAndNearTarget" />
+    <PeriodicEffectArray value="MedicHealingBeamChainBeamPersistentSet" />
+    <PeriodicEffectArray value="MedicHealingBeamChainBeamDummy" />
+    <PeriodicPeriodArray value="0" />
+    <PeriodicPeriodArray value="0.5" />
+    <TeleportTrack index="Source" value="1" />
+    <TeleportTrack index="Target" value="1" />
+    <TeleportValidator value="GenericTeleportRangeValidator" />
+  </CEffectCreatePersistent>
+
+  <CEffectSet id="MedicHealingBeamChainBeamPersistentSet">
+    <EffectArray value="MedicHealingBeamChainBeamVisualApplyBehavior" />
+    <EffectArray value="MedicHealingBeamChainBeamVisualEnemyApplyBehavior" />
+    <EffectArray value="MedicHealingBeamHealingSet" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="MedicHealingBeamChainBeamApplyBehavior">
+    <Behavior value="LtMoralesChainBeamTargetBehavior" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="LtMoralesChainBeamTargetBehavior">
+    <BuffFlags index="RefreshStack" value="1" />
+    <Duration value="0.4375" />
+    <ExpireEffect value="MedicHealingBeamRemoveDisplayBuff" />
+  </CBehaviorBuff>
+
+  <CEffectApplyBehavior id="MedicHealingBeamChainBeamVisualApplyBehavior">
+    <Behavior value="LtMoralesChainBeamVisualBehavior" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="LtMoralesChainBeamVisualBehavior">
+    <BuffFlags index="RefreshStack" value="1" />
+    <Duration value="0.5625" />
+  </CBehaviorBuff>
+  <CEffectApplyBehavior id="MedicHealingBeamChainBeamVisualEnemyApplyBehavior">
+    <ValidatorArray value="TargetIsEnemyAndNotImmuneToAOE" />
+    <Behavior value="LtMoralesChainBeamVisualEnemyBehavior" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="LtMoralesChainBeamVisualEnemyBehavior">
+    <BuffFlags index="RefreshStack" value="1" />
+    <Duration value="0.5625" />
+  </CBehaviorBuff>
+  
+  <CEffectSet id="MedicStimDroneCastSet">
+    <EffectArray value="LtMoralesStimDroneCasterApply" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="LtMoralesStimDroneCasterApply">
+    <Chance value="0" />
+    <WhichLocation Value="CasterUnit" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="MedicStimDroneCastSet" />
+    <PeriodicPeriodArray value="0" />
+  </CEffectCreatePersistent>
+
+  <CBehaviorAbility id="AffixMedicMedivacDropshipBehaviorAbility">
+    <Buttons Face="MedicMedivacDropship" Type="AbilCmd" AbilCmd="MedicMedivacDropship,Execute" />
+  </CBehaviorAbility>
+
+  <CValidatorUnitCompareBehaviorCount id="LtMoralesTargetHasChainBeamTarget">
+    <Compare value="GT" />
+    <Behavior value="LtMoralesChainBeamTargetBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="LtMoralesTargetDoesNotHaveChainBeamTarget">
+    <Value value="0" />
+    <Behavior value="LtMoralesChainBeamTargetBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorCombine id="LtMoralesTargetHasChainBeamTargetAndNearTarget">
+    <Type value="And" />
+    <CombineArray value="LtMoralesTargetHasChainBeamTarget" />
+    <CombineArray value="LtMoralesChainBeamTargetNearTarget" />
+  </CValidatorCombine>
+  <CValidatorLocationCompareRange id="LtMoralesChainBeamTargetNearTarget">
+    <WhichLocation Effect="LtMoralesChainBeamPersistent" Value="TargetUnit" />
+    <Compare value="LT" />
+    <Range value="3" />
+    <Value Effect="LtMoralesChainBeamSwitchSet" Value="TargetUnit" />
+  </CValidatorLocationCompareRange>
+
+  <CValidatorCombine id="LtMoralesHasStabilizerMedpacksAndDoesNotHaveNeurotoxinBeam">
+    <Type value="And" />
+    <CombineArray value="LtMoralesHasStabilizerMedpacks" />
+    <CombineArray value="LtMoralesDoesNotHaveNeurotoxinBeam" />
+  </CValidatorCombine>
+  <CValidatorCombine id="LtMoralesHasNeurotoxinBeamAndDoesNotHaveStabilizerMedpacks">
+    <Type value="And" />
+    <CombineArray value="LtMoralesHasNeurotoxinBeam" />
+    <CombineArray value="LtMoralesDoesNotHaveStabilizerMedpacks" />
+  </CValidatorCombine>
+  <CValidatorCombine id="LtMoralesHasStabilizerMedpacksAndNeurotoxinBeam">
+    <Type value="And" />
+    <CombineArray value="LtMoralesHasStabilizerMedpacks" />
+    <CombineArray value="LtMoralesHasNeurotoxinBeam" />
+  </CValidatorCombine>
+
+  <CBehaviorBuff id="LtMoralesStabilizerMedpacksCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="LtMoralesNeurotoxinBeamCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="LtMoralesChainBeamCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="LtMoralesHasStabilizerMedpacks">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="LtMoralesStabilizerMedpacksCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="LtMoralesDoesNotHaveStabilizerMedpacks">
+    <WhichUnit Value="Caster" />
+    <Value value="0" />
+    <Behavior value="LtMoralesStabilizerMedpacksCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="LtMoralesHasNeurotoxinBeam">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="LtMoralesNeurotoxinBeamCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="LtMoralesDoesNotHaveNeurotoxinBeam">
+    <WhichUnit Value="Caster" />
+    <Value value="0" />
+    <Behavior value="LtMoralesNeurotoxinBeamCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="LtMoralesHasChainBeam">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="LtMoralesChainBeamCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CActorBeamSimple id="MedicHealingBeamEnemyBeam">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {255,0,255 3}" />
+  </CActorBeamSimple>
+  <CActorBeamSimple id="MedicHealingBeamAllyBeam">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {255,0,255 3}" />
+  </CActorBeamSimple>
+  
+  <CActorModel id="MedicHealingBeamTargetBuff">
+    <On Terms="Behavior.LtMoralesChainBeamVisualBehavior.On" Send="Create" />
+    <On Terms="Behavior.LtMoralesChainBeamVisualBehavior.Off" Send="Destroy" />
+    <On Terms="Behavior.LtMoralesChainBeamVisualEnemyBehavior.On" Send="SetTintColor {255,0,255 3}" />
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {255,0,255 3}" />
+  </CActorModel>
+
+</Catalog>

@@ -1,0 +1,506 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CAbilEffectTarget id="RehgarChainHeal">
+    <TargetFilters value="-;Neutral,Creep,Missile,Item,Stasis,Dead" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="RehgarAncestralHealing">
+    <TargetFilters value="Heroic;Neutral,Creep,Missile,Item,Stasis,Dead" />
+  </CAbilEffectTarget>
+  
+  <CEffectSet id="RehgarAncestralHealingInitialSet">
+    <ValidatorArray value="RehgarAncestralHealingValidOrCurseValid" />
+  </CEffectSet>
+
+  <CEffectSet id="RehgarChainHeal1ImpactSet">
+    <ValidatorArray index="0" value="RehgarChainHealIsValidOrAncestralReachIsValid" />
+    <EffectArray value="RehgarChainDamage1Delay" />
+  </CEffectSet>
+  <CEffectSet id="RehgarChainHeal2ImpactSet">
+    <ValidatorArray index="1" value="RehgarChainHealSecondaryIsValidOrAncestralReachIsValid" />
+  </CEffectSet>
+  <CEffectSet id="RehgarChainHeal3ImpactSet">
+    <ValidatorArray index="1" value="RehgarChainHealSecondaryIsValidOrAncestralReachIsValid" />
+  </CEffectSet>
+  
+  <CEffectSet id="RehgarAncestralHealingCreateHealerSet">
+    <EffectArray value="RehgarAncestralHealingEnemySet" />
+  </CEffectSet>
+  <CEffectSet id="RehgarAncestralHealingEnemySet">
+    <ValidatorArray value="TargetIsEnemy" />
+    <EffectArray value="RehgarAncestralHealingDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectSet id="RehgarAncestralHealingFarseersBlessingHealingImpactSet">
+    <EffectArray value="RehgarAncestralHealingFarseersBlessingEnemySearch" />
+  </CEffectSet>
+  <CEffectEnumArea id="RehgarAncestralHealingFarseersBlessingEnemySearch">
+    <ValidatorArray value="RehgarAncestralHealingFarseersBlessingHasTalent" />
+    <ValidatorArray value="RehgarHasAncestralCurse" />
+    <ExcludeArray Effect="RehgarAncestralHealingFarseersBlessingEnemySearch" Value="Target" />
+    <SearchFilters value="-;Player,Self,Neutral,Ally,ImmuneToAOE,Worker,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="RehgarAncestralHealingFarseersBlessingDamageSet">
+      <Radius value="5" />
+    </AreaArray>
+  </CEffectEnumArea>
+
+  <CEffectSet id="RehgarAncestralHealingFarseersBlessingDamageSet">
+    <EffectArray value="RehgarAncestralHealingFarseersBlessingDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  
+  <CEffectCreateHealer id="RehgarAncestralHealingFarseersBlessingCreateHealer">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+  <CEffectCreateHealer id="RehgarAncestralHealingCreateHealer">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+
+  <CEffectDamage id="RehgarAncestralHealingDamage" parent="StormSpell">
+    <ValidatorArray value="RehgarHasAncestralCurse" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Amount value="1180" />
+  </CEffectDamage>
+  <CEffectDamage id="RehgarAncestralHealingFarseersBlessingDamage" parent="StormSpell">
+    <ValidatorArray value="RehgarHasAncestralCurse" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <SourceButtonFace value="RehgarAncestralHealingFarseersBlessing" />
+    <Amount value="590" />
+  </CEffectDamage>
+
+  <CBehaviorAbility id="AffixRehgarAncestralHealingBehaviorAbility">
+    <Buttons Face="RehgarAncestralHealing" Type="AbilCmd" AbilCmd="RehgarAncestralHealing,Execute" />
+  </CBehaviorAbility>
+  
+  <CEffectModifyUnit id="RehgarChainHealEarthlivingEnchantApplyHealBehaviorDummy">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="RehgarChainHealTidalWavesModifyCooldownRehgarDummy">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectModifyUnit>
+
+  <CEffectSet id="RehgarChainHeal1ImpactSetSecondary">
+    <EffectArray value="RehgarChainHealPrimaryDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectCreateHealer id="RehgarChainHealPrimaryHeal">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+  <CEffectCreateHealer id="RehgarChainHealSecondaryHeal">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+  
+  <CEffectDamage id="RehgarChainHealPrimaryDamage" parent="StormSpell">
+    <ValidatorArray value="TargetIsEnemy" />
+    <Amount value="260" />
+    <FinalEffect value="RehgarChainHealTidalWavesModifyCooldownRehgarDummy" />
+  </CEffectDamage>
+  <CEffectDamage id="RehgarChainHealSecondaryDamage" parent="StormSpell">
+    <ValidatorArray value="TargetIsEnemy" />
+    <Amount value="260" />
+    <FinalEffect value="RehgarChainHealTidalWavesModifyCooldownRehgarDummy" />
+  </CEffectDamage>
+
+  <CEffectCreatePersistent id="RehgarChainDamage1Delay">
+    <Chance value="0" />
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="0.25" />
+    <FinalEffect value="RehgarChainDamage1SearchForNewTarget" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="RehgarChainDamage1SearchForNewTarget">
+    <ImpactLocation Effect="RehgarChainDamage1Delay" Value="TargetUnit" />
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="Visible;Self,Neutral,Ally,Creep,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="RehgarChainDamage1ImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="RehgarChainDamage1ImpactSet">
+    <ValidatorArray value="noMarkers" />
+    <EffectArray value="RehgarChainDamage2Delay" />
+    <EffectArray value="RehgarChainHealSecondaryDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectCreatePersistent id="RehgarChainDamage2Delay">
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="0.25" />
+    <FinalEffect value="RehgarChainDamage2SearchForNewTarget" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="RehgarChainDamage2SearchForNewTarget">
+    <ImpactLocation Effect="RehgarChainDamage2Delay" Value="TargetUnit" />
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="Visible;Self,Neutral,Ally,Creep,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="RehgarChainDamage2ImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="RehgarChainDamage2ImpactSet">
+    <ValidatorArray value="noMarkers" />
+    <EffectArray value="RehgarChainDamage3Delay" />
+    <EffectArray value="RehgarChainHealSecondaryDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  
+  <CEffectCreatePersistent id="RehgarChainDamage3Delay">
+    <Chance value="0" />
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="0.25" />
+    <FinalEffect value="RehgarChainDamage3SearchForNewTarget" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="RehgarChainDamage3SearchForNewTarget">
+    <ImpactLocation Effect="RehgarChainDamage3Delay" Value="TargetUnit" />
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="Visible;Self,Neutral,Ally,Creep,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="RehgarChainDamage3ImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="RehgarChainDamage3ImpactSet">
+    <ValidatorArray value="RehgarAncestralReachEnemyCombine" />
+    <ValidatorArray value="noMarkers" />
+    <EffectArray value="RehgarChainDamage4Delay" />
+    <EffectArray value="RehgarChainHealSecondaryDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectCreatePersistent id="RehgarChainDamage4Delay">
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="0.25" />
+    <FinalEffect value="RehgarChainDamage4SearchForNewTarget" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="RehgarChainDamage4SearchForNewTarget">
+    <ImpactLocation Effect="RehgarChainDamage4Delay" Value="TargetUnit" />
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="Visible;Self,Neutral,Ally,Creep,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="RehgarChainDamage4ImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="RehgarChainDamage4ImpactSet">
+    <ValidatorArray value="RehgarAncestralReachEnemyCombine" />
+    <ValidatorArray value="noMarkers" />
+    <EffectArray value="RehgarChainDamage5Delay" />
+    <EffectArray value="RehgarChainHealSecondaryDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectCreatePersistent id="RehgarChainDamage5Delay">
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="0.25" />
+    <FinalEffect value="RehgarChainDamage5SearchForNewTarget" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="RehgarChainDamage5SearchForNewTarget">
+    <ImpactLocation Effect="RehgarChainDamage5Delay" Value="TargetUnit" />
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="Visible;Self,Neutral,Ally,Creep,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="RehgarChainDamage5ImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="RehgarChainDamage5ImpactSet">
+    <ValidatorArray value="RehgarAncestralReachEnemyCombine" />
+    <ValidatorArray value="noMarkers" />
+    <EffectArray value="RehgarChainDamage6Delay" />
+    <EffectArray value="RehgarChainHealSecondaryDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectCreatePersistent id="RehgarChainHeal3Delay">
+    <Chance value="0" />
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="0.25" />
+    <FinalEffect value="RehgarChainHeal3SearchForNewTarget" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="RehgarChainHeal3SearchForNewTarget">
+    <ImpactLocation Effect="RehgarChainHeal3Delay" Value="TargetUnit" />
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="Visible;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="RehgarChainHeal4ImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="RehgarChainHeal4ImpactSet">
+    <ValidatorArray value="noMarkers" />
+    <ValidatorArray value="RehgarAncestralReachCombine" />
+    <EffectArray value="RehgarChainHealEarthlivingEnchantApplyHealBehaviorDummy" />
+    <EffectArray value="RehgarChainHeal4Delay" />
+    <EffectArray value="RehgarChainHealSecondaryHealingSwitch" />
+  </CEffectSet>
+
+  <CEffectCreatePersistent id="RehgarChainHeal4Delay">
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="0.25" />
+    <FinalEffect value="RehgarChainHeal4SearchForNewTarget" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="RehgarChainHeal4SearchForNewTarget">
+    <ImpactLocation Effect="RehgarChainHeal4Delay" Value="TargetUnit" />
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="Visible;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="RehgarChainHeal5ImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="RehgarChainHeal5ImpactSet">
+    <ValidatorArray value="noMarkers" />
+    <ValidatorArray value="RehgarAncestralReachCombine" />
+    <EffectArray value="RehgarChainHealEarthlivingEnchantApplyHealBehaviorDummy" />
+    <EffectArray value="RehgarChainHeal5Delay" />
+    <EffectArray value="RehgarChainHealSecondaryHealingSwitch" />
+  </CEffectSet>
+
+  <CEffectCreatePersistent id="RehgarChainHeal5Delay">
+    <ValidatorArray value="RehgarHasAncestralReach" />
+    <WhichLocation Value="TargetUnit" />
+    <ExpireDelay value="0.25" />
+    <FinalEffect value="RehgarChainHeal5SearchForNewTarget" />
+  </CEffectCreatePersistent>
+  <CEffectEnumArea id="RehgarChainHeal5SearchForNewTarget">
+    <ImpactLocation Effect="RehgarChainHeal5Delay" Value="TargetUnit" />
+    <ExcludeArray Value="Target" />
+    <SearchFilters value="Visible;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="RehgarChainHeal6ImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="RehgarChainHeal6ImpactSet">
+    <ValidatorArray value="noMarkers" />
+    <ValidatorArray value="RehgarAncestralReachCombine" />
+    <EffectArray value="RehgarChainHealEarthlivingEnchantApplyHealBehaviorDummy" />
+    <EffectArray value="RehgarChainHeal6Delay" />
+    <EffectArray value="RehgarChainHealSecondaryHealingSwitch" />
+  </CEffectSet>
+
+  <CValidatorCombine id="RehgarChainHealIsValidOrAncestralReachIsValid">
+    <CombineArray value="RehgarChainHealCombine" />
+    <CombineArray value="RehgarAncestralReachCombine" />
+    <CombineArray value="RehgarChainSplitCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="RehgarChainHealSecondaryIsValidOrAncestralReachIsValid">
+    <CombineArray value="RehgarChainHealCombine" />
+    <CombineArray value="RehgarAncestralReachCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="RehgarChainHealCombine">
+    <Type value="And" />
+    <CombineArray value="TargetIsMinionNotMercLanerORTargetIsSummonedOrHeroic" />
+    <CombineArray value="RehgarChainHealValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="RehgarAncestralReachCombine">
+    <Type value="And" />
+    <CombineArray value="RehgarHasAncestralReach" />
+    <CombineArray value="TargetIsAlly" />
+    <CombineArray value="TargetIsNotHeroic" />
+    <CombineArray value="TargetNotImmuneToFriendlyAbilities" />
+    <CombineArray value="NotStructureTarget" />
+  </CValidatorCombine>
+  <CValidatorCombine id="RehgarAncestralReachEnemyCombine">
+    <Type value="And" />
+    <CombineArray value="RehgarHasAncestralReach" />
+    <CombineArray value="TargetIsEnemy" />
+    <CombineArray value="TargetIsNotHeroic" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="RehgarChainSplitCombine">
+    <Type value="And" />
+    <CombineArray value="RehgarHasChainSplit" />
+    <CombineArray value="TargetIsEnemy" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="RehgarAncestralHealingValidOrCurseValid">
+    <CombineArray value="RehgarAncestralHealingValidator" />
+    <CombineArray value="RehgarAncestralCurseCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="RehgarAncestralCurseCombine">
+    <Type value="And" />
+    <CombineArray value="RehgarHasAncestralCurse" />
+    <CombineArray value="RehgarAncestralCurseValidator" />
+  </CValidatorCombine>
+
+
+  <CBehaviorBuff id="RehgarAncestralReachCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="RehgarChainSplitCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="RehgarAncestralCurseCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="RehgarHasAncestralReach">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="RehgarAncestralReachCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="RehgarHasChainSplit">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="RehgarChainSplitCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="RehgarHasAncestralCurse">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="RehgarAncestralCurseCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorUnitFilters id="RehgarChainHealValidator">
+    <Filters value="-;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+
+  <CValidatorUnitFilters id="RehgarAncestralHealingValidator">
+    <Filters value="Heroic;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="RehgarAncestralCurseValidator">
+    <Filters value="Heroic;Player,Self,Neutral,Ally,Creep,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+
+  <CActorBeamSimple id="RehgarChainDamageBeam">
+    <Flags index="SuppressSaveLoad" value="1" />
+    <On Terms="ActorCreation" Send="SetTintColor 20,70,255" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD Birth Stand Death ContentPlayOnce 1.000000 AsTimeScale" />
+    <On Terms="AnimBracketState.*.AfterClosing; AnimName BSD" Send="Destroy" />
+    <Model value="RehgarChainHealBeam" />
+    <HostLaunch Subject="::scope.ChainDamage3Launch" />
+    <HostImpact Subject="::Creator" />
+    <BeamSimpleFlags index="CustomVisibilityFromHosts" value="1" />
+  </CActorBeamSimple>
+
+  <CActorSite id="RehgarChainDamageLaunchSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainHeal1ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactModel" />
+  </CActorSite>
+  <CActorSite id="RehgarChainDamage1LaunchSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainDamage1ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactModel" />
+  </CActorSite>
+  <CActorSite id="RehgarChainDamage1ImpactSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainDamage1ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::scope.ChainDamage3Launch RehgarChainDamageLaunchSite Implicit Find" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactSound" />
+    <On Terms="ActorCreation" Send="Create RehgarChainDamageBeam" />
+  </CActorSite>
+  <CActorSite id="RehgarChainDamage2LaunchSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainDamage2ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactModel" />
+  </CActorSite>
+  <CActorSite id="RehgarChainDamage2ImpactSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainDamage2ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::scope.ChainDamage3Launch RehgarChainDamage1LaunchSite Implicit Find" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactSound" />
+    <On Terms="ActorCreation" Send="Create RehgarChainDamageBeam" />
+  </CActorSite>
+  <CActorSite id="RehgarChainDamage3LaunchSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainDamage3ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactModel" />
+  </CActorSite>
+  <CActorSite id="RehgarChainDamage3ImpactSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainDamage3ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::scope.ChainDamage3Launch RehgarChainDamage2LaunchSite Implicit Find" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactSound" />
+    <On Terms="ActorCreation" Send="Create RehgarChainDamageBeam" />
+  </CActorSite>
+  <CActorSite id="RehgarChainDamage4LaunchSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainDamage4ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactModel" />
+  </CActorSite>
+  <CActorSite id="RehgarChainDamage4ImpactSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainDamage4ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::scope.ChainDamage3Launch RehgarChainDamage3LaunchSite Implicit Find" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactSound" />
+    <On Terms="ActorCreation" Send="Create RehgarChainDamageBeam" />
+  </CActorSite>
+  <CActorSite id="RehgarChainDamage5LaunchSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainDamage5ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactModel" />
+  </CActorSite>
+  <CActorSite id="RehgarChainDamage5ImpactSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainDamage5ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::scope.ChainDamage3Launch RehgarChainDamage4LaunchSite Implicit Find" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactSound" />
+    <On Terms="ActorCreation" Send="Create RehgarChainDamageBeam" />
+  </CActorSite>
+  
+  <CActorSite id="RehgarChainHeal4LaunchSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainHeal3ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactModel" />
+  </CActorSite>
+  <CActorSite id="RehgarChainHeal4ImpactSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainHeal4ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::scope.Chain3Launch RehgarChainHeal4LaunchSite Implicit Find" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactSound" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHeal3Beam" />
+  </CActorSite>
+  <CActorSite id="RehgarChainHeal5LaunchSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainHeal4ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactModel" />
+  </CActorSite>
+  <CActorSite id="RehgarChainHeal5ImpactSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainHeal5ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::scope.Chain3Launch RehgarChainHeal5LaunchSite Implicit Find" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactSound" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHeal3Beam" />
+  </CActorSite>
+  <CActorSite id="RehgarChainHeal6LaunchSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainHeal5ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactModel" />
+  </CActorSite>
+  <CActorSite id="RehgarChainHeal6ImpactSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainHeal6ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="RefSetFromRequest ::scope.Chain3Launch RehgarChainHeal6LaunchSite Implicit Find" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactSound" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHeal3Beam" />
+  </CActorSite>
+  <CActorSite id="RehgarChainHeal7LaunchSite" parent="SiteCenter">
+    <On Terms="Effect.RehgarChainHeal6ImpactSet.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation" Send="Create RehgarChainHealImpactModel" />
+  </CActorSite>
+
+</Catalog>

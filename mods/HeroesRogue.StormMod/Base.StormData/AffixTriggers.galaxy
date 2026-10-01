@@ -37,6 +37,7 @@ fixed libAffx_SecondWindCooldown = 300;
 fixed libAffx_ResurgenceoftheStormCooldown = 300;
 fixed libAffx_ResurgenceoftheStormCDRPerStack = 60;
 fixed libAffx_ResurgenceoftheStormCooldownLostVikings = 180;
+fixed libAffx_ResurgenceoftheStormDeathTimer = 5;
 fixed libAffx_DivineInterventionCooldown = 300;
 fixed libAffx_DivineInterventionCDRPerStack = 60;
 fixed libAffx_BriberyCooldown = 300;
@@ -44,23 +45,24 @@ fixed libAffx_BriberyCDRPerStack = 60;
 fixed libAffx_RelentlessModifier = 0.15;
 fixed libAffx_GlobeHufferCooldown = 12;
 fixed libAffx_GlobeHufferCDRPerStack = 4;
-fixed libAffx_PathoftheAssassinInitialValue = 4;
-fixed libAffx_PathoftheAssassinStackingValue = 2;
-fixed libAffx_PathoftheAssassinInitialValueTracer = 1;
-fixed libAffx_PathoftheAssassinStackingValueTracer = 1;
-fixed libAffx_PathoftheAssassinInitialValueFastAA = 2;
-fixed libAffx_PathoftheAssassinStackingValueFastAA = 1;
+fixed[libCore_gv_bALMaxPlayers + 1] libAffx_PathoftheAssassinInitialValue;
+fixed[libCore_gv_bALMaxPlayers + 1] libAffx_PathoftheAssassinStackingValue;
+fixed libAffx_PathoftheAssassinInitialValueTooltip;
+fixed libAffx_PathoftheAssassinStackingValueTooltip;
 fixed libAffx_BriberyCooldownRate = 0.0625;
 fixed libAffx_LastMomentsCDRPerStack = 60;
 fixed libAffx_LastMomentsCooldown = 300;
 fixed libAffx_VeryBadBargainCooldown = 60;
 fixed libAffx_VeryBadBargainModifier = 0.02;
-fixed libAffx_MacGuffinModifier = 0.25;
+fixed libAffx_MacGuffinModifier = 0.5;
+fixed libAffx_MacGuffinModifierPerStack = 0.25;
 fixed[libCore_gv_bALMaxPlayers + 1][4][libAffx_WeakPointDuration + 1] libAffx_WeakPointDamageStored;
 fixed libAffx_InvasionStatsModifier = 0.25;
 fixed libAffx_InvasionSpawnRateDisplay = 0.25;
 fixed libAffx_InvasionExpDisplay = 0.2;
 fixed libAffx_UnyieldingDefenseModifier = 0.1;
+fixed libAffx_ArmyOfBUDDYsDamageHealingPenalty = 0.85;
+fixed libAffx_PrivateMedivacCooldown = 60;
 
 fixed libAffx_AutoMULECooldownCurrent;
 fixed libAffx_SecondWindCooldownCurrent;
@@ -87,6 +89,7 @@ int libAffx_FortificationsTotal = 0;
 int libAffx_ToxicFieldCount;
 int libAffx_FortificationsIndexID;
 int libAffx_InvasionCount;
+int libAffx_PathoftheFighterBonus;
 
 bool libAffx_DestructionSuppressRewards;
 bool[libAffx_DestructionMaxRewards + 1] libAffx_DestructionFinished;
@@ -116,6 +119,8 @@ int libAffx_VeryBadBargainIndex;
 int libAffx_SecondWindIndex;
 int libAffx_AutoMULEIndex;
 int libAffx_InvasionIndex;
+int libAffx_PacifismIndex;
+int libAffx_PrivateMedivacIndex;
 
 // ---------------------------------------------------------------
 // Reinforced Walls
@@ -1774,13 +1779,16 @@ bool libAffx_ResurgenceoftheStormHeroKilled (bool testConds, bool runActions) {
         if (deadPlayer != libAffx_player || libAffx_affixes[libAffx_ResurgenceoftheStormIndex].cooldown > 0) {
             return false;
         }
-        if (deadUnit != libGame_gv_players[libAffx_player].lv_heroUnit && UnitGetType(libGame_gv_players[libAffx_player].lv_heroUnit) != "HeroLostVikingsController") {
+        if (deadUnit != libGame_gv_players[libAffx_player].lv_heroUnit && UnitGetType(libGame_gv_players[libAffx_player].lv_heroUnit) != "HeroLostVikingsController" && (UnitGetType(deadUnit) == "HeroOlaf" || UnitGetType(deadUnit) == "HeroBaleog" || UnitGetType(deadUnit) == "HeroErik")) {
             return false;
         }
         if (libGame_diabloUsedSouls[libAffx_player]) {
             return false;
         }
         if (UnitGetType(deadUnit) == "HeroMurky" && !((UnitIsAlive(libGame_gv_heroDeathMurkyRespawnEggs[deadPlayer]) == false) || (libGame_gv_heroDeathMurkyRespawnEggs[deadPlayer] == null))) {
+            return false;
+        }
+        if (libGame_UtherRedemptionIsReady(deadUnit)) {
             return false;
         }
     }
@@ -1790,7 +1798,11 @@ bool libAffx_ResurgenceoftheStormHeroKilled (bool testConds, bool runActions) {
 
     libGame_gv_players[libAffx_player].lv_suppressReviveVOSound = true;
     libAffx_affixes[libAffx_ResurgenceoftheStormIndex].cooldown = libAffx_ResurgenceoftheStormCooldownCurrent;
-    libGame_gf_HeroDeathUpdateRespawnTimer(libAffx_player, 5);
+    if (UnitGetType(deadUnit) == "HeroUther") {
+        libGame_gf_HeroDeathUpdateRespawnTimer(libAffx_player, CatalogFieldValueGetAsFixed(c_gameCatalogBehavior, "UtherEternalVanguardRezDelay", "Duration", deadPlayer) + CatalogFieldValueGetAsFixed(c_gameCatalogBehavior, "SpiritOfRedemptionSpiritFormBuff", "Duration", deadPlayer) + libAffx_ResurgenceoftheStormDeathTimer);
+    } else {
+        libGame_gf_HeroDeathUpdateRespawnTimer(libAffx_player, libAffx_ResurgenceoftheStormDeathTimer);
+    }
     if (UnitGetType(deadUnit) == "HeroLeoric") {
         UnitBehaviorSetDuration(deadUnit, "LeoricUndying", TimerGetRemaining(libGame_gv_players[deadPlayer].lv_respawnTimer));
         UnitBehaviorSetDuration(deadUnit, "Dead", TimerGetRemaining(libGame_gv_players[deadPlayer].lv_respawnTimer));
@@ -1918,119 +1930,132 @@ bool libAffx_BriberyDeepPockets (bool testConds, bool runActions) {
 // ---------------------------------------------------------------
 // Path of the Wizard
 // ---------------------------------------------------------------
-bool libAffx_PathoftheWizardAffixAdded (bool testConds, bool runActions) {
-    int level;
-    if (!runActions) {
-        return true;
+void libAffx_UpdatePathoftheWizard(int player) {
+    int level = UnitLevel(libGame_gv_players[player].lv_heroUnit);
+    if (libAffx_PathoftheWizardIndex == 0) {
+        return;
     }
+    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheWizardBehavior", "Modification.VitalRegenArray[Energy]", player, 0.2 * libAffx_affixes[libAffx_PathoftheWizardIndex].count * (level + libAffx_PathoftheFighterBonus));
+    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheWizardBehavior", "Modification.VitalMaxArray[Energy]", player, 10 * libAffx_affixes[libAffx_PathoftheWizardIndex].count * (level + libAffx_PathoftheFighterBonus));
+}
+bool libAffx_PathoftheWizardAffixAdded (bool testConds, bool runActions) {
+    int i;
     libAffx_PathoftheWizardIndex = libAffx_EventAffix();
-    level = UnitLevel(libGame_gv_players[libAffx_player].lv_heroUnit);
-    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheWizardBehavior", "Modification.VitalRegenArray[Energy]", libAffx_player, 0.2 * libAffx_affixes[libAffx_PathoftheWizardIndex].count * level);
-    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheWizardBehavior", "Modification.VitalMaxArray[Energy]", libAffx_player, 10 * libAffx_affixes[libAffx_PathoftheWizardIndex].count * level);
+    for (i = 1; i <= libCore_gv_bALMaxPlayers; i += 1) {
+        libAffx_UpdatePathoftheWizard(i);
+    }
     return true;
 }
 
 bool libAffx_PathoftheWizardLevelUp (bool testConds, bool runActions) {
-    int level = libGame_gf_HeroLevelUpLevel();
     int player = libGame_gf_HeroLevelUpPlayer();
     if (testConds) {
-        if (player != libAffx_player && !UnitHasBehavior2(libGame_gv_players[player].lv_heroUnit, "AffixPathoftheWizardBehavior")) {
+        if (!UnitHasBehavior2(libGame_gv_players[player].lv_heroUnit, "AffixPathoftheWizardBehavior")) {
             return false;
         }
         if (libAffx_PathoftheWizardIndex == 0) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
-
-    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheWizardBehavior", "Modification.VitalRegenArray[Energy]", player, 0.2 * libAffx_affixes[libAffx_PathoftheWizardIndex].count * level);
-    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheWizardBehavior", "Modification.VitalMaxArray[Energy]", player, 10 * libAffx_affixes[libAffx_PathoftheWizardIndex].count * level);
+    libAffx_UpdatePathoftheWizard(player);
     return true;
 }
 // ---------------------------------------------------------------
 // Path of the Warrior
 // ---------------------------------------------------------------
-bool libAffx_PathoftheWarriorAffixAdded (bool testConds, bool runActions) {
-    int level;
-    if (!runActions) {
-        return true;
+void libAffx_UpdatePathoftheWarrior(int player) {
+    int level = UnitLevel(libGame_gv_players[player].lv_heroUnit);
+    if (libAffx_PathoftheWarriorIndex == 0) {
+        return;
     }
+    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheWarriorBehavior", "Modification.VitalMaxArray[Life]", player, 40 * libAffx_affixes[libAffx_PathoftheWarriorIndex].count * (level + libAffx_PathoftheFighterBonus));
+}
+bool libAffx_PathoftheWarriorAffixAdded (bool testConds, bool runActions) {
+    int i;
     libAffx_PathoftheWarriorIndex = libAffx_EventAffix();
-    level = UnitLevel(libGame_gv_players[libAffx_player].lv_heroUnit);
-    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheWarriorBehavior", "Modification.VitalMaxArray[Life]", libAffx_player, 40 * libAffx_affixes[libAffx_PathoftheWarriorIndex].count * level);
+    for (i = 1; i <= libCore_gv_bALMaxPlayers; i += 1) {
+        libAffx_UpdatePathoftheWarrior(i);
+    }
     return true;
 }
 bool libAffx_PathoftheWarriorLevelUp (bool testConds, bool runActions) {
-    int level = libGame_gf_HeroLevelUpLevel();
     int player = libGame_gf_HeroLevelUpPlayer();
     if (testConds) {
-        if (player != libAffx_player && !UnitHasBehavior2(libGame_gv_players[player].lv_heroUnit, "AffixPathoftheWarriorBehavior")) {
+        if (!UnitHasBehavior2(libGame_gv_players[player].lv_heroUnit, "AffixPathoftheWarriorBehavior")) {
             return false;
         }
         if (libAffx_PathoftheWarriorIndex == 0) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
-
-    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheWarriorBehavior", "Modification.VitalMaxArray[Life]", player, 40 * libAffx_affixes[libAffx_PathoftheWarriorIndex].count * level);
+    libAffx_UpdatePathoftheWarrior(player);
     return true;
 }
 // ---------------------------------------------------------------
 // Path of the Assassin
 // ---------------------------------------------------------------
-void libAffx_PathoftheAssassinInit() {
-    string hero = libCore_gf_GetHeroFromIndex(libAffx_playersHeroIndex[libAffx_player]);
-
-    if (hero == "Tracer") {
-        libAffx_PathoftheAssassinInitialValue = libAffx_PathoftheAssassinInitialValueTracer;
-        libAffx_PathoftheAssassinStackingValue = libAffx_PathoftheAssassinStackingValueTracer;
-    } else if (hero == "DVa" || hero == "Tassadar" || hero == "Tychus" || hero == "Zarya" || hero == "Lucio" || hero == "Genji") {
-        libAffx_PathoftheAssassinInitialValue = libAffx_PathoftheAssassinInitialValueFastAA;
-        libAffx_PathoftheAssassinStackingValue = libAffx_PathoftheAssassinStackingValueFastAA;
+void libAffx_UpdatePathoftheAssassin(int player) {
+    int level = UnitLevel(libGame_gv_players[player].lv_heroUnit);
+    if (libAffx_PathoftheAssassinIndex == 0) {
+        return;
     }
+    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheAssassinBehavior", "Modification.DamageDealtScaled[Basic]", player, (libAffx_PathoftheAssassinInitialValue[player] + libAffx_PathoftheAssassinStackingValue[player] * (libAffx_affixes[libAffx_PathoftheAssassinIndex].count - 1)) * (level + libAffx_PathoftheFighterBonus));
 }
 bool libAffx_PathoftheAssassinExecuteImmediate (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
+    int i;
+    string hero;
+    for (i = 1; i <= libCore_gv_bALMaxPlayers; i += 1) {
+        hero = libCore_gf_GetHeroFromIndex(libAffx_playersHeroIndex[i]);
+
+        if (hero == "Tracer") {
+            libAffx_PathoftheAssassinInitialValue[i] = 1;
+            libAffx_PathoftheAssassinStackingValue[i] = 1;
+        } else if (hero == "DVa" || hero == "Tassadar" || hero == "Tychus" || hero == "Zarya" || hero == "Lucio" || hero == "Genji") {
+            libAffx_PathoftheAssassinInitialValue[i] = 2;
+            libAffx_PathoftheAssassinStackingValue[i] = 1;
+        } else {
+            libAffx_PathoftheAssassinInitialValue[i] = 4;
+            libAffx_PathoftheAssassinStackingValue[i] = 2;
+        }
     }
-    libAffx_PathoftheAssassinInit();
+    libAffx_PathoftheAssassinInitialValueTooltip = libAffx_PathoftheAssassinInitialValue[libAffx_player];
+    libAffx_PathoftheAssassinStackingValueTooltip = libAffx_PathoftheAssassinStackingValue[libAffx_player];
     return true;
 }
 bool libAffx_PathoftheAssassinAffixAdded (bool testConds, bool runActions) {
-    int level;
-    if (!runActions) {
-        return true;
-    }
+    int i;
     libAffx_PathoftheAssassinIndex = libAffx_EventAffix();
-    level = UnitLevel(libGame_gv_players[libAffx_player].lv_heroUnit);
-    libAffx_PathoftheAssassinInit();
-    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheAssassinBehavior", "Modification.DamageDealtScaled[Basic]", libAffx_player, (libAffx_PathoftheAssassinInitialValue + libAffx_PathoftheAssassinStackingValue * (libAffx_affixes[libAffx_PathoftheAssassinIndex].count - 1)) * level);
-    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheAssassinSpell", "Modification.DamageDealtScaled[Ability]", libAffx_player, (libAffx_PathoftheAssassinInitialValue + libAffx_PathoftheAssassinStackingValue * (libAffx_affixes[libAffx_PathoftheAssassinIndex].count - 1)) * level);
+
+    for (i = 1; i <= libCore_gv_bALMaxPlayers; i += 1) {
+        libAffx_UpdatePathoftheAssassin(i);
+    }
     
     return true;
 }
 bool libAffx_PathoftheAssassinLevelUp (bool testConds, bool runActions) {
     int player = libGame_gf_HeroLevelUpPlayer();
-    int level = libGame_gf_HeroLevelUpLevel();
     if (testConds) {
-        if (player != libAffx_player && !UnitHasBehavior2(libGame_gv_players[player].lv_heroUnit, "AffixPathoftheAssassinBehavior")) {
+        if (!UnitHasBehavior2(libGame_gv_players[player].lv_heroUnit, "AffixPathoftheAssassinBehavior")) {
             return false;
         }
         if (libAffx_PathoftheAssassinIndex == 0) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
+    libAffx_UpdatePathoftheAssassin(player);
+    return true;
+}
+// ============================================================
+// Path of the Fighter
+// ============================================================
+bool libAffx_PathoftheFighterAffixAdded (bool testConds, bool runActions) {
+    int i;
+    libAffx_PathoftheFighterBonus += 4;
+    for (i = 1; i <= libCore_gv_bALMaxPlayers; i += 1) {
+        libAffx_UpdatePathoftheAssassin(i);
+        libAffx_UpdatePathoftheWarrior(i);
+        libAffx_UpdatePathoftheWizard(i);
     }
-
-    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheAssassinBehavior", "Modification.DamageDealtScaled[Basic]", player, (libAffx_PathoftheAssassinInitialValue + libAffx_PathoftheAssassinStackingValue * (libAffx_affixes[libAffx_PathoftheAssassinIndex].count - 1)) * level);
-    libAffx_CatalogFieldValueSetFixed(c_gameCatalogBehavior, "AffixPathoftheAssassinSpell", "Modification.DamageDealtScaled[Ability]", player, (libAffx_PathoftheAssassinInitialValue + libAffx_PathoftheAssassinStackingValue * (libAffx_affixes[libAffx_PathoftheAssassinIndex].count - 1)) * level);
     return true;
 }
 
@@ -2049,8 +2074,8 @@ bool libAffx_ArmyofBUDDYsOncePerGame (bool testConds, bool runActions) {
         }
     }
     for (i = 1; i <= 5; i += 1) {
-        libAffx_SetLevelScalingAndValue("Effect,AffixBuddyHealCreateHealer,RechargeVitalRate", i, 0.04, StringToFixed(libAffx_GetCatalogDefaultValue("Effect,AffixBuddyHealCreateHealer,RechargeVitalRate")) * 0.75);
-        libAffx_SetLevelScalingAndValue("Effect,AffixBuddyDroneMissileDamage,Amount", i, 0.04, StringToFixed(libAffx_GetCatalogDefaultValue("Effect,AffixBuddyDroneMissileDamage,Amount")) * 0.75);
+        libAffx_SetLevelScalingAndValue("Effect,AffixBuddyHealCreateHealer,RechargeVitalRate", i, 0.04, StringToFixed(libAffx_GetCatalogDefaultValue("Effect,AffixBuddyHealCreateHealer,RechargeVitalRate")) * libAffx_ArmyOfBUDDYsDamageHealingPenalty);
+        libAffx_SetLevelScalingAndValue("Effect,AffixBuddyDroneMissileDamage,Amount", i, 0.04, StringToFixed(libAffx_GetCatalogDefaultValue("Effect,AffixBuddyDroneMissileDamage,Amount")) * libAffx_ArmyOfBUDDYsDamageHealingPenalty);
     }
     return true;
 }
@@ -2069,16 +2094,13 @@ bool libAffx_ArmyofBUDDYsLevelUp (bool testConds, bool runActions) {
         if (player < 1 || player > 5) {
             return false;
         }
-        if (player == libAffx_choPlayer || player == libAffx_gallPlayer) {
-            return false;
-        }
     }
     if (!runActions) {
         return true;
     }
 
-    libAffx_SetLevelScalingAndValue("Effect,AffixBuddyHealCreateHealer,RechargeVitalRate", player, 0.04, StringToFixed(libAffx_GetCatalogDefaultValue("Effect,AffixBuddyHealCreateHealer,RechargeVitalRate")) * 0.75);
-    libAffx_SetLevelScalingAndValue("Effect,AffixBuddyDroneMissileDamage,Amount", player, 0.04, StringToFixed(libAffx_GetCatalogDefaultValue("Effect,AffixBuddyDroneMissileDamage,Amount")) * 0.75);
+    libAffx_SetLevelScalingAndValue("Effect,AffixBuddyHealCreateHealer,RechargeVitalRate", player, 0.04, StringToFixed(libAffx_GetCatalogDefaultValue("Effect,AffixBuddyHealCreateHealer,RechargeVitalRate")) * libAffx_ArmyOfBUDDYsDamageHealingPenalty);
+    libAffx_SetLevelScalingAndValue("Effect,AffixBuddyDroneMissileDamage,Amount", player, 0.04, StringToFixed(libAffx_GetCatalogDefaultValue("Effect,AffixBuddyDroneMissileDamage,Amount")) * libAffx_ArmyOfBUDDYsDamageHealingPenalty);
     return true;
 }
 // ---------------------------------------------------------------
@@ -2963,6 +2985,7 @@ bool libAffx_StormShieldAffixAdded (bool testConds, bool runActions) {
 // ---------------------------------------------------------------
 bool libAffx_RingofMagicBehaviorChange (bool testConds, bool runActions) {
     unit eventUnit = EventUnit();
+    int player = UnitGetOwner(eventUnit);
     string cooldownLink;
     if (!runActions) {
         return true;
@@ -3536,16 +3559,14 @@ bool libAffx_AncientBlessingsScaling (bool testConds, bool runActions) {
 // ---------------------------------------------------------------
 bool libAffx_MacGuffinAffixAdded (bool testConds, bool runActions) {
     int i;
-    int count = libAffx_EventAffixCount();
-    string original = CatalogReferenceGet("Effect,CaptureMacGuffin,PeriodCount", 0);
-    string originalVehicle = CatalogReferenceGet("Effect,UseVehiclePersistent,PeriodCount", 0);
-    if (!runActions) {
-        return true;
-    }
-    libAffx_MacGuffinModifierCurrent = libAffx_MacGuffinModifier * count;
+    fixed original = StringToFixed(CatalogReferenceGet("Effect,CaptureMacGuffin,PeriodCount", 0));
+    fixed originalVehicle = StringToFixed(CatalogReferenceGet("Effect,UseVehiclePersistent,PeriodCount", 0));
+
+    libAffx_MacGuffinModifierCurrent = libAffx_MacGuffinModifier + (libAffx_MacGuffinModifierPerStack * (libAffx_EventAffixCount() - 1));
+
     for (i = 1; i <= 5; i += 1) {
-        CatalogReferenceModify("Effect,CaptureMacGuffin,PeriodCount", i, FixedToString(StringToFixed(original) * (1 - libAffx_MacGuffinModifierCurrent), 0), c_upgradeOperationSet);
-        CatalogReferenceModify("Effect,UseVehiclePersistent,PeriodCount", i, FixedToString(StringToFixed(originalVehicle) * (1 - libAffx_MacGuffinModifierCurrent), 0), c_upgradeOperationSet);
+        libAffx_CatalogReferenceModify("Effect,CaptureMacGuffin,PeriodCount", i, FixedToString(original * (1 - libAffx_MacGuffinModifierCurrent), 0), c_upgradeOperationSet);
+        libAffx_CatalogReferenceModify("Effect,UseVehiclePersistent,PeriodCount", i, FixedToString(originalVehicle * (1 - libAffx_MacGuffinModifierCurrent), 0), c_upgradeOperationSet);
     }
 
     return true;
@@ -3661,18 +3682,17 @@ bool libAffx_ExperienceHoarderWin (bool testConds, bool runActions) {
 // ---------------------------------------------------------------
 // Pacifism
 // ---------------------------------------------------------------
-int libAffx_pacifismIndex;
 bool libAffx_PacifismAffixAdded (bool testConds, bool runActions) {
     if (!runActions) {
         return true;
     }
-    libAffx_pacifismIndex = libAffx_EventAffix();
-    if (libAffx_BankLoadValueInt("PacifismReady") == 1) {
+    libAffx_PacifismIndex = libAffx_EventAffix();
+    if (libAffx_BankLoadValueInt(libAffx_affixes[libAffx_PacifismIndex].name + "_PacifismReady") == 1) {
         UIDisplayMessage(PlayerGroupAll(), c_messageAreaChat, StringExternal("Message/Pacifism"));
         libAffx_QueueBoon(libAffx_rarityUncommon, 1, false, true);
         libAffx_QueueBoon(libAffx_rarityRare, 1, false, true);
         libAffx_QueueBoon(libAffx_rarityEpic, 1, false, true);
-        libAffx_BankSaveValueInt("PacifismReady", 0);
+        libAffx_AddSaveBankInt(libAffx_PacifismIndex, "PacifismReady", 0);
     }
     
     return true;
@@ -3682,10 +3702,10 @@ bool libAffx_PacifismWin (bool testConds, bool runActions) {
     fixed kills = libGame_gv_scoreValues[libAffx_player].lv_kills;
     fixed assists = libGame_gv_scoreValues[libAffx_player].lv_assists;
     if (testConds) {
-        if (libAffx_pacifismIndex == 0) {
+        if (libAffx_PacifismIndex == 0) {
             return false;
         }
-        if (libAffx_affixes[libAffx_pacifismIndex].quest.questDone) {
+        if (libAffx_affixes[libAffx_PacifismIndex].quest.questDone) {
             return false;
         }
     }
@@ -3693,8 +3713,8 @@ bool libAffx_PacifismWin (bool testConds, bool runActions) {
         return true;
     }
     if ((takedowns + kills + assists) <= 0) {
-        libAffx_affixes[libAffx_pacifismIndex].quest.questDone = true;
-        libAffx_BankSaveValueInt("PacifismReady", 1);
+        libAffx_affixes[libAffx_PacifismIndex].quest.questDone = true;
+        libAffx_BankSaveValueInt(libAffx_affixes[libAffx_PacifismIndex].name + "_PacifismReady", 1);
     }
     
     return true;
@@ -3872,6 +3892,12 @@ bool libAffx_MoreOptionsOncePerGame (bool testConds, bool runActions) {
         }
     }
 
+    return true;
+}
+
+bool libAffx_MoreOptionsOneTime (bool testConds, bool runActions) {
+    libAffx_rerolls += 2;
+    libAffx_rerollsCurse += 2;
     return true;
 }
 // ---------------------------------------------------------------
@@ -4562,25 +4588,150 @@ bool libAffx_CleaverEffectUsed (bool testConds, bool runActions) {
     return true;
 }
 
-// ---------------------------------------------------------------
+// ============================================================
 // Friendly Reinforcements
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_FriendlyReinforcementsAffixAdded (bool testConds, bool runActions) {
     int stacks = libAffx_EventAffixCountAdded();
-    if (!runActions) {
-        return true;
-    }
+    
     libGame_extraMinionsRandom[libAffx_teamOrderIndex] += stacks;
     return true;
 }
 
+// ============================================================
+// Private Medivac
+// ============================================================
+
+bool libAffx_PrivateMedivacAffixAdded (bool testConds, bool runActions) {
+    libAffx_PrivateMedivacIndex = libAffx_EventAffix();
+    return true;
+}
+
+bool libAffx_PrivateMedivacUnitDied (bool testConds, bool runActions) {
+    unit deadUnit = EventUnit();
+    int deadPlayer = UnitGetOwner(deadUnit);
+    point deadPos = UnitGetPosition(deadUnit);
+    point currentPos;
+    point medivacPos;
+    unit medivac;
+    bool[libCore_gv_bALMaxPlayers + 1] playerInMedivac;
+
+    if (testConds) {
+        if (libAffx_PrivateMedivacIndex == 0) {
+            return false;
+        }
+        if (libAffx_affixes[libAffx_PrivateMedivacIndex].cooldown > 0) {
+            return false;
+        }
+        if (deadPlayer != libAffx_player) {
+            return false;
+        }
+        if (UnitGetType(deadUnit) == "HeroMurky" && !((UnitIsAlive(libGame_gv_heroDeathMurkyRespawnEggs[deadPlayer]) == false) || (libGame_gv_heroDeathMurkyRespawnEggs[deadPlayer] == null))) {
+            return false;
+        }
+        if (PlayerHasTalent(deadPlayer, "UtherMasteryRedemption") && libGame_UtherRedemptionIsReady(deadUnit)) {
+            return false;
+        }
+    }
+    while (!UnitIsAlive(deadUnit)) {
+        Wait(0.0625, c_timeGame);
+    }
+    libAffx_affixes[libAffx_PrivateMedivacIndex].cooldown = libAffx_PrivateMedivacCooldown;
+
+    libAffx_DisplayDebugMessage("Medivac departs!");
+    currentPos = UnitGetPosition(deadUnit);
+    libCore_gf_CreateMinimapPingStorm(PlayerGroupAll(), "StormObjective", currentPos, ColorWithAlpha(0,0,0,0), 2.0);
+    SoundPlayAtPointForPlayer(SoundLink("PVE_MercMedivac_Alert", -1), c_maxPlayers, PlayerGroupAll(), currentPos, 0.0, 100.0, 0.0);
+    libNtve_gf_UnitCreateFacingPoint(1, "MedicMedivacDropship", c_unitCreateIgnorePlacement, libAffx_teamOrder, currentPos, deadPos, null);
+    medivac = UnitLastCreated();
+    libNtve_gf_PlayAnimation(libNtve_gf_MainActorofUnit(medivac), c_animNameDefault, "Birth", c_animFlagNonLooping, 0.0);
+    libNtve_gf_SendActorMessageToUnit(medivac, "MinimapIcon Assets\\Textures\\storm_temp_btn-unit-terran-medivac.dds");
+    libNtve_gf_SendActorMessageToUnit(medivac, "MinimapIconScale 0.350000");
+    libNtve_gf_MakeUnitInvulnerable(medivac, true);
+    while (!UnitHasBehavior2(medivac, "MedicMedivacDropshipEnRoute") && UnitGroupCount(UnitCargoGroup(medivac), c_unitCountAll) <= 0) {
+        Wait(0.0625, c_timeGame);
+    }
+    if (UnitGroupCount(UnitCargoGroup(medivac), c_unitCountAll) > 0) {
+        UnitSelect(libGame_gv_players[deadPlayer].lv_heroUnit, deadPlayer, true);
+        libGame_gv_players[deadPlayer].lv_cameraForcedLock = true;
+        libGame_gv_players[deadPlayer].lv_cameraPlayerUnitGroupToFocusOn = libNtve_gf_ConvertUnitToUnitGroup(medivac);
+        libGame_gf_CameraUpdateCameraForPlayer(deadPlayer);
+        playerInMedivac[deadPlayer] = true;
+    }
+    libNtve_gf_MakeUnitUncommandable(medivac, true);
+    UnitBehaviorSetDuration(medivac, "MedicMedivacDropshipDepartureDelay", 0.0625);
+    libAffx_Wait(0.5, c_timeGame);
+    UnitIssueOrder(medivac, OrderTargetingPoint(AbilityCommand("move", 0), deadPos), c_orderQueueAddToEnd);
+    libAffx_Wait(0.5, c_timeGame);
+
+    while (UnitIsAlive(medivac) && (UnitBehaviorCount(medivac, "MedicMedivacDropshipEnRoute") == 1)) {
+        medivacPos = UnitGetPosition(medivac);
+        if ((DistanceBetweenPoints(medivacPos, deadPos) <= 5.0)) {
+            UnitBehaviorRemove(medivac, "MedicMedivacDropshipDepartureAscent", 1);
+        }
+        if ((DistanceBetweenPoints(medivacPos, deadPos) <= 1.0)) {
+            UnitBehaviorSetDurationRemaining(medivac, "MedicMedivacDropshipDropoffLocationTimedLife", 0.0);
+            UnitBehaviorRemove(medivac, "MedicMedivacDropshipEnRoute", 1);
+        }
+        Wait(0.0625, c_timeGame);
+    }
+
+    if (playerInMedivac[deadPlayer]) {
+        libGame_gv_players[deadPlayer].lv_cameraForcedLock = false;
+        libGame_gv_players[deadPlayer].lv_cameraPlayerUnitGroupToFocusOn = libGame_gv_players[deadPlayer].lv_heroUnitGroup;
+        UnitSelect(medivac, deadPlayer, false);
+        UnitSelect(libGame_gv_players[deadPlayer].lv_heroUnit, deadPlayer, true);
+        libNtve_gf_RestoreUnitSelection(deadPlayer);
+        libGame_gf_CameraUpdateCameraForPlayer(deadPlayer);
+    }
+
+    libAffx_Wait(6, c_timeGame);
+    UnitRemove(medivac);
+
+    return true;
+}
+
+bool libAffx_PrivateMedivacPeriodic (bool testConds, bool runActions) {
+    if (testConds) {
+        if (libAffx_PrivateMedivacIndex == 0 ) {
+            return false;
+        }
+        if (libAffx_gamePaused || libAffx_affixes[libAffx_PrivateMedivacIndex].cooldown <= 0) {
+            return false;
+        }
+    }
+    if (!runActions) {
+        return true;
+    }
+
+    libAffx_affixes[libAffx_PrivateMedivacIndex].cooldown -= 0.0625;
+
+    return true;
+}
+
+
 include "LibAffx"
-include "AffixTriggers/Nazeebo"
-include "AffixTriggers/LostVikings"
-include "AffixTriggers/Illidan"
-include "AffixTriggers/Tyrande"
-include "AffixTriggers/Muradin"
-include "AffixTriggers/Thrall"
-include "AffixTriggers/LiMing"
-include "AffixTriggers/SgtHammer"
-include "AffixTriggers/Probius"
+include "HeroTriggers/Nazeebo"
+include "HeroTriggers/LostVikings"
+include "HeroTriggers/Illidan"
+include "HeroTriggers/Tyrande"
+include "HeroTriggers/Muradin"
+include "HeroTriggers/Thrall"
+include "HeroTriggers/LiMing"
+include "HeroTriggers/SgtHammer"
+include "HeroTriggers/Probius"
+include "HeroTriggers/Alexstrasza"
+include "HeroTriggers/Ana"
+include "HeroTriggers/Anduin"
+include "HeroTriggers/Auriel"
+include "HeroTriggers/Brightwing"
+include "HeroTriggers/Deckard"
+include "HeroTriggers/Kharazim"
+include "HeroTriggers/LiLi"
+include "HeroTriggers/LtMorales"
+include "HeroTriggers/Lucio"
+include "HeroTriggers/Malfurion"
+include "HeroTriggers/Rehgar"
+include "HeroTriggers/Stukov"
+include "HeroTriggers/Uther"
+include "HeroTriggers/Whitemane"

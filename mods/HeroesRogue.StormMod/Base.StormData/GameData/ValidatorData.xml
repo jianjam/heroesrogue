@@ -332,10 +332,30 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <CombineArray value="TargetNotMerc" />
   </CValidatorCombine>
   
-  <CValidatorEffect default="1">
-    <WhichEffect value="##id##" />
-    <ResultNoEffect value="Error" />
-  </CValidatorEffect>
+  <CValidatorCombine id="TargetIsMinionOrMercOrSummon">
+    <CombineArray value="TargetMinion" />
+    <CombineArray value="TargetIsMerc" />
+    <CombineArray value="IsSummonedUnit" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="TargetIsNotEnemyOrTargetIsEnemyAndNotImmuneToAOE">
+    <CombineArray value="TargetIsNotEnemy" />
+    <CombineArray value="TargetIsEnemyAndNotImmuneToAOE" />
+  </CValidatorCombine>
+  
+  <CValidatorUnitFilters id="TargetIsEnemyAndNotImmuneToAOE">
+    <Filters value="Enemy;ImmunetoAOE" />
+  </CValidatorUnitFilters>
+  
+  <CValidatorUnitFilters id="SourceIsAllyOrSelf">
+    <Filters value="-;Neutral,Enemy" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitFilters>
+
+  <CValidatorUnitFilters id="SourceIsEnemy">
+    <Filters value="-;Player,Ally,Neutral" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitFilters>
 
 
 </Catalog>

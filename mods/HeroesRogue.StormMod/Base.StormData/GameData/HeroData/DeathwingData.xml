@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CBehaviorBuff id="DeathwingDragonStaminaCarry" parent="CarryBehaviorParent">
+    <Modification>
+      <VitalMaxArray index="Energy" value="25" />
+    </Modification>
+  </CBehaviorBuff>
+
+</Catalog>

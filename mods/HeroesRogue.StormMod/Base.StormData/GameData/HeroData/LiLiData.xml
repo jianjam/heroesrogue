@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+
+  <CAbilEffectTarget id="LiLiCloudSerpent">
+    <Effect value="LiLiCloudSerpentSwitchSet" />
+    <TargetFilters value="-;Neutral,Missile,Item,Stasis,Dead" />
+  </CAbilEffectTarget>
+  <CEffectSwitch id="LiLiCloudSerpentSwitchSet">
+    <CaseArray Validator="LiLiCloudSerpentValidator" Effect="CloudSerpentCastSet" />
+    <CaseArray Validator="LiLiCloudSerpentSupportiveSerpentCombine" Effect="CloudSerpentCastSet" />
+    <ValidatorArray value="LiLiCloudSerpentValidOrSupportiveSerpentValidCombine" />
+  </CEffectSwitch>
+  
+  <CEffectSet id="LiLiHealingBrewCastSet">
+    <EffectArray value="HealingBrewSearchAreaNonHeroic" />
+    <EffectArray value="HealingBrewSearchAreaEnemy" />
+  </CEffectSet>
+
+  <CEffectSet id="HealingBrewImpactSet">
+    <EffectArray value="HealingBrewEnemyImpactSet" />
+  </CEffectSet>
+
+  <CEffectSet id="HealingBrewEnemyImpactSet">
+    <ValidatorArray value="TargetIsEnemy" />
+    <EffectArray value="LiLiHealingBrewApplyTheGoodStuffDamage" />
+    <EffectArray value="LiLiHealingBrewDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectSet id="LiLiHealingBrewFreeDrinksTalentProcSet">
+    <ValidatorArray value="TargetIsNotEnemy" />
+  </CEffectSet>
+  <CEffectCreateHealer id="LiLiHealingBrewCreateHealer">
+    <ValidatorArray value="TargetIsNotEnemy" />
+  </CEffectCreateHealer>
+  <CEffectApplyBehavior id="LiLiHealingBrewApplyTheGoodStuff">
+    <ValidatorArray value="TargetIsNotEnemy" />
+  </CEffectApplyBehavior>
+
+  <CEffectApplyBehavior id="LiLiHealingBrewApplyTheGoodStuffDamage">
+    <ValidatorArray value="HasLiLiHealingBrewTheGoodStuff" />
+    <ValidatorArray value="HealingBrewUserCategoryNoSpecialDeathStateTarget" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="LiLiHealingBrewTheGoodStuffDamage" />
+    <WhichUnit Effect="HealingBrewSwitchforLaunchMissile" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="LiLiHealingBrewTheGoodStuffDamage">
+    <Duration value="3" />
+    <Period value="0.5" />
+    <PeriodicEffect value="LiLiHealingBrewTheGoodStuffHealTargetDamageSwitch" />
+    <PeriodicDisplayEffect value="LiLiHealingBrewTheGoodStuffTalentDamage" />
+    <RemoveValidatorArray value="TargetNotSpecialDeathState" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_lili_healingbrew.dds" />
+    <Face value="LiLiHealingBrewTheGoodStuffTalent" />
+    <BuffFlags index="RefreshStack" value="1" />
+  </CBehaviorBuff>
+  <CEffectSwitch id="LiLiHealingBrewTheGoodStuffHealTargetDamageSwitch">
+    <CaseArray Validator="LiLiHasFastFeetActive" Effect="LiLiHealingBrewTheGoodStuffTalentProcDamage" />
+    <CaseDefault value="LiLiHealingBrewTheGoodStuffTalentDamage" />
+  </CEffectSwitch>
+  <CEffectDamage id="LiLiHealingBrewTheGoodStuffTalentProcDamage" parent="StormSpellDot">
+    <Amount value="7" />
+    <MultiplicativeModifierArray index="FastFeet" Modifier="1" Crit="1" />
+  </CEffectDamage>
+  <CEffectDamage id="LiLiHealingBrewTheGoodStuffTalentDamage" parent="StormSpellDot">
+    <Amount value="7" />
+  </CEffectDamage>
+
+  <CEffectDamage id="LiLiHealingBrewDamage" parent="StormSpell">
+    <ValidatorArray value="TargetIsEnemy" />
+    <Amount value="210" />
+    <MultiplicativeModifierArray index="PickMeUp" Validator="LiLiPickMeUpValidCombine" Modifier="0.33" Crit="1" />
+  </CEffectDamage>
+  
+  <CEffectEnumArea id="HealingBrewSearchAreaNonHeroic">
+    <Chance value="0" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Worker,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistance" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="HealingBrewSwitchforLaunchMissileNonHeroic">
+      <Radius value="6.25" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+
+  <CEffectSet id="HealingBrewSwitchforLaunchMissileNonHeroic">
+    <ValidatorArray value="LiLiHealingBrewValidatorNonHeroicCombine" />
+    <EffectArray value="HealingBrewLaunchMissile" />
+  </CEffectSet>
+  <CValidatorCombine id="LiLiHealingBrewValidatorNonHeroicCombine">
+    <Type value="And" />
+    <CombineArray value="TargetLifeNotFull" />
+    <CombineArray value="IsNotSelf" />
+    <CombineArray value="TargetIsAlly" />
+    <CombineArray value="TargetIsNotHeroic" />
+  </CValidatorCombine>
+
+  <CEffectEnumArea id="HealingBrewSearchAreaEnemy">
+    <Chance value="0" />
+    <SearchFilters value="-;Self,Ally,Neutral,Worker,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistance" />
+    </TargetSorts>
+    <AreaArray MaxCount="1" Effect="HealingBrewSwitchforLaunchMissileEnemy">
+      <Radius value="6.25" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="HealingBrewSwitchforLaunchMissileEnemy">
+    <ValidatorArray value="TargetIsEnemy" />
+    <EffectArray value="HealingBrewLaunchMissile" />
+  </CEffectSet>
+
+  <CEffectSet id="LiLiMistweaverCastSet">
+    <EffectArray value="LiLiMistweaverSearchNonHeroic" />
+    <EffectArray value="LiLiMistweaverSearchEnemy" />
+  </CEffectSet>
+  
+  <CEffectEnumArea id="LiLiMistweaverSearchNonHeroic">
+    <Chance value="0" />
+    <ValidatorArray value="CasterNotStasis" />
+    <SearchFilters value="-;Heroic,Self,Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="LiLiMistweaverImpactSet">
+      <Radius value="8" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="LiLiMistweaverSearchEnemy">
+    <Chance value="0" />
+    <ValidatorArray value="CasterNotStasis" />
+    <SearchFilters value="-;Self,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="LiLiMistweaverImpactEnemySet">
+      <Radius value="8" />
+    </AreaArray>
+  </CEffectEnumArea>
+
+  <CEffectSet id="LiLiMistweaverImpactEnemySet">
+    <EffectArray value="LiLiMistweaverDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  
+  <CEffectDamage id="LiLiMistweaverDamage" parent="StormSpell">
+    <Amount value="149" />
+  </CEffectDamage>
+  
+  <CEffectSet id="LiLiJugOf1000CupsPeriodicSet">
+    <EffectArray value="JugOf1000CupsSearchAreaNonHeroic" />
+    <EffectArray value="JugOf1000CupsSearchAreaEnemy" />
+  </CEffectSet>
+
+  <CEffectEnumArea id="JugOf1000CupsSearchAreaNonHeroic">
+    <Chance value="0" />
+    <ValidatorArray value="HasLiLiJugof1000CupsValidityBehavior" />
+    <ValidatorArray value="CasterNotStasis" />
+    <SearchFilters value="-;Self,Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Worker,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistance" />
+    </TargetSorts>
+    <AreaArray MaxCount="5" Effect="JugOf1000CupsLaunchMissileNonHeroic">
+      <Radius value="10" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="JugOf1000CupsSearchAreaEnemy">
+    <Chance value="0" />
+    <ValidatorArray value="HasLiLiJugof1000CupsValidityBehavior" />
+    <ValidatorArray value="CasterNotStasis" />
+    <SearchFilters value="-;Player,Self,Neutral,Ally,Worker,Missile,Item,Stasis,Dead,Hidden" />
+    <TargetSorts>
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistance" />
+    </TargetSorts>
+    <AreaArray MaxCount="5" Effect="JugOf1000CupsLaunchMissileEnemy">
+      <Radius value="10" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+
+  <CBehaviorAbility id="AffixLiLiWaterDragonBehaviorAbility">
+    <Buttons Face="LiLiWaterDragon" Type="AbilCmd" AbilCmd="LiLiWaterDragon,Execute" />
+  </CBehaviorAbility>
+  
+  <CEffectLaunchMissile id="JugOf1000CupsLaunchMissileNonHeroic">
+    <ValidatorArray value="TargetNotDead" />
+    <ValidatorArray value="NotMirrorImage" />
+    <ValidatorArray value="TargetIsNotImmuneToFriendlyAbilities" />
+    <ValidatorArray value="TargetLifeNotFull" />
+    <LaunchOffset Y="-0.8" />
+    <LaunchEffect value="Jugof1000CupsNonHeroicApplyBehaviorMarker" />
+    <AmmoUnit value="LiLiJugOf1000CupsMissile" />
+    <ImpactRange value="0.5" />
+    <SharedFlags index="TravelValidation" value="1" />
+    <SharedFlags index="ValidateTeleport" value="0" />
+    <Movers Link="LiLiJugOf1000CupsMissileCloseRange" IfRangeLTE="4" />
+    <Movers Link="LiLiJugOf1000CupsMissileLongRange" IfRangeLTE="25" />
+    <FinishEffect value="JugOf1000CupsHealNonHeroic" />
+    <LaunchLocation Value="CasterUnit" />
+  </CEffectLaunchMissile>
+  <CEffectApplyBehavior id="Jugof1000CupsNonHeroicApplyBehaviorMarker">
+    <WhichUnit Effect="JugOf1000CupsLaunchMissileNonHeroic" />
+    <Behavior value="Jugof1000CupsRepeatPreventionBehavior" />
+  </CEffectApplyBehavior>
+
+  <CEffectLaunchMissile id="JugOf1000CupsLaunchMissileEnemy">
+    <ValidatorArray index="0" value="TargetNotDead" />
+    <ValidatorArray value="NotMirrorImage" />
+    <LaunchOffset Y="-0.8" />
+    <LaunchEffect value="Jugof1000CupsEnemyApplyBehaviorMarker" />
+    <AmmoUnit value="LiLiJugOf1000CupsMissile" />
+    <ImpactRange value="0.5" />
+    <SharedFlags index="TravelValidation" value="1" />
+    <SharedFlags index="ValidateTeleport" value="0" />
+    <Movers Link="LiLiJugOf1000CupsMissileCloseRange" IfRangeLTE="4" />
+    <Movers Link="LiLiJugOf1000CupsMissileLongRange" IfRangeLTE="25" />
+    <FinishEffect value="JugOf1000CupsDamageSet" />
+    <LaunchLocation Value="CasterUnit" />
+  </CEffectLaunchMissile>
+  <CEffectApplyBehavior id="Jugof1000CupsEnemyApplyBehaviorMarker">
+    <WhichUnit Effect="JugOf1000CupsLaunchMissileEnemy" />
+    <Behavior value="Jugof1000CupsRepeatPreventionBehavior" />
+  </CEffectApplyBehavior>
+
+  <CEffectSet id="JugOf1000CupsDamageSet">
+    <EffectArray value="JugOf1000CupsDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectCreateHealer id="JugOf1000CupsHealNonHeroic" parent="StormHealingSpell">
+    <RechargeVitalRate value="75" />
+    <ImpactUnit Effect="JugOf1000CupsLaunchMissileNonHeroic" />
+  </CEffectCreateHealer>
+  <CEffectDamage id="JugOf1000CupsDamage" parent="StormSpell">
+    <Amount value="75" />
+    <ImpactUnit Effect="JugOf1000CupsLaunchMissileEnemy" />
+  </CEffectDamage>
+
+  <CBehaviorBuff id="LiLiSupportiveSerpentCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="LiLiGoodBrewBadBrewCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="LiLiHasSupportiveSerpent">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="LiLiSupportiveSerpentCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="LiLiHasGoodBrewBadBrew">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="LiLiGoodBrewBadBrewCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorCombine id="LiLiCloudSerpentValidOrSupportiveSerpentValidCombine">
+    <CombineArray value="LiLiCloudSerpentValidator" />
+    <CombineArray value="LiLiCloudSerpentSupportiveSerpentCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="LiLiCloudSerpentSupportiveSerpentCombine">
+    <Type value="And" />
+    <CombineArray value="LiLiHasSupportiveSerpent" />
+    <CombineArray value="LiLiCloudSerpentSupportiveSerpentValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="HealingBrewFriendlyProximityCombine">
+    <CombineArray value="HealingBrewNonHeroicProximityCombine" />
+    <CombineArray value="HealingBrewEnemyProximityCombine" />
+  </CValidatorCombine>
+  
+  <CValidatorCombine id="HealingBrewNonHeroicProximityCombine">
+    <Type value="And" />
+    <CombineArray value="LiLiHasGoodBrewBadBrew" />
+    <CombineArray value="HealingBrewNonHeroicProximity" />
+  </CValidatorCombine>
+  <CValidatorCombine id="HealingBrewEnemyProximityCombine">
+    <Type value="And" />
+    <CombineArray value="LiLiHasGoodBrewBadBrew" />
+    <CombineArray value="HealingBrewEnemyProximity" />
+  </CValidatorCombine>
+  
+  <CValidatorCombine id="Jugof1000CupsFriendlyProximityCombine">
+    <CombineArray value="Jugof1000CupsNonHeroicProximity" />
+    <CombineArray value="Jugof1000CupsEnemyProximity" />
+  </CValidatorCombine>
+  
+  <CValidatorLocationEnumArea id="Jugof1000CupsNonHeroicProximity">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Compare="GT" Validator="TargetLifeNotFull">
+      <Radius value="10" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+    <SearchFilters value="-;Heroic,Self,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Worker,Missile,Item,Stasis,Dead,Hidden,Hallucination" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="Jugof1000CupsEnemyProximity">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Compare="GT">
+      <Radius value="10" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+    <SearchFilters value="-;Self,Ally,Neutral,Worker,Missile,Item,Stasis,Dead,Hidden,Hallucination" />
+  </CValidatorLocationEnumArea>
+  
+  <CValidatorLocationEnumArea id="HealingBrewNonHeroicProximity">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Compare="GT" Validator="TargetLifeNotFull">
+      <Radius value="6" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+    <SearchFilters value="-;Heroic,Self,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Worker,Missile,Item,Stasis,Dead,Hidden,Hallucination" />
+  </CValidatorLocationEnumArea>
+  
+  <CValidatorLocationEnumArea id="HealingBrewEnemyProximity">
+    <WhichLocation Value="CasterUnit" />
+    <AreaArray Compare="GT" Validator="TargetIsEnemy">
+      <Radius value="6" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+    <SearchFilters value="-;Self,Ally,Neutral,Worker,Missile,Item,Stasis,Dead,Hidden,Hallucination" />
+  </CValidatorLocationEnumArea>
+
+  <CValidatorUnitFilters id="LiLiCloudSerpentSupportiveSerpentValidator">
+    <Filters value="-;Heroic,Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="LiLiCloudSerpentValidator">
+    <Filters value="Heroic;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  
+  <CActorAction id="LiLiJugOf1000CupsAttackNonHeroic" parent="RangedHeroAttack" effectImpact="JugOf1000CupsImpactSet" effectLaunch="JugOf1000CupsLaunchMissileNonHeroic">
+    <Missile value="LiLiJugOf1000CupsMissile" />
+    <LaunchAssets Sound="LiLi_JugOf1000Cups_Launch" />
+    <LaunchSiteOps Ops="SOpAttachOverhead SOpMoveUpBy4" />
+    <LaunchAttachQuery Methods="AMFilterWeaponLeft" />
+  </CActorAction>
+  <CActorAction id="LiLiJugOf1000CupsAttackEnemy" parent="RangedHeroAttack" effectImpact="JugOf1000CupsImpactSet" effectLaunch="JugOf1000CupsLaunchMissileEnemy">
+    <Missile value="LiLiJugOf1000CupsMissile" />
+    <LaunchAssets Sound="LiLi_JugOf1000Cups_Launch" />
+    <LaunchSiteOps Ops="SOpAttachOverhead SOpMoveUpBy4" />
+    <LaunchAttachQuery Methods="AMFilterWeaponLeft" />
+  </CActorAction>
+
+</Catalog>

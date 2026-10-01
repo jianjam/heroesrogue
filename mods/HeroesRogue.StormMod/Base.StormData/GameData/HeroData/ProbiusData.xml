@@ -31,7 +31,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <ValidatorArray value="TargetNotEvading" />
     <ExcludeArray Effect="ProbiusPhotonCannonWeaponImpactSet" Value="Target" />
     <LaunchLocation Value="TargetUnit" />
-    <SearchFilters value="-;Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
     <AreaArray Effect="ProbiusPhotonCannonSplashImpactSet">
       <Radius value="2" />
     </AreaArray>
@@ -397,7 +397,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <PeriodicOffsetArray Y="0.5" />
   </CEffectCreatePersistent>
   <CEffectEnumArea id="ProbiusWarpRiftPullSearchNE">
-    <SearchFilters value="-;Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <SearchFilters value="-;Neutral,Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
     <AreaArray Arc="45" Effect="TassadarBlackHolePeriodicOuterSearchNEImpactSet">
       <Radius value="4.5" />
     </AreaArray>
@@ -407,7 +407,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <SearchFlags index="CenterAtLaunch" value="1" />
   </CEffectEnumArea>
   <CEffectEnumArea id="ProbiusWarpRiftPullSearchWN">
-    <SearchFilters value="-;Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <SearchFilters value="-;Neutral,Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
     <AreaArray Arc="45" Effect="TassadarBlackHolePeriodicOuterSearchWNImpactSet">
       <Radius value="4.5" />
     </AreaArray>
@@ -417,7 +417,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <SearchFlags index="CenterAtLaunch" value="1" />
   </CEffectEnumArea>
   <CEffectEnumArea id="ProbiusWarpRiftPullSearchWS">
-    <SearchFilters value="-;Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <SearchFilters value="-;Neutral,Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
     <AreaArray Arc="45" Effect="TassadarBlackHolePeriodicOuterSearchWSImpactSet">
       <Radius value="4.5" />
     </AreaArray>
@@ -427,7 +427,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <SearchFlags index="CenterAtLaunch" value="1" />
   </CEffectEnumArea>
   <CEffectEnumArea id="ProbiusWarpRiftPullSearchSE">
-    <SearchFilters value="-;Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <SearchFilters value="-;Neutral,Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
     <AreaArray Arc="45" Effect="TassadarBlackHolePeriodicOuterSearchSEImpactSet">
       <Radius value="4.5" />
     </AreaArray>
@@ -437,7 +437,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <SearchFlags index="CenterAtLaunch" value="1" />
   </CEffectEnumArea>
   <CEffectEnumArea id="ProbiusWarpRiftPullSearchSW">
-    <SearchFilters value="-;Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <SearchFilters value="-;Neutral,Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
     <AreaArray Arc="45" Effect="TassadarBlackHolePeriodicOuterSearchSWImpactSet">
       <Radius value="4.5" />
     </AreaArray>
@@ -447,7 +447,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <SearchFlags index="CenterAtLaunch" value="1" />
   </CEffectEnumArea>
   <CEffectEnumArea id="ProbiusWarpRiftPullSearchES">
-    <SearchFilters value="-;Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <SearchFilters value="-;Neutral,Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
     <AreaArray Arc="45" Effect="TassadarBlackHolePeriodicOuterSearchESImpactSet">
       <Radius value="4.5" />
     </AreaArray>
@@ -457,7 +457,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <SearchFlags index="CenterAtLaunch" value="1" />
   </CEffectEnumArea>
   <CEffectEnumArea id="ProbiusWarpRiftPullSearchEN">
-    <SearchFilters value="-;Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <SearchFilters value="-;Neutral,Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
     <AreaArray Arc="45" Effect="TassadarBlackHolePeriodicOuterSearchENImpactSet">
       <Radius value="4.5" />
     </AreaArray>
@@ -467,7 +467,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <SearchFlags index="CenterAtLaunch" value="1" />
   </CEffectEnumArea>
   <CEffectEnumArea id="ProbiusWarpRiftPullSearchNW">
-    <SearchFilters value="-;Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+    <SearchFilters value="-;Neutral,Unstoppable,Structure,MapBoss,Player,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
     <AreaArray Arc="45" Effect="TassadarBlackHolePeriodicOuterSearchNWImpactSet">
       <Radius value="4.5" />
     </AreaArray>
@@ -497,22 +497,22 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   <CBehaviorBuff id="ProbiusReinforcedPowerSuitBehavior" parent="StormArmor">
     <ArmorModification>
       <ArmorSet index="Hero">
-        <ArmorMitigationTable index="Basic" value="35" />
+        <ArmorMitigationTable index="Basic" value="50" />
       </ArmorSet>
       <ArmorSet index="Merc">
-        <ArmorMitigationTable index="Basic" value="35" />
+        <ArmorMitigationTable index="Basic" value="50" />
       </ArmorSet>
       <ArmorSet index="Monster">
-        <ArmorMitigationTable index="Basic" value="35" />
+        <ArmorMitigationTable index="Basic" value="50" />
       </ArmorSet>
       <ArmorSet index="Summon">
-        <ArmorMitigationTable index="Basic" value="35" />
+        <ArmorMitigationTable index="Basic" value="50" />
       </ArmorSet>
       <ArmorSet index="Structure">
-        <ArmorMitigationTable index="Basic" value="35" />
+        <ArmorMitigationTable index="Basic" value="50" />
       </ArmorSet>
       <ArmorSet index="Minion">
-        <ArmorMitigationTable index="Basic" value="35" />
+        <ArmorMitigationTable index="Basic" value="50" />
       </ArmorSet>
     </ArmorModification>
   </CBehaviorBuff>
@@ -1011,7 +1011,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   <CWeaponLegacy id="PsiBlades">
     <EditorCategories value="Race:Protoss"/>
     <Icon value="Assets\Textures\btn-upgrade-protoss-groundweaponslevel0.dds"/>
-    <TargetFilters value="Visible;Missile,Item,Stasis,Dead,Hidden,Invulnerable"/>
+    <TargetFilters value="Visible;Neutral,Missile,Item,Stasis,Dead,Hidden,Invulnerable"/>
     <Range value="0.9"/>
     <Period value="1.2"/>
     <DamagePoint value="0"/>
@@ -1023,14 +1023,14 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <EditorCategories value="Race:Protoss"/>
     <Icon value="Assets\Textures\btn-upgrade-protoss-groundweaponslevel0.dds"/>
     <DisplayEffect value="ParticleDisruptorsU"/>
-    <TargetFilters value="Visible;Missile,Item,Stasis,Dead,Hidden,Invulnerable"/>
+    <TargetFilters value="Visible;Neutral,Missile,Item,Stasis,Dead,Hidden,Invulnerable"/>
     <Range value="6"/>
     <Period value="1.44"/>
   </CWeaponLegacy>
   <CWeaponLegacy id="PhaseDisruptors">
     <EditorCategories value="Race:Protoss"/>
     <Icon value="Assets\Textures\btn-upgrade-protoss-groundweaponslevel0.dds"/>
-    <TargetFilters value="Visible;Missile,Item,Stasis,Dead,Hidden,Invulnerable"/>
+    <TargetFilters value="Visible;Neutral,Missile,Item,Stasis,Dead,Hidden,Invulnerable"/>
     <Period value="1.45"/>
     <Range value="11"/>
   </CWeaponLegacy>

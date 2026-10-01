@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CEffectLaunchMissile id="AnaHealingDartLaunchMissile">
+    <SearchEffect value="AnaHealingDartMissileSet" />
+  </CEffectLaunchMissile>
+
+  <CEffectSet id="AnaHealingDartMissileSet">
+    <EffectArray value="AnaHealingDartMissileScan" />
+    <EffectArray value="AnaHealingDartMissileSmallDosageScan" />
+    <EffectArray value="AnaHealingDartMissilePoisonDartScan" />
+  </CEffectSet>
+
+  <CEffectSet id="AnaBioticGrenadeTargetSearchSet">
+    <EffectArray index="4" value="AnaBioticGrenadeTargetSearchAllySmallDosage" />
+    <EffectArray index="5" value="AnaBioticGrenadeCooldownRefundNoEnemyHit" />
+    <EffectArray index="6" value="AnaBioticGrenadeCooldownRefundOnlySelfHitMarker" />
+  </CEffectSet>
+
+  <CEffectSet id="AnaHealingDartSharpshooterImpactSet">
+    <ValidatorArray value="TargetIsHero" />
+  </CEffectSet>
+  
+  <CEffectEnumArea id="AnaBioticGrenadeTargetSearchAllySmallDosage">
+    <ValidatorArray value="AnaHasSmallDosage" />
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Heroic,Structure,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Hidden" />
+    <AreaArray Effect="AnaBioticGrenadeAllyImpactSet">
+      <Radius value="2.25" />
+    </AreaArray>
+    <RevealerParams Duration="0.75" ShapeExpansion="1">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+    <SearchFlags index="DoActorSearch" value="1" />
+  </CEffectEnumArea>
+  
+  <CEffectEnumArea id="AnaHealingDartMissileSmallDosageScan">
+    <ValidatorArray value="AnaHasSmallDosage" />
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Heroic,Structure,Self,Player,Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="AnaHealingDartSmallDosageImpactSet">
+      <RectangleWidth value="1" />
+      <RectangleHeight value="3.125" />
+    </AreaArray>
+    <RevealerParams Duration="0.75" ShapeExpansion="1">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+    <TargetSorts>
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="AnaHealingDartMissilePoisonDartScan">
+    <ValidatorArray value="AnaHasPoisonDart" />
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Self,Player,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="AnaPoisonDartImpactSet">
+      <RectangleWidth value="1" />
+      <RectangleHeight value="3.125" />
+    </AreaArray>
+    <RevealerParams Duration="0.75" ShapeExpansion="1">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+    <TargetSorts>
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+  </CEffectEnumArea>
+
+  <CEffectSet id="AnaHealingDartSmallDosageImpactSet">
+    <ValidatorArray value="noMarkers" />
+    <ValidatorArray value="SourceNotDead" />
+    <EffectArray value="AnaHealingDartSuicide" />
+    <EffectArray value="AnaHealingDartPurifyingDartHeroHitApplyBehavior" />
+    <EffectArray value="AnaHealingDartSpeedSerumApplyBehavior" />
+    <EffectArray value="AnaHealingDartPurifyingDartsRemoveSlowandRoot" />
+    <EffectArray value="AnaHealingDartSmellingSaltsImpactSet" />
+    <EffectArray value="AnaHealingDartSharpshooterImpactSet" />
+    <EffectArray value="AnaHealingDartCreateHealer" />
+    <EffectArray value="AnaHealingDartDummyDamage" />
+    <EffectArray value="AnaHealingDartPurifyingDartHeroHitRemoveBehavior" />
+    <EffectArray value="AnaHealingDartSharpshooterFullHealthHeroHitApplyBehavior" />
+  </CEffectSet>
+  <CEffectSet id="AnaPoisonDartImpactSet">
+    <ValidatorArray value="noMarkers" />
+    <ValidatorArray value="SourceNotDead" />
+    <EffectArray value="AnaHealingDartSuicide" />
+    <EffectArray value="AnaHealingDartSharpshooterImpactSet" />
+    <EffectArray value="AnaPoisonDartDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="AnaHealingDartDummyDamage" />
+    <EffectArray value="AnaHealingDartSharpshooterFullHealthHeroHitApplyBehavior" />
+  </CEffectSet>
+
+  <CEffectDamage id="AnaPoisonDartDamage" parent="StormSpell">
+    <SourceButtonFace value="AnaHealingDart"/>
+    <Amount value="195" />
+    <MultiplicativeModifierArray index="ConcentratedDoses" Validator="AnaConcentratedDosesCombine" Accumulator="AnaHealingDartConcentratedDosesTokenCounter" Crit="1" />
+    <MultiplicativeModifierArray index="Sharpshooter" Validator="AnaHasGTE1SharpshooterToken" Accumulator="AnaHealingDartSharpshooter" Crit="1" />
+    <MultiplicativeModifierArray index="SharpershooterBonus" Validator="AnaHasGTE10SharpshooterToken" Modifier="0.35" Crit="1" />
+  </CEffectDamage>
+
+  <CBehaviorAbility id="AffixAnaEyeOfHorusBehaviorAbility">
+    <Buttons Face="AnaEyeOfHorusActivate" Type="AbilCmd" AbilCmd="AnaEyeOfHorusActivate,Execute" ShowValidator="AnaDoesNotHaveEyeOfHorus" />
+    <Buttons Face="AnaEyeOfHorusHighPoweredRound" Type="AbilCmd" AbilCmd="AnaEyeOfHorusAttack,Execute" ShowValidator="AnaHasEyeOfHorus" />
+  </CBehaviorAbility>
+  
+  <CValidatorUnitCompareBehaviorCount id="AnaDoesNotHaveEyeOfHorus">
+    <Behavior value="AnaEyeOfHorus" />
+    <Value value="0" />
+    <WhichUnit Value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  
+  <CEffectSet id="AnaNanoBoostImpactDelaySet">
+    <EffectArray value="AnaNanoBoostCasterDelayImpact" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="AnaNanoBoostCasterDelayImpact">
+    <Chance value="0" />
+    <WhichLocation Value="CasterUnit" />
+    <PeriodCount value="1" />
+    <PeriodicEffectArray value="AnaNanoBoostImpactSet" />
+    <PeriodicPeriodArray value="0.1875" />
+  </CEffectCreatePersistent>
+
+  <CEffectSet id="AnaSleepDartBehaviorInitialSet">
+    <EffectArray value="Ana3SecondsSleepApply" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="Ana3SecondsSleepApply">
+    <Chance value="0" />
+    <Behavior value="Ana3SecondsSleep" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorBuff id="Ana3SecondsSleep">
+    <BehaviorCategories index="KnockedOut" value="1" />
+    <DisableValidatorArray value="TargetNotStasis" />
+    <RemoveValidatorArray value="TargetNotUnstoppable" />
+    <RemoveValidatorArray value="TargetNotInvulnerable" />
+    <Duration value="2" />
+  </CBehaviorBuff>
+  <CEffectRemoveBehavior id="StormSleepRemoveBehavior">
+    <ValidatorArray value="SourceNotAna3SecondsSleep" />
+  </CEffectRemoveBehavior>
+  <CValidatorUnitCompareBehaviorCount id="SourceNotAna3SecondsSleep" parent="SourceNotParent">
+    <Behavior value="Ana3SecondsSleep" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CBehaviorBuff id="AnaPoisonDartCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="AnaSmallDosageCarry" parent="CarryBehaviorParent" />
+  
+  <CValidatorUnitCompareBehaviorCount id="AnaHasPoisonDart">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AnaPoisonDartCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="AnaHasSmallDosage">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AnaSmallDosageCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  
+  <CActorModel id="AnaHealingDartImpactModel">
+    <On Terms="Effect.AnaHealingDartSmallDosageImpactSet.Start; At Target" Send="Create" />
+    <On Terms="Effect.AnaPoisonDartImpactSet.Start; At Target" Send="Create" />
+    <On Terms="Effect.AnaPoisonDartImpactSet.Start" Send="SetTintColor {75,180,75 1}" />
+  </CActorModel>
+  <CActorSound id="AnaHealingDartImpactSound">
+    <On Terms="Effect.AnaHealingDartImpactSet.Start; At Target" Send="Create" />
+    <On Terms="Effect.AnaPoisonDartImpactSet.Start; At Target" Send="Create" />
+    <On Terms="Effect.AnaPoisonDartImpactSet.Start" Send="SetTintColor {75,180,75 1}" />
+  </CActorSound>
+
+</Catalog>

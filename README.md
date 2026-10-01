@@ -47,6 +47,9 @@ The following Heroes have special interactions with boons and curses:<br>
 
 **Bans:** Obtain 3 bans at the start of a run and 1 additional ban at the start of every subsequent game which can be used to ban boons and curses, preventing them from showing up for the rest of the run. Infinite boons/curses, starter boons, mythic curses, and milestone boons cannot be banned.
 
+#### Discord:
+Raven's Court has a [heroes-rogue-chat](https://discord.com/invite/EpgEauXgK7) channel for Heroes Rogue.
+
 #### Credits:
 Errorb0t for his [list of all boons and curses.](https://errorb0t.github.io/heroesrogue/index.html)
 

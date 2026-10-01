@@ -1387,9 +1387,6 @@ void libGDHL_gf_HeroJainaIncrementHeroCountFunction () {
     if ((libGDHL_gv_heroJainaTriggerRegistrationVariable == 1)) {
         TriggerEnable(libGDHL_gt_HeroJainaWaterElementalCreated, true);
         TriggerEnable(libGDHL_gt_HeroJainaWaterElementalCommand, true);
-        TriggerEnable(libGDHL_gt_HeroJainaFrostboltWintermuteCast, true);
-        TriggerEnable(libGDHL_gt_HeroJainaConeofColdWintermuteCast, true);
-        TriggerEnable(libGDHL_gt_HeroJainaBlizzardWintermuteCast, true);
         TriggerEnable(libGDHL_gt_HeroJainaWaterElementalVehicleInitial, true);
         TriggerEnable(libGDHL_gt_HeroJainaChilledDamageResponse, true);
         TriggerEnable(libGDHL_gt_HeroJainaImprovedIceBlockOverlayOn, true);
@@ -1413,9 +1410,6 @@ void libGDHL_gf_HeroJainaDecrementHeroCountFunction () {
     if ((libGDHL_gv_heroJainaTriggerRegistrationVariable == 0)) {
         TriggerEnable(libGDHL_gt_HeroJainaWaterElementalCreated, false);
         TriggerEnable(libGDHL_gt_HeroJainaWaterElementalCommand, false);
-        TriggerEnable(libGDHL_gt_HeroJainaFrostboltWintermuteCast, false);
-        TriggerEnable(libGDHL_gt_HeroJainaConeofColdWintermuteCast, false);
-        TriggerEnable(libGDHL_gt_HeroJainaBlizzardWintermuteCast, false);
         TriggerEnable(libGDHL_gt_HeroJainaWaterElementalVehicleInitial, false);
         TriggerEnable(libGDHL_gt_HeroJainaChilledDamageResponse, false);
         TriggerEnable(libGDHL_gt_HeroJainaImprovedIceBlockOverlayOn, false);
@@ -4039,10 +4033,8 @@ void libGDHL_gf_HeroWitchDoctorIncrementHeroCountFunction () {
         TriggerEnable(libGDHL_gt_HeroWitchDoctorZombiePrisonRelicZombiesSpawned, true);
         TriggerEnable(libGDHL_gt_HeroWitchDoctorRavenousSpiritCast, true);
         TriggerEnable(libGDHL_gt_HeroWitchDoctorRavenousSpiritExpires, true);
-        TriggerEnable(libGDHL_gt_HeroWitchDoctorPassiveTarget, true);
         TriggerEnable(libGDHL_gt_HeroWitchDoctorGargantuanCreated, true);
         TriggerEnable(libGDHL_gt_HeroWitchDoctorGargantuanStompUsed, true);
-        TriggerEnable(libGDHL_gt_HeroWitchDoctorVileInfectionTaken, true);
         TriggerEnable(libGDHL_gt_HeroWitchDoctorBloodRitualHeroTakedownProc, true);
     }
 
@@ -4061,10 +4053,8 @@ void libGDHL_gf_HeroWitchDoctorDecrementHeroCountFunction () {
         TriggerEnable(libGDHL_gt_HeroWitchDoctorZombiePrisonRelicZombiesSpawned, false);
         TriggerEnable(libGDHL_gt_HeroWitchDoctorRavenousSpiritCast, false);
         TriggerEnable(libGDHL_gt_HeroWitchDoctorRavenousSpiritExpires, false);
-        TriggerEnable(libGDHL_gt_HeroWitchDoctorPassiveTarget, false);
         TriggerEnable(libGDHL_gt_HeroWitchDoctorGargantuanCreated, false);
         TriggerEnable(libGDHL_gt_HeroWitchDoctorGargantuanStompUsed, false);
-        TriggerEnable(libGDHL_gt_HeroWitchDoctorVileInfectionTaken, false);
         TriggerEnable(libGDHL_gt_HeroWitchDoctorBloodRitualHeroTakedownProc, false);
     }
 
@@ -9728,51 +9718,6 @@ void libGDHL_gt_HeroDemonHunterVaultDamageBuff_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
-// Trigger: Hero - Demon Hunter - Manticore Proc
-//--------------------------------------------------------------------------------------------------
-bool libGDHL_gt_HeroDemonHunterManticoreProc_Func (bool testConds, bool runActions) {
-    // Variable Declarations
-    unit lv_target;
-    unit lv_caster;
-    int lv_casterPlayer;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-    lv_target = EventPlayerEffectUsedUnit(c_effectUnitTarget);
-    lv_caster = EventPlayerEffectUsedUnit(c_effectUnitCaster);
-    lv_casterPlayer = UnitGetOwner(lv_caster);
-
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    if ((libGDHL_gv_heroDemonHunterManticoreTarget[lv_casterPlayer] == lv_target)) {
-        if ((libGDHL_gv_heroDemonHunterManticoreIncrementer[lv_casterPlayer] == 2)) {
-            UnitCreateEffectUnitWithSource(lv_caster, "DemonHunterHeroWeaponManticoreTalentProcDamage", lv_target, c_gameCatalogAbil, "attack");
-            UnitCreateEffectUnitWithSource(lv_caster, "ManticoreRemoveProcStacks", lv_target, c_gameCatalogAbil, "attack");
-            libGDHL_gv_heroDemonHunterManticoreIncrementer[lv_casterPlayer] = 0;
-        }
-        else {
-            libGDHL_gv_heroDemonHunterManticoreIncrementer[lv_casterPlayer] += 1;
-        }
-    }
-    else {
-        UnitCreateEffectUnitWithSource(lv_caster, "ManticoreRemoveProcStacks", libGDHL_gv_heroDemonHunterManticoreTarget[lv_casterPlayer], c_gameCatalogAbil, "attack");
-        libGDHL_gv_heroDemonHunterManticoreIncrementer[lv_casterPlayer] = 1;
-        libGDHL_gv_heroDemonHunterManticoreTarget[lv_casterPlayer] = lv_target;
-    }
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void libGDHL_gt_HeroDemonHunterManticoreProc_Init () {
-    libGDHL_gt_HeroDemonHunterManticoreProc = TriggerCreate("libGDHL_gt_HeroDemonHunterManticoreProc_Func");
-    TriggerEnable(libGDHL_gt_HeroDemonHunterManticoreProc, false);
-    TriggerAddEventPlayerEffectUsed(libGDHL_gt_HeroDemonHunterManticoreProc, c_playerAny, "DemonHunterHeroWeaponManticoreTalentDummyModifyUnit");
-}
-
-//--------------------------------------------------------------------------------------------------
 // Trigger: Hero - Dryad - Leaping Strike - Set Target Variable
 //--------------------------------------------------------------------------------------------------
 bool libGDHL_gt_HeroDryadLeapingStrikeSetTargetVariable_Func (bool testConds, bool runActions) {
@@ -11048,144 +10993,6 @@ void libGDHL_gt_HeroJainaWaterElementalSummonedUnitSpecialCaseInteraction_Init (
     libGDHL_gt_HeroJainaWaterElementalSummonedUnitSpecialCaseInteraction = TriggerCreate("libGDHL_gt_HeroJainaWaterElementalSummonedUnitSpecialCaseInteraction_Func");
     TriggerEnable(libGDHL_gt_HeroJainaWaterElementalSummonedUnitSpecialCaseInteraction, false);
     TriggerAddEventPlayerEffectUsed(libGDHL_gt_HeroJainaWaterElementalSummonedUnitSpecialCaseInteraction, c_playerAny, "JainaCommandWaterElementalSummonedUnitSpecialCaseDummy");
-}
-
-//--------------------------------------------------------------------------------------------------
-// Trigger: Hero - Jaina - Frostbolt Wintermute Cast
-//--------------------------------------------------------------------------------------------------
-bool libGDHL_gt_HeroJainaFrostboltWintermuteCast_Func (bool testConds, bool runActions) {
-    // Variable Declarations
-    unit lv_unit;
-    int lv_jainaPlayer;
-    unit lv_waterElemental;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-    lv_unit = EventUnit();
-    lv_jainaPlayer = EventPlayer();
-
-    // Conditions
-    if (testConds) {
-        if (!((PlayerHasTalent(lv_jainaPlayer, "JainaSummonWaterElementalWintermute") == true))) {
-            return false;
-        }
-
-        if (!(((lv_jainaPlayer <= libCore_gv_bALMaxPlayers) && (lv_jainaPlayer > 0)))) {
-            return false;
-        }
-    }
-
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    lv_waterElemental = libGDHL_gv_heroJainaWaterElemental[lv_jainaPlayer];
-    if ((lv_waterElemental != null) && (UnitBehaviorCount(lv_waterElemental, "JainaWaterElementalStatusAvailable") == 1)) {
-        UnitBehaviorAdd(lv_waterElemental, "JainaWaterElementalAIAbilityOverride", lv_unit, 1);
-        UnitIssueOrder(lv_waterElemental, OrderTargetingPoint(AbilityCommand("JainaWaterElementalFrostbolt", 0), EventUnitTargetPoint()), c_orderQueueAddToFront);
-    }
-
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void libGDHL_gt_HeroJainaFrostboltWintermuteCast_Init () {
-    libGDHL_gt_HeroJainaFrostboltWintermuteCast = TriggerCreate("libGDHL_gt_HeroJainaFrostboltWintermuteCast_Func");
-    TriggerEnable(libGDHL_gt_HeroJainaFrostboltWintermuteCast, false);
-    TriggerAddEventUnitAbility(libGDHL_gt_HeroJainaFrostboltWintermuteCast, null, AbilityCommand("JainaFrostbolt", 0), c_abilEffectStageFinish, false);
-}
-
-//--------------------------------------------------------------------------------------------------
-// Trigger: Hero - Jaina - Cone of Cold Wintermute Cast
-//--------------------------------------------------------------------------------------------------
-bool libGDHL_gt_HeroJainaConeofColdWintermuteCast_Func (bool testConds, bool runActions) {
-    // Variable Declarations
-    unit lv_unit;
-    int lv_jainaPlayer;
-    unit lv_waterElemental;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-    lv_unit = EventUnit();
-    lv_jainaPlayer = EventPlayer();
-
-    // Conditions
-    if (testConds) {
-        if (!((PlayerHasTalent(lv_jainaPlayer, "JainaSummonWaterElementalWintermute") == true))) {
-            return false;
-        }
-
-        if (!(((lv_jainaPlayer <= libCore_gv_bALMaxPlayers) && (lv_jainaPlayer > 0)))) {
-            return false;
-        }
-    }
-
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    lv_waterElemental = libGDHL_gv_heroJainaWaterElemental[lv_jainaPlayer];
-    if ((lv_waterElemental != null) && (UnitBehaviorCount(lv_waterElemental, "JainaWaterElementalStatusAvailable") == 1)) {
-        UnitBehaviorAdd(lv_waterElemental, "JainaWaterElementalAIAbilityOverride", lv_unit, 1);
-        UnitIssueOrder(lv_waterElemental, OrderTargetingPoint(AbilityCommand("JainaWaterElementalConeOfCold", 0), EventUnitTargetPoint()), c_orderQueueAddToFront);
-    }
-
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void libGDHL_gt_HeroJainaConeofColdWintermuteCast_Init () {
-    libGDHL_gt_HeroJainaConeofColdWintermuteCast = TriggerCreate("libGDHL_gt_HeroJainaConeofColdWintermuteCast_Func");
-    TriggerEnable(libGDHL_gt_HeroJainaConeofColdWintermuteCast, false);
-    TriggerAddEventUnitAbility(libGDHL_gt_HeroJainaConeofColdWintermuteCast, null, AbilityCommand("JainaConeOfCold", 0), c_abilEffectStageFinish, false);
-}
-
-//--------------------------------------------------------------------------------------------------
-// Trigger: Hero - Jaina - Blizzard Wintermute Cast
-//--------------------------------------------------------------------------------------------------
-bool libGDHL_gt_HeroJainaBlizzardWintermuteCast_Func (bool testConds, bool runActions) {
-    // Variable Declarations
-    unit lv_unit;
-    int lv_jainaPlayer;
-    unit lv_waterElemental;
-
-    // Automatic Variable Declarations
-    // Variable Initialization
-    lv_unit = EventPlayerEffectUsedUnit(c_effectUnitCaster);
-    lv_jainaPlayer = EventPlayer();
-
-    // Conditions
-    if (testConds) {
-        if (!((PlayerHasTalent(lv_jainaPlayer, "JainaSummonWaterElementalWintermute") == true))) {
-            return false;
-        }
-
-        if (!(((lv_jainaPlayer <= libCore_gv_bALMaxPlayers) && (lv_jainaPlayer > 0)))) {
-            return false;
-        }
-    }
-
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    lv_waterElemental = libGDHL_gv_heroJainaWaterElemental[lv_jainaPlayer];
-    if ((lv_waterElemental != null) && (UnitBehaviorCount(lv_waterElemental, "JainaWaterElementalStatusAvailable") == 1)) {
-        UnitBehaviorAdd(lv_waterElemental, "JainaWaterElementalAIAbilityOverride", lv_unit, 1);
-        UnitIssueOrder(lv_waterElemental, OrderTargetingPoint(AbilityCommand("JainaWaterElementalBlizzard", 0), EventPlayerEffectUsedPoint(c_effectLocationTargetPoint)), c_orderQueueAddToFront);
-    }
-
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void libGDHL_gt_HeroJainaBlizzardWintermuteCast_Init () {
-    libGDHL_gt_HeroJainaBlizzardWintermuteCast = TriggerCreate("libGDHL_gt_HeroJainaBlizzardWintermuteCast_Func");
-    TriggerEnable(libGDHL_gt_HeroJainaBlizzardWintermuteCast, false);
-    TriggerAddEventPlayerEffectUsed(libGDHL_gt_HeroJainaBlizzardWintermuteCast, c_playerAny, "JainaWaterElementalBlizzardDummyPersistent");
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -13345,7 +13152,11 @@ bool libGDHL_gt_HeroLostVikingsSpinToWin_Func (bool testConds, bool runActions) 
     lv_player = EventPlayerEffectUsedUnitOwner(c_effectPlayerTarget);
     lv_unit = EventPlayerEffectUsedUnit(c_effectUnitTarget);
     if ((lv_player >= 1) && (lv_player <= 10) && (UnitGetType(lv_unit) != "HeroLostVikingsController")) {
-        UnitCreateEffectUnitWithSource(lv_unit, "LostVikingsSpinToWinSearch", lv_unit, c_gameCatalogAbil, "LostVikingsSpinToWin");
+        if (UnitHasBehavior2(lv_unit, "LostVikingsSpinToWinVikingBeybladeActive")) {
+            UnitCreateEffectUnitWithSource(lv_unit, "LostVikingsSpinToWinBeybladeSearch", lv_unit, c_gameCatalogAbil, "LostVikingsSpinToWinBeyblade");
+        } else {
+            UnitCreateEffectUnitWithSource(lv_unit, "LostVikingsSpinToWinSearch", lv_unit, c_gameCatalogAbil, "LostVikingsSpinToWin");
+        }
     }
 
     return true;
@@ -24296,34 +24107,6 @@ void libGDHL_gt_HeroTychusUpdateOrdersOnIssueOrderAbility_Init () {
 }
 
 //--------------------------------------------------------------------------------------------------
-// Trigger: Hero - Tychus - Overkill Targeted Retarget v.H16
-//--------------------------------------------------------------------------------------------------
-bool libGDHL_gt_HeroTychusOverkillTargetedRetargetvH16_Func (bool testConds, bool runActions) {
-    // Automatic Variable Declarations
-    // Conditions
-    if (testConds) {
-        if (!((UnitIsAlive(EventPlayerEffectUsedUnit(c_effectUnitTarget)) == true))) {
-            return false;
-        }
-    }
-
-    // Actions
-    if (!runActions) {
-        return true;
-    }
-
-    UnitCreateEffectUnitWithSource(EventPlayerEffectUsedUnit(c_effectUnitCaster), "OverkillTargetedRetargetInitialPersistent", EventPlayerEffectUsedUnit(c_effectUnitTarget), c_gameCatalogAbil, "TychusOverkillTargeted");
-    return true;
-}
-
-//--------------------------------------------------------------------------------------------------
-void libGDHL_gt_HeroTychusOverkillTargetedRetargetvH16_Init () {
-    libGDHL_gt_HeroTychusOverkillTargetedRetargetvH16 = TriggerCreate("libGDHL_gt_HeroTychusOverkillTargetedRetargetvH16_Func");
-    TriggerEnable(libGDHL_gt_HeroTychusOverkillTargetedRetargetvH16, false);
-    TriggerAddEventPlayerEffectUsed(libGDHL_gt_HeroTychusOverkillTargetedRetargetvH16, c_playerAny, "OverkillTargetedRetargetDestroyPersistentSet");
-}
-
-//--------------------------------------------------------------------------------------------------
 // Trigger: Hero - Tychus - Overkill Rolling Reload
 //--------------------------------------------------------------------------------------------------
 bool libGDHL_gt_HeroTychusOverkillRollingReload_Func (bool testConds, bool runActions) {
@@ -26082,29 +25865,27 @@ void libGDHL_gt_HeroZagaraInfestedDropSpawnRoach_Init () {
 //--------------------------------------------------------------------------------------------------
 bool libGDHL_gt_HeroZagaraInfestScaling_Func (bool testConds, bool runActions) {
     // Variable Declarations
-    fixed lv_rangedDamageDealtFraction;
-    int lv_player;
     unit lv_zagara;
+    int lv_player;
     fixed lv_siegeScore;
     fixed lv_modScore;
     fixed lv_finalScore;
 
     // Automatic Variable Declarations
     // Variable Initialization
-    lv_rangedDamageDealtFraction = 1.0;
-    lv_player = EventPlayerEffectUsedUnitOwner(c_effectPlayerCaster);
-    lv_zagara = EventPlayerEffectUsedUnit(c_effectUnitCaster);
+    lv_zagara = EventUnitDamageSourceUnit();
+    lv_player = UnitGetOwner(lv_zagara);
     lv_siegeScore = PlayerScoreValueGetAsFixed(lv_player, "SiegeDamage");
     lv_modScore = (lv_siegeScore / 1000.0);
-    lv_finalScore = (lv_rangedDamageDealtFraction + (Trunc(lv_modScore) / 100.0));
+    lv_finalScore = StringToFixed(FixedToString(lv_modScore, 1));
 
     // Actions
     if (!runActions) {
         return true;
     }
 
-    if ((CatalogFieldValueGet(c_gameCatalogBehavior, "ZagaraInfestBuff", "Modification.DamageDealtFraction[" + IntToString(c_unitDamageTypeBasic) + "]", lv_player) != FixedToString(lv_finalScore, c_fixedPrecisionAny))) {
-        CatalogFieldValueSetFixed(c_gameCatalogBehavior, "ZagaraInfestBuff", "Modification.DamageDealtFraction[" + IntToString(c_unitDamageTypeBasic) + "]", lv_player, lv_finalScore);
+    if ((UnitGetTokenCount(lv_zagara, CatalogFieldValueGet(c_gameCatalogBehavior, "ZagaraInfestTokenCounter", "TokenId", c_playerAny)) != lv_finalScore)) {
+        UnitSetTokenCount(lv_zagara, CatalogFieldValueGet(c_gameCatalogBehavior, "ZagaraInfestTokenCounter", "TokenId", c_playerAny), lv_finalScore, EventUnit());
     }
 
     return true;
@@ -26114,7 +25895,7 @@ bool libGDHL_gt_HeroZagaraInfestScaling_Func (bool testConds, bool runActions) {
 void libGDHL_gt_HeroZagaraInfestScaling_Init () {
     libGDHL_gt_HeroZagaraInfestScaling = TriggerCreate("libGDHL_gt_HeroZagaraInfestScaling_Func");
     TriggerEnable(libGDHL_gt_HeroZagaraInfestScaling, false);
-    TriggerAddEventPlayerEffectUsed(libGDHL_gt_HeroZagaraInfestScaling, c_playerAny, "ZagaraInfestSearch");
+    TriggerAddDamageEvent(libGDHL_gt_HeroZagaraInfestScaling, "HeroZagara", null, c_unitDamageTypeAny, c_unitDamageEither, null);
 }
 
 //--------------------------------------------------------------------------------------------------
@@ -26931,6 +26712,7 @@ void libGDHL_InitTriggers () {
     libGDHL_gt_HeroAbathurMonstrosityKillInitialTarget_Init();
     libGDHL_gt_HeroAbathurMonstrosityAddSymbioteStacks_Init();
     libGDHL_gt_HeroAbathurSymbiotedMonstrositySymbioted_Init();
+    libGDHL_gt_HeroAbathurMonstrosityQuestComplete_Init();
     libGDHL_gt_HeroAbathurSymbioteMinimapIcon_Init();
     libGDHL_gt_HeroArtanisProtectorofAiurHeroTakedownProc_Init();
     libGDHL_gt_HeroArtanisBladeDashPhasePrismCast_Init();
@@ -27007,7 +26789,6 @@ void libGDHL_InitTriggers () {
     libGDHL_gt_HeroDiabloResetEternalSoulstoneRessurection_Init();
     libGDHL_gt_HeroDiabloBlackSoulstoneStackTalentPicked_Init();
     libGDHL_gt_HeroDemonHunterVaultDamageBuff_Init();
-    libGDHL_gt_HeroDemonHunterManticoreProc_Init();
     libGDHL_gt_HeroDryadLeapingStrikeSetTargetVariable_Init();
     libGDHL_gt_HeroDryadLeapingStrikeFindLandingLocation_Init();
     libGDHL_gt_HeroDryadLeapingStrikeCreateAttackPersistent_Init();
@@ -27041,9 +26822,6 @@ void libGDHL_InitTriggers () {
     libGDHL_gt_HeroJainaWaterElementalCreated_Init();
     libGDHL_gt_HeroJainaWaterElementalCommand_Init();
     libGDHL_gt_HeroJainaWaterElementalSummonedUnitSpecialCaseInteraction_Init();
-    libGDHL_gt_HeroJainaFrostboltWintermuteCast_Init();
-    libGDHL_gt_HeroJainaConeofColdWintermuteCast_Init();
-    libGDHL_gt_HeroJainaBlizzardWintermuteCast_Init();
     libGDHL_gt_HeroJainaWaterElementalVehicleInitial_Init();
     libGDHL_gt_HeroJainaFrostbiteIceblockItem_Init();
     libGDHL_gt_HeroJainaFrostbiteQuestReset_Init();
@@ -27299,7 +27077,6 @@ void libGDHL_InitTriggers () {
     libGDHL_gt_HeroTychusThatsTheStuffHealPreviewCatalog_Init();
     libGDHL_gt_HeroTychusThatsTheStuffOff_Init();
     libGDHL_gt_HeroTychusUpdateOrdersOnIssueOrderAbility_Init();
-    libGDHL_gt_HeroTychusOverkillTargetedRetargetvH16_Init();
     libGDHL_gt_HeroTychusOverkillRollingReload_Init();
     libGDHL_gt_HeroTyraelSanctificationFacing_Init();
     libGDHL_gt_HeroTyraelSanctificationTimerStart_Init();

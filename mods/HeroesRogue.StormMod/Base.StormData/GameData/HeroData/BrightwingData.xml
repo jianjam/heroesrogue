@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+
+
+  <CAbilEffectTarget id="FaerieDragonBlinkHealDash">
+    <Effect value="FaerieDragonBlinkHealDashSwitchSet" />
+    <TargetFilters value="-;Self,Neutral,Missile,Item,Stasis,Dead,Hidden" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="BrightwingPhaseShift">
+    <Effect value="BrightwingPhaseShiftSwitchSet" />
+    <TargetFilters value="-;Self,Neutral,Player" />
+  </CAbilEffectTarget>
+
+  <CEffectCreatePersistent id="BrightwingCalmingMistSearchPersistent">
+    <PeriodicEffectArray index="0" value="BrightwingCalmingMistSearchPersistentSet" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="BrightwingCalmingMistSearchPersistentSet">
+    <EffectArray value="BrightwingCalmingMistSearchArea" />
+    <EffectArray value="BrightwingCalmingMistSearchAllyArea" />
+    <EffectArray value="BrightwingCalmingMistEnemySearchArea" />
+  </CEffectSet>
+  <CEffectEnumArea id="BrightwingCalmingMistSearchAllyArea">
+    <LaunchLocation Value="OriginPoint" />
+    <ImpactLocation Value="OriginPoint" />
+    <SearchFilters value="-;Player,Self,Heroic,Neutral,Enemy,ImmuneToAOE,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead" />
+    <AreaArray RadiusBonus="0.75" Effect="BrightwingCalmingMistImpactSet">
+      <Radius value="1" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="BrightwingCalmingMistEnemySearchArea">
+    <ValidatorArray value="BrightwingHasFaerieMist" />
+    <LaunchLocation Value="OriginPoint" />
+    <ImpactLocation Value="OriginPoint" />
+    <SearchFilters value="-;Player,Self,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead" />
+    <AreaArray RadiusBonus="0.75" Effect="BrightwingCalmingMistEnemyImpactSet">
+      <Radius value="1" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="BrightwingCalmingMistEnemyImpactSet">
+    <EffectArray value="BrightwingCalmingMistEnemyDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <ValidatorArray value="noMarkers" />
+  </CEffectSet>
+  <CEffectDamage id="BrightwingCalmingMistEnemyDamage" parent="StormSpell">
+    <Amount value="165" />
+    <ValidatorArray value="BrightwingHasCriticalMist" />
+    <SourceButtonFace value="BrightwingSoothingMistCalmingMist" />
+    <MultiplicativeModifierArray index="TargetCC" Validator="BrightwingCriticalMistCCCombine" Modifier="1.4" Crit="1" />
+  </CEffectDamage>
+
+  <CEffectSet id="BrightwingSoothingMistSearchSet">
+    <EffectArray value="BrightwingFaerieMistSearchArea" />
+    <EffectArray value="BrightwingFaerieMistEnemySearchArea" />
+  </CEffectSet>
+  <CEffectSet id="BrightwingArcaneFlareInnerHeroImpactSet">
+    <EffectArray value="BrightwingFaerieMistSearchArea" />
+    <EffectArray value="BrightwingFaerieMistEnemySearchArea" />
+  </CEffectSet>
+
+  <CEffectEnumArea id="BrightwingFaerieMistSearchArea">
+    <ValidatorArray value="BrightwingHasFaerieMist" />
+    <ImpactLocation Value="CasterPoint" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead" />
+    <AreaArray Effect="BrightwingSoothingMistImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="BrightwingFaerieMistEnemySearchArea">
+    <ValidatorArray value="BrightwingHasFaerieMist" />
+    <ImpactLocation Value="CasterPoint" />
+    <SearchFilters value="-;Player,Self,Ally,Neutral,Missile,Item,Stasis,Dead" />
+    <AreaArray Effect="BrightwingSoothingMistEnemyImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="BrightwingSoothingMistEnemyImpactSet">
+    <ValidatorArray value="TargetNotStasis" />
+    <EffectArray value="BrightwingSoothingMistDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectDamage id="BrightwingSoothingMistDamage" parent="StormSpell">
+    <Amount value="110" />
+    <SourceButtonFace value="BrightwingSoothingMistCalmingMist" />
+  </CEffectDamage>
+
+  <CBehaviorBuff id="BrightwingFaerieMistCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="BrightwingGreaterPhaseShiftCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="BrightwingGlyphofCrittermorphCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="BrightwingEtherealBlinkCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="BrightwingHasGreaterPhaseShift">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="BrightwingGreaterPhaseShiftCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BrightwingHasFaerieMist">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="BrightwingFaerieMistCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BrightwingDoesNotHaveFaerieMist">
+    <WhichUnit Value="Caster" />
+    <Value value="0" />
+    <Behavior value="BrightwingFaerieMistCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BrightwingHasGlyphofCrittermorph">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="BrightwingGlyphofCrittermorphCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BrightwingDoesNotHaveGlyphofCrittermorph">
+    <WhichUnit Value="Caster" />
+    <Value value="0" />
+    <Behavior value="BrightwingGlyphofCrittermorphCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="BrightwingHasEtherealBlink">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="BrightwingEtherealBlinkCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CBehaviorBuff id="BrightwingSoothingMistActive">
+    <RemoveValidatorArray value="BrightwingFaerieMistValid" />
+    <RemoveValidatorArray value="BrightwingFaerieMistEnemyValid" />
+  </CBehaviorBuff>
+
+  <CValidatorCombine id="BrightwingFaerieMistEnemyValid">
+    <CombineArray value="BrightwingSoothingMistNoEnemiesNearbyProximity" />
+    <CombineArray value="BrightwingDoesNotHaveFaerieMist" />
+  </CValidatorCombine>
+  <CValidatorCombine id="BrightwingFaerieMistValid">
+    <CombineArray value="BrightwingSoothingMistNoInjuredNonHeroicAllyNearbyProximity" />
+    <CombineArray value="BrightwingDoesNotHaveFaerieMist" />
+  </CValidatorCombine>
+
+  <CValidatorLocationEnumArea id="BrightwingSoothingMistNoInjuredNonHeroicAllyNearbyProximity">
+    <WhichLocation Value="CasterPoint" />
+    <AreaArray Compare="GT" Validator="TargetLifeNotFull">
+      <Radius value="7" />
+    </AreaArray>
+    <Compare value="Eq" />
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,ImmuneToAOE,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorLocationEnumArea>
+  <CValidatorLocationEnumArea id="BrightwingSoothingMistNoEnemiesNearbyProximity">
+    <WhichLocation Value="CasterPoint" />
+    <AreaArray Compare="GT">
+      <Radius value="7" />
+    </AreaArray>
+    <Compare value="Eq" />
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+    <SearchFilters value="-;Self,Player,Ally,Neutral,ImmuneToAOE,Invulnerable,Missile,Item,Stasis,Dead" />
+  </CValidatorLocationEnumArea>
+
+  <CEffectSet id="BlinkHealTeleportEnemySet">
+    <EffectArray value="BlinkHealDashCreateVisualPersistent" />
+    <EffectArray value="FaerieDragonBlinkHealOffsetPersistent" />
+    <EffectArray value="BlinkHealTeleportEnemyImpactSet" />
+    <EffectArray value="BlinkHealApplyPostCastBuff" />
+    <ValidatorArray value="NoBlinkHealCooldown" />
+    <ValidatorArray value="CasterNotRooted" />
+  </CEffectSet>
+  <CEffectSet id="BlinkHealTeleportEnemyImpactSet">
+    <EffectArray value="BlinkHealInitialDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectDamage id="BlinkHealInitialDamage" parent="StormSpell">
+    <SourceButtonFace value="BrightwingBlinkHealAllyDash"/>
+    <Amount value="200" />
+  </CEffectDamage>
+
+  <CEffectSwitch id="BrightwingPhaseShiftPrepSwitch">
+    <CaseArray Validator="FaerieDragonBlinkHealDashGreaterPhaseShiftCombine" Effect="BrightwingPhaseShiftPrepPersistent" />
+    <CaseArray Validator="FaerieDragonBlinkHealDashGreaterPhaseShiftEnemyCombine" Effect="BrightwingPhaseShiftPrepPersistent" />
+    <CaseArray Validator="BrightwingHasGreaterPhaseShift" Effect="BrightwingGreaterPhaseShiftPrepFindTargetSearch" />
+  </CEffectSwitch>
+  <CEffectEnumArea id="BrightwingGreaterPhaseShiftPrepFindTargetSearch">
+    <SearchFilters value="-;Player,Neutral,Structure,ImmuneToFriendlyAbilities,Stasis,Dead" />
+    <AreaArray MaxCount="1" Effect="BrightwingPhaseShiftPrepPersistent">
+      <Radius value="6" />
+    </AreaArray>
+    <TargetSorts>
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+  </CEffectEnumArea>
+
+  <CEffectSwitch id="BrightwingPhaseShiftSwitchSet">
+    <CaseArray Validator="BrightwingPhaseShiftValidator" Effect="BrightwingPhaseShiftInitialSet" />
+    <CaseArray Validator="FaerieDragonBlinkHealDashGreaterPhaseShiftCombine" Effect="BrightwingPhaseShiftInitialSet" />
+    <CaseArray Validator="FaerieDragonBlinkHealDashGreaterPhaseShiftEnemyCombine" Effect="BrightwingPhaseShiftInitialEnemySet" />
+    <ValidatorArray value="BrightwingPhaseShiftValidOrGreaterPhaseShiftValidCombine" />
+  </CEffectSwitch>
+
+  <CEffectSet id="BrightwingPhaseShiftInitialEnemySet">
+    <ValidatorArray value="CasterNotRooted" />
+    <ValidatorArray value="BrightingPhaseShiftTargetsNearCursorOrAlreadyCasting" />
+    <ValidatorArray value="BrightwingPhaseShiftCasterValidationBehaviorEnabled" />
+    <EffectArray value="BrightingPhaseShiftEnumTrackedEnemyTargets" />
+    <TargetLocationType value="UnitOrPoint" />
+  </CEffectSet>
+  <CEffectEnumTrackedUnits id="BrightingPhaseShiftEnumTrackedEnemyTargets">
+    <BehaviorLink value="BrightwingPhaseShiftTargetTracker" />
+    <Effect value="BrightwingPhaseShiftEnemyTeleportSet" />
+  </CEffectEnumTrackedUnits>
+  <CEffectSet id="BrightwingPhaseShiftEnemyTeleportSet">
+    <EffectArray value="BrightwingPhaseShiftTeleportImpactPauseApplyBehavior" />
+    <EffectArray value="BrightwingPhaseShiftTeleportOffsetPersistent" />
+    <EffectArray value="BrightwingPhaseShiftEnemyImpactSet" />
+    <EffectArray value="BrightwingPhaseShiftPhaseShieldApplyBehaviorCaster" />
+  </CEffectSet>
+  <CEffectSet id="BrightwingPhaseShiftEnemyImpactSet">
+    <EffectArray value="BrightwingPhaseShiftDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="BrightwingPhaseShiftPeekabooCreatePersistent" />
+  </CEffectSet>
+  <CEffectDamage id="BrightwingPhaseShiftDamage" parent="StormSpellPercentDamage">
+    <SourceButtonFace value="BrightwingPhaseShift"/>
+    <VitalFractionMax index="Life" value="0.25" />
+  </CEffectDamage>
+
+  <CTalent id="BrightwingPhaseShiftHyperShift">
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="BrightwingPhaseShiftDamage" />
+        <Field value="RechargeVitalFraction" />
+        <Value value="0.040000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+
+  <CEffectSwitch id="FaerieDragonBlinkHealDashSwitchSet">
+    <CaseArray Validator="FaerieDragonBlinkHealDashValidator" Effect="BlinkHealTeleportSet" />
+    <CaseArray Validator="BrightwingEtherealBlinkCombine" Effect="BlinkHealTeleportSet" />
+    <CaseArray Validator="BrightwingEtherealBlinkEnemyCombine" Effect="BlinkHealTeleportEnemySet" />
+    <ValidatorArray value="FaerieDragonBlinkHealDashValidOrBrightwingEtherealBlinkValidCombine" />
+  </CEffectSwitch>
+  
+  <CBehaviorBuff id="BrightwingPolymorphicCarry" parent="CarryBehaviorParent">
+    <InfoIcon value="Assets\Textures\storm_ui_icon_brightwing_polymorph.dds" />
+    <DisableValidatorArray value="CasterDoesNotHaveInCargo" />
+    <DisableValidatorArray value="CasterNotInStasis" />
+    <DisableValidatorArray value="CasterNotDead" />
+    <Period value="7" />
+    <PeriodicEffect value="BrightwingPolymorphicSearchArea" />
+    <InfoFlags index="AlwaysUseGameText" value="1" />
+  </CBehaviorBuff>
+  <CEffectEnumArea id="BrightwingPolymorphicSearchArea">
+    <ImpactLocation Value="CasterPoint" />
+    <SearchFilters value="-;Player,Self,Neutral,Ally,Structure,Unstoppable,Missile,Stasis,Dead" />
+    <AreaArray MaxCount="1" Effect="BrightwingPolymorphicSet">
+      <Radius value="7" />
+    </AreaArray>
+    <TargetSorts>
+      <SortArray value="TSHeroic" />
+      <SortArray value="TSDistanceToTarget" />
+    </TargetSorts>
+  </CEffectEnumArea>
+
+  <CEffectSet id="BrightwingPolymorphicSet">
+    <ValidatorArray value="BrightwingTargetIsNotPolymorphed" />
+    <ValidatorArray value="NotVehicle" />
+    <EffectArray value="PolymorphApplyBehavior" />
+    <EffectArray value="PolymorphApplyGlyphofCrittermorphBehavior" />
+    <EffectArray value="PolymorphApplySlowBehavior" />
+    <EffectArray value="BrightwingPolymorphicApplyVisualBehavior" />
+    <EffectArray value="BrightwingPolymorphicModifyWeaponCooldownDummy" />
+    <EffectArray value="FaerieDragonPolymorphApplyCritterizeTalentVulnerable" />
+    <EffectArray value="SiegeModeRemoveSet" />
+    <EffectArray value="AbilityImpactRevealDummyDamage" />
+    <EffectArray value="BrightwingPolymorphGreaterPolymorphTalentMarkerApply" />
+    <EffectArray value="DismountTarget" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="BrightwingPolymorphicApplyVisualBehavior">
+    <Behavior value="BrightwingPolymorphicVisual" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="BrightwingPolymorphicVisual">
+    <RemoveValidatorArray value="BrightwingTargetHasBrightwingPolymorphBehavior" />
+  </CBehaviorBuff>
+
+  <CEffectSet id="PolymorphSet">
+    <EffectArray value="PolymorphApplyGlyphofCrittermorphBehavior" />
+  </CEffectSet>
+  <CEffectModifyUnit id="BrightwingPolymorphicModifyWeaponCooldownDummy">
+    <ImpactUnit Value="Caster" />
+    <Weapon Weapon="HeroFaerieDragon" />
+  </CEffectModifyUnit>
+
+  <CEffectLaunchMissile id="PolymorphicLaunchMissile">
+    <ImpactEffect value="BrightwingPolymorphicSet" />
+    <AmmoUnit value="FaerieDragonPolymorphMissile" />
+  </CEffectLaunchMissile>
+  
+  <CEffectApplyBehavior id="PolymorphApplyGlyphofCrittermorphBehavior">
+    <ValidatorArray value="BrightwingHasGlyphofCrittermorph" />
+    <ValidatorArray value="TargetIsNotHeroic" />
+    <Behavior value="BrightwingPolymorph" />
+    <Flags index="UseDuration" value="1" />
+    <Duration value="60" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="PolymorphApplyBehavior">
+    <ValidatorArray value="BrightwingPolymorphHeroicOrNonHeroicValid" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorAbility id="AffixFaerieDragonEmeraldWindBehaviorAbility">
+    <Buttons Face="FaerieDragonEmeraldWind" Type="AbilCmd" AbilCmd="FaerieDragonEmeraldWind,Execute" />
+  </CBehaviorAbility>
+
+  <CValidatorCombine id="BrightwingPolymorphHeroicOrNonHeroicValid">
+    <CombineArray value="BrightwingPolymorphHeroicValid" />
+    <CombineArray value="BrightwingPolymorphNonHeroicValid" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="BrightwingPolymorphHeroicValid">
+    <Type value="And" />
+    <CombineArray value="BrightwingPolymorphValidator" />
+    <CombineArray value="TargetIsHero" />
+  </CValidatorCombine>
+  <CValidatorCombine id="BrightwingPolymorphNonHeroicValid">
+    <Type value="And" />
+    <CombineArray value="BrightwingDoesNotHaveGlyphofCrittermorph" />
+    <CombineArray value="TargetIsNotHeroic" />
+  </CValidatorCombine>
+  
+  <CValidatorUnitCompareBehaviorCount id="BrightwingTargetIsNotPolymorphed">
+    <Value value="0" />
+    <Behavior value="BrightwingPolymorph" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorCombine id="BrightwingPhaseShiftValidOrGreaterPhaseShiftValidCombine">
+    <CombineArray value="BrightwingPhaseShiftValidator" />
+    <CombineArray value="FaerieDragonBlinkHealDashGreaterPhaseShiftCombine" />
+    <CombineArray value="FaerieDragonBlinkHealDashGreaterPhaseShiftEnemyCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="FaerieDragonBlinkHealDashValidOrBrightwingEtherealBlinkValidCombine">
+    <CombineArray value="FaerieDragonBlinkHealDashValidator" />
+    <CombineArray value="BrightwingEtherealBlinkCombine" />
+    <CombineArray value="BrightwingEtherealBlinkEnemyCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="BrightwingEtherealBlinkCombine">
+    <Type value="And" />
+    <CombineArray value="BrightwingHasEtherealBlink" />
+    <CombineArray value="FaerieDragonGreaterPhaseShiftValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="BrightwingEtherealBlinkEnemyCombine">
+    <Type value="And" />
+    <CombineArray value="BrightwingHasEtherealBlink" />
+    <CombineArray value="FaerieDragonGreaterPhaseShiftEnemyValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="FaerieDragonBlinkHealDashGreaterPhaseShiftCombine">
+    <Type value="And" />
+    <CombineArray value="BrightwingHasGreaterPhaseShift" />
+    <CombineArray value="FaerieDragonGreaterPhaseShiftValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="FaerieDragonBlinkHealDashGreaterPhaseShiftEnemyCombine">
+    <Type value="And" />
+    <CombineArray value="BrightwingHasGreaterPhaseShift" />
+    <CombineArray value="FaerieDragonGreaterPhaseShiftEnemyValidator" />
+  </CValidatorCombine>
+
+  <CValidatorUnitFilters id="FaerieDragonBlinkHealDashValidator">
+    <Filters value="-;Self,Neutral,Enemy,Structure,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="BrightwingPhaseShiftValidator">
+    <Filters value="Heroic;Self,Player,Neutral,Enemy,ImmuneToFriendlyAbilities" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="FaerieDragonGreaterPhaseShiftValidator">
+    <Filters value="-;Self,Neutral,Enemy,Structure,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="FaerieDragonGreaterPhaseShiftEnemyValidator">
+    <Filters value="-;Self,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="BrightwingPolymorphValidator">
+    <Filters value="-;Player,Ally,Neutral,Structure,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable" />
+  </CValidatorUnitFilters>
+
+  <CActorUnit id="HeroFaerieDragon">
+    <On Terms="Effect.BrightwingPhaseShiftEnemyImpactSet.Stop; At Source" Send="Create FaerieDragon_PhaseShift_Launch" />
+  </CActorUnit>
+  
+  <CActorModel id="FaerieDragonPolymorphImpactModel">
+    <On Terms="Effect.PolymorphApplyGlyphofCrittermorphBehavior.Start; At Target" Send="Create" />
+  </CActorModel>
+  
+  <CActorAction id="FaerieDragonPolymorphicAttack" parent="RangedHeroAttack" effectImpact="BrightwingPolymorphicSet" effectLaunch="PolymorphicLaunchMissile">
+    <Missile value="FaerieDragonPolymorphMissile" />
+  </CActorAction>
+  
+  <CActorSound id="BlinkHealLaunchSound">
+    <On Terms="Effect.BlinkHealTeleportEnemySet.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorSound id="BlinkHealImpactSound">
+    <On Terms="Effect.BlinkHealTeleportEnemySet.Start; At Caster" Send="Create" />
+  </CActorSound>
+
+  <CActorModel id="FaerieDragonPolymorphicMorph">
+    <Aliases value="_MorphModel" />
+    <On Terms="Behavior.BrightwingPolymorphicVisual.On" Send="Create" />
+    <On Terms="Behavior.BrightwingPolymorphicVisual.Off" Send="AnimBracketStop BSD" />
+    <On Terms="ActorCreation; UnitWalking" Send="AnimPlay Walk Walk PlayForever" />
+    <On Terms="UnitMovementUpdate.*.Walk" Send="AnimPlay Walk Walk PlayForever" />
+    <On Terms="UnitMovementUpdate.*.Stand" Send="AnimClear Walk" />
+    <On Terms="ActorCreation" Send="AnimBracketStart BSD IGNORE Stand Death" />
+    <On Terms="ActorOrphan" Send="AnimBracketStop BSD" />
+    <On Terms="AnimBracketState.*.AfterClosing; AnimName BSD" Send="Destroy" />
+    <On Terms="ActorCreation" Send="Create FaerieDragon_Polymorph_Impact" />
+    <On Terms="ActorCreation; PassChance 50.000000" Send="ModelSwap FaerieDragonPolymorphPig" />
+    <On Terms="ActorCreation; PassChance 33.000000" Send="ModelSwap FaerieDragonPolymorphCrab" />
+    <On Terms="ActorCreation" Send="SetOpacity" />
+    <On Terms="ActorCreation" Send="TimerSet 0.125000 PolyShow" />
+    <On Terms="TimerExpired; TimerName PolyShow" Send="SetOpacity 1.000000" />
+    <On Terms="TimerExpired; TimerName PolyShow; ModelName FaerieDragonPolymorphPig" Send="Create FaerieDragon_Polymorph_Pig_Vox_Birth" />
+    <On Terms="TimerExpired; TimerName PolyShow; ModelName FaerieDragonPolymorphCrab" Send="Create FaerieDragon_Polymorph_Crab_Vox_Birth" />
+    <On Terms="TimerExpired; TimerName PolyShow; ModelName FaerieDragonPolymorphSquirrel" Send="Create FaerieDragon_Polymorph_Squirrel_Vox_Birth" />
+    <Host Subject="_Unit" />
+    <Model value="FaerieDragonPolymorphSquirrel" />
+    <Inherits index="CloakEffect" value="1" />
+    <Inherits index="TimeScale" value="1" />
+    <Inherits index="TintColor" value="1" />
+    <Inherits index="Visibility" value="1" />
+  </CActorModel>
+
+</Catalog>

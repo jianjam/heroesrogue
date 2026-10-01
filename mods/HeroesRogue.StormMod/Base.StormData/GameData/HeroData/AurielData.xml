@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+
+  <CAbilEffectTarget id="AurielBestowHope">
+    <TargetFilters value="Heroic;Player,Neutral,Stasis,Dead,Benign" />
+  </CAbilEffectTarget>
+
+  <CEffectSet id="AurielBestowHopeInitialSet">
+    <ValidatorArray value="AurielBestowHopeValidOrBestowDespairValidCombine" />
+  </CEffectSet>
+  
+  <CAbilEffectInstant id="AurielResurrectSelf">
+    <Effect value="AurielResurrectSelfCastSet" />
+  </CAbilEffectInstant>
+  <CAbilEffectTarget id="AurielResurrect">
+    <Effect value="AurielResurrectCastSet" />
+  </CAbilEffectTarget>
+
+  
+  <CEffectSet id="AurielResurrectCastSet">
+    <ValidatorArray value="AurielResurrectTargetHasRezzableBehaviorOrCasterChannelBehavior" />
+    <EffectArray value="AurielResurrectAllDummy" />
+    <EffectArray value="AurielResurrectInitialDummy" />
+  </CEffectSet>
+  <CEffectSet id="AurielResurrectSelfCastSet">
+    <EffectArray value="AurielResurrectAllDummy" />
+    <EffectArray value="AurielResurrectSelfDummy" />
+  </CEffectSet>
+
+  <CEffectSet id="AurielResurrectAllDummy">
+    <Chance value="0" />
+  </CEffectSet>
+  <CEffectSet id="AurielResurrectInitialDummy">
+    <ValidatorArray index="0" value="" />
+  </CEffectSet>
+
+  <CAccumulatorVitals id="AurielGammaRayBurstDamageAccumulator" parent="BaseVitalAccumulator">
+    <MaxAccumulation value="100000" />
+    <ApplicationRule value="Add" />
+    <Ratio value="0.3" />
+    <ModificationType value="PerUnit" />
+  </CAccumulatorVitals>
+
+  <CEffectEnumArea id="AurielRayOfHeavenAngelicLightHighHealingStoredSearch">
+    <ValidatorArray value="AurielHasGammaRayBurst" />
+    <SearchFilters value="-;Heroic,Structure,Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Benign" />
+    <AreaArray Effect="AurielRayOfHeavenHighHealingStoredSearchImpactSet">
+      <Radius value="3" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="AurielRayOfHeavenAngelicLightMaxHealingStoredSearch">
+    <ValidatorArray value="AurielHasGammaRayBurst" />
+    <SearchFilters value="-;Heroic,Structure,Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Benign" />
+    <AreaArray Effect="AurielRayOfHeavenMaxHealingStoredSearchImpactSet">
+      <Radius value="3" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="AurielRayOfHeavenAngelicLightLowHealingStoredSearch">
+    <ValidatorArray value="AurielHasGammaRayBurst" />
+    <SearchFilters value="-;Heroic,Structure,Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Benign" />
+    <AreaArray Effect="AurielRayOfHeavenLowHealingStoredSearchImpactSet">
+      <Radius value="3" />
+    </AreaArray>
+  </CEffectEnumArea>
+
+  <CEffectModifyCatalogNumeric id="AurielRayofHeavenModifyCatalog">
+    <CatalogModifications Operation="Set" Reference="Effect,AurielGammaRayBurstHeroDamage,Amount">
+      <Value value="0">
+        <AccumulatorArray value="AurielGammaRayBurstDamageAccumulator" />
+      </Value>
+    </CatalogModifications>
+    <CatalogModifications Operation="Set" Reference="Effect,AurielGammaRayBurstNonHeroDamage,Amount">
+      <Value value="0">
+        <AccumulatorArray value="AurielGammaRayBurstDamageAccumulator" />
+      </Value>
+    </CatalogModifications>
+  </CEffectModifyCatalogNumeric>
+
+  <CEffectSet id="AurielRayOfHeavenHighHealingStoredInitialSet">
+    <EffectArray value="AurielRayOfHeavenAngelicLightHighHealingStoredSearch" />
+    <EffectArray value="AurielGammaRayBurstDamageSearchArea" />
+  </CEffectSet>
+  <CEffectSet id="AurielRayOfHeavenMaxHealingStoredInitialSet">
+    <EffectArray value="AurielRayOfHeavenAngelicLightMaxHealingStoredSearch" />
+    <EffectArray value="AurielGammaRayBurstDamageSearchArea" />
+  </CEffectSet>
+  <CEffectSet id="AurielRayOfHeavenLowHealingStoredInitialSet">
+    <EffectArray value="AurielRayOfHeavenAngelicLightLowHealingStoredSearch" />
+    <EffectArray value="AurielGammaRayBurstDamageSearchArea" />
+  </CEffectSet>
+
+  <CEffectEnumArea id="AurielGammaRayBurstDamageSearchArea">
+    <ValidatorArray value="AurielHasGammaRayBurst" />
+    <SearchFilters value="-;Self,Player,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="AurielGammaRayBurstDamageImpactSet">
+      <Radius value="3" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="AurielGammaRayBurstDamageImpactSet">
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="AurielGammaRayBurstDamageImpactDamageSet" />
+    <EffectArray value="AurielRayOfHeavenSearingLightApplyImpactGlazeBehavior" />
+  </CEffectSet>
+  <CEffectSet id="AurielGammaRayBurstDamageImpactDamageSet">
+    <EffectArray value="AurielGammaRayBurstHeroDamage" />
+    <EffectArray value="AurielGammaRayBurstNonHeroDamage" />
+  </CEffectSet>
+  <CEffectDamage id="AurielGammaRayBurstHeroDamage" parent="AurielDamageVsHeroicTargetParent">
+    <ValidatorArray value="noMarkers" />
+    <Amount value="356.25" />
+    <LaunchLocation Effect="AurielRayOfHeavenCastDummy" Value="CasterUnit" />
+    <SourceButtonFace value="AurielSearingLightRayOfHeavenTalent" />
+  </CEffectDamage>
+  <CEffectDamage id="AurielGammaRayBurstNonHeroDamage" parent="AurielDamageVsNonHeroicTargetParent">
+    <ValidatorArray value="noMarkers" />
+    <Amount value="356.25" />
+    <LaunchLocation Effect="AurielRayOfHeavenCastDummy" Value="CasterUnit" />
+    <SourceButtonFace value="AurielSearingLightRayOfHeavenTalent" />
+  </CEffectDamage>
+  
+  <CEffectSet id="AurielBestowHopeApplicationSet">
+    <EffectArray value="AurielBestowHopeApplyWrathofHeavenCounterBehavior" />
+    <EffectArray value="AurielBestowHopeApplyWillofHeavenCounterBehavior" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="AurielBestowHopeApplyWrathofHeavenCounterBehavior">
+    <ValidatorArray value="AurielHasWrathofHeavenBestowHope" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="AurielWrathofHeavenCounterBehavior" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="AurielBestowHopeApplyWillofHeavenCounterBehavior">
+    <ValidatorArray value="AurielHasWillofHeavenBestowHope" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="AurielWillofHeavenCounterBehavior" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorBuff id="AurielWrathofHeavenCounterBehavior" parent="CarryBehaviorParent">
+    <DisableValidatorArray value="AurielBestowHopeProxyBehaviorDisableCombine" />
+    <DisableValidatorArray value="TargetDoesNotHaveInCargo" />
+    <DisableValidatorArray value="TargetNotUsingVehicle" />
+    <RemoveValidatorArray value="DoesNotHaveUltimateEvolutionCasterBuff" />
+    <RemoveValidatorArray value="AurielBestowHopeProxyBehaviorRemoveCombine" />
+    <RemoveValidatorArray value="TargetNotDeadAndNoSpecialDeathState" />
+    <RemoveValidatorArray value="HasAurielBestowHopeProxyBehavior" />
+    <Duration value="-1" />
+    <Modification>
+      <DamageDealtFraction index="Ability" value="-0.15" />
+      <HealDealtAdditiveMultiplier index="Life" value="-0.1" />
+      <HealDealtAdditiveMultiplier index="Shields" value="-0.1" />
+    </Modification>
+  </CBehaviorBuff>
+
+  <CBehaviorBuff id="AurielWillofHeavenCounterBehavior" parent="CarryBehaviorParent">
+    <DisableValidatorArray value="AurielBestowHopeProxyBehaviorDisableCombine" />
+    <DisableValidatorArray value="TargetDoesNotHaveInCargo" />
+    <DisableValidatorArray value="TargetNotUsingVehicle" />
+    <RemoveValidatorArray value="DoesNotHaveUltimateEvolutionCasterBuff" />
+    <RemoveValidatorArray value="AurielBestowHopeProxyBehaviorRemoveCombine" />
+    <RemoveValidatorArray value="TargetNotDeadAndNoSpecialDeathState" />
+    <RemoveValidatorArray value="HasAurielBestowHopeProxyBehavior" />
+    <Duration value="-1" />
+    <Modification>
+      <AdditiveAttackSpeedFactor value="-0.2" />
+    </Modification>
+  </CBehaviorBuff>
+
+  <CValidatorUnitCompareBehaviorCount id="HasAurielBestowHopeProxyBehavior">
+    <Value value="1" />
+    <Behavior value="AurielBestowHopeProxyBehavior" />
+  </CValidatorUnitCompareBehaviorCount>
+  
+  <CEffectEnumArea id="AurielRayOfHeavenSearingLightSearchArea">
+    <ValidatorArray value="AurielDoesNotHaveGammaRayBurst" />
+  </CEffectEnumArea>
+
+  <CBehaviorAbility id="AffixAurielCrystalAegisBehaviorAbility">
+    <Buttons Face="AurielCrystalAegis" Type="AbilCmd" AbilCmd="AurielCrystalAegis,Execute" />
+  </CBehaviorAbility>
+
+  <CBehaviorBuff id="AurielBestowDespairCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="AurielGammaRayBurstCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="AurielHasBestowDespair">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AurielBestowDespairCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="AurielHasGammaRayBurst">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AurielGammaRayBurstCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="AurielDoesNotHaveGammaRayBurst">
+    <WhichUnit Value="Caster" />
+    <Value value="0" />
+    <Behavior value="AurielGammaRayBurstCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorCombine id="AurielBestowHopeValidOrBestowDespairValidCombine">
+    <CombineArray value="AurielBestowHopeValidator" />
+    <CombineArray value="AurielBestowDespairCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="AurielBestowDespairCombine">
+    <Type value="And" />
+    <CombineArray value="AurielHasBestowDespair" />
+    <CombineArray value="AurielBestowDespairValidator" />
+  </CValidatorCombine>
+
+  <CValidatorUnitFilters id="AurielBestowHopeValidator">
+    <Filters value="Heroic;Player,Neutral,Enemy,ImmuneToFriendlyAbilities,Stasis,Dead,Benign" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AurielBestowDespairValidator">
+    <Filters value="Heroic;Player,Ally,Neutral,Stasis,Dead,Benign" />
+  </CValidatorUnitFilters>
+
+  <CActorModel id="AurielRayOfHeavenSearingLightLaunchFX">
+    <On Terms="Effect.AurielGammaRayBurstDamageSearchArea.Start; At Target" Send="Create" />
+  </CActorModel>
+  <CActorForceCylinder id="AurielRayOfHeavenSearingLightForce">
+    <On Terms="Effect.AurielGammaRayBurstDamageSearchArea.Start" Send="Create" />
+  </CActorForceCylinder>
+  <CActorModel id="AurielRayOfHeavenSearingLightImpactFX">
+    <On Terms="Effect.AurielGammaRayBurstHeroDamage.Start; At Target" Send="Create" />
+    <On Terms="Effect.AurielGammaRayBurstNonHeroDamage.Start; At Target" Send="Create" />
+  </CActorModel>
+
+</Catalog>

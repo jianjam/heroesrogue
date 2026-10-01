@@ -1,0 +1,782 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CBehaviorBuff id="DeckardHealingPotionController">
+    <InitialEffect value="DeckardHealingPotionPeriodicSet" />
+    <PeriodicEffect value="DeckardHealingPotionPeriodicSet" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="DeckardLesserHealingPotionTimedLife">
+    <InitialEffect value="DeckardLesserHealingPotionPeriodicSet" />
+    <PeriodicEffect value="DeckardLesserHealingPotionPeriodicSet" />
+  </CBehaviorBuff>
+
+  <CEffectSet id="DeckardHealingPotionPeriodicSet">
+    <EffectArray value="DeckardHealingPotionSearchForAllies" />
+    <EffectArray value="DeckardHealingPotionSearchForEnemies" />
+    <EffectArray value="DeckardHealingPotionSearchForNonHeroicAllies" />
+  </CEffectSet>
+  <CEffectSet id="DeckardLesserHealingPotionPeriodicSet">
+    <EffectArray value="DeckardLesserHealingPotionSearchForAllies" />
+    <EffectArray value="DeckardLesserHealingPotionSearchForEnemies" />
+    <EffectArray value="DeckardLesserHealingPotionSearchForNonHeroicAllies" />
+  </CEffectSet>
+  
+  <CEffectSet id="DeckardHealingPotionAllyImpactSet">
+    <EffectArray value="DeckardHealingPotionActivatedApplyBehavior" />
+    <EffectArray value="DeckardHealingPotionPotionOfRevivalNonHeroicSearch" />
+    <EffectArray value="DeckardPoisonousPotionPotionOfRevivalSearch" />
+  </CEffectSet>
+  <CEffectSet id="DeckardHealingPotionBottomlessFlaskAllyImpactSet">
+    <EffectArray value="DeckardHealingPotionActivatedApplyBehavior" />
+    <EffectArray value="DeckardHealingPotionPotionOfRevivalNonHeroicSearch" />
+    <EffectArray value="DeckardPoisonousPotionPotionOfRevivalSearch" />
+  </CEffectSet>
+  <CEffectSet id="DeckardLesserHealingPotionAllyImpactSet">
+    <EffectArray value="DeckardHealingPotionActivatedApplyBehavior" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="DeckardHealingPotionActivatedApplyBehavior">
+    <WhichUnit Value="Source" />
+    <Behavior value="DeckardHealingPotionActivated" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorBuff id="DeckardHealingPotionActivated">
+    <Duration value="0.0625" />
+  </CBehaviorBuff>
+
+  <CValidatorUnitCompareBehaviorCount id="DeckardHealingPotionNotActivated">
+    <WhichUnit Value="Source" />
+    <Value value="0" />
+    <Behavior value="DeckardHealingPotionActivated" />
+  </CValidatorUnitCompareBehaviorCount>
+  
+  <CEffectEnumArea id="DeckardLesserHealingPotionSearchForAllies">
+    <ValidatorArray value="DeckardHealingPotionNotActivated" />
+  </CEffectEnumArea>
+  
+  <CEffectEnumArea id="DeckardHealingPotionSearchForAllies">
+    <ValidatorArray value="DeckardHealingPotionNotActivated" />
+    <AreaArray index="0" MaxCount="1" Effect="DeckardHealingPotionSearchForAlliesSet">
+      <Radius value="1" />
+    </AreaArray>
+    <AreaArray MaxCount="1" Effect="DeckardHealingPotionSearchForAlliesMega4Set">
+      <Radius value="1.5" />
+    </AreaArray>
+    <AreaArray MaxCount="1" Effect="DeckardHealingPotionSearchForAlliesMega8Set">
+      <Radius value="2" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="DeckardHealingPotionSearchForAlliesSet">
+    <ValidatorArray value="DeckardHealingPotionDoesNotHaveExtendedRadius1Or2" />
+    <EffectArray value="DeckardHealingPotionHealSwitch" />
+  </CEffectSet>
+  <CEffectSet id="DeckardHealingPotionSearchForAlliesMega4Set">
+    <ValidatorArray value="DeckardMegaHealingPotionHasExtendedRadius" />
+    <EffectArray value="DeckardHealingPotionHealSwitch" />
+  </CEffectSet>
+  <CEffectSet id="DeckardHealingPotionSearchForAlliesMega8Set">
+    <ValidatorArray value="DeckardMegaHealingPotionHasExtendedRadius2" />
+    <EffectArray value="DeckardHealingPotionHealSwitch" />
+  </CEffectSet>
+  
+  <CEffectEnumArea id="DeckardHealingPotionSearchForNonHeroicAllies">
+    <ValidatorArray value="DeckardHealingPotionNotActivated" />
+    <Chance value="0" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray MaxCount="1" Effect="DeckardHealingPotionSearchForNonHeroicAlliesSet">
+      <Radius value="1" />
+    </AreaArray>
+    <AreaArray MaxCount="1" Effect="DeckardHealingPotionSearchForNonHeroicAlliesMega4Set">
+      <Radius value="1.5" />
+    </AreaArray>
+    <AreaArray MaxCount="1" Effect="DeckardHealingPotionSearchForNonHeroicAlliesMega8Set">
+      <Radius value="2" />
+    </AreaArray>
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistance" />
+    </TargetSorts>
+    <MaxCount value="1" />
+    <SearchFlags index="DoActorSearch" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="DeckardHealingPotionSearchForNonHeroicAlliesSet">
+    <ValidatorArray value="DeckardHealingPotionDoesNotHaveExtendedRadius1Or2" />
+    <EffectArray value="DeckardHealingPotionNonHeroicHealSwitch" />
+  </CEffectSet>
+  <CEffectSet id="DeckardHealingPotionSearchForNonHeroicAlliesMega4Set">
+    <ValidatorArray value="DeckardMegaHealingPotionHasExtendedRadius" />
+    <EffectArray value="DeckardHealingPotionNonHeroicHealSwitch" />
+  </CEffectSet>
+  <CEffectSet id="DeckardHealingPotionSearchForNonHeroicAlliesMega8Set">
+    <ValidatorArray value="DeckardMegaHealingPotionHasExtendedRadius2" />
+    <EffectArray value="DeckardHealingPotionNonHeroicHealSwitch" />
+  </CEffectSet>
+
+
+  <CEffectEnumArea id="DeckardLesserHealingPotionSearchForNonHeroicAllies">
+    <ValidatorArray value="DeckardHealingPotionNotActivated" />
+    <Chance value="0" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="DeckardLesserHealingPotionNonHeroicAllyImpactSet">
+      <Radius value="1" />
+    </AreaArray>
+    <SearchFlags index="DoActorSearch" value="1" />
+  </CEffectEnumArea>
+
+  <CEffectSwitch id="DeckardHealingPotionNonHeroicHealSwitch">
+    <CaseArray Validator="DeckardHasBottomlessFlaskTalent" Effect="DeckardHealingPotionBottomlessFlaskNonHeroicAllyImpactSet" />
+    <CaseDefault value="DeckardHealingPotionNonHeroicAllyImpactSet" />
+  </CEffectSwitch>
+  <CEffectSet id="DeckardHealingPotionNonHeroicAllyImpactSet">
+    <ValidatorArray value="TargetLifeNotFull" />
+    <EffectArray value="DeckardHealingPotionActivatedApplyBehavior" />
+    <EffectArray value="DeckardHealingPotionHealingSwitch" />
+    <EffectArray value="DeckardHealingPotionUnitTrackerRemove" />
+    <EffectArray value="DeckardHealingPotionPotionOfRevivalSearch" />
+    <EffectArray value="DeckardHealingPotionPotionOfRevivalNonHeroicSearch" />
+    <EffectArray value="DeckardPotionOfShieldingApplyShield" />
+    <EffectArray value="DeckardRejuvenationPotionImpactSet" />
+    <EffectArray value="DeckardHealingPotionSuicide" />
+  </CEffectSet>
+  <CEffectSet id="DeckardHealingPotionBottomlessFlaskNonHeroicAllyImpactSet">
+    <ValidatorArray value="TargetLifeNotFull" />
+    <EffectArray value="DeckardHealingPotionActivatedApplyBehavior" />
+    <EffectArray value="DeckardHealingPotionHealingSwitch" />
+    <EffectArray value="DeckardHealingPotionPotionOfRevivalSearch" />
+    <EffectArray value="DeckardHealingPotionPotionOfRevivalNonHeroicSearch" />
+    <EffectArray value="DeckardPotionOfShieldingApplyShield" />
+    <EffectArray value="DeckardRejuvenationPotionImpactSet" />
+    <EffectArray value="DeckardBottomlessFlaskApplySet" />
+  </CEffectSet>
+  <CEffectSet id="DeckardLesserHealingPotionNonHeroicAllyImpactSet">
+    <ValidatorArray value="TargetLifeNotFull" />
+    <EffectArray value="DeckardHealingPotionActivatedApplyBehavior" />
+    <EffectArray value="DeckardLesserHealingPotionCreateHealer" />
+    <EffectArray value="DeckardHealingPotionSuicide" />
+  </CEffectSet>
+  <CEffectEnumArea id="DeckardHealingPotionPotionOfRevivalNonHeroicSearch">
+    <Chance value="0" />
+    <ImpactLocation Value="SourcePoint" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="DeckardHealingPotionPotionOfRevivalCreateHealer">
+      <Radius value="3" />
+    </AreaArray>
+    <ExcludeArray Value="Target" />
+    <SearchFlags index="DoActorSearch" value="1" />
+  </CEffectEnumArea>
+
+  <CEffectEnumArea id="DeckardHealingPotionSearchForEnemies">
+    <ValidatorArray value="DeckardHealingPotionNotActivated" />
+    <Chance value="0" />
+    <SearchFilters value="-;Player,Self,Ally,Neutral,Worker,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray MaxCount="1" Effect="DeckardHealingPotionSearchForEnemiesSet">
+      <Radius value="1" />
+    </AreaArray>
+    <AreaArray MaxCount="1" Effect="DeckardHealingPotionSearchForEnemiesMega4Set">
+      <Radius value="1.5" />
+    </AreaArray>
+    <AreaArray MaxCount="1" Effect="DeckardHealingPotionSearchForEnemiesMega8Set">
+      <Radius value="2" />
+    </AreaArray>
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+      <SortArray value="TSDistance" />
+    </TargetSorts>
+    <MaxCount value="1" />
+    <SearchFlags index="DoActorSearch" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="DeckardHealingPotionSearchForEnemiesSet">
+    <ValidatorArray value="DeckardHealingPotionDoesNotHaveExtendedRadius1Or2" />
+    <EffectArray value="DeckardPoisonousPotionSwitch" />
+  </CEffectSet>
+  <CEffectSet id="DeckardHealingPotionSearchForEnemiesMega4Set">
+    <ValidatorArray value="DeckardMegaHealingPotionHasExtendedRadius" />
+    <EffectArray value="DeckardPoisonousPotionSwitch" />
+  </CEffectSet>
+  <CEffectSet id="DeckardHealingPotionSearchForEnemiesMega8Set">
+    <ValidatorArray value="DeckardMegaHealingPotionHasExtendedRadius2" />
+    <EffectArray value="DeckardPoisonousPotionSwitch" />
+  </CEffectSet>
+
+
+  
+  <CEffectSwitch id="DeckardPoisonousPotionSwitch">
+    <CaseArray Validator="DeckardHasBottomlessFlaskTalent" Effect="DeckardPoisonousPotionBottomlessFlaskImpactSet" />
+    <CaseDefault value="DeckardPoisonousPotionImpactSet" />
+  </CEffectSwitch>
+  <CEffectSet id="DeckardPoisonousPotionBottomlessFlaskImpactSet">
+    <EffectArray value="DeckardHealingPotionActivatedApplyBehavior" />
+    <EffectArray value="DeckardPoisonousPotionDamageSwitch" />
+    <EffectArray value="DeckardHealingPotionPotionOfRevivalSearch" />
+    <EffectArray value="DeckardHealingPotionPotionOfRevivalNonHeroicSearch" />
+    <EffectArray value="DeckardPoisonousPotionPotionOfRevivalSearch" />
+    <EffectArray value="DeckardRejuvenationPotionPoisonImpactSet" />
+    <EffectArray value="DeckardBottomlessFlaskApplySet" />
+  </CEffectSet>
+  <CEffectSet id="DeckardPoisonousPotionImpactSet">
+    <EffectArray value="DeckardHealingPotionActivatedApplyBehavior" />
+    <EffectArray value="DeckardPoisonousPotionDamageSwitch" />
+    <EffectArray value="DeckardHealingPotionUnitTrackerRemove" />
+    <EffectArray value="DeckardHealingPotionPotionOfRevivalSearch" />
+    <EffectArray value="DeckardHealingPotionPotionOfRevivalNonHeroicSearch" />
+    <EffectArray value="DeckardPoisonousPotionPotionOfRevivalSearch" />
+    <EffectArray value="DeckardRejuvenationPotionPoisonImpactSet" />
+    <EffectArray value="DeckardHealingPotionSuicide" />
+  </CEffectSet>
+  <CEffectSet id="DeckardRejuvenationPotionPoisonImpactSet">
+    <ValidatorArray value="DeckardHasRejuvenationPotionTalent" />
+    <EffectArray value="DeckardRejuvenationPotionPoisonDoTApply" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="DeckardRejuvenationPotionPoisonDoTApply">
+    <Behavior value="DeckardRejuvenationPotionPoisonDoT" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="DeckardRejuvenationPotionPoisonDoT">
+    <Duration value="3" />
+    <Period value="0.5" />
+    <PeriodicEffect value="DeckardRejuvenationPotionDamage" />
+    <PeriodicDisplayEffect value="DeckardRejuvenationPotionDamage" />
+    <BuffFlags index="RefreshStack" value="1" />
+    <RemoveValidatorArray value="TargetNotSpecialDeathState" />
+  </CBehaviorBuff>
+  <CEffectDamage id="DeckardRejuvenationPotionDamage" parent="StormSpellDot">
+    <Amount value="19" />
+    <SourceButtonFace value="DeckardRejuvenationPotion" />
+  </CEffectDamage>
+  <CEffectEnumArea id="DeckardPoisonousPotionPotionOfRevivalSearch">
+    <Chance value="0" />
+    <ImpactLocation Value="SourcePoint" />
+    <SearchFilters value="-;Player,Self,Ally,Neutral,Worker,Missile,ImmuneToAOE,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="DeckardPoisonousPotionPotionOfRevivalDamageSet">
+      <Radius value="3" />
+    </AreaArray>
+    <ExcludeArray Value="Target" />
+    <SearchFlags index="DoActorSearch" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="DeckardPoisonousPotionPotionOfRevivalDamageSet">
+    <EffectArray value="DeckardPoisonousPotionPotionOfRevivalDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  
+  <CEffectSwitch id="DeckardPoisonousPotionDamageSwitch">
+    <CaseArray Validator="DeckardHealingPotionHasMegaHealingPotionActive" Effect="DeckardMegaPoisonousPotionDamageSet" />
+    <CaseArray Validator="DeckardHealingPotionHasSuperHealingPotionActive" Effect="DeckardSuperPoisonousPotionDamageSet" />
+    <CaseDefault value="DeckardPoisonousPotionDamageSet" />
+  </CEffectSwitch>
+  <CEffectSet id="DeckardPoisonousPotionDamageSet">
+    <EffectArray value="DeckardPoisonousPotionDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectSet id="DeckardSuperPoisonousPotionDamageSet">
+    <EffectArray value="DeckardSuperPoisonousPotionDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectSet id="DeckardMegaPoisonousPotionDamageSet">
+    <EffectArray value="DeckardMegaPoisonousPotionDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectDamage id="DeckardPoisonousPotionPotionOfRevivalDamage" parent="StormSpell">
+    <Amount value="285" />
+    <SourceButtonFace value="DeckardHealingPotion" />
+    <MultiplicativeModifierArray index="PotionOfRevival" Modifier="-0.25" />
+    <MultiplicativeModifierArray index="SuperLowHealth" Validator="DeckardSuperHealingHealthProcCombine" Modifier="0.25" Crit="0" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasSuperHealingPotionActive" Modifier="1" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive" Modifier="0.4" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive2" Modifier="0.8" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive3" Modifier="1.2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive4" Modifier="1.6" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive5" Modifier="2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive6" Modifier="2.4" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive7" Modifier="2.8" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive8" Modifier="3.2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive9" Modifier="3.6" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive10" Modifier="4" Crit="1" />
+  </CEffectDamage>
+  <CEffectDamage id="DeckardPoisonousPotionDamage" parent="StormSpell">
+    <Amount value="285" />
+    <SourceButtonFace value="DeckardHealingPotion" />
+    <MultiplicativeModifierArray index="SuperLowHealth" Validator="DeckardSuperHealingHealthProcCombine" Modifier="0.25" Crit="1" />
+  </CEffectDamage>
+  <CEffectDamage id="DeckardSuperPoisonousPotionDamage" parent="DeckardPoisonousPotionDamage">
+    <MultiplicativeModifierArray index="SuperLowHealth" Validator="DeckardSuperHealingHealthProcCombine" Modifier="0.25" Crit="0" />
+    <MultiplicativeModifierArray index="SuperHealingPotion" Modifier="1" Crit="1" />
+  </CEffectDamage>
+  <CEffectDamage id="DeckardMegaPoisonousPotionDamage" parent="DeckardPoisonousPotionDamage">
+    <MultiplicativeModifierArray index="SuperLowHealth" Validator="DeckardSuperHealingHealthProcCombine" Modifier="0.25" Crit="0" />
+    <MultiplicativeModifierArray index="SuperHealingPotion" Modifier="1" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive" Modifier="0.4" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive2" Modifier="0.8" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive3" Modifier="1.2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive4" Modifier="1.6" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive5" Modifier="2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive6" Modifier="2.4" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive7" Modifier="2.8" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive8" Modifier="3.2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive9" Modifier="3.6" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive10" Modifier="4" Crit="1" />
+  </CEffectDamage>
+  
+  <CEffectCreateHealer id="DeckardHealingPotionPotionOfRevivalCreateHealer">
+    <MultiplicativeModifierArray index="SuperLowHealth" Validator="DeckardSuperHealingHealthProcCombine" Modifier="0.25" Crit="0" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasSuperHealingPotionActive" Modifier="1" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive" Modifier="0.4" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive2" Modifier="0.8" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive3" Modifier="1.2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive4" Modifier="1.6" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive5" Modifier="2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive6" Modifier="2.4" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive7" Modifier="2.8" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive8" Modifier="3.2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive9" Modifier="3.6" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive10" Modifier="4" Crit="1" />
+  </CEffectCreateHealer>
+
+  <CEffectEnumArea id="DeckardLesserHealingPotionSearchForEnemies">
+    <ValidatorArray value="DeckardHealingPotionNotActivated" />
+    <Chance value="0" />
+    <SearchFilters value="-;Player,Self,Ally,Neutral,Worker,Missile,ImmuneToAOE,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="DeckardLesserPoisonousPotionImpactSet">
+      <Radius value="1" />
+    </AreaArray>
+    <SearchFlags index="DoActorSearch" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="DeckardLesserPoisonousPotionImpactSet">
+    <EffectArray value="DeckardHealingPotionActivatedApplyBehavior" />
+    <EffectArray value="DeckardLesserPoisonousPotionDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="DeckardHealingPotionSuicide" />
+  </CEffectSet>
+  <CEffectDamage id="DeckardLesserPoisonousPotionDamage" parent="StormSpell">
+    <Amount value="250" />
+    <SourceButtonFace value="DeckardGemRuby" />
+  </CEffectDamage>
+
+  <CEffectSwitch id="DeckardHealingPotionHealingSwitch">
+    <CaseArray index="0" Validator="DeckardHealingPotionHasMegaHealingPotionActive" Effect="DeckardMegaHealingPotionCreateHealer" />
+    <CaseArray index="1" Validator="DeckardHealingPotionHasSuperHealingPotionActive" Effect="DeckardSuperHealingPotionCreateHealer" />
+  </CEffectSwitch>
+  <CEffectCreateHealer id="DeckardMegaHealingPotionCreateHealer" parent="DeckardHealingPotionCreateHealer">
+    <MultiplicativeModifierArray index="SuperLowHealth" Validator="DeckardSuperHealingHealthProcCombine" Modifier="0.25" Crit="0" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive" Modifier="0.4" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive2" Modifier="0.8" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive3" Modifier="1.2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive4" Modifier="1.6" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive5" Modifier="2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive6" Modifier="2.4" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive7" Modifier="2.8" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive8" Modifier="3.2" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive9" Modifier="3.6" Crit="1" />
+    <MultiplicativeModifierArray Validator="DeckardHealingPotionHasMegaHealingPotionActive10" Modifier="4" Crit="1" />
+  </CEffectCreateHealer>
+  
+  <CEffectCreatePersistent id="DeckardStayAWhileAndListenChannelPersistent">
+    <PeriodicEffectArray index="0" value="DeckardStayAWhileAndListenChannelPersistentSet" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="DeckardStayAWhileAndListenChannelPersistentSet">
+    <EffectArray value="DeckardStayAWhileAndListenSearch" />
+    <EffectArray value="DeckardStayAWhileAndListenNonHeroicSearch" />
+  </CEffectSet>
+  
+  <CEffectEnumArea id="DeckardStayAWhileAndListenNonHeroicSearch">
+    <Chance value="0" />
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Heroic,Player,Self,Ally,Neutral,Structure,ImmuneToAOE,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Arc="149.9963" Effect="DeckardStayAWhileAndListenImpactSet">
+      <Radius value="12.5" />
+    </AreaArray>
+    <SearchFlags index="CenterAtLaunch" value="1" />
+    <SearchFlags index="OffsetAreaByAngle" value="0" />
+    <SearchFlags index="DoActorSearch" value="1" />
+    <RevealerParams Duration="0.75" ShapeExpansion="1">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+  </CEffectEnumArea>
+  
+  <CBehaviorBuff id="DeckardSuperHealingPotionTimer">
+    <ExpireEffect value="DeckardSuperHealingPotionTimerExpireSet" />
+  </CBehaviorBuff>
+  <CEffectSet id="DeckardSuperHealingPotionTimerExpireSet">
+    <EffectArray value="DeckardSuperHealingPotionActiveApply" />
+    <EffectArray value="DeckardMegaHealingPotionTimerApply" />
+  </CEffectSet>
+  
+  <CBehaviorBuff id="DeckardBottomlessFlask">
+    <Modification>
+      <BehaviorLinkDisableArray value="DeckardMegaHealingPotionActive" />
+    </Modification>
+  </CBehaviorBuff>
+  <CEffectSet id="DeckardBottomlessFlaskApplySet">
+    <EffectArray value="DeckardMegaHealingPotionActiveRemove" />
+  </CEffectSet>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionActive">
+    <InitialEffect value="DeckardMegaHealingPotionActiveCreatePersistent" />
+  </CBehaviorBuff>
+  <CEffectCreatePersistent id="DeckardMegaHealingPotionActiveCreatePersistent">
+    <PeriodicValidator value="DeckardHealingPotionHasMegaHealingPotionActive" />
+    <PeriodCount value="9" />
+    <PeriodicEffectArray value="DeckardMegaHealingPotionActive2Apply" />
+    <PeriodicEffectArray value="DeckardMegaHealingPotionActive3ApplySet" />
+    <PeriodicEffectArray value="DeckardMegaHealingPotionActive4ApplySet" />
+    <PeriodicEffectArray value="DeckardMegaHealingPotionActive5ApplySet" />
+    <PeriodicEffectArray value="DeckardMegaHealingPotionActive6ApplySet" />
+    <PeriodicEffectArray value="DeckardMegaHealingPotionActive7ApplySet" />
+    <PeriodicEffectArray value="DeckardMegaHealingPotionActive8ApplySet" />
+    <PeriodicEffectArray value="DeckardMegaHealingPotionActive9ApplySet" />
+    <PeriodicEffectArray value="DeckardMegaHealingPotionActive10ApplySet" />
+    <PeriodicPeriodArray value="2" />
+  </CEffectCreatePersistent>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionActive2">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionHasMegaHealingPotionActive2">
+    <Behavior value="DeckardMegaHealingPotionActive2" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionActive2Apply">
+    <Behavior value="DeckardMegaHealingPotionActive2" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+
+  <CEffectSet id="DeckardMegaHealingPotionActive3ApplySet">
+    <EffectArray value="DeckardMegaHealingPotionActive3Apply" />
+    <EffectArray value="DeckardMegaHealingPotionActive2Remove" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionActive2Remove">
+    <BehaviorLink value="DeckardMegaHealingPotionActive2" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionActive3Apply">
+    <Behavior value="DeckardMegaHealingPotionActive3" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionActive3">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionHasMegaHealingPotionActive3">
+    <Behavior value="DeckardMegaHealingPotionActive3" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+
+  <CEffectSet id="DeckardMegaHealingPotionActive4ApplySet">
+    <EffectArray value="DeckardMegaHealingPotionActive4Apply" />
+    <EffectArray value="DeckardMegaHealingPotionExtendedRadiusApply" />
+    <EffectArray value="DeckardMegaHealingPotionActive3Remove" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionActive3Remove">
+    <BehaviorLink value="DeckardMegaHealingPotionActive3" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionExtendedRadiusRemove">
+    <BehaviorLink value="DeckardMegaHealingPotionExtendedRadius" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionExtendedRadiusApply">
+    <Behavior value="DeckardMegaHealingPotionExtendedRadius" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="DeckardMegaHealingPotionExtendedRadius">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardMegaHealingPotionHasExtendedRadius">
+    <Behavior value="DeckardMegaHealingPotionExtendedRadius" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+  <CValidatorUnitHasBehavior id="DeckardMegaHealingPotionDoesNotHaveExtendedRadius">
+    <Behavior value="DeckardMegaHealingPotionExtendedRadius" />
+    <WhichUnit Value="Source" />
+    <IncludeDisabled value="1" />
+    <Negate value="1" />
+  </CValidatorUnitHasBehavior>
+
+  <CValidatorCombine id="DeckardHealingPotionDoesNotHaveExtendedRadius1Or2">
+    <Type value="And" />
+    <CombineArray value="DeckardMegaHealingPotionDoesNotHaveExtendedRadius" />
+    <CombineArray value="DeckardMegaHealingPotionDoesNotHaveExtendedRadius2" />
+  </CValidatorCombine>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionActive4">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionHasMegaHealingPotionActive4">
+    <Behavior value="DeckardMegaHealingPotionActive4" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+
+  <CEffectSet id="DeckardMegaHealingPotionActive5ApplySet">
+    <EffectArray value="DeckardMegaHealingPotionActive5Apply" />
+    <EffectArray value="DeckardMegaHealingPotionActive4Remove" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionActive4Remove">
+    <BehaviorLink value="DeckardMegaHealingPotionActive4" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionActive5Apply">
+    <Behavior value="DeckardMegaHealingPotionActive5" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionActive5">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionHasMegaHealingPotionActive5">
+    <Behavior value="DeckardMegaHealingPotionActive5" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+
+  <CEffectSet id="DeckardMegaHealingPotionActive6ApplySet">
+    <EffectArray value="DeckardMegaHealingPotionActive6Apply" />
+    <EffectArray value="DeckardMegaHealingPotionActive5Remove" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionActive5Remove">
+    <BehaviorLink value="DeckardMegaHealingPotionActive5" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionActive6Apply">
+    <Behavior value="DeckardMegaHealingPotionActive6" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionActive6">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionHasMegaHealingPotionActive6">
+    <Behavior value="DeckardMegaHealingPotionActive6" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+
+  <CEffectSet id="DeckardMegaHealingPotionActive7ApplySet">
+    <EffectArray value="DeckardMegaHealingPotionActive7Apply" />
+    <EffectArray value="DeckardMegaHealingPotionActive6Remove" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionActive6Remove">
+    <BehaviorLink value="DeckardMegaHealingPotionActive6" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionActive7Apply">
+    <Behavior value="DeckardMegaHealingPotionActive7" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionActive7">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionHasMegaHealingPotionActive7">
+    <Behavior value="DeckardMegaHealingPotionActive7" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+
+  <CEffectSet id="DeckardMegaHealingPotionActive8ApplySet">
+    <EffectArray value="DeckardMegaHealingPotionActive8Apply" />
+    <EffectArray value="DeckardMegaHealingPotionActive7Remove" />
+    <EffectArray value="DeckardMegaHealingPotionExtendedRadiusRemove" />
+    <EffectArray value="DeckardMegaHealingPotionExtendedRadius2Apply" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionActive7Remove">
+    <BehaviorLink value="DeckardMegaHealingPotionActive7" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionActive8Apply">
+    <Behavior value="DeckardMegaHealingPotionActive8" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionExtendedRadius2Remove">
+    <BehaviorLink value="DeckardMegaHealingPotionExtendedRadius2" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionExtendedRadius2Apply">
+    <Behavior value="DeckardMegaHealingPotionExtendedRadius2" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="DeckardMegaHealingPotionExtendedRadius2">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardMegaHealingPotionHasExtendedRadius2">
+    <Behavior value="DeckardMegaHealingPotionExtendedRadius2" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+  <CValidatorUnitHasBehavior id="DeckardMegaHealingPotionDoesNotHaveExtendedRadius2">
+    <Behavior value="DeckardMegaHealingPotionExtendedRadius2" />
+    <WhichUnit Value="Source" />
+    <IncludeDisabled value="1" />
+    <Negate value="1" />
+  </CValidatorUnitHasBehavior>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionActive8">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionHasMegaHealingPotionActive8">
+    <Behavior value="DeckardMegaHealingPotionActive8" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+
+  <CEffectSet id="DeckardMegaHealingPotionActive9ApplySet">
+    <EffectArray value="DeckardMegaHealingPotionActive9Apply" />
+    <EffectArray value="DeckardMegaHealingPotionActive8Remove" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionActive8Remove">
+    <BehaviorLink value="DeckardMegaHealingPotionActive8" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionActive9Apply">
+    <Behavior value="DeckardMegaHealingPotionActive9" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionActive9">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionHasMegaHealingPotionActive9">
+    <Behavior value="DeckardMegaHealingPotionActive9" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+
+  <CEffectSet id="DeckardMegaHealingPotionActive10ApplySet">
+    <EffectArray value="DeckardMegaHealingPotionActive10Apply" />
+    <EffectArray value="DeckardMegaHealingPotionActive9Remove" />
+  </CEffectSet>
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionActive9Remove">
+    <BehaviorLink value="DeckardMegaHealingPotionActive9" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionActive10Apply">
+    <Behavior value="DeckardMegaHealingPotionActive10" />
+    <WhichUnit Value="Source" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionActive10">
+    <RemoveValidatorArray value="DeckardHealingPotionHasMegaHealingPotionActive" />
+  </CBehaviorBuff>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionHasMegaHealingPotionActive10">
+    <Behavior value="DeckardMegaHealingPotionActive10" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+
+  <CBehaviorBuff id="DeckardMegaHealingPotionTimer">
+    <Duration value="2" />
+    <ExpireEffect value="DeckardMegaHealingPotionTimerExpireSet" />
+  </CBehaviorBuff>
+  <CEffectSet id="DeckardMegaHealingPotionTimerExpireSet">
+    <EffectArray value="DeckardMegaHealingPotionActiveApply" />
+  </CEffectSet>
+  
+  <CBehaviorAbility id="AffixDeckardLorenadoBehaviorAbility">
+    <Buttons Face="DeckardLorenado" Type="AbilCmd" AbilCmd="DeckardLorenado,Execute" />
+  </CBehaviorAbility>
+
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionTimerApply">
+    <Chance value="0" />
+    <Behavior value="DeckardMegaHealingPotionTimer" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="DeckardMegaHealingPotionActiveApply">
+    <Behavior value="DeckardMegaHealingPotionActive" />
+  </CEffectApplyBehavior>
+  <CEffectRemoveBehavior id="DeckardMegaHealingPotionActiveRemove">
+    <BehaviorLink value="DeckardMegaHealingPotionActive" />
+    <WhichUnit Value="Source" />
+  </CEffectRemoveBehavior>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionHasMegaHealingPotionActive">
+    <Behavior value="DeckardMegaHealingPotionActive" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+  <CValidatorUnitHasBehavior id="DeckardHealingPotionDoesNotHaveMegaHealingPotionActive">
+    <Behavior value="DeckardMegaHealingPotionActive" />
+    <Value value="0" />
+    <WhichUnit Value="Source" />
+  </CValidatorUnitHasBehavior>
+
+  <CBehaviorBuff id="DeckardPoisonousPotionCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="DeckardPotionSellerCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="DeckardHasPotionSeller">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="DeckardPotionSeller" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="DeckardHasPoisonousPotion">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="DeckardPoisonousPotionCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CActorModel id="DeckardHealingPotionHealImpact" >
+    <On Terms="Effect.DeckardPoisonousPotionDamage.Start; At Target" Send="Create" />
+  </CActorModel>
+  <CActorModel id="DeckardSuperHealingPotionHealImpact">
+    <On Terms="Effect.DeckardSuperPoisonousPotionDamage.Start; At Target" Send="Create" />
+    <On Terms="Effect.DeckardMegaPoisonousPotionDamage.Start; At Target" Send="Create" />
+    <On Terms="Effect.DeckardMegaHealingPotionCreateHealer.Start; At Target" Send="Create" />
+  </CActorModel>
+
+  <CActorSound id="Deckard_HealingPotion_Super_CreateSound">
+    <On Terms="Effect.DeckardMegaHealingPotionActiveApply.Start; At Target" Send="Create" />
+    <On Terms="Effect.DeckardMegaHealingPotionActive2Apply.Start; At Source" Send="Create" />
+    <On Terms="Effect.DeckardMegaHealingPotionActive3ApplySet.Start; At Source" Send="Create" />
+    <On Terms="Effect.DeckardMegaHealingPotionActive4ApplySet.Start; At Source" Send="Create" />
+    <On Terms="Effect.DeckardMegaHealingPotionActive5ApplySet.Start; At Source" Send="Create" />
+    <On Terms="Effect.DeckardMegaHealingPotionActive6ApplySet.Start; At Source" Send="Create" />
+    <On Terms="Effect.DeckardMegaHealingPotionActive7ApplySet.Start; At Source" Send="Create" />
+    <On Terms="Effect.DeckardMegaHealingPotionActive8ApplySet.Start; At Source" Send="Create" />
+    <On Terms="Effect.DeckardMegaHealingPotionActive9ApplySet.Start; At Source" Send="Create" />
+    <On Terms="Effect.DeckardMegaHealingPotionActive10ApplySet.Start; At Source" Send="Create" />
+  </CActorSound>
+  
+  <CActorModel id="DeckardHealingPotionAlly">
+    <On Terms="Behavior.DeckardMegaHealingPotionTimer.Off" Send="AnimClear Morph" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive2.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive3.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive4.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive5.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive6.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive7.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive8.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive9.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive10.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive.On" Send="SetScale 1.15" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive2.On" Send="SetScale 1.3" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive3.On" Send="SetScale 1.45" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive4.On" Send="SetScale 1.6" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive5.On" Send="SetScale 1.75" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive6.On" Send="SetScale 1.9" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive7.On" Send="SetScale 2.05" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive8.On" Send="SetScale 2.2" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive9.On" Send="SetScale 2.35" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive10.On" Send="SetScale 2.5" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive.Off" Send="SetScale 1" />
+  </CActorModel>
+  <CActorModel id="DeckardHealingPotionEnemy">
+    <On Terms="Behavior.DeckardMegaHealingPotionTimer.Off" Send="AnimClear Morph" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive2.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive3.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive4.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive5.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive6.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive7.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive8.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive9.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive10.On" Send="AnimPlay Birth Birth" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive.On" Send="SetScale 1.15" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive2.On" Send="SetScale 1.3" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive3.On" Send="SetScale 1.45" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive4.On" Send="SetScale 1.6" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive5.On" Send="SetScale 1.75" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive6.On" Send="SetScale 1.9" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive7.On" Send="SetScale 2.05" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive8.On" Send="SetScale 2.2" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive9.On" Send="SetScale 2.35" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive10.On" Send="SetScale 2.5" />
+    <On Terms="Behavior.DeckardMegaHealingPotionActive.Off" Send="SetScale 1" />
+  </CActorModel>
+  
+  <CActorModel id="DeckardLesserHealingPotionHealImpact" >
+    <On Terms="Effect.DeckardLesserPoisonousPotionDamage.Start; At Target" Send="Create" />
+  </CActorModel>
+  
+</Catalog>

@@ -116,3 +116,18 @@ bool libAffx_LostVikingsTrilogyAffixAdded (bool testConds, bool runActions) {
 
     return true;
 }
+
+// ---------------------------------------------------------------
+// Beyblade
+// ---------------------------------------------------------------
+bool libAffx_LostVikingsBeybladeScaling (bool testConds, bool runActions) {
+    int player = libGame_gf_HeroLevelUpPlayer();
+    if (testConds) {
+        if (player != libAffx_player) {
+            return false;
+        }
+    }
+    libAffx_SetDefaultLevelScaling("Effect,LostVikingsSpinToWinBeybladeDamage,Amount", player);
+
+    return true;
+}

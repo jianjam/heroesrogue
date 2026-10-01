@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CAbilEffectTarget id="AnduinFlashHeal">
+    <Effect value="AnduinFlashHealSwitchSet" />
+    <TargetFilters value="-;Neutral,Missile,Item,Stasis,Dead,Hidden" />
+  </CAbilEffectTarget>
+
+  <CAbilEffectTarget id="AnduinFlashHealDesperatePrayer">
+    <Effect value="AnduinFlashHealDesperatePrayerSwitchSet" />
+    <TargetFilters value="-;Neutral,Missile,Item,Stasis,Dead" />
+  </CAbilEffectTarget>
+  
+  <CAbilEffectTarget id="AnduinLeapOfFaithInstant">
+    <Effect value="AnduinLeapOfFaithInstantSwitchSet" />
+    <TargetFilters value="-;Self,Neutral,Structure,Missile,Item,Stasis,Dead,Hidden" />
+  </CAbilEffectTarget>
+
+  <CEffectSwitch id="AnduinLeapOfFaithInstantSwitchSet">
+    <CaseArray Validator="AnduinLeapOfFaithInstantValidator" Effect="AnduinLeapOfFaithInstantLaunchTargetSet" />
+    <CaseArray Validator="AnduinYoinkCombine" Effect="AnduinLeapOfFaithInstantLaunchTargetSet" />
+    <ValidatorArray value="AnduinLeapOfFaithInstantValidOrYoinkValidCombine" />
+  </CEffectSwitch>
+
+  <CEffectSwitch id="AnduinFlashHealDesperatePrayerSwitchSet">
+    <CaseArray Validator="AnduinFlashHealDesperatePrayerValidator" Effect="AnduinFlashHealDesperatePrayerCastSet" />
+    <CaseArray Validator="AnduinPrayerofDeathCombine" Effect="AnduinFlashHealDesperatePrayerPrayerofDeathCastSet" />
+    <ValidatorArray value="AnduinFlashHealDesperatePrayerValidOrPrayerofDeathValidCombine" />
+  </CEffectSwitch>
+
+  <CEffectSet id="AnduinFlashHealDesperatePrayerPrayerofDeathCastSet">
+    <EffectArray value="AnduinFlashHealDesperatePrayerPrayerofDeathDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="AnduinFlashHealDesperatePrayerTimerApplyBehavior" />
+  </CEffectSet>
+
+  <CEffectDamage id="AnduinFlashHealDesperatePrayerPrayerofDeathDamage" parent="StormSpell">
+    <Amount value="375" />
+    <SourceButtonFace value="AnduinFlashHealDesperatePrayer" />
+  </CEffectDamage>
+
+  <CEffectSet id="AnduinFlashHealPrepareSet">
+    <EffectArray value="AnduinFlashHealApplyCastingOnEnemy" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="AnduinFlashHealApplyCastingOnEnemy">
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="AnduinFlashHealCastingOnEnemy" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="AnduinFlashHealCastingOnEnemy">
+    <Duration value="0.0625" />
+  </CBehaviorBuff>
+  <CValidatorUnitCompareBehaviorCount id="AnduinFlashHealTargetIsEnemy">
+    <Value value="1" />
+    <Behavior value="AnduinFlashHealCastingOnEnemy" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CEffectApplyBehavior id="AnduinFlashHealApplyHealthPreview">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+    <Behavior value="AnduinFlashHealHealthPreview" />
+  </CEffectApplyBehavior>
+
+  <CEffectSwitch id="AnduinFlashHealSwitchSet">
+    <CaseArray Validator="AnduinFlashHealValidator" Effect="AnduinFlashHealCastSet" />
+    <CaseArray Validator="AnduinHolyLightForAllCombine" Effect="AnduinFlashHealCastSet" />
+    <CaseArray Validator="AnduinHolyLightForAllEnemyCombine" Effect="AnduinFlashHealEnemyCastSet" />
+    <ValidatorArray value="AnduinFlashHealValidOrHolyLightForAllValidCombine" />
+  </CEffectSwitch>
+  
+  <CEffectSet id="AnduinFlashHealEnemyCastSet">
+    <EffectArray value="AnduinFlashHealHealthPreviewRemoveBehavior" />
+    <EffectArray value="AnduinFlashHealDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="AnduinFlashHealRenewApplyHoT" />
+    <EffectArray value="AnduinFlashHealRenewReduceTokenCount" />
+    <EffectArray value="AnduinFlashHealEvenhandedBlessingsRefundSet" />
+    <EffectArray value="AnduinFlashHealEvenhandedBlessingsTrackUnitSet" />
+    <EffectArray value="AnduinFlashHealInnerFocusActiveRemoveBehavior" />
+  </CEffectSet>
+  
+  <CEffectApplyBehavior id="AnduinFlashHealRenewApplyDoT">
+    <Behavior value="AnduinFlashHealRenewDoT" />
+    <Chance value="0" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="AnduinFlashHealRenewDoT">
+    <Period value="1" />
+    <PeriodicDisplayEffect value="AnduinFlashHealRenewDamage" />
+    <Duration value="6" />
+    <PeriodicEffect value="AnduinFlashHealRenewDamage" />
+    <RemoveValidatorArray value="TargetNotSpecialDeathState" />
+    <InitialEffect value="AnduinFlashHealRenewTalentAddTrackedUnit" />
+    <FinalEffect value="AnduinFlashHealRenewTalentRemoveTrackedUnit" />
+  </CBehaviorBuff>
+  
+  <CEffectDamage id="AnduinFlashHealRenewDamage" parent="StormSpell">
+    <Amount value="30" />
+    <SourceButtonFace value="AnduinFlashHealRenew" />
+  </CEffectDamage>
+  
+  <CTalent id="AnduinFlashHealRenew">
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AnduinFlashHealRenewApplyDoT" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+  
+  <CEffectDamage id="AnduinFlashHealDamage" parent="StormSpell">
+    <Amount value="280" />
+    <SourceButtonFace value="AnduinFlashHeal" />
+    <MultiplicativeModifierArray index="InnerFocus" Validator="AnduinCasterHasFlashHealInnerFocusActive" Modifier="0.25" />
+    <MultiplicativeModifierArray index="EvenhandedBlessings" Validator="AnduinFlashHealTargetNotBeingTrackedandHasEvenhandedBlessingsTalent" Modifier="0.15" Crit="1" />
+    <CritValidatorArray index="0" value="AnduinFlashHealCritCheckCombine" />
+  </CEffectDamage>
+
+  <CBehaviorBuff id="AnduinPursuedByGraceAbilityDamageResponse">
+    <DamageResponse Handled="AnduinPursuedByGraceSet" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="AnduinPursuedByGracePhysicalDamageResponse">
+    <DamageResponse Handled="AnduinPursuedByGraceSet" />
+  </CBehaviorBuff>
+
+  <CEffectSet id="AnduinHeroWeaponPursuedByGraceTalentProcSet">
+    <EffectArray index="1" value="AnduinPursuedByGraceSet" />
+  </CEffectSet>
+
+  <CEffectSet id="AnduinPursuedByGraceSet">
+    <EffectArray value="AnduinPursuedByGraceHealSearch"/>
+    <EffectArray value="AnduinPursuedByGraceHolyLightForAllHealSearch"/>
+    <EffectArray value="AnduinPursuedByGraceHolyLightForAllEnemySearch"/>
+  </CEffectSet>
+  
+  <CEffectEnumArea id="AnduinPursuedByGraceHolyLightForAllHealSearch">
+    <ValidatorArray value="AnduinHasHolyLightForAll" />
+    <ImpactLocation Value="CasterPoint" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead" />
+    <AreaArray MaxCount="1" Effect="AnduinPursuedByGraceHeal">
+      <Radius value="6.5" />
+    </AreaArray>
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+    </TargetSorts>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="AnduinPursuedByGraceHolyLightForAllEnemySearch">
+    <ValidatorArray value="AnduinHasHolyLightForAll" />
+    <ImpactLocation Value="CasterPoint" />
+    <SearchFilters value="-;Player,Neutral,Self,Ally,Missile,Stasis,Dead" />
+    <AreaArray MaxCount="1" Effect="AnduinPursuedByGraceDamageSet">
+      <Radius value="6.5" />
+    </AreaArray>
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+    </TargetSorts>
+  </CEffectEnumArea>
+  <CEffectSet id="AnduinPursuedByGraceDamageSet">
+    <EffectArray value="AnduinPursuedByGraceDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectDamage id="AnduinPursuedByGraceDamage" parent="StormSpell">
+    <MultiplicativeModifierArray index="PushForward" Accumulator="AnduinPushForwardHealingAccumulator" />
+    <Amount value="32" />
+    <SourceButtonFace value="AnduinPursuedByGrace" />
+  </CEffectDamage>
+
+  <CEffectSet id="AnduinLeapOfFaithInstantLaunchTargetSet">
+    <EffectArray value="AnduinLeapOfFaithEnchantBootsLionsSpeedDoTApplyBehavior" />
+  </CEffectSet>
+  
+  <CEffectApplyBehavior id="AnduinLeapOfFaithEnchantBootsLionsSpeedHoTApplyBehavior">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectApplyBehavior>
+  
+  <CEffectApplyBehavior id="AnduinLeapOfFaithEnchantBootsLionsSpeedDoTApplyBehavior">
+    <ValidatorArray value="TargetIsEnemy" />
+    <ValidatorArray value="AnduinHasLeapOfFaithEnchantBootsLionsSpeedTalent" />
+    <ValidatorArray value="AnduinHasYoink" />
+    <Behavior value="AnduinLeapOfFaithEnchantBootsLionsSpeedDoT" />
+  </CEffectApplyBehavior>
+  
+  <CBehaviorBuff id="AnduinLeapOfFaithEnchantBootsLionsSpeedDoT" parent="StormDot">
+    <Alignment value="Negative" />
+    <RemoveValidatorArray value="TargetNotSpecialDeathState" />
+    <Duration value="4" />
+    <Period value="1" />
+    <PeriodCount value="4" />
+    <PeriodicEffect value="AnduinLeapOfFaithEnchantBootsLionsSpeedDamage" />
+    <PeriodicDisplayEffect value="AnduinLeapOfFaithEnchantBootsLionsSpeedDamage" />
+  </CBehaviorBuff>
+
+  <CEffectDamage id="AnduinLeapOfFaithEnchantBootsLionsSpeedDamage" parent="StormSpellDot">
+    <Amount value="70" />
+    <SourceButtonFace value="AnduinLeapOfFaithInstant" />
+  </CEffectDamage>
+  
+  <CBehaviorBuff id="AnduinDivineStarReturnMissileScanBehavior">
+    <PeriodicEffect value="AnduinDivineStarReturnMissileScanSet" />
+  </CBehaviorBuff>
+
+  <CEffectSet id="AnduinDivineStarReturnMissileScanSet">
+    <EffectArray value="AnduinDivineStarReturnMissileScan"/>
+    <EffectArray value="AnduinDivineStarReturnHolyLightForAllMissileScan"/>
+  </CEffectSet>
+
+  <CEffectSet id="AnduinDivineStarHolyNovaSet">
+    <EffectArray value="AnduinDivineStarHolyLightForAllHolyNovaHealSearch" />
+  </CEffectSet>
+  <CEffectEnumArea id="AnduinDivineStarHolyLightForAllHolyNovaHealSearch">
+    <ValidatorArray value="AnduinHasHolyLightForAll" />
+    <ImpactLocation Value="CasterUnit" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead" />
+    <AreaArray Effect="AnduinDivineStarHolyNovaHeal">
+      <Radius value="$AnduinDivineStarHolyNovaSearchRadius" />
+    </AreaArray>
+  </CEffectEnumArea>
+
+  <CEffectSet id="AnduinDivineStarMissileSearchSet">
+    <EffectArray value="AnduinDivineStarHolyLightForAllPowerWordShieldTalentAllySearch" />
+  </CEffectSet>
+  <CEffectEnumArea id="AnduinDivineStarHolyLightForAllPowerWordShieldTalentAllySearch">
+    <ValidatorArray value="AnduinHasHolyLightForAll" />
+    <Chance value="0" />
+    <SearchFilters value="-;Heroic,Player,Neutral,Structure,Enemy,ImmuneToAOE,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="AnduinDivineStarPowerWordShieldTalentAllySearchImpactSet">
+      <RectangleWidth value="2.25" />
+      <RectangleHeight value="2.25" />
+    </AreaArray>
+    <SearchFlags index="DoActorSearch" value="1" />
+  </CEffectEnumArea>
+  <CTalent id="AnduinDivineStarPowerWordShield">
+    <AbilityModificationArray>
+      <Modifications>
+        <Type value="FlatModification" />
+        <Catalog value="Effect" />
+        <Entry value="AnduinDivineStarHolyLightForAllPowerWordShieldTalentAllySearch" />
+        <Field value="Chance" />
+        <Value value="1.000000" />
+      </Modifications>
+    </AbilityModificationArray>
+  </CTalent>
+
+  <CEffectEnumArea id="AnduinDivineStarReturnHolyLightForAllMissileScan">
+    <ValidatorArray value="AnduinHasHolyLightForAll" />
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead" />
+    <AreaArray Effect="AnduinDivineStarReturnImpactSet">
+      <Radius value="$AnduinDivineStarReturnSearchRadius" />
+    </AreaArray>
+    <RevealerParams Duration="0.75" ShapeExpansion="1">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+  </CEffectEnumArea>
+  
+  <CEffectCreatePersistent id="AnduinLightwellCreatePersistent">
+    <InitialEffect value="AnduinLightwellSearchSet" />
+    <PeriodicEffectArray index="0" value="AnduinLightwellSearchSet" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="AnduinLightwellSearchSet">
+    <EffectArray value="AnduinLightwellSearch" />
+    <EffectArray value="AnduinLightwellNonHeroicSearch" />
+    <EffectArray value="AnduinLightwellEnemySearch" />
+  </CEffectSet>
+  <CEffectEnumArea id="AnduinLightwellNonHeroicSearch">
+    <Chance value="0" />
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead" />
+    <AreaArray MaxCount="1" Effect="AnduinLightwellImpactSet">
+      <Radius value="$AnduinLightwellSearchRadius" />
+    </AreaArray>
+    <LaunchLocation Value="OriginPoint" />
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+    </TargetSorts>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="AnduinLightwellEnemySearch">
+    <Chance value="0" />
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Player,Self,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Invulnerable" />
+    <AreaArray MaxCount="1" Effect="AnduinLightwellImpactDamageSet">
+      <Radius value="$AnduinLightwellSearchRadius" />
+    </AreaArray>
+    <LaunchLocation Value="OriginPoint" />
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+    </TargetSorts>
+  </CEffectEnumArea>
+  <CEffectSet id="AnduinLightwellImpactDamageSet">
+    <EffectArray value="AnduinLightwellDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <EffectArray value="AnduinLightwellCooldownRefund" />
+    <EffectArray value="AnduinLightwellReduceTokenCount" />
+    <ValidatorArray value="noMarkers" />
+  </CEffectSet>
+  <CEffectDamage id="AnduinLightwellDamage" parent="StormSpell">
+    <Amount value="50" />
+    <SourceButtonFace value="AnduinLightwell" />
+  </CEffectDamage>
+
+  <CBehaviorAbility id="AffixAnduinLightBombBehaviorAbility">
+    <Buttons Face="AnduinLightBomb" Type="AbilCmd" AbilCmd="AnduinLightBomb,Execute" />
+  </CBehaviorAbility>
+  
+  <CEffectCreatePersistent id="AnduinHolyWordSalvationCreatePersistent">
+    <PeriodicEffectArray index="0" value="AnduinHolyWordSalvationPeriodicSet" />
+  </CEffectCreatePersistent>
+  <CEffectSet id="AnduinHolyWordSalvationInitialSet">
+    <EffectArray index="2" value="AnduinHolyWordSalvationPeriodicSet" />
+  </CEffectSet>
+  <CEffectSet id="AnduinHolyWordSalvationPeriodicSet">
+    <EffectArray value="AnduinHolyWordSalvationSearch" />
+    <EffectArray value="AnduinHolyWordSalvationNonHeroicSearch" />
+    <EffectArray value="AnduinHolyWordSalvationEnemySearch" />
+  </CEffectSet>
+  
+  <CEffectEnumArea id="AnduinHolyWordSalvationNonHeroicSearch">
+    <Chance value="0" />
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead" />
+    <AreaArray Effect="AnduinHolyWordSalvationBuffSwitch">
+      <Radius value="$AnduinHolyWordSalvationSearchRadius" />
+    </AreaArray>
+    <LaunchLocation Value="OriginPoint" />
+    <RevealerParams Duration="0.75" ShapeExpansion="1">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+  </CEffectEnumArea>
+  
+  <CEffectEnumArea id="AnduinHolyWordSalvationEnemySearch">
+    <Chance value="0" />
+    <ImpactLocation Value="TargetPoint" />
+    <SearchFilters value="-;Player,Self,Neutral,Ally,ImmuneToAOE,Missile,Stasis,Dead" />
+    <AreaArray Effect="AnduinHolyWordSalvationEnemyImpactSet">
+      <Radius value="$AnduinHolyWordSalvationSearchRadius" />
+    </AreaArray>
+    <LaunchLocation Value="OriginPoint" />
+    <RevealerParams Duration="0.75" ShapeExpansion="1">
+      <RevealFlags index="Unfog" value="1" />
+    </RevealerParams>
+  </CEffectEnumArea>
+  <CEffectSet id="AnduinHolyWordSalvationEnemyImpactSet">
+    <EffectArray value="AnduinHolyWordSalvationSanctifyApply" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="AnduinHolyWordSalvationSanctifyApply">
+    <Behavior value="AnduinHolyWordSalvationSanctify" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="AnduinHolyWordSalvationSanctify" >
+    <RemoveValidatorArray value="AnduinHolyWordSalvationTargetIsNearCenterPoint" />
+    <RemoveValidatorArray value="AnduinCasterHasHolyWordSalvationActiveToken" />
+    <BuffFlags index="RefreshStack" value="1" />
+    <Duration value="0.125" />
+    <Period value="0.25" />
+    <PeriodicEffect value="AnduinHolyWordSalvationSanctifyDamageSet" />
+  </CBehaviorBuff>
+  <CEffectSet id="AnduinHolyWordSalvationSanctifyDamageSet">
+    <EffectArray value="AnduinHolyWordSalvationSanctifyDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectDamage id="AnduinHolyWordSalvationSanctifyDamage" parent="StormSpellPercentDamage">
+    <SourceButtonFace value="AnduinHolyWordSalvation" />
+    <VitalFractionMax index="Life" value="0.025" />
+  </CEffectDamage>
+
+  <CBehaviorBuff id="AnduinHolyLightForAllCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="AnduinPrayerofDeathCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="AnduinYoinkCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="AnduinHasHolyLightForAll">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AnduinHolyLightForAllCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorUnitCompareBehaviorCount id="AnduinHasPrayerofDeath">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AnduinPrayerofDeathCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorUnitCompareBehaviorCount id="AnduinHasYoink">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AnduinYoinkCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorCombine id="AnduinFlashHealValidOrHolyLightForAllValidCombine">
+    <CombineArray value="AnduinFlashHealValidator" />
+    <CombineArray value="AnduinHolyLightForAllCombine" />
+    <CombineArray value="AnduinHolyLightForAllEnemyCombine" />
+  </CValidatorCombine>
+  <CValidatorCombine id="AnduinFlashHealDesperatePrayerValidOrPrayerofDeathValidCombine">
+    <CombineArray value="AnduinFlashHealDesperatePrayerValidator" />
+    <CombineArray value="AnduinPrayerofDeathCombine" />
+  </CValidatorCombine>
+  <CValidatorCombine id="AnduinLeapOfFaithInstantValidOrYoinkValidCombine">
+    <CombineArray value="AnduinLeapOfFaithInstantValidator" />
+    <CombineArray value="AnduinYoinkCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="AnduinHolyLightForAllCombine">
+    <Type value="And" />
+    <CombineArray value="AnduinHasHolyLightForAll" />
+    <CombineArray value="AnduinHolyLightForAllValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="AnduinHolyLightForAllEnemyCombine">
+    <Type value="And" />
+    <CombineArray value="AnduinHasHolyLightForAll" />
+    <CombineArray value="AnduinHolyLightForAllEnemyValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="AnduinPrayerofDeathCombine">
+    <Type value="And" />
+    <CombineArray value="AnduinHasPrayerofDeath" />
+    <CombineArray value="AnduinPrayerofDeathValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="AnduinYoinkCombine">
+    <Type value="And" />
+    <CombineArray value="AnduinHasYoink" />
+    <CombineArray value="AnduinYoinkValidator" />
+  </CValidatorCombine>
+
+  <CValidatorUnitFilters id="AnduinFlashHealValidator">
+    <Filters value="Heroic;Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AnduinFlashHealDesperatePrayerValidator">
+    <Filters value="Heroic;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AnduinLeapOfFaithInstantValidator">
+    <Filters value="Heroic;Self,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AnduinHolyLightForAllValidator">
+    <Filters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AnduinHolyLightForAllEnemyValidator">
+    <Filters value="-;Player,Self,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AnduinPrayerofDeathValidator">
+    <Filters value="-;Player,Self,Ally,Neutral,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AnduinYoinkValidator">
+    <Filters value="-;Self,Ally,Neutral,Structure,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  
+  <CActorModel id="AnduinFlashHealTargetCastFX">
+    <On Terms="Abil.AnduinFlashHeal.TargetCastStart; ValidateUnit AnduinFlashHealTargetIsEnemy" Send="SetTintColor {150,40,175 1}" />
+  </CActorModel>
+  <CActorModel id="AnduinFlashHealCastCompleteFX">
+    <On Terms="Effect.AnduinFlashHealEnemyCastSet.Start; At Caster" Send="Create" />
+  </CActorModel>
+  <CActorModel id="AnduinFlashHealImpactFX">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {150,40,175 1}" />
+    <On Terms="Effect.AnduinFlashHealEnemyCastSet.Start; At Target" Send="Create" />
+  </CActorModel>
+
+  <CActorSound id="Anduin_FlashHeal_Renew_Impact">
+    <On Terms="Effect.AnduinFlashHealRenewApplyDoT.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorModel id="AnduinFlashHealRenewBuffFX">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {150,40,175 1}" />
+    <On Terms="Behavior.AnduinFlashHealRenewDoT.On" Send="Create" />
+    <On Terms="Behavior.AnduinFlashHealRenewDoT.Off" Send="AnimBracketStop BSD" />
+  </CActorModel>
+  <CActorSound id="Anduin_PursuedByGrace_Impact_Heal">
+    <On Terms="Effect.AnduinFlashHealRenewDamage.Start; At Target" Send="Create" />
+  </CActorSound>
+
+  <CActorModel id="AnduinFlashHealDesperatePrayerImpactFX">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {150,40,175 1}" />
+    <On Terms="Effect.AnduinFlashHealDesperatePrayerPrayerofDeathDamage.Start; At Target" Send="Create" />
+  </CActorModel>
+
+</Catalog>

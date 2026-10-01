@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  
+  <CAbilEffectTarget id="MalfurionRegrowth">
+    <TargetFilters value="-;Neutral,Missile,Item,Stasis,Dead,Hidden" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="MalfurionInnervate">
+    <TargetFilters value="Heroic;Self,Neutral,Structure,Item,Stasis,Dead" />
+  </CAbilEffectTarget>
+  
+  <CEffectEnumArea id="EntanglingRootsSearch1Initial">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="EntanglingRootsSearch2">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="EntanglingRootsSearch3">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="EntanglingRootsSearch4">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="EntanglingRootsSearch5Final">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="MalfurionEntanglingRootsSearch6Mastery">
+    <SearchFilters value="-;Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable" />
+  </CEffectEnumArea>
+
+  <CEffectSet id="EntanglingRootsApplyBehaviorSet">
+    <ValidatorArray value="MalfurionEntanglingRootsValidOrStranglingVinesValid" />
+  </CEffectSet>
+  
+  <CEffectSet id="MalfurionRegrowthInitialSet">
+    <ValidatorArray value="MalfurionRegrowthValidCombine" />
+    <EffectArray value="MalfurionRegrowthLifebloomDamage" />
+    <EffectArray value="RegrowthApplyEnemyBehavior" />
+    <EffectArray value="MalfurionRampantGrowthSet" />
+  </CEffectSet>
+  
+  <CEffectSet id="InnervateInitialSet">
+    <ValidatorArray value="MalfurionInnervateValidCombine" />
+    <EffectArray value="EnervateSet" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="InnervateApplyBehavior">
+    <ValidatorArray value="TargetIsAlly" />
+  </CEffectApplyBehavior>
+  
+  <CEffectSet id="MoonfireInitialSet">
+    <EffectArray index="4" value="MalfurionMoonfireEnumEnemiesRegrowthTrackedUnitsDamage" />
+    <EffectArray index="5" value="MalfurionMoonfireHeroHitResetTokens" />
+    <TargetLocationType value="Point" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="RegrowthApplyBehavior">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+    <Behavior value="Regrowth" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="RegrowthApplyEnemyBehavior">
+    <ValidatorArray value="MalfurionHasCenariusSpite" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="EnemyRegrowth" />
+  </CEffectApplyBehavior>
+  
+  <CEffectCreateHealer id="MalfurionRegrowthLifebloomImpactHeal">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+
+  <CEffectDamage id="MalfurionRegrowthLifebloomDamage" parent="StormSpell">
+    <ValidatorArray value="TargetIsEnemy" />
+    <ValidatorArray value="MalfurionHasLifebloom" />
+    <ValidatorArray value="MalfurionHasCenariusSpite" />
+    <Amount value="0">
+      <AccumulatorArray value="MalfurionLifebloomAccumulator" />
+    </Amount>
+  </CEffectDamage>
+  
+  <CBehaviorBuff id="EnemyRegrowth" parent="StormDot">
+    <InfoIcon value="Assets\Textures\storm_btn-ability_malfurion-rejuvenation.dds" />
+    <Duration value="20" />
+    <Period value="1" />
+    <PeriodicEffect value="MalfurionEnemyRegrowthPeriodicSet" />
+    <PeriodicDisplayEffect value="RegrowthDamage" />
+    <RemoveValidatorArray value="TargetNotSpecialDeathState" />
+    <Face value="MalfurionRegrowth" />
+    <FinalEffect value="MalfurionRegrowthFinalSet" />
+    <RefreshEffect value="MalfurionRegrowthRefreshEffectSet" />
+    <InitialEffect value="MalfurionRegrowthOnApplicationSet" />
+    <MaxStackCount value="5" />
+    <MaxStackCountPerCaster value="1" />
+  </CBehaviorBuff>
+  
+  <CEffectSet id="MalfurionEnemyRegrowthPeriodicSet">
+    <EffectArray value="RegrowthDamage" />
+  </CEffectSet>
+
+  <CEffectEnumTrackedUnits id="MalfurionMoonfireEnumEnemiesRegrowthTrackedUnitsDamage">
+    <ValidatorArray value="MalfurionMoonfireCasterHasGE1HeroHitToken" />
+    <BehaviorLink value="MalfurionRegrowthUnitTracker" />
+    <Effect value="MalfurionRegrowthMoonfireDamageSet" />
+  </CEffectEnumTrackedUnits>
+
+  <CEffectDamage id="RegrowthDamage" parent="StormSpellDot">
+    <ValidatorArray value="TargetIsEnemy" />
+    <Amount value="19" />
+    <Flags index="TriggerVoiceResponse" value="0" />
+    <MultiplicativeModifierArray index="YserasGift" Validator="MalfurionYserasGiftCombine" Modifier="0.75" Crit="1" />
+  </CEffectDamage>
+
+  <CEffectCreateHealer id="MalfurionRegrowthMoonfireImpactCreateHealer">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+
+  <CEffectSet id="MalfurionRegrowthMoonfireDamageSet">
+    <EffectArray value="MalfurionRegrowthMoonfireDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectDamage id="MalfurionRegrowthMoonfireDamage" parent="StormSpell">
+    <ValidatorArray value="TargetIsEnemy" />
+    <Amount value="130">
+      <AccumulatorArray value="MalfurionMoonfireHealAccumulator" />
+    </Amount>
+    <MultiplicativeModifierArray index="MoonlitHarmony" Validator="MalfurionHasMoonlitHarmony" Accumulator="MalfurionMoonlitHarmonyAccumulator" Modifier="0.2" />
+  </CEffectDamage>
+  
+  <CEffectEnumTrackedUnits id="MalfurionNaturesCureEnumerateTrackedUnits">
+    <ValidatorArray index="0" value="TargetIsAllyorSelf" />
+  </CEffectEnumTrackedUnits>
+  <CEffectModifyTokenCount id="MalfurionRegrowthAddTokenCount">
+    <ValidatorArray index="0" value="TargetIsAllyorSelf" />
+  </CEffectModifyTokenCount>
+  <CEffectModifyTokenCount id="MalfurionRegrowthRemoveTokenCount">
+    <ValidatorArray index="0" value="TargetIsAllyorSelf" />
+  </CEffectModifyTokenCount>
+  <CEffectModifyTokenCount id="MalfurionNaturesSwiftnessRemoveTokenCount">
+    <ValidatorArray index="1" value="TargetIsAllyorSelf" />
+  </CEffectModifyTokenCount>
+  <CEffectModifyTokenCount id="MalfurionRejuvenationRemoveTokenCount">
+    <ValidatorArray index="1" value="TargetIsAllyorSelf" />
+  </CEffectModifyTokenCount>
+
+  <CEffectSet id="MalfurionRampantGrowthSet">
+    <Chance value="0" />
+    <ValidatorArray value="MalfurionHasRampantGrowth" />
+    <EffectArray value="MalfurionRampantGrowthSwitch" />
+  </CEffectSet>
+
+
+  <CEffectSwitch id="MalfurionRampantGrowthSwitch">
+    <CaseArray Validator="MalfurionHasCenariusSpite" Effect="MalfurionRampantGrowthCenariusSpiteSearch" />
+    <CaseDefault value="MalfurionRampantGrowthSearch" />
+  </CEffectSwitch>
+
+  <CEffectEnumArea id="MalfurionRampantGrowthCenariusSpiteSearch">
+    <ImpactLocation Value="TargetUnit" />
+    <SearchFilters value="-;Neutral,Missile,Stasis,Dead,Benign" />
+    <AreaArray Effect="MalfurionRampantGrowthCenariusSpiteSearchSet">
+      <Radius value="3" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="MalfurionRampantGrowthCenariusSpiteSearchSet">
+    <ValidatorArray value="MalfurionCenariusSpiteValidOrRampantGrowthValid" />
+    <ValidatorArray value="TargetIsNotEnemyOrTargetIsEnemyAndNotImmuneToAOE" />
+    <EffectArray value="MalfurionRampantGrowthImpactSet" />
+  </CEffectSet>
+  <CEffectEnumArea id="MalfurionRampantGrowthSearch">
+    <ImpactLocation Value="TargetUnit" />
+    <SearchFilters value="-;Enemy,Neutral,Structure,ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Benign" />
+    <AreaArray Effect="MalfurionRampantGrowthImpactSet">
+      <Radius value="3" />
+    </AreaArray>
+  </CEffectEnumArea>
+
+  <CEffectSet id="MalfurionTranquilitySearchSet">
+    <EffectArray value="TranquilityNonHeroicSearch" />
+    <EffectArray value="TranquilityEnemySearch" />
+  </CEffectSet>
+
+  <CEffectEnumArea id="TranquilityNonHeroicSearch">
+    <Chance value="0" />
+    <ImpactLocation Value="CasterUnit" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Worker,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="TranquilitySet">
+      <Radius value="6.5" />
+    </AreaArray>
+    <ValidatorArray value="CasterNotDeadOrStasisExceptIceBlock" />
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectEnumArea id="TranquilityEnemySearch">
+    <Chance value="0" />
+    <ImpactLocation Value="CasterUnit" />
+    <SearchFilters value="-;Player,Self,Ally,Neutral,ImmuneToAOE,Worker,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="TranquilitySet">
+      <Radius value="6.5" />
+    </AreaArray>
+    <ValidatorArray value="CasterNotDeadOrStasisExceptIceBlock" />
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  
+  <CEffectSet id="TranquilitySet">
+    <EffectArray value="TranquilityDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  
+  <CEffectApplyBehavior id="MalfurionTranquilityApplyArmorBehavior">
+    <ValidatorArray index="1" value="TargetIsAllyorSelf" />
+  </CEffectApplyBehavior>
+  
+  <CEffectCreateHealer id="TranquilityHeal">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+  
+  <CEffectDamage id="TranquilityDamage" parent="StormSpell">
+    <ValidatorArray value="TargetIsEnemy" />
+    <MultiplicativeModifierArray index="MalfurionTranquilitySerenity" Validator="MalfurionHasSerenity" Modifier="0.25" />
+    <MultiplicativeModifierArray index="Serenity" Validator="MalfurionHasSerenity" Accumulator="MalfurionSerenityAccumulater" />
+    <Amount value="40" />
+  </CEffectDamage>
+
+  <CBehaviorAbility id="AffixMalfurionTwilightDreamBehaviorAbility">
+    <Buttons Face="MalfurionTwilightDream" Type="AbilCmd" AbilCmd="MalfurionTwilightDream,Execute" />
+  </CBehaviorAbility>
+
+  <CEffectSet id="MalfurionRampantGrowthImpactSet">
+    <EffectArray value="MalfurionRampantGrowthEnemyImpactSet" />
+    <EffectArray value="MalfurionRegrowthLifebloomImpactHeal" />
+    <EffectArray value="MalfurionRampantGrowthRegrowthApply" />
+    <EffectArray value="MalfurionNaturesSwiftnessAddTokenCount" />
+    <EffectArray value="MalfurionRegrowthRejuvenationTalentProcSet" />
+  </CEffectSet>
+  <CEffectSet id="MalfurionRampantGrowthEnemyImpactSet">
+    <ValidatorArray value="TargetIsEnemy" />
+    <EffectArray value="MalfurionRegrowthLifebloomDamage" />
+    <EffectArray value="MalfurionRampantGrowthRegrowthEnemyApply" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  
+  <CEffectApplyBehavior id="MalfurionRampantGrowthRegrowthApply">
+    <ValidatorArray value="MalfurionTargetDoesNotHaveRegrowthGT10Seconds" />
+    <ValidatorArray value="TargetIsAllyorSelf" />
+    <Behavior value="Regrowth" />
+    <Flags index="UseDuration" value="1" />
+    <Duration value="10" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="MalfurionRampantGrowthRegrowthEnemyApply">
+    <ValidatorArray value="MalfurionTargetDoesNotHaveRegrowthGT10Seconds" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="EnemyRegrowth" />
+    <Flags index="UseDuration" value="1" />
+    <Duration value="10" />
+  </CEffectApplyBehavior>
+  
+  <CValidatorUnitCompareBehaviorDuration id="MalfurionTargetDoesNotHaveRegrowthGT10Seconds">
+    <Compare value="LE" />
+    <Value value="10" />
+    <Behavior value="Regrowth" />
+    <SucceedIfUnitLacksBehavior value="1" />
+  </CValidatorUnitCompareBehaviorDuration>
+
+  <CEffectSet id="EnervateSet">
+    <ValidatorArray value="TargetIsEnemy" />
+    <ValidatorArray value="MalfurionHasEnervate" />
+    <EffectArray value="EnervateDamage" />
+    <EffectArray value="EnervateManaSteal" />
+    <EffectArray value="EnervateApplySilenceBehavior" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="EnervateApplySilenceBehavior">
+    <Behavior value="EnervateSilence" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="EnervateSilence" parent="StormSilence">
+    <Duration value="3" />
+  </CBehaviorBuff>
+
+  <CEffectCreateHealer id="EnervateManaSteal" parent="StormManaRestore">
+    <RechargeVitalFraction value="-0.20" />
+  </CEffectCreateHealer>
+
+  <CEffectDamage id="EnervateDamage" parent="StormSpellPercentDamage">
+    <VitalFractionMax index="Energy" value="0.20" />
+    <LeechFraction index="Energy" value="1" />
+  </CEffectDamage>
+  
+  <CEffectModifyTokenCount id="MalfurionEntanglingRootsDeepRootsAddTokenCount">
+    <ValidatorArray value="TargetIsHero" />
+  </CEffectModifyTokenCount>
+  <CEffectApplyBehavior id="EntanglingRootsEmeraldDreamsApplySleepBehavior">
+    <ValidatorArray value="TargetIsHero" />
+  </CEffectApplyBehavior>
+  
+  <CValidatorCombine id="MalfurionRegrowthValidCombine">
+    <CombineArray value="MalfurionRegrowthValidator" />
+    <CombineArray value="MalfurionCenariusSpiteCombine" />
+    <CombineArray value="MalfurionRampantGrowthCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="MalfurionCenariusSpiteCombine">
+    <Type value="And" />
+    <CombineArray value="MalfurionHasCenariusSpite" />
+    <CombineArray value="MalfurionCenariusSpiteValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="MalfurionRampantGrowthCombine">
+    <Type value="And" />
+    <CombineArray value="MalfurionHasRampantGrowth" />
+    <CombineArray value="MalfurionRampantGrowthValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="MalfurionCenariusSpiteValidOrRampantGrowthValid">
+    <CombineArray value="MalfurionCenariusSpiteValidator" />
+    <CombineArray value="MalfurionRampantGrowthValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="MalfurionInnervateValidCombine">
+    <CombineArray value="MalfurionInnervateValidator" />
+    <CombineArray value="MalfurionEnervateCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="MalfurionEnervateCombine">
+    <Type value="And" />
+    <CombineArray value="MalfurionHasEnervate" />
+    <CombineArray value="MalfurionEnervateValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="MalfurionEntanglingRootsValidOrStranglingVinesValid">
+    <CombineArray value="MalfurionEntanglingRootsValidator" />
+    <CombineArray value="MalfurionStranglingVinesCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="MalfurionStranglingVinesCombine">
+    <Type value="And" />
+    <CombineArray value="MalfurionHasStranglingVines" />
+    <CombineArray value="MalfurionStranglingVinesValidator" />
+  </CValidatorCombine>
+
+  <CBehaviorBuff id="MalfurionCenariusSpiteCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="MalfurionRampantGrowthCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="MalfurionEnervateCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="MalfurionStranglingVinesCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="MalfurionHasCenariusSpite">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="MalfurionCenariusSpiteCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="MalfurionHasRampantGrowth">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="MalfurionRampantGrowthCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="MalfurionHasEnervate">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="MalfurionEnervateCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="MalfurionHasStranglingVines">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="MalfurionStranglingVinesCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorUnitFilters id="MalfurionRampantGrowthValidator">
+    <Filters value="-;Heroic,Self,Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="MalfurionCenariusSpiteValidator">
+    <Filters value="-;Player,Self,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="MalfurionRegrowthValidator">
+    <Filters value="Heroic;Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="MalfurionEnervateValidator">
+    <Filters value="Heroic;Self,Neutral,Ally,Unstoppable,Structure,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="MalfurionInnervateValidator">
+    <Filters value="Heroic;Self,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="MalfurionStranglingVinesValidator">
+    <Filters value="-;Heroic,Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="MalfurionEntanglingRootsValidator">
+    <Filters value="Heroic;Player,Ally,Neutral,Minion,Merc,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden,Invulnerable,Unstoppable,MapBoss,MapCreature" />
+  </CValidatorUnitFilters>
+  
+  <CActorModel id="MalfurionRegrowthModel">
+    <On Terms="Behavior.EnemyRegrowth.On" Send="Create" />
+    <On Terms="Behavior.EnemyRegrowth.On" Send="SetTintColor {255,0,255 1}" />
+    <On Terms="Behavior.EnemyRegrowth.Off" Send="AnimBracketStop BSD" />
+  </CActorModel>
+
+  <CActorSound id="MalfurionRegrowthHealSound">
+    <On Terms="Effect.RegrowthApplyEnemyBehavior.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorSound id="MalfurionRegrowthHealTickSound">
+    <On Terms="Effect.RegrowthDamage.Start; At Target" Send="Create" />
+  </CActorSound>
+
+  <CActorModel id="MalfurionInnervationCastImpact">
+    <On Terms="Effect.EnervateSet.Start" Send="Create" />
+  </CActorModel>
+  <CActorSound id="MalfurionInnervationSound">
+    <On Terms="Effect.EnervateSet.Start; At Target" Send="Create" />
+  </CActorSound>
+
+</Catalog>

@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CAbilEffectTarget id="UtherHolyLight">
+    <TargetFilters value="-;Neutral,Creep,Missile,Item,Stasis,Dead" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="UtherFlashofLight">
+    <TargetFilters value="-;Neutral,Creep,Missile,Item,Stasis,Dead" />
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="UtherDivineIntervention">
+    <TargetFilters value="Heroic;Neutral,Missile,Item,Stasis,Dead,Hallucination" />
+    <CmdButtonArray index="Execute" UseValidator="UtherHasUltimate1UnlockedAndDoesNotHaveSpiritFormGhostOrRetributionCombine" />
+  </CAbilEffectTarget>
+  <CAbilEffectInstant id="UtherDivineStorm">
+    <CmdButtonArray index="Execute" UseValidator="UtherHasUltimate1UnlockedAndDoesNotHaveSpiritFormGhostOrRetributionCombine" />
+  </CAbilEffectInstant>
+
+  <CAbilEffectTarget id="UtherLightofDawn">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="UtherHolyRadianceInitialSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Flags index="TargetVectorLock" value="1" />
+    <Cost>
+      <Vital index="Energy" value="0" />
+      <Cooldown TimeUse="4" />
+    </Cost>
+    <Range value="500" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CursorEffect value="HolyRadianceCursorSearch" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherLightofDawn" ShowValidator="UtherRetributionCombine" >
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <CastIntroTime value="0" />
+    <Arc value="360" />
+  </CAbilEffectTarget>
+  
+  <CAbilEffectTarget id="UtherHammerOfWrath">
+    <Effect value="HammerOfJusticeSet" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Cost>
+      <Vital index="Energy" value="0" />
+      <Cooldown TimeUse="4" />
+    </Cost>
+    <TargetFilters value="-;Player,Ally,Neutral,Structure,Missile,Item,Dead,Hidden,Invulnerable" />
+    <Range value="$UtherHammerOfJusticeRange" />
+    <UninterruptibleArray index="Cast" value="1" />
+    <UninterruptibleArray index="Channel" value="1" />
+    <UninterruptibleArray index="Finish" value="1" />
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherHammerOfWrath" ShowValidator="UtherRetributionCombine" >
+      <Flags index="AllowSelfCast" value="0" />
+    </CmdButtonArray>
+    <SetLastTarget value="Attack" />
+    <Arc value="360" />
+    <CastIntroTime value="0" />
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <RangeSlop value="1.5" />
+  </CAbilEffectTarget>
+
+  <CAbilEffectInstant id="UtherCancelEternalVanguard">
+    <PrepEffect value="DismountDecloakCasterSet" />
+    <Effect value="UtherCancelEternalVanguardInitialEffect" />
+    <Flags index="ClearLastMoveTarget" value="1" />
+    <Flags index="RequireTargetVision" value="0" />
+    <Cost>
+      <Vital index="Energy" value="0" />
+      <Cooldown TimeStart="8" TimeUse="8" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="UtherCancelEternalVanguard" ShowValidator="UtherRetributionCombine" />
+  </CAbilEffectInstant>
+
+
+  <CEffectSet id="SpiritOfRedemptionSet">
+    <EffectArray value="UtherCancelEternalVanguardApplyCooldown" />
+    <EffectArray value="SpiritOfRedemptionSpiritFormApplyEnableHeroicsBehavior" />
+  </CEffectSet>
+
+  <CEffectSet id="UtherCancelEternalVanguardInitialEffect" />
+  <CEffectModifyUnit id="UtherCancelEternalVanguardApplyCooldown">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="UtherCancelEternalVanguard,Execute" CooldownOperation="Set">
+      <Fraction Cooldown="1" />
+    </Cost>
+  </CEffectModifyUnit>
+
+  <CBehaviorBuff id="SpiritOfRedemptionSpiritFormBuff">
+    <Period value="9" />
+    <PeriodicEffect value="UtherSpiritOfRedemptionReapplyVisual" />
+    <Modification>
+      <AbilLinkEnableArray value="UtherLightofDawn" />
+      <AbilLinkEnableArray value="UtherHammerOfWrath" />
+      <AbilLinkEnableArray value="UtherCancelEternalVanguard" />
+    </Modification>
+  </CBehaviorBuff>
+  
+  <CEffectApplyBehavior id="SpiritOfRedemptionSpiritFormApplyEnableHeroicsBehavior">
+    <Chance value="0" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="SpiritOfRedemptionSpiritFormEnableHeroicsBehavior" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="SpiritOfRedemptionSpiritFormEnableHeroicsBehavior">
+    <ValidatorArray value="UtherHasSpiritFormCombine" />
+    <Modification>
+      <AbilLinkEnableArray value="UtherDivineIntervention" />
+      <AbilLinkEnableArray value="UtherDivineStorm" />
+    </Modification>
+  </CBehaviorBuff>
+
+  <CEffectSet id="UtherSpiritOfRedemptionReapplyVisual" />
+  
+  <CUnit id="HeroUther">
+    <AbilArray Link="UtherLightofDawn" />
+    <AbilArray Link="UtherHammerOfWrath" />
+    <AbilArray Link="UtherCancelEternalVanguard" />
+    <CardLayouts index="0">
+      <LayoutButtons index="31" Face="UtherCancelEternalVanguard" Type="AbilCmd" AbilCmd="UtherCancelEternalVanguard,Execute" Slot="Trait" />
+      <LayoutButtons Face="UtherEternalDevotion" Type="Passive" Behavior="UtherRedemptionReadyBehavior" Slot="Trait" />
+      <LayoutButtons Face="UtherLightofDawn" Type="AbilCmd" AbilCmd="UtherLightofDawn,Execute" Slot="Ability2" />
+      <LayoutButtons Face="UtherHammerOfWrath" Type="AbilCmd" AbilCmd="UtherHammerOfWrath,Execute" Slot="Ability3" />
+    </CardLayouts>
+  </CUnit>
+  
+  <CEffectSet id="DivineInterventionSet">
+    <ValidatorArray value="UtherDivineShieldValidatorCombine" />
+    <EffectArray value="UtherDivineShieldApplyArmorReduction" />
+    <EffectArray value="UtherDivineShieldApplyEnemyVisual" />
+    <EffectArray value="UtherDivineShieldBulwarkOfLightShieldBreakSearch" />
+  </CEffectSet>
+  <CEffectApplyBehavior id="DivineInterventionApplyBehaviorInvulnerable">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="DivineInterventionApplyBehaviorMovementSpeed">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="UtherDivineShieldApplyArmorReduction">
+    <ValidatorArray value="UtherHasShieldBreak" />
+    <ValidatorArray value="TargetNotDead" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="UtherShieldBreakArmorReduction" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="UtherDivineShieldApplyEnemyVisual">
+    <ValidatorArray value="UtherHasShieldBreak" />
+    <ValidatorArray value="TargetNotDead" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="UtherShieldBreakEnemyVisual" />
+  </CEffectApplyBehavior>
+  
+  <CEffectEnumArea id="UtherDivineShieldBulwarkOfLightShieldBreakSearch">
+    <ValidatorArray value="UtherHasShieldBreak" />
+    <SearchFilters value="Heroic;Player,Self,Neutral,Ally,Creep,Structure,Invulnerable,Missile,Item,Stasis,Dead" />
+    <AreaArray Effect="UtherDivineShieldBulwarkOfLightShieldBreakSearchSet">
+      <Radius value="3" />
+    </AreaArray>
+    <ImpactLocation Value="TargetUnit" />
+    <ExcludeArray Effect="DivineInterventionSet" Value="Target" />
+  </CEffectEnumArea>
+  <CEffectSet id="UtherDivineShieldBulwarkOfLightShieldBreakSearchSet">
+    <EffectArray value="UtherDivineShieldApplyArmorReduction" />
+    <EffectArray value="UtherDivineShieldApplyEnemyVisual" />
+  </CEffectSet>
+  <CBehaviorBuff id="UtherShieldBreakArmorReduction" parent="StormArmor">
+    <BehaviorCategories index="DebuffVulnerable" value="1" />
+    <Duration value="4" />
+    <Modification>
+      <UnifiedMoveSpeedFactor value="-0.2" />
+    </Modification>
+    <ArmorModification>
+      <AllArmorBonus value="-75" />
+    </ArmorModification>
+  </CBehaviorBuff>
+  <CBehaviorBuff id="UtherShieldBreakEnemyVisual">
+    <RemoveValidatorArray value="UtherTargetHasShieldBreakArmorReduction" />
+  </CBehaviorBuff>
+  <CValidatorUnitCompareBehaviorCount id="UtherTargetHasShieldBreakArmorReduction">
+    <Compare value="GT" />
+    <Behavior value="UtherShieldBreakArmorReduction" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CEffectSet id="UtherHolyLightSet">
+    <ValidatorArray value="UtherHolyLightValidatorCombine" />
+    <EffectArray value="UtherHolyLightDamage" />
+    <EffectArray value="UtherSelflessHealerModifyUnit" />
+    <EffectArray value="UtherSelflessHealerManaReturn" />
+  </CEffectSet>
+  <CEffectSet id="FlashofLightSet">
+    <ValidatorArray value="UtherFlashofLightValidatorCombine" />
+    <EffectArray value="UtherFlashofLightDamage" />
+  </CEffectSet>
+  <CEffectSet id="UtherHolyRadianceAllySet">
+    <ValidatorArray index="1" value="UtherHolyRadianceValidatorCombine" />
+  </CEffectSet>
+  <CEffectSwitch id="UtherDevotionApplyToAllySwitch">
+    <ValidatorArray index="0" value="UtherDevotionValidatorCombine" />
+  </CEffectSwitch>
+  <CEffectModifyUnit id="UtherSelflessHealerModifyUnit">
+    <ValidatorArray value="UtherHasSelflessHealer" />
+    <ValidatorArray value="TargetIsNotHeroic" />
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="UtherHolyLight,Execute" CooldownOperation="Add" CooldownTimeUse="-6" />
+  </CEffectModifyUnit>
+  <CEffectCreateHealer id="UtherSelflessHealerManaReturn" parent="StormManaRestore">
+    <ValidatorArray value="UtherHasSelflessHealer" />
+    <ValidatorArray value="TargetIsNotHeroic" />
+    <ImpactUnit Value="Caster" />
+    <RechargeVitalRate value="40" />
+  </CEffectCreateHealer>
+  
+  <CEffectSwitch id="UtherHolyLightHealSwitch">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectSwitch>
+  <CEffectCreateHealer id="FlashofLightCreateHealer">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+  
+  <CEffectDamage id="UtherHolyLightDamage" parent="StormSpell">
+    <ValidatorArray value="UtherBurningLightCombine" />
+    <Amount value="$UtherHolyLightHealing" />
+    <AmountScoreArray Validator="CasterHasLTMaxSilverTouchHealingTokensandSilverTouchandTargetIsHero" Value="UtherHolyLightSilverTouch" />
+  </CEffectDamage>
+  <CEffectDamage id="UtherFlashofLightDamage" parent="StormSpell">
+    <ValidatorArray value="UtherBurningLightCombine" />
+    <Amount value="$UtherEternalVanguardFlashOfLightHealing" />
+  </CEffectDamage>
+
+  <CEffectDamage id="UtherShieldBreakShieldDamage" parent="StormSpell">
+    <ValidatorArray value="UtherHasShieldBreak" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Flags index="Crit" value="1" />
+    <Flags index="DontDamageLife" value="1" />
+    <Amount value="900" />
+  </CEffectDamage>
+
+  <CBehaviorAbility id="AffixUtherDivineStormBehaviorAbility">
+    <Buttons Face="UtherDivineStorm" Type="AbilCmd" AbilCmd="UtherDivineStorm,Execute" />
+  </CBehaviorAbility>
+
+  <CValidatorCombine id="UtherHolyLightValidatorCombine">
+    <CombineArray value="UtherHolyLightValidator" />
+    <CombineArray value="UtherBurningLightCombine" />
+    <CombineArray value="UtherSelflessHealerCombine" />
+  </CValidatorCombine>
+  <CValidatorCombine id="UtherFlashofLightValidatorCombine">
+    <CombineArray value="UtherFlashofLightValidator" />
+    <CombineArray value="UtherBurningLightFlashofLightCombine" />
+    <CombineArray value="UtherSelflessHealerCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="UtherHolyRadianceValidatorCombine">
+    <CombineArray value="TargetIsMinionNotMercLanerORTargetIsHero" />
+    <CombineArray value="UtherSelflessHealerCombine" />
+  </CValidatorCombine>
+  <CValidatorCombine id="UtherDevotionValidatorCombine">
+    <CombineArray value="TargetIsHero" />
+    <CombineArray value="UtherSelflessHealerCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="UtherDivineShieldValidatorCombine">
+    <CombineArray value="UtherDivineShieldValidator" />
+    <CombineArray value="UtherShieldBreakCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="UtherBurningLightCombine">
+    <Type value="And" />
+    <CombineArray value="UtherHasBurningLight" />
+    <CombineArray value="UtherBurningLightValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="UtherBurningLightFlashofLightCombine">
+    <Type value="And" />
+    <CombineArray value="UtherHasBurningLight" />
+    <CombineArray value="UtherBurningLightFlashofLightValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="UtherSelflessHealerCombine">
+    <Type value="And" />
+    <CombineArray value="UtherHasSelflessHealer" />
+    <CombineArray value="UtherSelflessHealerValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="UtherShieldBreakCombine">
+    <Type value="And" />
+    <CombineArray value="UtherHasShieldBreak" />
+    <CombineArray value="UtherShieldBreakValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="UtherHasUltimate1UnlockedAndDoesNotHaveSpiritFormGhostOrRetributionCombine">
+    <CombineArray value="UtherHasUltimate1UnlockedAndDoesNotHaveSpiritFormGhost" />
+    <CombineArray value="UtherRetributionCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="UtherRetributionCombine">
+    <Type value="And" />
+    <CombineArray value="UtherHasRetribution" />
+    <CombineArray value="UtherHasSpiritFormCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="UtherHasSpiritFormCombine">
+    <CombineArray value="UtherHasSpiritFormBuffDelay" />
+    <CombineArray value="UtherHasSpiritFormBuffNormal" />
+    <CombineArray value="UtherHasSpiritFormBuffImproved" />
+  </CValidatorCombine>
+
+  <CValidatorUnitCompareBehaviorCount id="UtherHasSpiritFormBuffDelay">
+    <Behavior value="UtherEternalVanguardRezDelay" />
+    <Compare value="GT" />
+    <WhichUnit value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="UtherHasSpiritFormBuffNormal">
+    <Behavior value="SpiritOfRedemptionSpiritFormBuff" />
+    <Compare value="GT" />
+    <WhichUnit value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="UtherHasSpiritFormBuffImproved">
+    <Behavior value="SpiritOfRedemptionSpiritFormBuffImproved" />
+    <Compare value="GT" />
+    <WhichUnit value="Caster" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CBehaviorBuff id="UtherBurningLightCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="UtherSelflessHealerCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="UtherShieldBreakCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="UtherRetributionCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="UtherHasBurningLight">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="UtherBurningLightCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="UtherHasSelflessHealer">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="UtherSelflessHealerCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="UtherHasShieldBreak">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="UtherShieldBreakCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="UtherHasRetribution">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="UtherRetributionCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorUnitFilters id="UtherBurningLightFlashofLightValidator">
+    <Filters value="-;Player,Self,Neutral,Ally,Creep,Invulnerable,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="UtherFlashofLightValidator">
+    <Filters value="-;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="UtherBurningLightValidator">
+    <Filters value="-;Player,Self,Neutral,Ally,Creep,Invulnerable,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="UtherHolyLightValidator">
+    <Filters value="Heroic;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="UtherSelflessHealerValidator">
+    <Filters value="-;Player,Self,Heroic,Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="UtherSelflessHealerValidator">
+    <Filters value="-;Player,Self,Heroic,Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="UtherShieldBreakValidator">
+    <Filters value="Heroic;Player,Self,Neutral,Ally,Invulnerable,Missile,Item,Stasis,Dead,Hallucination" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="UtherDivineShieldValidator">
+    <Filters value="Heroic;Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hallucination" />
+  </CValidatorUnitFilters>
+  
+  <CButton id="UtherLightofDawn" parent="StormButtonParent">
+    <Icon value="Assets\Textures\affix_icon_light_of_dawn.dds" />
+  </CButton>
+  <CButton id="UtherHammerOfWrath" parent="StormButtonParent">
+    <Icon value="Assets\Textures\affix_icon_hammer_of_wrath.dds" />
+  </CButton>
+  <CButton id="UtherCancelEternalVanguard" parent="StormButtonParent">
+    <Icon value="Assets\Textures\storm_ui_icon_uther_eternaldevotion.dds" />
+  </CButton>
+  
+  <CActorSplat id="UtherHammerOfWrathRangeSplat" parent="StormRangeSplat">
+    <Scale value="$UtherHammerOfJusticeActorRange" />
+  </CActorSplat>
+  <CActorRange id="UtherHammerOfWrathRange" parent="StormRangeAbilPlusSplat" abil="UtherHammerOfWrath" />
+  
+  <CActorQuad id="UtherLightofDawnGuide" parent="StormGuideVisualQuadDownFantasy" abil="UtherLightofDawn">
+    <Height value="$UtherHolyRadianceRange" />
+    <Width value="2.500000" />
+    <LaunchHeight value="3.000000" />
+    <CenterHeight value="3.000000" />
+    <ImpactHeight value="3.000000" />
+  </CActorQuad>
+
+  <CActorUnit id="HeroUther" >
+    <On Terms="Effect.UtherSpiritOfRedemptionReapplyVisual.Start" Send="ModelMaterialApply UtherSpiritOfRedemptionGlaze" />
+    <On Terms="Effect.UtherSpiritOfRedemptionReapplyVisual.Start; ValidateUnit RedemptionAvailableCombine" Send="Create RedemptionVisualModel" />
+    <On Terms="Behavior.SpiritOfRedemptionSpiritFormBuff.Off" Target="UtherSpiritOfRedemptionGlaze" Send="AnimBracketStop BSD" />
+    <On Terms="Behavior.SpiritOfRedemptionSpiritFormBuff.Off" Target="RedemptionVisualModel" Send="AnimBracketStop BSD" />
+  </CActorUnit>
+
+  <CActorSound id="UtherHolyLightSound">
+    <On Terms="Effect.UtherHolyLightDamage.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorSound id="UtherFlashofLightSound">
+    <On Terms="Effect.UtherFlashofLightDamage.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorModel id="UtherFlashofLightImpact">
+    <On Terms="Effect.UtherFlashofLightDamage.Start; At Target" Send="Create" />
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {175,0,125 1}" />
+  </CActorModel>
+  <CActorModel id="UtherHolyLightImpact">
+    <On Terms="Effect.UtherHolyLightDamage.Start; At Target; ValidateEffect TargetIsEnemy" Send="SetTintColor {175,0,125 1}" />
+  </CActorModel>
+
+  <CActorSound id="UtherDivineInterventionCastSoundSelfTargetSelf">
+    <On Terms="Effect.UtherDivineShieldApplyArmorReduction.Start; At Target; ValidateEffect IsSelf" Send="Create" />
+  </CActorSound>
+  <CActorSound id="UtherDivineInterventionCastSoundSelfTargetOthers">
+    <On Terms="Effect.UtherDivineShieldApplyArmorReduction.Start; At Target; ValidateEffect IsSelf" Send="Create" />
+  </CActorSound>
+  <CActorSound id="UtherDivineInterventionLoopSoundSelfTargetSelf" >
+    <On Terms="Effect.UtherDivineShieldApplyArmorReduction.Start; At Target; ValidateEffect IsSelf" Send="Create" />
+    <On Terms="Behavior.UtherShieldBreakArmorReduction.Off" Send="Destroy" />
+  </CActorSound>
+  <CActorSound id="UtherDivineInterventionLoopSoundSelfTargetOthers" >
+    <On Terms="Effect.UtherDivineShieldApplyArmorReduction.Start; At Target; ValidateEffect IsSelf" Send="Create" />
+    <On Terms="Behavior.UtherShieldBreakArmorReduction.Off" Send="Destroy" />
+  </CActorSound>
+  <CActorSound id="UtherDivineInterventionCastSoundNotSelfTarget">
+    <On Terms="Effect.UtherDivineShieldApplyArmorReduction.Start; At Target; ValidateEffect IsNotSelf" Send="Create" />
+  </CActorSound>
+  <CActorSound id="UtherDivineInterventionLoopSoundNotSelfTarget">
+    <On Terms="Effect.UtherDivineShieldApplyArmorReduction.Start; At Target; ValidateEffect IsNotSelf" Send="Create" />
+    <On Terms="Behavior.UtherShieldBreakArmorReduction.Off" Send="Destroy" />
+  </CActorSound>
+  <CActorModel id="UtherDivineInterventionBuff" >
+    <On Terms="Behavior.UtherShieldBreakArmorReduction.On" Send="Create" />
+    <On Terms="Behavior.UtherShieldBreakArmorReduction.Off" Send="AnimBracketStop BSD" />
+    <On Terms="Behavior.UtherShieldBreakEnemyVisual.On" Send="SetTintColor {175,0,125 1}" />
+  </CActorModel>
+
+</Catalog>

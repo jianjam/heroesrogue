@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CAbilEffectTarget id="AlexstraszaGiftOfLife">
+      <Effect value="AlexstraszaGiftOfLifeSwitchSet"/>
+      <TargetFilters value="-;Player,Neutral,Missile,Item,Stasis,Dead"/>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlexstraszaBreathOfLife">
+      <Effect value="AlexstraszaBreathOfLifeSwitchSet"/>
+      <TargetFilters value="-;Player,Neutral,Missile,Item,Stasis,Dead"/>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlexstraszaBlessingOfTheRed">
+    <Effect value="AlexstraszaBlessingOfTheRedSwitchSet"/>
+    <TargetFilters value="Heroic;Self,Neutral,Structure,ImmuneToFriendlyAbilities,Stasis,Summoned"/>
+  </CAbilEffectTarget>
+  <CAbilEffectTarget id="AlexstraszaLifebinder">
+    <TargetFilters value="Heroic;Self,Neutral,Stasis,Dead,Summoned"/>
+  </CAbilEffectTarget>
+    
+  <CEffectSwitch id="AlexstraszaBlessingOfTheRedSwitchSet">
+    <CaseArray Validator="AlexstraszaDoesNotHaveBlessingAndValidatorCombine" Effect="AlexstraszaBlessingOfTheRedTargetSet" />
+    <CaseArray Validator="AlexstraszaTargetDoesNotHaveCurseAndValidCurseTargetCombine" Effect="AlexstraszaCurseOfTheRedTargetSet" />
+    <ValidatorArray value="AlexstraszaBlessingoftheRedValidOrCurseoftheRedValidCombine"/>
+  </CEffectSwitch>
+
+  <CEffectSet id="AlexstraszaCurseOfTheRedTargetSet">
+    <ValidatorArray value="AlexstraszaCurseOfTheRedTargetDoesNotHaveCurse"/>
+    <EffectArray value="AlexstraszaCurseOfTheRedApplyBehavior"/>
+  </CEffectSet>
+  <CEffectApplyBehavior id="AlexstraszaCurseOfTheRedApplyBehavior">
+      <Behavior value="AlexstraszaCurseOfTheRed"/>
+  </CEffectApplyBehavior>
+  <CValidatorUnitCompareBehaviorCount id="AlexstraszaCurseOfTheRedTargetDoesNotHaveCurse">
+      <Behavior value="AlexstraszaCurseOfTheRed"/>
+  </CValidatorUnitCompareBehaviorCount>
+  <CBehaviorBuff id="AlexstraszaCurseOfTheRed" parent="CarryBehaviorParent">
+    <DisableValidatorArray value="TargetNotSpecialDeathState"/>
+    <Modification>
+        <VitalMaxArray index="Life" value="-500"/>
+    </Modification>
+  </CBehaviorBuff>
+
+  <CEffectSet id="AlexstraszaGiftOfLifeDamageSet">
+    <EffectArray value="AlexstraszaGiftOfLifeDamage"/>
+    <EffectArray value="ApplyAbilityImpactReveal"/>
+    <EffectArray value="AlexstraszaLifeblossomGiftOfLifeCreatePickupUnit"/>
+    <EffectArray value="AlexstraszaGiftOfLifeModifyCasterHealth"/>
+    <EffectArray value="AlexstraszaGiftOfLifeModifyWeaponCooldown"/>
+    <EffectArray value="AlexstraszaGiftOfLifeLifeblossomRemoveToken"/>
+    <ValidatorArray value="TheDragonQueenCombine"/>
+  </CEffectSet>
+  <CEffectSet id="AlexstraszaGiftOfLifeAllySet">
+    <EffectArray value="AlexstraszaGiftOfLifeCreateHealer"/>
+    <EffectArray value="AlexstraszaLifeblossomGiftOfLifeCreatePickupUnit"/>
+    <EffectArray value="AlexstraszaToughLoveSet"/>
+    <EffectArray value="AlexstraszaPacifyLifeUnboundModifyCooldownHealSet"/>
+    <EffectArray value="AlexstraszaGiftOfLifeModifyCasterHealth"/>
+    <EffectArray value="AlexstraszaGiftOfLifeModifyWeaponCooldown"/>
+    <EffectArray value="AlexstraszaGiftOfLifeLifeblossomRemoveToken"/>
+    <ValidatorArray value="TargetIsAlly" />
+    <ValidatorArray value="TargetIsNotHeroic" />
+  </CEffectSet>
+  <CEffectSet id="AlexstraszaBreathOfLifeDamageSet">
+    <EffectArray value="AlexstraszaBreathOfLifeDamage"/>
+    <EffectArray value="ApplyAbilityImpactReveal"/>
+    <EffectArray value="AlexstraszaBreathOfLifeModifyWeaponCooldown"/>
+    <EffectArray value="AlexstraszaLifeblossomBreathOfLifeRemoveCCBehaviorCategories"/>
+  </CEffectSet>
+  <CEffectSet id="AlexstraszaBreathOfLifeAllySet">
+    <EffectArray value="AlexstraszaBreathOfLifeCreateHealer"/>
+    <EffectArray value="AlexstraszaBreathOfLifeModifyWeaponCooldown"/>
+    <EffectArray value="AlexstraszaPacifyLifeUnboundModifyCooldownHealSet"/>
+    <EffectArray value="AlexstraszaLifeblossomBreathOfLifeRemoveCCBehaviorCategories"/>
+    <EffectArray value="AlexstraszaToughLoveSet"/>
+    <ValidatorArray value="TargetIsAlly" />
+    <ValidatorArray value="TargetIsNotHeroic" />
+  </CEffectSet>
+  <CEffectSet id="AlexstraszaAbundanceDamageImpactSet">
+      <EffectArray value="AlexstraszaAbundanceDamage"/>
+      <EffectArray value="ApplyAbilityImpactReveal"/>
+      <EffectArray value="AlexstraszaAbundanceRemovePreview"/>
+  </CEffectSet>
+  <CEffectSet id="AlexstraszaPreservationDamageImpactSet">
+      <EffectArray value="AlexstraszaPreservationDamage"/>
+      <EffectArray value="ApplyAbilityImpactReveal"/>
+      <EffectArray value="AlexstraszaPreservationRemovePreview"/>
+  </CEffectSet>
+  <CEffectSet id="AlexstraszaAbundanceFinalSet">
+      <EffectArray value="AlexstraszaAbundanceHealAllySearch"/>
+      <EffectArray value="AlexstraszaAbundanceDamageSearch"/>
+  </CEffectSet>
+  <CEffectSet id="AlexstraszaPreservationFinalSet">
+      <EffectArray value="AlexstraszaPreservationHealAllySearch"/>
+      <EffectArray value="AlexstraszaPreservationDamageSearch"/>
+  </CEffectSet>
+  <CEffectEnumArea id="AlexstraszaAbundanceHealAllySearch">
+    <ValidatorArray value="AlexstraszaHasTheDragonQueen" />
+      <LaunchLocation Value="TargetPoint"/>
+      <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden"/>
+      <AreaArray Effect="AlexstraszaAbundanceImpactSet">
+          <Radius value="3"/>
+      </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="AlexstraszaPreservationHealAllySearch">
+    <ValidatorArray value="AlexstraszaHasTheDragonQueen" />
+      <ImpactLocation Value="TargetPoint"/>
+      <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden"/>
+      <AreaArray Effect="AlexstraszaPreservationImpactSet">
+          <Radius value="4"/>
+      </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="AlexstraszaAbundanceDamageSearch">
+    <ValidatorArray value="AlexstraszaHasTheDragonQueen" />
+    <LaunchLocation Value="TargetPoint"/>
+    <SearchFilters value="-;Player,Neutral,Ally,Missile,Item,Stasis,Dead,Hidden"/>
+    <AreaArray Effect="AlexstraszaAbundanceDamageImpactSet">
+        <Radius value="3"/>
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="AlexstraszaPreservationDamageSearch">
+    <ValidatorArray value="AlexstraszaHasTheDragonQueen" />
+      <ImpactLocation Value="TargetPoint"/>
+      <SearchFilters value="-;Player,Neutral,Ally,Missile,Item,Stasis,Dead,Hidden"/>
+      <AreaArray Effect="AlexstraszaPreservationDamageImpactSet">
+          <Radius value="4"/>
+      </AreaArray>
+  </CEffectEnumArea>
+
+  <CEffectDamage id="AlexstraszaAbundanceDamage" parent="StormSpellPercentDamage">
+    <SourceButtonFace value="AlexstraszaAbundance"/>
+    <VitalFractionMax index="Life" value="0.2" />
+  </CEffectDamage>
+  <CEffectDamage id="AlexstraszaPreservationDamage" parent="StormSpellPercentDamage">
+    <SourceButtonFace value="AlexstraszaPreservation"/>
+    <VitalFractionMax index="Life" value="0.25" />
+  </CEffectDamage>
+  <CEffectDamage id="AlexstraszaBreathOfLifeDamage" parent="StormSpell">
+    <SourceButtonFace value="AlexstraszaBreathOfLife"/>
+    <FlatModifierArray Accumulator="AlexstraszaBreathOfLifeHealAccumulator" />
+  </CEffectDamage>
+  <CEffectDamage id="AlexstraszaGiftOfLifeDamage" parent="StormSpell">
+    <SourceButtonFace value="AlexstraszaGiftOfLife"/>
+    <FlatModifierArray Accumulator="AlexstraszaGiftOfLifeHealAccumulator" />
+  </CEffectDamage>
+
+  <CEffectSwitch id="AlexstraszaBreathOfLifeSwitchSet">
+    <CaseArray Validator="AlexstraszaBreathOfLifeValidator" Effect="AlexstraszaBreathOfLifeSet" />
+    <CaseArray Validator="AlexstraszaTheDragonQueenAllyCombine" Effect="AlexstraszaBreathOfLifeAllySet" />
+    <CaseArray Validator="AlexstraszaTheDragonQueenCombine" Effect="AlexstraszaBreathOfLifeDamageSet" />
+    <ValidatorArray value="AlexstraszaBreathOfLifeValidOrTheDragonQueenValidCombine" />
+  </CEffectSwitch>
+  <CEffectSwitch id="AlexstraszaGiftOfLifeSwitchSet">
+    <CaseArray Validator="AlexstraszaGiftOfLifeCombine" Effect="AlexstraszaGiftOfLifeSet" />
+    <CaseArray Validator="AlexstraszaTheDragonQueenAllyCombine" Effect="AlexstraszaGiftOfLifeAllySet" />
+    <CaseArray Validator="AlexstraszaTheDragonQueenCombine" Effect="AlexstraszaGiftOfLifeDamageSet" />
+    <ValidatorArray value="AlexstraszaGiftOfLifeValidOrTheDragonQueenValidCombine" />
+  </CEffectSwitch>
+  
+  <CEffectModifyCatalogNumeric id="AlexstraszaCircleOfLifeModifyAbundanceHealing">
+      <CatalogModifications Reference="Effect,AlexstraszaAbundanceDamage,VitalFractionMax[Life]">
+          <Value value="0.05"/>
+      </CatalogModifications>
+      <CatalogModifications Reference="Effect,AlexstraszaPreservationDamage,VitalFractionMax[Life]">
+          <Value value="0.05"/>
+      </CatalogModifications>
+  </CEffectModifyCatalogNumeric>
+
+  <CBehaviorAbility id="AffixAlexstraszaCleansingFlameBehaviorAbility">
+    <Buttons Face="AlexstraszaCleansingFlame" Type="AbilCmd" AbilCmd="AlexstraszaCleansingFlame,Execute" />
+  </CBehaviorAbility>
+  
+  <CEffectApplyBehavior id="AlexstraszaLifebinderApplyHoTBehaviorTarget">
+    <ValidatorArray value="TargetIsAlly" />
+  </CEffectApplyBehavior>
+  <CEffectApplyBehavior id="AlexstraszaLifebinderApplyDoTBehaviorTarget">
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="AlexstraszaLifebinderDoTControllerTarget"/>
+  </CEffectApplyBehavior>
+  <CEffectModifyUnit id="AlexstraszaLifebinderActivationDummy">
+    <ValidatorArray value="TargetIsAlly" />
+  </CEffectModifyUnit>
+  <CEffectModifyUnit id="AlexstraszaLifebinderActivationEnemyDummy">
+    <ValidatorArray value="TargetIsEnemy" />
+    <ImpactUnit Value="Caster"/>
+  </CEffectModifyUnit>
+  <CEffectSet id="AlexstraszaLifebinderActivationSet">
+    <EffectArray value="AlexstraszaLifebinderActivationEnemyDummy"/>
+  </CEffectSet>
+
+  <CEffectSet id="AlexstraszaLifebinderRitualOfLifeApplySuccessDummySet">
+      <EffectArray value="AlexstraszaLifebinderApplyDoTBehaviorTarget"/>
+  </CEffectSet>
+  <CEffectSet id="AlexstraszaLifebinderInitialSet">
+    <ValidatorArray value="AlexstraszaLifeBinderValidOrDeathBinderValid" />
+    <EffectArray value="AlexstraszaLifebinderApplyDoTBehaviorTarget"/>
+  </CEffectSet>
+
+  <CBehaviorBuff id="AlexstraszaLifebinderDoTControllerTarget" parent="StormDot">
+    <TimeScaleSource Value="Global"/>
+    <Duration value="2"/>
+    <Period value="0.25"/>
+    <PeriodCount value="8"/>
+    <PeriodicEffect value="AlexstraszaLifebinderDoTSet"/>
+    <PeriodicDisplayEffect value="AlexstraszaLifebinderDoTTarget" />
+    <RemoveValidatorArray value="CasterNotDead"/>
+    <RemoveValidatorArray value="TargetNotDeadAndNoSpecialDeathState"/>
+    <RemoveValidatorArray value="CasterNotHostileStasisRemoved"/>
+    <RemoveValidatorArray value="TargetNotHostileStasisRemoved"/>
+    <RemoveValidatorArray value="AlexstraszaDragonqueenCasterIsNotImmuneToFriendlyAbilitiesExceptDragonqueenMorph"/>
+    <RemoveValidatorArray value="AlexstraszaLifebinderTargetHasBehavior"/>
+    <RemoveValidatorArray value="TargetNotInvulnerable"/>
+  </CBehaviorBuff>
+  <CEffectSet id="AlexstraszaLifebinderDoTSet">
+    <EffectArray value="AlexstraszaLifebinderDoTTarget"/>
+    <EffectArray value="ApplyAbilityImpactReveal"/>
+  </CEffectSet>
+  <CEffectDamage id="AlexstraszaLifebinderDoTTarget" parent="StormSpellDot">
+    <Amount value="60"/>
+  </CEffectDamage>
+  
+  <CEffectModifyUnit id="AlexstraszaDragonqueen0CDModifyUnit">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="AlexstraszaDragonqueen,Execute" CooldownOperation="Set" CooldownTimeUse="0" />
+  </CEffectModifyUnit>
+
+  <CValidatorCombine id="AlexstraszaBreathOfLifeValidOrTheDragonQueenValidCombine">
+    <CombineArray value="AlexstraszaBreathOfLifeValidator" />
+    <CombineArray value="AlexstraszaTheDragonQueenAllyCombine" />
+    <CombineArray value="AlexstraszaTheDragonQueenCombine" />
+  </CValidatorCombine>
+  <CValidatorCombine id="AlexstraszaGiftOfLifeValidOrTheDragonQueenValidCombine">
+    <CombineArray value="AlexstraszaGiftOfLifeCombine" />
+    <CombineArray value="AlexstraszaTheDragonQueenAllyCombine" />
+    <CombineArray value="AlexstraszaTheDragonQueenCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="AlexstraszaGiftOfLifeCombine">
+    <Type value="And" />
+    <CombineArray value="TargetIsHero" />
+    <CombineArray value="AlexstraszaGiftOfLifeValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="AlexstraszaTheDragonQueenCombine">
+    <Type value="And" />
+    <CombineArray value="TargetIsEnemy" />
+    <CombineArray value="AlexstraszaHasTheDragonQueen" />
+    <CombineArray value="AlexstraszaTheDragonQueenValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="AlexstraszaTheDragonQueenAllyCombine">
+    <Type value="And" />
+    <CombineArray value="TargetIsAlly" />
+    <CombineArray value="TargetIsNotHeroic" />
+    <CombineArray value="AlexstraszaHasTheDragonQueen" />
+    <CombineArray value="AlexstraszaTheDragonQueenAllyValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="AlexstraszaBlessingoftheRedValidOrCurseoftheRedValidCombine">
+    <CombineArray value="AlexstraszaDoesNotHaveBlessingAndValidatorCombine" />
+    <CombineArray value="AlexstraszaTargetDoesNotHaveCurseAndValidCurseTargetCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="AlexstraszaDoesNotHaveBlessingAndValidatorCombine">
+    <Type value="And" />
+    <CombineArray value="AlexstraszaBlessingOfTheRedTargetDoesntHaveBlessing" />
+    <CombineArray value="AlexstraszaBlessingoftheRedValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="AlexstraszaTargetDoesNotHaveCurseAndValidCurseTargetCombine">
+    <Type value="And" />
+    <CombineArray value="AlexstraszaHasCurseoftheRed" />
+    <CombineArray value="AlexstraszaCurseOfTheRedTargetDoesNotHaveCurse" />
+    <CombineArray value="AlexstraszaCurseoftheRedValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="AlexstraszaLifeBinderValidOrDeathBinderValid">
+    <CombineArray value="AlexstraszaLifeBinderValidator" />
+    <CombineArray value="AlexstraszaDeathBinderCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="AlexstraszaDeathBinderCombine">
+    <Type value="And" />
+    <CombineArray value="AlexstraszaHasDeathBinder" />
+    <CombineArray value="AlexstraszaDeathBinderValidator" />
+  </CValidatorCombine>
+
+  <CBehaviorBuff id="AlexstraszaTheDragonQueenCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="AlexstraszaCurseoftheRedCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="AlexstraszaDeathBinderCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="AlexstraszaHasTheDragonQueen">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AlexstraszaTheDragonQueenCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="AlexstraszaHasCurseoftheRed">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AlexstraszaCurseoftheRedCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="AlexstraszaHasDeathBinder">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AlexstraszaDeathBinderCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorUnitFilters id="AlexstraszaBreathOfLifeValidator">
+    <Filters value="Heroic;Player,Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AlexstraszaGiftOfLifeValidator">
+    <Filters value="-;Player,Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AlexstraszaTheDragonQueenValidator">
+    <Filters value="-;Player,Neutral,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AlexstraszaTheDragonQueenAllyValidator">
+    <Filters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Worker,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AlexstraszaBlessingoftheRedValidator">
+    <Filters value="Heroic;Self,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Stasis,Summoned" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AlexstraszaCurseoftheRedValidator">
+    <Filters value="Heroic;Self,Ally,Neutral,Structure,Stasis,Summoned" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AlexstraszaLifeBinderValidator">
+    <Filters value="Heroic;Self,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Stasis,Dead,Summoned" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="AlexstraszaDeathBinderValidator">
+    <Filters value="Heroic;Self,Neutral,Ally,Stasis,Dead,Summoned" />
+  </CValidatorUnitFilters>
+
+  <CActorModel id="AlexstraszaGiftOfLifeImpactModelSmall">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {200,0,0 1}" />
+      <On Terms="Effect.AlexstraszaGiftOfLifeDamageSet.Start; At Target; !ValidateEffect AlexstraszaGiftOfLifeFXThreshold" Send="Create"/>
+      <On Terms="Effect.AlexstraszaGiftOfLifeAllySet.Start; At Target; !ValidateEffect AlexstraszaGiftOfLifeFXThreshold" Send="Create"/>
+  </CActorModel>
+  <CActorModel id="AlexstraszaGiftOfLifeImpactModel">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {200,0,0 1}" />
+      <On Terms="Effect.AlexstraszaGiftOfLifeDamageSet.Start; At Target; ValidateEffect AlexstraszaGiftOfLifeFXThreshold" Send="Create"/>
+      <On Terms="Effect.AlexstraszaGiftOfLifeAllySet.Start; At Target; ValidateEffect AlexstraszaGiftOfLifeFXThreshold" Send="Create"/>
+  </CActorModel>
+  <CActorModel id="AlexstraszaBreathOfLifeImpactModelSmall">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {200,0,0 1}" />
+      <On Terms="Effect.AlexstraszaBreathOfLifeDamageSet.Start; At Target; !ValidateEffect AlexstraszaGiftOfLifeFXThreshold" Send="Create"/>
+      <On Terms="Effect.AlexstraszaBreathOfLifeAllySet.Start; At Target; !ValidateEffect AlexstraszaGiftOfLifeFXThreshold" Send="Create"/>
+  </CActorModel>
+  <CActorModel id="AlexstraszaBreathOfLifeImpactModel">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {200,0,0 1}" />
+      <On Terms="Effect.AlexstraszaBreathOfLifeDamageSet.Start; At Target; ValidateEffect AlexstraszaGiftOfLifeFXThreshold" Send="Create"/>
+      <On Terms="Effect.AlexstraszaBreathOfLifeAllySet.Start; At Target; ValidateEffect AlexstraszaGiftOfLifeFXThreshold" Send="Create"/>
+  </CActorModel>
+
+  <CActorModel id="AlexstraszaBlessingOfTheRedImpactFX">
+    <On Terms="Effect.AlexstraszaCurseOfTheRedTargetSet.Start; At Target" Send="Create"/>
+  </CActorModel>
+  <CActorSound id="AlexstraszaBlessingOfTheRedImpactSound">
+    <On Terms="Effect.AlexstraszaCurseOfTheRedTargetSet.Start; At Target" Send="Create"/>
+  </CActorSound>
+
+  <CActorModel id="AlexstraszaLifebinderOverheadIconTarget">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {255,20,20 1.2}" />
+  </CActorModel>
+  <CActorBeamSimple id="AlexstraszaLifebinderBeam">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {255,0,0 2.0}" />
+  </CActorBeamSimple>
+
+  <CActorModel id="AlexstraszaLifebinderImpactModelTarget">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {255,0,0 2.0}" />
+    <On Terms="Effect.AlexstraszaLifebinderActivationEnemyDummy.Start; ValidateEffect AlexstraszaLifebinderTargetHealthLTCasterHealth; At Target" Send="Create"/>
+  </CActorModel>
+  <CActorModel id="AlexstraszaLifebinderImpactModelCaster">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {255,0,0 2.0}" />
+    <On Terms="Effect.AlexstraszaLifebinderActivationEnemyDummy.Start; ValidateEffect AlexstraszaLifebinderCasterHealthLTETargetHealth; At Caster" Send="Create"/>
+  </CActorModel>
+
+</Catalog>

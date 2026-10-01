@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CAbilEffectTarget id="MonkDivinePalm">
+    <TargetFilters value="Heroic;Neutral,Missile,Stasis,Dead,Hidden" />
+  </CAbilEffectTarget>
+
+  <CEffectSet id="MonkDivinePalmInitialSet">
+    <ValidatorArray value="KharazimDivinePalmValidOrExplodingPalmValid" />
+    <EffectArray value="MonkDivinePalmApplyExplodingPalmBehavior" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="MonkDivinePalmApplyExplodingPalmBehavior">
+    <Chance value="0" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Behavior value="MonkDivinePalmExplodingPalmBehavior" />
+  </CEffectApplyBehavior>
+
+  <CBehaviorBuff id="MonkDivinePalmExplodingPalmBehavior" parent="StormDot">
+    <InfoIcon value="Assets\Textures\storm_btn_d3_monk_explodingpalm.dds" />
+    <Duration value="4" />
+    <Period value="0.5" />
+    <PeriodicEffect value="MonkDivinePalmDamage" />
+    <PeriodicDisplayEffect value="MonkDivinePalmDamage" />
+    <DamageResponse>
+      <Chance value="1" />
+      <Handled value="MonkExplodingPalmSearch" />
+      <Priority value="20" />
+      <Fatal value="1" />
+    </DamageResponse>
+  </CBehaviorBuff>
+  
+  <CBehaviorBuff id="MonkDivinePalmTargetBehavior">
+    <DamageResponse>
+      <ValidatorArray value="SourceIsAllyOrSelf" />
+    </DamageResponse>
+  </CBehaviorBuff>
+  
+  <CEffectEnumArea id="MonkExplodingPalmSearch">
+    <ExcludeArray Value="Target" />
+    <ImpactLocation Value="SourceUnit" />
+    <SearchFilters value="-;Player,Self,Neutral,Ally,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="MonkExplodingPalmImpactSet">
+      <Radius value="7" />
+    </AreaArray>
+  </CEffectEnumArea>
+
+  <CEffectSet id="MonkExplodingPalmImpactSet">
+    <EffectArray value="MonkDivinePalmExplosionDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  
+  <CEffectSet id="MonkComboWeaponSet">
+    <EffectArray value="MonkComboWeaponScatteredBlowsNonHeroicSearchArea" />
+    <EffectArray value="MonkComboWeaponScatteredBlowsEnemySearchArea" />
+  </CEffectSet>
+  <CEffectSet id="MonkBreathOfHeavenCastSet">
+    <EffectArray value="MonkBreathofHeavenCastNonHeroicSearch" />
+    <EffectArray value="MonkBreathofHeavenCastEnemySearch" />
+  </CEffectSet>
+  
+  <CEffectApplyBehavior id="MonkBreathofHeavenApplyMoveSpeedBuff">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectApplyBehavior>
+
+  <CEffectDamage id="MonkComboWeaponTranscendenceDamage" parent="StormSpell">
+    <Amount value="104" />
+    <SourceButtonFace value="MonkTranscendenceTalent" />
+  </CEffectDamage>
+  <CEffectDamage id="MonkBreathOfHeavenDamage" parent="StormSpell">
+    <Amount value="295" />
+    <MultiplicativeModifierArray index="MonkBreathOfHeavenEchoOfHeaven" Validator="HasMonkEchoofHeavenBreathofHeaven" Modifier="-0.25" />
+    <MultiplicativeModifierArray index="MonkBreathOfHeavenDashOfHeaven" Validator="MonkTargetHasHeavenlyZealTrackingBehavior" Modifier="0.5" Crit="1" />
+  </CEffectDamage>
+
+  <CEffectEnumArea id="MonkComboWeaponScatteredBlowsNonHeroicSearchArea">
+    <Chance value="0" />
+    <ValidatorArray value="CasterNotBlindedAndTargetNotEvading" />
+    <ImpactLocation Value="CasterUnit" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray MaxCount="1" Effect="MonkComboWeaponTranscendenceCreateHealer">
+      <Radius value="5.5" />
+    </AreaArray>
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+    </TargetSorts>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="MonkComboWeaponScatteredBlowsEnemySearchArea">
+    <Chance value="0" />
+    <ValidatorArray value="CasterNotBlindedAndTargetNotEvading" />
+    <ImpactLocation Value="CasterUnit" />
+    <SearchFilters value="-;Player,Self,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray MaxCount="1" Effect="MonkComboWeaponTranscendenceDamageSet">
+      <Radius value="5.5" />
+    </AreaArray>
+    <TargetSorts>
+      <SortArray value="TSLifeFraction" />
+    </TargetSorts>
+  </CEffectEnumArea>
+  <CEffectSet id="MonkComboWeaponTranscendenceDamageSet">
+    <EffectArray value="MonkComboWeaponTranscendenceDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  
+  <CEffectSet id="MonkBreathofHeavenEnemyImpactSet">
+    <EffectArray value="MonkBreathOfHeavenDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+  </CEffectSet>
+  <CEffectEnumArea id="MonkBreathofHeavenCastNonHeroicSearch">
+    <Chance value="0" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <SearchFlags index="DoActorSearch" value="1" />
+    <AreaArray Effect="MonkBreathofHeavenImpactSet">
+      <Radius value="4.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="MonkBreathofHeavenCastEnemySearch">
+    <Chance value="0" />
+    <SearchFilters value="-;Player,Self,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden" />
+    <SearchFlags index="DoActorSearch" value="1" />
+    <AreaArray Effect="MonkBreathofHeavenEnemyImpactSet">
+      <Radius value="4.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="MonkBreathofHeavenEchoofHeavenCastNonHeroicSearch">
+    <Chance value="0" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,ImmuneToAOE,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="MonkBreathOfHeavenCreateHealerExecute">
+      <Radius value="4.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="MonkBreathofHeavenEchoofHeavenCastEnemySearch">
+    <Chance value="0" />
+    <SearchFilters value="-;Self,Player,Ally,Neutral,ImmuneToAOE,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="MonkBreathofHeavenEnemyImpactSet">
+      <Radius value="4.5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CBehaviorBuff id="MonkEchoofHeavenBreathofHeaven">
+    <ExpireEffect value="MonkEchoofHeavenBreathofHeavenExpireSet" />
+  </CBehaviorBuff>
+  <CEffectSet id="MonkEchoofHeavenBreathofHeavenExpireSet">
+    <EffectArray value="MonkBreathofHeavenEchoofHeavenCastSearch" />
+    <EffectArray value="MonkBreathofHeavenEchoofHeavenCastNonHeroicSearch" />
+    <EffectArray value="MonkBreathofHeavenEchoofHeavenCastEnemySearch" />
+  </CEffectSet>
+  
+  <CEffectDamage id="MonkDivinePalmDamage" parent="StormSpellDot">
+    <ImpactUnit Value="Source" />
+    <Amount value="150" />
+  </CEffectDamage>
+  <CEffectDamage id="MonkDivinePalmExplosionDamage" parent="StormSpell">
+    <ImpactUnit Value="Source" />
+    <Amount value="1200" />
+  </CEffectDamage>
+  
+  <CBehaviorAbility id="AffixMonkDivinePalmBehaviorAbility">
+    <Buttons Face="MonkDivinePalm" Type="AbilCmd" AbilCmd="MonkDivinePalm,Execute" />
+  </CBehaviorAbility>
+
+  <CBehaviorBuff id="KharazimExplodingPalmCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="KharazimHasExplodingPalm">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="KharazimExplodingPalmCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorCombine id="KharazimDivinePalmValidOrExplodingPalmValid">
+    <CombineArray value="MonkDivinePalmValidator" />
+    <CombineArray value="KharazimHasExplodingPalmAndValidTarget" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="KharazimHasExplodingPalmAndValidTarget">
+    <Type value="And" />
+    <CombineArray value="KharazimHasExplodingPalm" />
+    <CombineArray value="MonkDivinePalmExplodingPalmValidator" />
+  </CValidatorCombine>
+
+  <CValidatorUnitFilters id="MonkDivinePalmExplodingPalmValidator">
+    <Filters value="Heroic;Player,Self,Neutral,Ally,Missile,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="MonkDivinePalmValidator">
+    <Filters value="Heroic;Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+
+  <CActorModel id="MonkExplodingPalm" parent="StormModelAnimationStyleOneShotUnit">
+    <On Terms="Effect.MonkExplodingPalmSearch.Start; At Source" Send="Create" />
+    <On Terms="ActorCreation" Send="SetTintColor {200,50,50 1}" />
+    <On Terms="ActorCreation" Send="SetScale 1.3" />
+    <On Terms="ActorCreation" Send="SetOpacity 0.800000" />
+    <On Terms="ActorCreation" Send="Create MonkBreathOfHeavenCastSound" />
+    <HostSiteOps Ops="SOpAttachOriginHoldPosition" HoldRotation="1" />
+    <Model value="MonkBreathOfHeaven" />
+  </CActorModel>
+
+  <CActorModel id="MonkDivinePalmCast">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {200,50,50 1}" />
+    <On Terms="Behavior.MonkDivinePalmTargetBehavior.Off" Send="Destroy" />
+  </CActorModel>
+  <CActorModel id="MonkDivinePalmProcBehavior" >
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {200,50,50 1}" />
+    <On Terms="Behavior.MonkDivinePalmTargetBehavior.Off" Send="Destroy" />
+  </CActorModel>
+
+  <CActorModel id="MonkTranscendenceImpactModel">
+    <On Terms="Effect.MonkComboWeaponTranscendenceDamage.Start; At Target" Send="Create" />
+  </CActorModel>
+  <CActorSound id="MonkTranscendenceCastSound">
+    <On Terms="Effect.MonkComboWeaponTranscendenceDamage.Start; At Target" Send="Create" />
+  </CActorSound>
+  <CActorModel id="MonkBreathOfHeavenImpact">
+    <On Terms="Effect.MonkBreathofHeavenEnemyImpactSet.Start; At Target" Send="Create" />
+  </CActorModel>
+
+</Catalog>

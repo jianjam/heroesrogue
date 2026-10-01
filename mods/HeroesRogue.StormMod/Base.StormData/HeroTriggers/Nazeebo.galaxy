@@ -149,7 +149,7 @@ bool libAffx_NazeeboHardyBonesAffixAdded (bool testConds, bool runActions) {
     if (!runActions) {
         return true;
     }
-    libAffx_NazeeboHardyBonesModifier = 0.3 * libAffx_EventAffixCount();
+    libAffx_NazeeboHardyBonesModifier = 0.25 * libAffx_EventAffixCount();
     
     return true;
 }

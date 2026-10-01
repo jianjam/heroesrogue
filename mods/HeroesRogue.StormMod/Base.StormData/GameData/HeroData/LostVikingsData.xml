@@ -2,6 +2,77 @@
 <Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
 
+  <CAbilEffectInstant id="LostVikingsSpinToWinBeyblade">
+    <PrepEffect value="LostVikingsAbilityUseDismountDecloakSet" />
+    <Effect value="LostVikingsBeybladeCastSet" />
+    <Cost>
+      <Cooldown Location="Player" TimeUse="30" />
+    </Cost>
+    <CmdButtonArray index="Execute" DefaultButtonFace="LostVikingsSpinToWinBeyblade" />
+  </CAbilEffectInstant>
+
+  <CEffectSet id="LostVikingsBeybladeCastSet">
+    <EffectArray value="LostVikingsBeybladeSet" />
+    <EffectArray value="LostVikingsBeybladeCreatePersistent" />
+  </CEffectSet>
+
+  <CEffectCreatePersistent id="LostVikingsBeybladeCreatePersistent">
+    <PeriodCount value="10" />
+    <PeriodicPeriodArray value="0.375" />
+    <PeriodicEffectArray value="LostVikingsBeybladeSet" />
+  </CEffectCreatePersistent>
+
+  <CEffectSet id="LostVikingsBeybladeSet">
+    <EffectArray value="LostVikingsSpinToWinVikingBeybladeSearch" />
+    <EffectArray value="LostVikingsSpinToWinVikingSearch" />
+  </CEffectSet>
+
+  <CEffectEnumArea id="LostVikingsSpinToWinVikingBeybladeSearch">
+    <ImpactLocation Value="SourceUnit" />
+    <SearchFilters value="Heroic;Ally,Neutral,Enemy,RawResource,HarvestableResource,Missile,Item,Stasis,Dead,Hidden,OrdersPaused" />
+    <AreaArray MaxCount="4" Effect="LostVikingsSpinToWinVikingBeybladeImpactSet">
+      <Radius value="500" />
+    </AreaArray>
+  </CEffectEnumArea>
+
+  <CEffectSet id="LostVikingsSpinToWinVikingBeybladeImpactSet">
+    <EffectArray value="LostVikingsSpinToWinVikingBeybladeApplyBehavior" />
+    <ValidatorArray value="LostVikingsIsViking" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="LostVikingsSpinToWinVikingBeybladeApplyBehavior">
+    <Behavior value="LostVikingsSpinToWinVikingBeybladeActive" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="LostVikingsSpinToWinVikingBeybladeActive">
+    <Duration value="0.0625" />
+  </CBehaviorBuff>
+
+  <CEffectEnumArea id="LostVikingsSpinToWinBeybladeSearch">
+    <ImpactLocation Value="TargetUnit" />
+    <SearchFilters value="-;Self,Player,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Hidden,Invulnerable" />
+    <AreaArray Effect="LostVikingsSpinToWinBeybladeImpactSet">
+      <Radius value="2" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectSet id="LostVikingsSpinToWinBeybladeImpactSet">
+    <EffectArray value="LostVikingsSpinToWinBeybladeDamage" />
+    <EffectArray value="ApplyAbilityImpactReveal" />
+    <ValidatorArray value="NotLostVikingsController" />
+  </CEffectSet>
+
+  <CEffectDamage id="LostVikingsSpinToWinBeybladeDamage" parent="StormSpell">
+    <Amount value="42.5" />
+    <MultiplicativeModifierArray index="SpinToWinBonusHeroDamage" Validator="TargetIsHero" Modifier="1" Crit="1" />
+  </CEffectDamage>
+
+  <CButton id="LostVikingsSpinToWinBeyblade" parent="StormButtonParent">
+    <Icon value="Assets\Textures\affix_icon_spintowin_a.dds" />
+  </CButton>
+  <CBehaviorAbility id="LostVikingsSpinToWinBeybladeCarry">
+    <Buttons Face="LostVikingsSpinToWinBeyblade" Type="AbilCmd" AbilCmd="LostVikingsSpinToWinBeyblade,Execute" />
+  </CBehaviorAbility>
+
   <CUnit id="HeroErik">
     <AbilArray Link="LostVikingsNorseForcePassive" />
     <CardLayouts index="0">
@@ -130,5 +201,25 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <Tooltip value="" />
     <Count Link="LostVikingsButtonMasherController" State="CompleteOnlyAtUnit" />
   </CRequirementCountBehavior>
+  
+  <CEffectModifyUnit id="LostVikingsCooldownReductionModifyUnit">
+    <ImpactUnit Value="Caster" />
+    <Cost Abil="LostVikingsPressA,Execute" CooldownOperation="Add" CooldownTimeUse="-0.0625" />
+    <Cost Abil="LostVikingsLongboatRaidNewer,Execute" CooldownOperation="Add" CooldownTimeUse="-0.0625" />
+    <Cost Abil="LostVikingsPlayAgain,Execute" CooldownOperation="Add" CooldownTimeUse="-0.0625" />
+    <Cost Abil="LostVikingsSpinToWin,Execute" CooldownOperation="Add" CooldownTimeUse="-0.0625" />
+    <Cost Abil="LostVikingsNordicAttackSquad,Execute" CooldownOperation="Add" CooldownTimeUse="-0.0625" />
+    <Cost Abil="LostVikingsNorseForce,Execute" CooldownOperation="Add" CooldownTimeUse="-0.0625" />
+    <Cost Abil="LostVikingsGoGoGo,Execute" CooldownOperation="Add" CooldownTimeUse="-0.0625" />
+    <Cost Abil="LostVikingsSpinToWinBeyblade,Execute" CooldownOperation="Add" CooldownTimeUse="-0.0625" />
+  </CEffectModifyUnit>
+
+  <CEffectModifyUnit id="LostVikingsImpatienceIsAVirtueModifyUnit">
+    <Cost Abil="LostVikingsSpinToWinBeyblade,Execute" CooldownOperation="Add" CooldownTimeUse="-0.3125" />
+  </CEffectModifyUnit>
+  
+  <CActorModel id="LostVikingsSpinToWinImpactDamage">
+    <On Terms="Effect.LostVikingsSpinToWinBeybladeImpactSet.Start; At Target" Send="Create" />
+  </CActorModel>
 
 </Catalog>

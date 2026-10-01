@@ -1050,5 +1050,42 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <Flags index="NoFractionDealtBonus" value="1" />
     <SourceButtonFace value="Attack" />
   </CEffectDamage>
+  
+  <CEffectSet id="HealingWardSet">
+    <EffectArray value="HealingWardNonHeroicSearch" />
+    <EffectArray value="HealingWardEnemySearch" />
+  </CEffectSet>
+  <CEffectEnumArea id="HealingWardNonHeroicSearch">
+    <Chance value="0" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Worker,Missile,Stasis,Dead,Hidden" />
+    <AreaArray Effect="HealingWardNonHeroicApplyBehavior">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectApplyBehavior id="HealingWardNonHeroicApplyBehavior">
+    <Behavior value="HealingWardHeal" />
+    <ValidatorArray value="TargetIsMinionOrMercOrSummon" />
+  </CEffectApplyBehavior>
+  <CEffectEnumArea id="HealingWardEnemySearch">
+    <Chance value="0" />
+    <SearchFilters value="-;Player,Self,Neutral,Ally,ImmuneToAOE,Worker,Missile,Stasis,Dead,Hidden" />
+    <AreaArray Effect="HealingWardEnemyApplyBehavior">
+      <Radius value="8" />
+    </AreaArray>
+    <SearchFlags index="ExtendByUnitRadius" value="1" />
+  </CEffectEnumArea>
+  <CEffectApplyBehavior id="HealingWardEnemyApplyBehavior">
+    <Behavior value="HealingWardDamage" />
+  </CEffectApplyBehavior>
+  
+  <CEffectDamage id="HealingWardDamage" parent="StormSpellPercentDamage">
+    <VitalFractionMax index="Life" value="0.02" />
+  </CEffectDamage>
+  
+  <CEffectAddTrackedUnit id="MedivacAddTargetToTrackingBehavior">
+    <BehaviorLink value="MedicMedivacBeaconTrackerBehavior" />
+    <TrackedUnit Value="Target" />
+  </CEffectAddTrackedUnit>
 
 </Catalog>

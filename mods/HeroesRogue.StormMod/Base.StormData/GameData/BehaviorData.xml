@@ -78,7 +78,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   </CBehaviorBuff>
   <CBehaviorBuff id="AffixFastFeetBehavior" parent="CarryBehaviorParent">
     <Modification>
-      <UnifiedMoveSpeedFactor value="0.06" />
+      <UnifiedMoveSpeedFactor value="0.08" />
     </Modification>
   </CBehaviorBuff>
 
@@ -385,11 +385,6 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
       <DamageDealtScaled index="Basic" value="4" />
     </Modification>
   </CBehaviorBuff>
-  <CBehaviorBuff id="AffixPathoftheAssassinSpell" parent="CarryBehaviorParent">
-    <Modification>
-      <DamageDealtScaled index="Ability" value="4" />
-    </Modification>
-  </CBehaviorBuff>
 
   <CBehaviorBuff id="AffixOverchargedShieldsBehavior" parent="CarryBehaviorParent">
     <Modification>
@@ -577,7 +572,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   </Modification>
 </CBehaviorBuff>
 
-<CBehaviorBuff id="TassadarAAFix" parent="StormDamageReductionAttackSpeedSlow">
+<CBehaviorBuff id="AttackSpeedFix" parent="StormDamageReductionAttackSpeedSlow">
   <Duration value="0.0625" />
   <Modification>
     <AdditiveAttackSpeedFactor value="-0.1" />
@@ -971,6 +966,13 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <ModifyScoreArray index="0" Value="Healing" />
   </DamageResponse>
 </CBehaviorBuff>
+<CBehaviorBuff id="PreparedDamageBehavior" parent="CarryBehaviorParent">
+  <DisableValidatorArray value="hasShields" />
+  <Modification>
+    <DamageDealtFraction index="Basic" value="0.05" />
+    <DamageDealtFraction index="Ability" value="0.05" />
+  </Modification>
+</CBehaviorBuff>
 
 <CBehaviorBuff id="SlivanBossBirthDelay">
   <Duration value="2.4" />
@@ -1341,6 +1343,24 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
       <ProvideCategories index="Proc" value="1" />
     </DamageResponse>
   </CBehaviorBuff>
+  
+  <CBehaviorBuff id="AffixManaRegeneratorCarry" parent="CarryBehaviorParent">
+    <DisableValidatorArray value="TargetIsManaUser" />
+    <Modification>
+      <VitalRegenMultiplier index="Energy" value="1" />
+    </Modification>
+  </CBehaviorBuff>
+  
+  <CBehaviorBuff id="HealingWardDamage">
+    <Alignment value="Negative" />
+    <InfoIcon value="Assets\Textures\storm_ui_icon_talent_healingward.dds" />
+    <BehaviorCategories index="Permanent" value="1" />
+    <Duration value="0.5625" />
+    <Period value="1" />
+    <PeriodicEffect value="HealingWardDamage" />
+  </CBehaviorBuff>
+  
+  <CBehaviorBuff id="MedivacMoving" />
   
 
 </Catalog>

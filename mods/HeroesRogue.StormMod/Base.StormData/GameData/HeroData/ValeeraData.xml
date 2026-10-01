@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CBehaviorBuff id="ValeeraVigorCarry" parent="CarryBehaviorParent">
+    <Modification>
+      <VitalMaxArray index="Energy" value="25" />
+    </Modification>
+  </CBehaviorBuff>
+
+  <CEffectModifyPlayer id="ValeeraVigorQuestModifyPlayer">
+    <EffectArray index="0" Operation="Add" Reference="Unit,HeroValeera,EnergyStart" Value="20" />
+    <EffectArray index="1" Operation="Add" Reference="Unit,HeroValeera,EnergyMax" Value="20" />
+  </CEffectModifyPlayer>
+
+</Catalog>

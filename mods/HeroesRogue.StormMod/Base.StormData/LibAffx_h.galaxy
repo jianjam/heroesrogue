@@ -2,7 +2,7 @@
 // Heroes Rogue
 // ============================================================
 
-const string libAffx_version = "0.16.5";
+const string libAffx_version = "0.17.0";
 
 const int libAffx_player = 1; // Player ID
 const int libAffx_enemy = 6; // First enemy player ID
@@ -21,9 +21,10 @@ const int libAffx_maxAffixBehaviors = 1000;
 const int libAffx_maxTriggers = 10;
 const int libAffx_maxQuests = 10;
 const int libAffx_maxFilters = 100;
-const int libAffx_maxAffixes = 400;
+const int libAffx_maxAffixes = 500;
+const int libAffx_maxOwnedAffixesPerPage = 90;
 const int libAffx_maxQueue = 100;
-const int libAffx_maxRequirements = 100;
+const int libAffx_maxRequirements = 20;
 const int libAffx_maxEligibleAffixes = libAffx_maxAffixes; // Maximum affixes that can be eligible for a slot when rolling
 const int libAffx_maxAffixSelection = 5;
 const int libAffx_maxAffixTypes = 2;
@@ -155,9 +156,9 @@ const fixed libAffx_disableDialogControlDuration = 0.25; // How long dialog cont
 // ============================================================
 
 const fixed libAffx_globalTextWriteoutDuration = 1.0; 
-const int libAffx_affixItemSpacing = 425;
-const int libAffx_affixItemWidth = 400;
-const int libAffx_affixItemHeight = 850;
+const int libAffx_affixItemSpacing = 475;
+const int libAffx_affixItemWidth = 450;
+const int libAffx_affixItemHeight = 830;
 const int libAffx_affixItemOffsetY = 140;
 const int libAffx_affixItemIconWidth = 200;
 const int libAffx_affixItemIconHeight = 200;
@@ -167,19 +168,19 @@ const int libAffx_affixItemIconOverlayWidth = 256;
 const int libAffx_affixItemIconOverlayHeight = 256;
 const int libAffx_affixItemIconOverlayOffsetX = 0;
 const int libAffx_affixItemIconOverlayOffsetY = 102;
-const int libAffx_affixItemNameWidth = 320;
+const int libAffx_affixItemNameWidth = 370;
 const int libAffx_affixItemNameHeight = 100;
 const int libAffx_affixItemNameOffsetX = 0;
 const int libAffx_affixItemNameOffsetY = 320;
-const int libAffx_affixItemTooltipWidth = 310;
+const int libAffx_affixItemTooltipWidth = 360;
 const int libAffx_affixItemTooltipHeight = 400;
 const int libAffx_affixItemTooltipOffsetX = 0;
 const int libAffx_affixItemTooltipOffsetY = 400;
-const int libAffx_affixItemRarityWidth = 310;
+const int libAffx_affixItemRarityWidth = 360;
 const int libAffx_affixItemRarityHeight = 100;
 const int libAffx_affixItemRarityOffsetX = 0;
-const int libAffx_affixItemRarityOffsetY = 745;
-const int libAffx_affixItemRarityBanOffsetY = 670;
+const int libAffx_affixItemRarityOffsetY = 725;
+const int libAffx_affixItemRarityBanOffsetY = 650;
 const int libAffx_affixItemBackgroundWidth = 0;
 const int libAffx_affixItemBackgroundHeight = 5;
 const int libAffx_affixItemBackgroundOffsetX = 0;
@@ -191,23 +192,23 @@ const int libAffx_affixItemAffixBackgroundOffsetY = -30;
 const int libAffx_affixItemSelectButtonOffsetX = 0;
 const int libAffx_affixItemSelectButtonOffsetY = 17;
 const int libAffx_affixItemBanButtonOffsetX = 0;
-const int libAffx_affixItemBanButtonOffsetY = 725;
+const int libAffx_affixItemBanButtonOffsetY = 705;
 const int libAffx_affixSelectionTitleWidth = 1000;
 const int libAffx_affixSelectionTitleHeight = 60;
 const int libAffx_affixSelectionTitleOffsetX = 0;
 const int libAffx_affixSelectionTitleOffsetY = 45;
 const int libAffx_affixRerollButtonOffsetX = 0;
-const int libAffx_affixRerollButtonOffsetY = 990;
+const int libAffx_affixRerollButtonOffsetY = 970;
 const int libAffx_affixRerollButtonWidth = 300;
 const int libAffx_affixRerollButtonHeight = 100;
 const int libAffx_affixRerollLabelWidth = 325;
 const int libAffx_affixRerollLabelHeight = 100;
 const int libAffx_affixRerollLabelOffsetX = 0;
-const int libAffx_affixRerollLabelOffsetY = 1050;
+const int libAffx_affixRerollLabelOffsetY = 1030;
 const int libAffx_affixBanLabelWidth = 325;
 const int libAffx_affixBanLabelHeight = 100;
 const int libAffx_affixBanLabelOffsetX = 0;
-const int libAffx_affixBanLabelOffsetY = 1080;
+const int libAffx_affixBanLabelOffsetY = 1060;
 const int libAffx_settingsButtonWidth = 94;
 const int libAffx_settingsButtonHeight = 94;
 const int libAffx_settingsButtonOffsetX = 240;
@@ -398,7 +399,7 @@ struct libAffx_DialogOwnedAffixes {
     int label;
     int nextButton;
     int previousButton;
-    libAffx_DialogOwnedAffixesItem[libAffx_maxAffixes + 1] items;
+    libAffx_DialogOwnedAffixesItem[libAffx_maxOwnedAffixesPerPage + 1] items;
 };
 
 struct libAffx_DialogOptionsItem {
@@ -505,6 +506,15 @@ struct libAffx_Achievement {
     int roundRequired;
 };
 
+struct libAffx_SaveBankValueInt {
+    string key;
+    int value;
+};
+struct libAffx_SaveBankValueFixed {
+    string key;
+    fixed value;
+};
+
 struct libAffx_AffixData {
     string name;
     string icon;
@@ -560,6 +570,11 @@ struct libAffx_AffixData {
     libAffx_Quest quest;
     libAffx_Quest[libAffx_maxQuests + 1] questRetain;
 
+    libAffx_SaveBankValueInt[libAffx_maxSaveValues + 1] saveBankInt;
+    libAffx_SaveBankValueFixed[libAffx_maxSaveValues + 1] saveBankFixed;
+    int saveBankIntIndex;
+    int saveBankFixedIndex;
+
     string cooldownLink;
     fixed cooldown;
     bool cooldownHidden;
@@ -596,6 +611,7 @@ libAffx_Filter libAffx_filterEnemyCore;
 libAffx_Filter libAffx_filterEnemyMinions;
 libAffx_Filter libAffx_filterEnemyMercenaries;
 libAffx_Filter libAffx_filterDifficulty;
+libAffx_Filter libAffx_filterSummons;
 
 // ============================================================
 // Rarity Data
@@ -645,9 +661,8 @@ bool libAffx_startingBoonsQueued;
 
 int libAffx_ownedAffixesCurrentPage = 1;
 int libAffx_ownedAffixesMaxPages;
-int libAffx_ownedAffixesPerPage = 90;
 int libAffx_ownedAffixesPerRow = 15;
-int[libAffx_maxAffixTypes + 1][libAffx_maxAffixes] libAffx_ownedAffixes;
+int[libAffx_maxAffixTypes + 1][libAffx_maxAffixes + 1] libAffx_ownedAffixes;
 int[libAffx_maxAffixTypes + 1] libAffx_ownedAffixesIndex;
 
 // ============================================================
@@ -662,7 +677,7 @@ int libAffx_lastRegisteredAchievement;
 // Player Data
 // ============================================================
 
-int libAffx_playerHeroIndexLoaded; // The player's Hero index that was loaded from the Bank.
+int libAffx_playerSelectedHero; // The player's Hero index that was loaded from the Bank.
 int[libCore_gv_bALMaxPlayers + 1] libAffx_playersHeroIndex;
 bool[libCore_gv_bALMaxPlayers + 1] libAffx_playersFirstSpawnIn; // Whether the player's Hero unit has spawned into the game for the first time.
 
@@ -818,6 +833,7 @@ bool libAffx_debugCommandAddAll;
 void libAffx_DisplayDebugMessage(string printText); // Display a message in chat when debug logging is enabled
 void libAffx_DisplayChatMessage(text printText); // Display a message in chat
 int libAffx_GetAffixId(string affixName); // Get affix index by name.
+bool libAffx_IsCooldownModifiableAbility (string ability);
 void libAffx_ModifyAllCooldowns (unit targetUnit, fixed cooldownChange, bool includeTrait, bool includeHeroic, bool includeMount);
 void libAffx_ResetCooldowns(unit playerUnit);
 void libAffx_MuteAllChannelsExcept(playergroup pg, bool mute, int except);
@@ -924,6 +940,7 @@ bool libAffx_UnitMatchesCriteria(unit unitVar, structref<libAffx_Filter> filter)
 void libAffx_AddUnitBehaviorCriteria(unit unitVar, string behavior, int stacks, structref<libAffx_Filter> filter); // Add a behavior to a unit if it matches criteria.
 void libAffx_UpdateUnitBehaviorCriteria(unit unitVar, string behavior, int stacks, structref<libAffx_Filter> filter); // Add a behavior to a unit if it matches criteria, and removes it if it doesn't.
 void libAffx_SetUnitPropertyCriteria(unit unitVar, int inProp, fixed value, structref<libAffx_Filter> filter);
+void libAffx_UnitCreateEffectUnitCriteriaAll (unit caster, string effect, structref<libAffx_Filter> filter);
 void libAffx_SetUnitPropertyCriteriaAll (int inProp, fixed value, structref<libAffx_Filter> filter);
 void libAffx_AddUnitBehaviorCriteriaAll (string behavior, int stacks, structref<libAffx_Filter> filter);
 void libAffx_RemoveUnitBehaviorCriteriaAll (string behavior, int stacks, structref<libAffx_Filter> filter);
@@ -941,7 +958,8 @@ void libAffx_AddUnitTokenCount(unit unitToAdd, string tokenBehavior, fixed value
 bool libAffx_PlayerHasBehavior (int player, string behavior);
 int libAffx_PlayerBehaviorCount (int player, string behavior);
 void libAffx_UnitCreateEffectUnit (int player, string effect);
-unit libAffx_GetPlayerHeroUnit(int player);
+unit libAffx_GetPlayerHeroUnit (int player);
+string libAffx_GetPlayerHero (int player);
 void libAffx_SetLevelScalingAndValue(string reference, int player, fixed scaling, fixed value); // Modify catalog with specified scaling scaling and value
 void libAffx_SetLevelScaling(string reference, int player, fixed scaling); // Modify catalog with specified scaling scaling
 void libAffx_SetDefaultLevelScaling(string reference, int player); // Modify catalog with default 4% scaling
@@ -962,6 +980,7 @@ void libAffx_ApplyQuest(int affix);
 void libAffx_ApplyAffix(int affix, int amount);
 void libAffx_AddAffix(int affix, int count);
 void libAffx_SetAffix(int affix, int count);
+void libAffx_RemoveAffix(int affix);
 int libAffx_BankGetStats(string key);
 string libAffx_BankLoadValueString(string key);
 int libAffx_BankLoadValueInt(string key);
@@ -978,6 +997,8 @@ void libAffx_LoadBank();
 void libAffx_ResetBank();
 void libAffx_ResetBankStats();
 void libAffx_ResetBankAchievements();
+void libAffx_AddSaveBankInt(int affix, string key, int value); // Add a int bank value to be saved for the affix at the end of the game.
+void libAffx_AddSaveBankFixed(int affix, string key, fixed value); // Add a fixed bank value to be saved for the affix at the end of the game.
 int libAffx_RollRarity(int baseRarity, bool curse); // Roll rarity to upgrade.
 bool libAffx_AffixFailsRequirements(int affix);
 int libAffx_RollAffix(int rarity, bool curse, int level, bool lockRarity); // Returns an affix that matches the criteria and all requirements.
@@ -1028,7 +1049,7 @@ void libAffx_AffixSetMap(int affix, int map, bool allowed);
 void libAffx_AffixSetMapAll(int affix, bool allowed);
 void libAffx_AffixSetMapSpecific(int affix, int map);
 void libAffx_AffixSetWeight(int affix, int weight);
-
+void libAffx_InitFilters();
 void libAffx_InitLibraries();
 void libAffx_InitVariables();
 void libAffx_InitAffixes();

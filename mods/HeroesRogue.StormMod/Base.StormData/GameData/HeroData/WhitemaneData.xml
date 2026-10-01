@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
+  
+  <CAbilEffectTarget id="WhitemaneDesperatePlea">
+    <TargetFilters value="-;Neutral,Creep,Missile,Item,Stasis,Dead" />
+  </CAbilEffectTarget>
+
+  <CAbilEffectTarget id="WhitemaneInquisition">
+    <Effect value="WhitemaneInquisitionSet" />
+    <TargetFilters value="Visible;Self,Player,Neutral,Missile,Item,Stasis,Dead,Hidden" />
+  </CAbilEffectTarget>
+  
+  <CAbilEffectTarget id="WhitemaneInquisitionClemency">
+    <TargetFilters value="-;Self,Player,Neutral,Missile,Item,Stasis,Dead,Hidden" />
+  </CAbilEffectTarget>
+  
+  <CAbilEffectTarget id="WhitemaneGuidingLight">
+    <TargetFilters value="Heroic;Neutral,Creep,Structure,Missile,Item,Stasis,Dead" />
+  </CAbilEffectTarget>
+
+  <CEffectSet id="WhitemaneGuidingLightInitialSet">
+    <ValidatorArray value="WhitemaneGuidingLightValidatorCombine" />
+    <EffectArray value="WhitemaneGuidingLightApplyPermanentZealBehavior" />
+  </CEffectSet>
+
+  <CEffectApplyBehavior id="WhitemaneGuidingLightApplyPermanentZealBehavior">
+    <ValidatorArray value="WhitemaneHasSearingLight" />
+    <Behavior value="WhitemanePermanentZealBehavior" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="WhitemanePermanentZealBehavior" parent="CarryBehaviorParent" >
+    <Period value="0.0625" />
+    <PeriodicEffect value="WhitemanePermanentZealApplySet" />
+  </CBehaviorBuff>
+  <CEffectSet id="WhitemanePermanentZealApplySet">
+    <ValidatorArray value="WhitemaneZealTargetDoesNotHaveZealBehavior" />
+    <EffectArray value="WhitemaneZealApplyBehaviorSet" />
+  </CEffectSet>
+  
+  <CEffectSet id="WhitemaneInquisitionSet">
+    <ValidatorArray value="WhitemaneInquisitionValidatorCombine" />
+    <EffectArray value="WhitemaneInquisitionEnemyOrAllySwitch" />
+  </CEffectSet>
+
+  <CEffectSet id="WhitemaneInquisitionClemencyInitialSet">
+    <ValidatorArray value="WhitemaneInquisitionClemencyValidatorCombine" />
+  </CEffectSet>
+
+  <CEffectSet id="WhitemaneDesperatePleaInitialSet">
+    <ValidatorArray value="WhitemaneDesperatePleaValidatorCombine" />
+    <EffectArray index="0" value="WhitemaneDesperatePleaCreateHealer" />
+    <EffectArray index="1" value="WhitemaneDesperatePleaDamage" />
+    <EffectArray index="2" value="WhitemaneDesperatePleaSelfRighteousSelfHealSet" />
+    <EffectArray index="3" value="WhitemaneZealApplyBehaviorSet" />
+    <EffectArray index="4" value="WhitemaneDesperatePleaApplyDesperationSet" />
+    <EffectArray index="5" value="WhitemaneModifyWeaponCooldown" />
+    <EffectArray index="6" value="WhitemaneDesperatePleaSaintlyGreatstaffCastSet" />
+    <EffectArray value="WhitemaneCalmPleaRestoreMana" />
+  </CEffectSet>
+
+  <CEffectSet id="WhitemaneDesperatePleaRadianceImpactSet">
+    <EffectArray value="WhitemaneDesperatePleaRadianceDamage" />
+  </CEffectSet>
+  <CEffectSet id="WhitemaneZealHealImpactSet">
+    <EffectArray value="WhitemaneZealDamage" />
+  </CEffectSet>
+  <CEffectSet id="WhitemaneZealApplyBehaviorSet">
+    <EffectArray value="WhitemaneCalmPleaModifyBehaviorDuration" />
+  </CEffectSet>
+  <CEffectSet id="WhitemaneDesperatePleaApplyDesperationSet">
+    <EffectArray value="WhitemaneCalmPleaModifyDesperationBehaviorDuration" />
+  </CEffectSet>
+
+  <CBehaviorAbility id="AffixWhitemaneDivineReckoningBehaviorAbility">
+    <Buttons Face="WhitemaneDivineReckoning" Type="AbilCmd" AbilCmd="WhitemaneDivineReckoning,Execute" />
+  </CBehaviorAbility>
+  
+  <CEffectSet id="WhitemaneScarletAegisInitialSet">
+    <EffectArray value="WhitemaneScarletAegisWhitemanesPunishmentNonHeroicSearch" />
+    <EffectArray value="WhitemaneScarletAegisWhitemanesPunishmentSearch" />
+  </CEffectSet>
+  
+  <CEffectEnumArea id="WhitemaneScarletAegisWhitemanesPunishmentNonHeroicSearch">
+    <Chance value="0" />
+    <SearchFilters value="-;Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Worker,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="WhitemaneScarletAegisImpactSet">
+      <Radius value="5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectEnumArea id="WhitemaneScarletAegisWhitemanesPunishmentSearch">
+    <Chance value="0" />
+    <SearchFilters value="-;Player,Self,Neutral,Ally,Invulnerable,ImmuneToAOE,Worker,Missile,Item,Stasis,Dead,Hidden" />
+    <AreaArray Effect="WhitemaneScarletAegisImpactEnemySet">
+      <Radius value="5" />
+    </AreaArray>
+  </CEffectEnumArea>
+  <CEffectSet id="WhitemaneScarletAegisImpactEnemySet">
+    <EffectArray value="WhitemaneScarletAegisDamage" />
+    <EffectArray value="WhitemaneScarletAegisApplyArmorReductionBehavior" />
+    <EffectArray value="WhitemaneScarletAegisApplyStunBehavior" />
+    <EffectArray value="WhitemaneScarletAegisHolySmiteImpactSet" />
+  </CEffectSet>
+  <CEffectSet id="WhitemaneScarletAegisHolySmiteImpactSet">
+    <ValidatorArray value="WhitemaneHasHolySmite" />
+    <EffectArray value="WhitemaneScarletAegisHolySmiteDelay" />
+  </CEffectSet>
+  <CEffectCreatePersistent id="WhitemaneScarletAegisHolySmiteDelay">
+    <WhichLocation Value="TargetUnit" />
+    <InitialDelay value="0.0625" />
+    <InitialEffect value="WhitemaneZealApplyBehaviorSet" />
+  </CEffectCreatePersistent>
+
+  <CEffectApplyBehavior id="WhitemaneScarletAegisApplyStunBehavior">
+    <Behavior value="WhitemaneScarletAegisStunBehavior" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="WhitemaneScarletAegisStunBehavior" parent="StormStun">
+    <Duration value="2" />
+  </CBehaviorBuff>
+
+  <CEffectApplyBehavior id="WhitemaneScarletAegisApplyArmorReductionBehavior">
+    <Behavior value="WhitemaneScarletAegisArmorReduction" />
+  </CEffectApplyBehavior>
+  <CBehaviorBuff id="WhitemaneScarletAegisArmorReduction" parent="StormArmor">
+    <ArmorModification>
+      <AllArmorBonus value="-40" />
+    </ArmorModification>
+    <Duration value="4" />
+  </CBehaviorBuff>
+
+  <CEffectDamage id="WhitemaneScarletAegisDamage" parent="StormSpell">
+    <Amount value="300" />
+    <SourceButtonFace value="WhitemaneScarletAegis" />
+    <MultiplicativeModifierArray index="0" Validator="WhitemaneScarletAegisScarletCrusadeHasTalent" Modifier="0.5" />
+    <MultiplicativeModifierArray index="PityTheFrail" Validator="WhitemaneZealPityTheFrailHasTalentAndTargetHealthLT30" Modifier="0.25" Crit="1" />
+    <MultiplicativeModifierArray index="FanaticalPower" Validator="WhitemaneHasFanaticalPowerBehavior" Crit="1" />
+    <CritValidatorArray value="CritAliasSpellPower" />
+  </CEffectDamage>
+
+  <CEffectCreateHealer id="WhitemaneDesperatePleaCreateHealer">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+  <CEffectDamage id="WhitemaneDesperatePleaDamage" parent="StormSpell">
+    <ValidatorArray value="WhitemaneHasHolySmite" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Amount value="140" />
+    <MultiplicativeModifierArray index="PityTheFrail" Validator="WhitemaneZealPityTheFrailHasTalentAndTargetHealthLT30" Modifier="0.25" Crit="1" />
+    <MultiplicativeModifierArray index="Martyrdom" Validator="WhitemaneDesperatePleaMartyrdomHasTalent" Accumulator="WhitemaneZealMartyrdomHealAccumulator" Modifier="0.3" />
+    <MultiplicativeModifierArray index="FanaticalPower" Validator="WhitemaneHasFanaticalPowerBehavior" Crit="1" />
+    <CritValidatorArray value="WhitemaneDesperatePleaCritCombine" />
+  </CEffectDamage>
+  
+  <CEffectCreateHealer id="WhitemaneDesperatePleaRadianceCreateHealer">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+  <CEffectDamage id="WhitemaneDesperatePleaRadianceDamage" parent="StormSpell">
+    <ValidatorArray value="WhitemaneHasHolySmite" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <Amount value="175" />
+    <MultiplicativeModifierArray index="PityTheFrail" Validator="WhitemaneZealPityTheFrailHasTalentAndTargetHealthLT30" Modifier="0.25" Crit="1" />
+    <MultiplicativeModifierArray index="FanaticalPower" Validator="WhitemaneHasFanaticalPowerBehavior" Crit="1" />
+    <SourceButtonFace value="WhitemaneDesperatePleaRadiance" />
+    <CritValidatorArray value="CritAliasSpellPower" />
+  </CEffectDamage>
+  
+  <CEffectCreateHealer id="WhitemaneZealScarletWrathRestoreMana">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+  
+  <CEffectCreateHealer id="WhitemaneZealCreateHealer">
+    <ValidatorArray value="TargetIsAllyorSelf" />
+  </CEffectCreateHealer>
+  <CEffectDamage id="WhitemaneZealDamage" parent="StormSpellPercentDamage">
+    <ValidatorArray value="WhitemaneHasHolySmite" />
+    <ValidatorArray value="TargetIsEnemy" />
+    <MultiplicativeModifierArray index="ZealBase" />
+    <MultiplicativeModifierArray index="PityTheFrail" Validator="WhitemaneZealPityTheFrailHasTalentAndTargetHealthLT30" Modifier="0.25" Crit="1" />
+    <MultiplicativeModifierArray index="FanaticalPower" Validator="WhitemaneHasFanaticalPowerBehavior" Crit="1" />
+    <Flags index="IgnoreBehaviorDealtMultipliers" value="1" />
+    <Flags index="TriggerVoiceResponse" value="0" />
+    <SourceButtonFace value="WhitemaneTraitZeal" />
+    <CritValidatorArray value="CritAliasNever" />
+  </CEffectDamage>
+
+  <CEffectModifyBehaviorBuffDuration id="WhitemaneCalmPleaModifyBehaviorDuration">
+    <ValidatorArray value="WhitemaneHasCalmPlea" />
+    <ValidatorArray value="TargetIsNotHeroic" />
+    <WhichUnit Value="Target" />
+    <Behavior value="WhitemaneZealBuff" />
+    <Operation value="Set" />
+    <Value value="60" />
+  </CEffectModifyBehaviorBuffDuration>
+  <CEffectModifyBehaviorBuffDuration id="WhitemaneCalmPleaModifyDesperationBehaviorDuration">
+    <ValidatorArray value="WhitemaneHasCalmPlea" />
+    <ValidatorArray value="TargetIsNotHeroic" />
+    <WhichUnit Value="Caster" />
+    <Behavior value="WhitemaneDesperatePleaDesperation" />
+    <Operation value="Set" />
+    <Value value="1" />
+  </CEffectModifyBehaviorBuffDuration>
+  
+  <CEffectCreateHealer id="WhitemaneCalmPleaRestoreMana" parent="StormManaRestore">
+    <ValidatorArray value="WhitemaneHasCalmPlea" />
+    <ValidatorArray value="TargetIsNotHeroic" />
+    <ImpactUnit Value="Caster" />
+    <RechargeVitalRate value="30" />
+  </CEffectCreateHealer>
+
+  <CValidatorCombine id="WhitemaneDesperatePleaValidatorCombine">
+    <CombineArray value="WhitemaneDesperatePleaValidator" />
+    <CombineArray value="WhitemaneHolySmiteCombine" />
+    <CombineArray value="WhitemaneCalmPleaCombine" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="WhitemaneHolySmiteCombine">
+    <Type value="And" />
+    <CombineArray value="WhitemaneHasHolySmite" />
+    <CombineArray value="WhitemaneHolySmiteValidator" />
+  </CValidatorCombine>
+  <CValidatorCombine id="WhitemaneCalmPleaCombine">
+    <Type value="And" />
+    <CombineArray value="WhitemaneHasCalmPlea" />
+    <CombineArray value="WhitemaneCalmPleaValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="WhitemaneInquisitionValidatorCombine">
+    <CombineArray value="WhitemaneUnexpectedInquisitionCombine" />
+    <CombineArray value="WhitemaneInquisitionValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="WhitemaneUnexpectedInquisitionCombine">
+    <Type value="And" />
+    <CombineArray value="WhitemaneHasUnexpectedInquisition" />
+    <CombineArray value="WhitemaneUnexpectedInquisitionValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="WhitemaneInquisitionClemencyValidatorCombine">
+    <CombineArray value="WhitemaneUnexpectedInquisitionClemencyCombine" />
+    <CombineArray value="WhitemaneInquisitionClemencyValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="WhitemaneUnexpectedInquisitionClemencyCombine">
+    <Type value="And" />
+    <CombineArray value="WhitemaneHasUnexpectedInquisition" />
+    <CombineArray value="WhitemaneUnexpectedInquisitionClemencyValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="WhitemaneGuidingLightValidatorCombine">
+    <CombineArray value="WhitemaneStableLightCombine" />
+    <CombineArray value="WhitemaneGuidingLightValidator" />
+  </CValidatorCombine>
+
+  <CValidatorCombine id="WhitemaneStableLightCombine">
+    <Type value="And" />
+    <CombineArray value="WhitemaneHasSearingLight" />
+    <CombineArray value="WhitemaneHasHolySmite" />
+    <CombineArray value="WhitemaneStableLightValidator" />
+  </CValidatorCombine>
+
+  <CBehaviorBuff id="WhitemaneHolySmiteCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="WhitemaneCalmPleaCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="WhitemaneUnexpectedInquisitionCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="WhitemaneArdentZealCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="WhitemaneStableLightCarry" parent="CarryBehaviorParent" />
+
+  <CValidatorUnitCompareBehaviorCount id="WhitemaneHasHolySmite">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="WhitemaneHolySmiteCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="WhitemaneHasCalmPlea">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="WhitemaneCalmPleaCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="WhitemaneHasUnexpectedInquisition">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="WhitemaneUnexpectedInquisitionCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="WhitemaneHasArdentZeal">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="WhitemaneArdentZealCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="WhitemaneHasSearingLight">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="WhitemaneStableLightCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+
+  <CValidatorUnitFilters id="WhitemaneStableLightValidator">
+    <Filters value="Heroic;Player,Self,Neutral,Ally,Creep,Structure,Invulnerable,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="WhitemaneGuidingLightValidator">
+    <Filters value="Heroic;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="WhitemaneUnexpectedInquisitionClemencyValidator">
+    <Filters value="-;Self,Player,Heroic,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="WhitemaneInquisitionClemencyValidator">
+    <Filters value="Heroic;Self,Player,Neutral,Enemy,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead,Hidden" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="WhitemaneUnexpectedInquisitionValidator">
+    <Filters value="Visible;Self,Player,Heroic,Ally,Neutral,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="WhitemaneInquisitionValidator">
+    <Filters value="Heroic,Visible;Self,Player,Ally,Neutral,Structure,Missile,Item,Stasis,Dead,Hidden,Invulnerable" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="WhitemaneCalmPleaValidator">
+    <Filters value="-;Player,Self,Heroic,Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="WhitemaneHolySmiteValidator">
+    <Filters value="-;Player,Self,Neutral,Ally,Creep,Invulnerable,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  <CValidatorUnitFilters id="WhitemaneDesperatePleaValidator">
+    <Filters value="Heroic;Neutral,Enemy,Creep,Structure,ImmuneToFriendlyAbilities,Missile,Item,Stasis,Dead" />
+  </CValidatorUnitFilters>
+  
+  <CActorSound id="WhitemaneZealPityTheFrailHealSound">
+    <On Terms="Effect.WhitemaneZealDamage.Start; ValidateEffect WhitemaneZealPityTheFrailHasTalentAndTargetHealthLT30" Send="Create" />
+  </CActorSound>
+  <CActorModel id="WhitemaneDesperatePleaImpactFX">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {200,75,75 1}" />
+  </CActorModel>
+  <CActorModel id="WhitemaneZealBuffFX">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {200,75,75 1}" />
+    <On Terms="ActorCreation; ValidateEffect TargetIsNotHeroic" Send="SetOpacity 0.3" />
+    <On Terms="ActorCreation; ValidateEffect IsStructureTarget" Send="SetOpacity 0" />
+  </CActorModel>
+  <CActorUnitRing id="WhitemaneZealTargetFX">
+    <On Terms="ActorCreation; ValidateEffect TargetIsEnemy" Send="SetTintColor {200,75,75 1}" />
+    <On Terms="ActorCreation; ValidateEffect TargetIsNotHeroic" Send="SetOpacity 0.3" />
+    <On Terms="ActorCreation; ValidateEffect IsStructureTarget" Send="SetOpacity 0" />
+  </CActorUnitRing>
+
+  <CActorModel id="WhitemaneScarletAegisBuffModel">
+    <On Terms="Behavior.WhitemaneScarletAegisArmorReduction.On" Send="Create" />
+    <On Terms="Behavior.WhitemaneScarletAegisArmorReduction.On" Send="SetTintColor {200,75,75 1}" />
+  </CActorModel>
+  <CActorSound id="WhitemaneScarletAegisEndSound">
+    <On Terms="Behavior.WhitemaneScarletAegisArmorReduction.Off" Send="Create" />
+  </CActorSound>
+  <CActorSound id="WhitemaneScarletAegisLoopSound" >
+    <On Terms="Behavior.WhitemaneScarletAegisArmorReduction.On" Send="Create" />
+    <On Terms="Behavior.WhitemaneScarletAegisArmorReduction.Off" Send="Destroy" />
+  </CActorSound>
+
+</Catalog>

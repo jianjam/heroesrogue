@@ -17894,6 +17894,16 @@ void libGame_gt_HeroDeathDiabloDiabloDies_Init () {
 //--------------------------------------------------------------------------------------------------
 // Trigger: Hero Death - Uther Eternal Devotion Proc
 //--------------------------------------------------------------------------------------------------
+bool libGame_UtherRedemptionIsReady(unit playerUnit) {
+    int player = UnitGetOwner(playerUnit);
+    fixed redemptionCooldown = UnitBehaviorDuration(playerUnit, "RedemptionCooldown");
+    fixed eternalVanguardDelay = CatalogFieldValueGetAsFixed(c_gameCatalogBehavior, "UtherEternalVanguardRezDelay", "Duration", player);
+    fixed spiritFormDuration = MaxF(CatalogFieldValueGetAsFixed(c_gameCatalogBehavior, "SpiritOfRedemptionSpiritFormBuff", "Duration", player), CatalogFieldValueGetAsFixed(c_gameCatalogBehavior, "SpiritOfRedemptionSpiritFormBuff", "Duration", 0));
+    if ((((redemptionCooldown <= (eternalVanguardDelay + spiritFormDuration)) || (UnitBehaviorCount(playerUnit, "RedemptionCarryBehavior") == 1)))) {
+        return true;
+    }
+    return false;
+}
 bool libGame_gt_HeroDeathUtherEternalDevotionProc_Func (bool testConds, bool runActions) {
     // Variable Declarations
     unit lv_deadUnit;
@@ -17903,6 +17913,7 @@ bool libGame_gt_HeroDeathUtherEternalDevotionProc_Func (bool testConds, bool run
     fixed lv_currentDeathTime;
     fixed lv_spiritOfRedemptionBuffDuration;
     fixed lv_spiritOfRedemptionBuffImprovedDuration;
+    fixed heroDeathTime;
 
     // Automatic Variable Declarations
     // Variable Initialization
@@ -17914,23 +17925,22 @@ bool libGame_gt_HeroDeathUtherEternalDevotionProc_Func (bool testConds, bool run
 
     lv_deadUnit = EventPlayerEffectUsedUnit(c_effectUnitCaster);
     lv_deadPlayer = UnitGetOwner(EventPlayerEffectUsedUnit(c_effectUnitCaster));
+    heroDeathTime = libCore_gf_HeroDeathTime(lv_deadPlayer, UnitLevel(libGame_gv_players[lv_deadPlayer].lv_heroUnit));
     lv_killingPlayer = EventPlayerEffectUsedUnitOwner(c_effectPlayerTarget);
     libGame_gv_players[lv_deadPlayer].lv_lastKillingPlayer = lv_killingPlayer;
     libGame_gf_SendEventHeroKilled(lv_killingPlayer, lv_deadUnit);
     UnitBehaviorAdd(lv_deadUnit, "Dead", lv_deadUnit, 1);
     lv_currentDeathTime = libCore_gf_HeroDeathTime(lv_deadPlayer, UnitLevel(lv_deadUnit));
-    lv_spiritOfRedemptionBuffDuration = CatalogFieldValueGetAsFixed(c_gameCatalogBehavior, "SpiritOfRedemptionSpiritFormBuff", "Duration", 0);
-    CatalogFieldValueSetFixed(c_gameCatalogBehavior, "SpiritOfRedemptionSpiritFormBuff", "Duration", lv_deadPlayer, MinF((lv_currentDeathTime - lv_spiritOfRedemptionLowDeathTimeAdjustment_C), lv_spiritOfRedemptionBuffDuration));
+    lv_spiritOfRedemptionBuffDuration = CatalogFieldValueGetAsFixed(c_gameCatalogBehavior, "SpiritOfRedemptionSpiritFormBuff", "Duration", lv_deadPlayer);
+    //CatalogFieldValueSetFixed(c_gameCatalogBehavior, "SpiritOfRedemptionSpiritFormBuff", "Duration", lv_deadPlayer, MinF((lv_currentDeathTime - lv_spiritOfRedemptionLowDeathTimeAdjustment_C), lv_spiritOfRedemptionBuffDuration));
     libGame_gf_CameraPanCameraForPlayerAndUpdateMapBoundsIfNecessary(lv_deadPlayer, UnitGetPosition(lv_deadUnit), 0.25, -1, 0.0, false);
     libGame_gf_SendEventHeroEntersSpecialDeathState(lv_deadUnit);
-    if ((PlayerHasTalent(lv_deadPlayer, "UtherMasteryRedemption") == true) && (((UnitBehaviorDuration(lv_deadUnit, "RedemptionCooldown") <= (CatalogFieldValueGetAsFixed(c_gameCatalogBehavior, "UtherEternalVanguardRezDelay", "Duration", lv_deadPlayer) + lv_spiritOfRedemptionBuffDuration)) || (UnitBehaviorCount(lv_deadUnit, "RedemptionCarryBehavior") == 1)))) {
+    if ((PlayerHasTalent(lv_deadPlayer, "UtherMasteryRedemption") == true) && libGame_UtherRedemptionIsReady(lv_deadUnit)) {
         if ((UnitBehaviorCount(lv_deadUnit, "RedemptionCarryBehavior") == 0)) {
             ActorCreate(ActorScopeFromUnit(lv_deadUnit), "RedemptionVisualModel", null, null, null);
         }
-
-    }
-    else {
-        libGame_gf_HeroDeathStartRespawnTimer(lv_deadPlayer, libCore_gf_HeroDeathTime(lv_deadPlayer, UnitLevel(libGame_gv_players[lv_deadPlayer].lv_heroUnit)));
+    } else {
+        libGame_gf_HeroDeathStartRespawnTimer(lv_deadPlayer, MaxF(heroDeathTime, lv_spiritOfRedemptionBuffDuration + 0.0625 + CatalogFieldValueGetAsFixed(c_gameCatalogBehavior, "UtherEternalVanguardRezDelay", "Duration", lv_deadPlayer)));
     }
     return true;
 }
