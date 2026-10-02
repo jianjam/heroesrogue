@@ -7,31 +7,59 @@
 
 ## 如何游玩
 
-- 前往 Releases 区域（GitHub 页面右侧栏）下载最新版本的 mod。
+**第一步：准备 mod 文件（二选一）**
 
-- 把压缩包内的内容解压到《风暴英雄》的安装目录（例如 `C:/Program Files (x86)/Heroes of the Storm`）。解压后 `maps` 和 `mods` 文件夹应与游戏可执行文件处于同一层目录。
+- **中文版**：在本仓库页面点击右上方的 `Code` → `Download ZIP`，解压后即为**已含简体中文**的完整 mod，装完直接就是中文。
+- **英文原版**：前往[作者仓库的 Releases 页面](https://github.com/sobbyellow/heroesrogue/releases)下载最新版 zip（本仓库与它**只差一个语言文件**，其余完全相同）。
+
+**第二步：安装**
+
+- 把解压出来的内容放进《风暴英雄》的安装目录（例如 `C:/Program Files (x86)/Heroes of the Storm`）。放好后 `maps` 和 `mods` 两个文件夹应与游戏可执行文件处于**同一层目录**。
+
+**第三步：开始游戏**
 
 - 启动游戏，打开右下角菜单（齿轮图标），点击「挑战」（Challenges），然后点击「开始」。
+
+> 如果你装的是**英文原版**、想改成中文，不用重新下载整包——见下方「方式二：只替换一个文件」。
 
 ## 如何卸载
 
 - 删除 `maps` 和 `mods` 两个文件夹，即可恢复普通的试玩模式。
 
-## 中文语言包（本仓库附加内容）
+## 简体中文语言包
 
-本仓库在原版基础上**只增加了一个中文语言文件**，不修改任何原版文件：
+本仓库与英文原版的**唯一区别**，就是多出下面这一个文件（不改动任何原版文件）：
 
 ```
 mods/HeroesRogue.StormMod/zhCN.StormData/LocalizedData/GameStrings.txt
 ```
 
-**安装方式（推荐）**
+### 方式一：下载本仓库 ZIP（最省事）
 
-1. 下载本仓库的 mod 文件（或从 Releases 下载英文原版）。
-2. 把 `zhCN.StormData` 整个文件夹复制到游戏的 `mods/HeroesRogue.StormMod/` 目录下，与 `enUS.StormData` 并列。
-3. 把游戏语言设置为简体中文。
+按上面「如何游玩」的说明，用 `Code` → `Download ZIP` 下载本仓库，解压出来的就是**已含中文**的 mod，中文语言包已经在正确位置，无需任何手工步骤。
 
-**如果游戏内仍显示英文**：先备份，再用本仓库的 `zhCN.StormData/LocalizedData/GameStrings.txt` 覆盖 `enUS.StormData/LocalizedData/GameStrings.txt`，这样无论游戏语言设成什么都会显示中文。
+### 方式二：只替换一个文件（已有英文原版时）
+
+如果你已经从作者那里装好了英文原版，只需补上这一个文件：
+
+1. **下载中文文件**（右键 → 另存为，文件名保持 `GameStrings.txt`）：
+   - 直链：https://raw.githubusercontent.com/jianjam/heroesrogue/master/mods/HeroesRogue.StormMod/zhCN.StormData/LocalizedData/GameStrings.txt
+   - 国内打不开直链就用加速链接：https://gh-proxy.com/https://raw.githubusercontent.com/jianjam/heroesrogue/master/mods/HeroesRogue.StormMod/zhCN.StormData/LocalizedData/GameStrings.txt
+   - 也可以在网页上打开该文件后点右上角的 ⬇ 下载按钮：[在 GitHub 上查看](https://github.com/jianjam/heroesrogue/blob/master/mods/HeroesRogue.StormMod/zhCN.StormData/LocalizedData/GameStrings.txt)
+
+2. **放到正确的位置**：进入游戏的 `mods\HeroesRogue.StormMod\` 目录，在里面**新建文件夹** `zhCN.StormData`，再在里面**新建文件夹** `LocalizedData`，把下载的 `GameStrings.txt` 放进去。最终路径应为：
+
+   ```
+   《风暴英雄》安装目录\mods\HeroesRogue.StormMod\zhCN.StormData\LocalizedData\GameStrings.txt
+   ```
+
+   （它应该和原有的 `enUS.StormData` 文件夹并列在同一层。）
+
+3. **把游戏语言设置为简体中文**，重启游戏即可。
+
+**如果游戏内仍显示英文**：先备份原文件，再把这份 `GameStrings.txt` 覆盖到 `enUS.StormData\LocalizedData\GameStrings.txt`，这样无论游戏语言设成什么都会显示中文。
+
+**作者更新 mod 之后**：只需重新下载这一个文件覆盖即可（若文件没跟上新版，未翻译的条目会临时显示英文，本仓库会同步更新）。
 
 > 汉化以英文原版为权威来源，只翻译文本，不改动任何游戏数据与逻辑。若发现漏翻、错翻或与英文原文不一致的地方，欢迎提 Issue。
 
