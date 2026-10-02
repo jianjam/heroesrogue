@@ -114,8 +114,8 @@ Achievement/Name/Kharazim=卡拉辛姆
 Achievement/Tooltip/Kharazim=使用 <c val="#TooltipNumbers">卡拉辛姆</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Leoric=李奥瑞克
 Achievement/Tooltip/Leoric=使用 <c val="#TooltipNumbers">李奥瑞克</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
-Achievement/Name/LiLi=莉莉
-Achievement/Tooltip/LiLi=使用 <c val="#TooltipNumbers">莉莉</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
+Achievement/Name/LiLi=丽丽
+Achievement/Tooltip/LiLi=使用 <c val="#TooltipNumbers">丽丽</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/LiMing=李敏
 Achievement/Tooltip/LiMing=使用 <c val="#TooltipNumbers">李敏</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/LostVikings=失落的维京人
@@ -328,7 +328,7 @@ Message/TestCommand/AddedTotal=共添加了 ~A~ 个 affix。
 Message/TestCommand/ForcedPause=强制暂停。
 Message/TestCommand/ForcedUnpause=强制取消暂停。
 Message/TestCommand/Camera=修改玩家的视角。<n/>camera <视角类型> <值>
-Message/TestCommand/RavenCurse=为某支队伍赢得渡鸦诅咒。<n/>ravencurse <队伍>
+Message/TestCommand/RavenCurse=为某支队伍赢得乌鸦王的诅咒。<n/>ravencurse <队伍>
 Message/TestCommand/PrintHeroIndex=玩家 ~A~：~B~（~C~）
 Message/TestCommand/Teleport=将玩家传送至某点。<n/>teleport <x> <y>
 Message/TestCommand/Teleported=已将玩家传送至 ~A~。
@@ -361,7 +361,7 @@ Button/Tooltip/Mythic=所有敌人：<n/><c val="#TooltipRed">+4%</c> <c val="74
 Button/Name/DoNothing=无效果
 Button/SimpleDisplayText/DoNothing=无任何效果。
 Button/Tooltip/DoNothing=无任何效果。
-Button/Name/AffixBuddyHeal=治疗光束
+Button/Name/AffixBuddyHeal=治疗射线
 Button/SimpleDisplayText/AffixBuddyHeal=你的好朋友会保护你的生命！
 Button/Tooltip/AffixBuddyHeal=你的好朋友会保护你的生命！
 Button/Name/LostVikingsSpinToWinBeyblade=战斗陀螺
@@ -403,7 +403,7 @@ Affix/Tooltip/Append/NazeeboPowerfulSpiders=<n/><n/>当前总计：<c val="#Tool
 Affix/Name/NazeeboDiseasedZombies=疫病僵尸
 Affix/Tooltip/NazeeboDiseasedZombies=僵尸死亡时有 <c val="#TooltipNumbers">50%</c> 概率召唤一只尸蛛。
 Affix/Tooltip/Append/NazeeboDiseasedZombies=
-Affix/Name/NazeeboDiseasedToads=疫病蟾蜍
+Affix/Name/NazeeboDiseasedToads=蟾蜍之疫
 Affix/Tooltip/NazeeboDiseasedToads=蟾蜍死亡时有 <c val="#TooltipNumbers">50%</c> 概率召唤一只尸蛛。
 Affix/Tooltip/Append/NazeeboDiseasedToads=
 Affix/Name/NazeeboPowerRitual=力量仪式
@@ -464,8 +464,8 @@ Affix/Tooltip/Append/BlessingoftheDragons=<n/><n/>当前总计：<n/><c val="#To
 Affix/Name/NexusRange=时空射程
 Affix/Tooltip/NexusRange=<c val="#TooltipGreen">+1.1</c> <c val="747A84">（每层 +0.5）</c> 攻击范围
 Affix/Tooltip/NexusRange/Greymane=<c val="#TooltipGreen">+1.1</c> <c val="747A84">（每层 +0.5）</c> <c val="f9e79f">人类</c> 攻击范围
-Affix/Tooltip/NexusRange/DVa=<c val="#TooltipGreen">+1.1</c> <c val="747A84">（每层 +0.5）</c> 机甲模式下的攻击范围。
-Affix/Tooltip/NexusRange/LostVikings=<c val="#TooltipGreen">+1.1</c> <c val="747A84">（每层 +0.5）</c> 巴尔洛格与艾瑞克的攻击范围
+Affix/Tooltip/NexusRange/DVa=<c val="#TooltipGreen">+1.1</c> <c val="747A84">（每层 +0.5）</c> 驾驶员模式下的攻击范围。
+Affix/Tooltip/NexusRange/LostVikings=<c val="#TooltipGreen">+1.1</c> <c val="747A84">（每层 +0.5）</c> 巴尔洛戈与埃瑞克的攻击范围
 Affix/Tooltip/NexusRange/Rexxar=<c val="#TooltipGreen">+1.1</c> <c val="747A84">（每层 +0.5）</c> 雷克萨的攻击范围
 Affix/Tooltip/Append/NexusRange=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,AffixNexusRangeBuff,Modification.WeaponRange" precision="1"/></c> 攻击范围
 Affix/Name/SearingAttacks=灼热攻击
@@ -479,7 +479,7 @@ Affix/Tooltip/Buddy/Medivh=一个友好的无人机跟随你，每 <c val="#Tool
 Affix/Tooltip/Buddy/Abathur=一个友好的无人机跟随你，每 <c val="#TooltipNumbers">3</c> <c val="747A84">（每层 -0.25秒）</c> 秒治疗 <c val="#TooltipNumbers"><d ref="Effect,AffixBuddyHealCreateHealer,RechargeVitalRate" player="1" precision="0"/></c> 点生命值。<n/><n/>伙伴每 <c val="#TooltipNumbers">4</c> <c val="747A84">（每层 -1秒）</c> 秒向最近的敌人发射导弹，造成 <c val="#TooltipNumbers"><d ref="Effect,AffixBuddyDroneMissileDamage,Amount" player="1" precision="0"/></c> 点范围伤害。<n/><n/>伙伴会优先跟随共生体，并治疗英雄级宿主。
 Affix/Tooltip/Buddy/Cho=一个友好的无人机跟随你，每 <c val="#TooltipNumbers">3</c> <c val="747A84">（每层 -0.25秒）</c> 秒治疗 <c val="#TooltipNumbers"><d ref="Effect,AffixBuddyHealCreateHealer,RechargeVitalRate" player="1" precision="0"/></c> 点生命值。<n/><n/>伙伴每 <c val="#TooltipNumbers">4</c> <c val="747A84">（每层 -1秒）</c> 秒向最近的敌人发射导弹，造成 <c val="#TooltipNumbers"><d ref="Effect,AffixBuddyDroneMissileDamage,Amount" player="1" precision="0"/></c> 点范围伤害。<n/><n/>加尔也会获得一个伙伴。
 Affix/Tooltip/Buddy/Gall=一个友好的无人机跟随你，每 <c val="#TooltipNumbers">3</c> <c val="747A84">（每层 -0.25秒）</c> 秒治疗 <c val="#TooltipNumbers"><d ref="Effect,AffixBuddyHealCreateHealer,RechargeVitalRate" player="1" precision="0"/></c> 点生命值。<n/><n/>伙伴每 <c val="#TooltipNumbers">4</c> <c val="747A84">（每层 -1秒）</c> 秒向最近的敌人发射导弹，造成 <c val="#TooltipNumbers"><d ref="Effect,AffixBuddyDroneMissileDamage,Amount" player="1" precision="0"/></c> 点范围伤害。<n/><n/>古也会获得一个伙伴。
-Affix/Tooltip/Append/Buddy=<n/><n/>治疗光束冷却：<c val="#TooltipNumbers"><d ref="Effect,AffixBuddyHealCreatePersistent,PeriodicPeriodArray[0]" precision="2"/></c> 秒<n/>导弹冷却：<c val="#TooltipNumbers"><d ref="Behavior,AffixBuddyDroneController,Period" precision="2"/></c> 秒
+Affix/Tooltip/Append/Buddy=<n/><n/>治疗射线冷却：<c val="#TooltipNumbers"><d ref="Effect,AffixBuddyHealCreatePersistent,PeriodicPeriodArray[0]" precision="2"/></c> 秒<n/>导弹冷却：<c val="#TooltipNumbers"><d ref="Behavior,AffixBuddyDroneController,Period" precision="2"/></c> 秒
 Affix/Name/ArmyofBUDDYs=伙伴大军
 Affix/Tooltip/ArmyofBUDDYs=<c val="#TooltipGreen">+1</c> <c val="747A84">（每层 +1）</c> 伙伴<n/><c val="#TooltipGreen">+1</c> AI 队友的伙伴。<n/><c val="#TooltipRed">-15%</c> 所有伙伴的基础伤害与治疗量。
 Affix/Tooltip/ArmyofBUDDYs/Cho=<c val="#TooltipGreen">+2</c> <c val="747A84">（每层 +2）</c> 伙伴<n/><c val="#TooltipGreen">+1</c> 除加尔外 AI 队友的伙伴。<n/<c val="#TooltipRed">-15%</c> 所有伙伴的基础伤害与治疗量。
@@ -509,7 +509,7 @@ Affix/Tooltip/Append/Spellcasting=<n/><n/>当前总计：<c val="#TooltipGreen">
 Affix/Name/Endurance=耐力
 Affix/Tooltip/Endurance=<c val="#TooltipGreen">+8%</c> <c val="747A84">（每层 +8%）</c> 所有友方的最大生命值。
 Affix/Tooltip/Append/Endurance=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,AffixEnduranceBehavior,Modification.VitalMaxFractionArray[Life]*100" precision="0"/>%</c> 最大生命值
-Affix/Name/FastFeet=疾步
+Affix/Name/FastFeet=无影步
 Affix/Tooltip/FastFeet=<c val="#TooltipGreen">+8%</c> <c val="747A84">（每层 +8%）</c> 所有友方的移动速度。
 Affix/Tooltip/Append/FastFeet=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,AffixFastFeetBehavior,Modification.UnifiedMoveSpeedFactor*100" precision="0"/>%</c> 移动速度
 Affix/Name/QuickMount=快速坐骑
@@ -528,7 +528,7 @@ Affix/Tooltip/Destruction=<img path="@UI/StormTalentInTextQuestIcon" alignment="
 Affix/Tooltip/Append/Destruction=
 Button/Name/AffixDestructionToken=毁灭
 Button/Tooltip/AffixDestructionToken=<c val="#TooltipQuest">已摧毁堡垒/要塞：<c val="#TooltipNumbers" validator="AffixDestructionNotComplete"><d ref="$BehaviorStackCount:AffixDestructionToken$"/> / <d ref="Behavior,AffixDestructionToken,Max"/></c>
-Affix/Name/NexusFrenzy=时空狂乱
+Affix/Name/NexusFrenzy=时空狂暴
 Affix/Tooltip/NexusFrenzy=<c val="#TooltipGreen">+15%</c> <c val="747A84">（每层 +7%）</c> 攻击速度
 Affix/Tooltip/Append/NexusFrenzy=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,AffixNexusFrenzyBehavior,Modification.AdditiveAttackSpeedFactor*100" precision="0"/>%</c> 攻击速度
 Affix/Name/GladiatorsMedallion=角斗士勋章
@@ -588,8 +588,8 @@ Affix/Tooltip/LostVikingsSpecializedVikings=获得 <c val="#TooltipNumbers">巨�
 Affix/Tooltip/Append/LostVikingsSpecializedVikings=
 Affix/Name/LostVikingsPowerofThree=三英之力
 Affix/Tooltip/LostVikingsPowerofThree=<c val="#TooltipGreen">+7.5%</c> <c val="747A84">（每层 +7.5%）</c> 奥拉夫最大生命值<n/><c val="#TooltipGreen">+5%</c> <c val="747A84">（每层 +5%）</c> 巴尔洛戈攻击伤害与攻击速度<n/><c val="#TooltipGreen">+7</c> <c val="747A84">（每层 +7）</c> 埃瑞克攻击伤害<<n/><c val="#TooltipGreen">+5%</c> <c val="747A84">（每层 +5%）</c> 埃瑞克移动速度
-Affix/Tooltip/Append/LostVikingsPowerofThree=<n/><n/>当前总计：<n/><c val="#TooltipGreen">+<d ref="Behavior,PowerofThreeOlaf,Modification.VitalMaxFractionArray[Life]*100" precision="2"/>%</c> 奥拉夫最大生命值<n/><c val="#TooltipGreen">+<d ref="Behavior,PowerofThreeBaleog,Modification.AdditiveAttackSpeedFactor*100" precision="0"/>%</c> 巴尔洛格攻击伤害与攻击速度<n/><c val="#TooltipGreen">+<d ref="Behavior,PowerofThreeErik,Modification.UnifiedMoveSpeedFactor*100" precision="0"/>%</c> 艾瑞克移动速度<n/><c val="#TooltipGreen">+<d ref="Behavior,PowerofThreeErik,Modification.DamageDealtScaled[Basic]" precision="0"/></c> 艾瑞克攻击伤害
-Affix/Name/LostVikingsLetsGo=冲啊！
+Affix/Tooltip/Append/LostVikingsPowerofThree=<n/><n/>当前总计：<n/><c val="#TooltipGreen">+<d ref="Behavior,PowerofThreeOlaf,Modification.VitalMaxFractionArray[Life]*100" precision="2"/>%</c> 奥拉夫最大生命值<n/><c val="#TooltipGreen">+<d ref="Behavior,PowerofThreeBaleog,Modification.AdditiveAttackSpeedFactor*100" precision="0"/>%</c> 巴尔洛戈攻击伤害与攻击速度<n/><c val="#TooltipGreen">+<d ref="Behavior,PowerofThreeErik,Modification.UnifiedMoveSpeedFactor*100" precision="0"/>%</c> 埃瑞克移动速度<n/><c val="#TooltipGreen">+<d ref="Behavior,PowerofThreeErik,Modification.DamageDealtScaled[Basic]" precision="0"/></c> 埃瑞克攻击伤害
+Affix/Name/LostVikingsLetsGo=出发！
 Affix/Tooltip/LostVikingsLetsGo=<c val="#TooltipGreen">+3s</c> <c val="747A84">（每层 +3s）</c> 冲冲冲持续时间
 Affix/Tooltip/Append/LostVikingsLetsGo=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,LostVikingsGoGoGo,Duration-4" precision="0"/>s</c> 持续时间
 Affix/Name/LostVikingsRagnarokRaid=诸神黄昏突袭
@@ -613,7 +613,7 @@ Affix/Tooltip/Append/LostVikingsTrilogy=
 Affix/Name/LostVikingsBeyblade=战斗陀螺
 Affix/Tooltip/LostVikingsBeyblade=<c val="#TooltipNumbers">冷却时间：30 秒</c> <n/><n/>激活后持续释放「转向胜利」，在 <c val="#TooltipNumbers">4</c> 秒内造成 <c val="#TooltipNumbers">50%</c> 的伤害。
 Affix/Tooltip/Append/LostVikingsBeyblade=
-Affix/Name/ByeBye=拜拜！
+Affix/Name/ByeBye=后会有期！
 Affix/Tooltip/ByeBye=<c val="#TooltipGreen">-4.5s</c> 所有友方的炉石引导时间。
 Affix/Tooltip/Append/ByeBye=
 Affix/Name/AmplifiedHealing=强化治疗
@@ -653,19 +653,19 @@ Affix/Tooltip/Append/TyrandeTheMark=
 Button/Name/TyrandeTheMarkTokenCounter=精准印记
 Button/Tooltip/TyrandeTheMarkTokenCounter=<c val="#TooltipQuest">额外攻击伤害：<c val="#TooltipNumbers"><d ref="$BehaviorTokenCount:TyrandeTheMarkTokenCounter$*(Accumulator,TyrandeTheMarkAccumulator,Scale)" precision="0"/></c>
 Affix/Name/TyrandeMeteorShower=流星雨
-Affix/Tooltip/TyrandeMeteorShower=获得 <c val="#TooltipNumbers">疾速流星</c>。<n/><n/>每次普通攻击都会向附近一名随机敌人发射月火，优先选择英雄。<n/><n/>此效果的冷却时间为 <c val="#TooltipNumbers">3.5</c> 秒。<n/><n/>赢得游戏后保留月火任务进度的 <c val="#TooltipNumbers">100%</c>。
+Affix/Tooltip/TyrandeMeteorShower=获得 <c val="#TooltipNumbers">月神赠礼</c>。<n/><n/>每次普通攻击都会向附近一名随机敌人发射月光术，优先选择英雄。<n/><n/>此效果的冷却时间为 <c val="#TooltipNumbers">3.5</c> 秒。<n/><n/>赢得游戏后保留月光术任务进度的 <c val="#TooltipNumbers">100%</c>。
 Affix/Tooltip/Append/TyrandeMeteorShower=
-Affix/Name/TyrandeElunesGrace=艾露恩的恩典
+Affix/Name/TyrandeElunesGrace=月神赐福
 Affix/Tooltip/TyrandeElunesGrace=<c val="#TooltipGreen">+1</c> 月神之光充能次数
 Affix/Tooltip/Append/TyrandeElunesGrace=
 Affix/Name/TyrandeDeadlyMark=致命印记
 Affix/Tooltip/TyrandeDeadlyMark=<c val="#TooltipGreen">+10</c> 猎人印记护甲削减
 Affix/Tooltip/Append/TyrandeDeadlyMark=
 Affix/Name/TyrandeStunningLight=炫目之光
-Affix/Tooltip/TyrandeStunningLight=<c val="#TooltipGreen">+0.25s</c> 月火眩晕持续时间
+Affix/Tooltip/TyrandeStunningLight=<c val="#TooltipGreen">+0.25s</c> 月光术眩晕持续时间
 Affix/Tooltip/Append/TyrandeStunningLight=
 Affix/Name/TyrandeBigStar=大星
-Affix/Tooltip/TyrandeBigStar=<c val="#TooltipGreen">+20%</c> 月火半径
+Affix/Tooltip/TyrandeBigStar=<c val="#TooltipGreen">+20%</c> 月光术半径
 Affix/Tooltip/Append/TyrandeBigStar=
 Affix/Name/TyrandeElunesReach=艾露恩之距
 Affix/Tooltip/TyrandeElunesReach=<c val="#TooltipGreen">+50%</c> 月神之光射程<n/><n/>月神之光对远处目标的治疗量提高 <c val="#TooltipNumbers">25%</c>。
@@ -682,7 +682,7 @@ Affix/Tooltip/Append/TyrandeStarRain=
 Affix/Name/TyrandeShadowstalker=暗影潜行者
 Affix/Tooltip/TyrandeShadowstalker=获得 <c val="#TooltipNumbers">暗影潜行</c> 和 <c val="#TooltipNumbers">女猎手之眼</c>。<n/><n/><c val="#TooltipGreen">-45s</c> 暗影潜行冷却时间<n/><n/>暗影潜行会提供 <c val="#TooltipNumbers">4</c> 秒的不可被显形效果，且友方小兵、雇佣兵和召唤物会受暗影潜行的持续治疗效果影响。<n/><n/><c val="#AbilityPassive">被动：</c>脱离战斗 <c val="#TooltipNumbers">3</c> 秒后获得潜行。
 Affix/Tooltip/Append/TyrandeShadowstalker=
-Affix/Name/TyrandeLunarShower=月之雨
+Affix/Name/TyrandeLunarShower=月光淋漓
 Affix/Tooltip/TyrandeLunarShower=月光术在 <c val="#TooltipNumbers">1.75</c> 秒后触发第二次。
 Affix/Tooltip/Append/TyrandeLunarShower=
 Affix/Name/TyrandeNightElfBond=暗夜精灵羁绊
@@ -706,7 +706,7 @@ Affix/Tooltip/Append/MuradinJumper=
 Button/Name/MuradinDwarfTossTokenCounter=跳跃者
 Button/Tooltip/MuradinDwarfTossTokenCounter=<c val="#TooltipQuest">额外伤害：<c val="#TooltipNumbers"><d ref="$BehaviorTokenCount:MuradinDwarfTossTokenCounter$*100*(Accumulator,MuradinDwarfTossAccumulator,Scale)" precision="0"/>%</c>
 Affix/Name/MuradinUnstoppableAvatar=不可阻挡天神下凡
-Affix/Tooltip/MuradinUnstoppableAvatar=获得 <c val="#TooltipNumbers">觉醒之风</c>、<c val="#TooltipNumbers">天神下凡</c>、<c val="#TooltipNumbers">石像形态</c> 和 <c val="#TooltipNumbers">无坚不摧之力</c>。<n/><n/>天神下凡永久生效。<n/><n/>普通攻击造成额外伤害，数值相当于你当前生命值的 <c val="#TooltipNumbers">3%</c>。
+Affix/Tooltip/MuradinUnstoppableAvatar=获得 <c val="#TooltipNumbers">天神下凡</c>、<c val="#TooltipNumbers">无坚不摧之力</c>、<c val="#TooltipNumbers">觉醒之风</c> 和 <c val="#TooltipNumbers">石像形态</c>。<n/><n/>天神下凡永久生效。<n/><n/>普通攻击造成额外伤害，数值相当于你最大生命值的 <c val="#TooltipNumbers">3%</c>。
 Affix/Tooltip/Append/MuradinUnstoppableAvatar=
 Affix/Name/MuradinHammerer=锤击者
 Affix/Tooltip/MuradinHammerer=获得 <c val="#TooltipNumbers">完美风暴</c> 和 <c val="#TooltipNumbers">无情铁锤</c>。<n/><n/><c val="#TooltipGreen">+7%</c> 风暴之锤对英雄的最大生命值伤害。<n/><n/>赢得游戏后保留风暴之锤任务进度的 <c val="#TooltipNumbers">100%</c>。
@@ -741,7 +741,7 @@ Affix/Tooltip/Append/MuradinHeavyHammer=
 Affix/Name/MuradinElectrocution=电刑
 Affix/Tooltip/MuradinElectrocution=<c val="#TooltipGreen">+20%</c> 雷霆一击减速
 Affix/Tooltip/Append/MuradinElectrocution=
-Affix/Name/MuradinVeryHeavyImpact=超重冲击
+Affix/Name/MuradinVeryHeavyImpact=猛烈撞击
 Affix/Tooltip/MuradinVeryHeavyImpact=矮人投掷使敌人昏迷 <c val="#TooltipNumbers">0.75</c> 秒。
 Affix/Tooltip/Append/MuradinVeryHeavyImpact=
 Affix/Name/AllTalents=全天赋
@@ -749,7 +749,7 @@ Affix/Tooltip/AllTalents=每当达到非英雄天赋层时，获得该层所有�
 Affix/Tooltip/AllTalents/Cho=你和加尔每当达到非英雄天赋层时，获得该层所有天赋。
 Affix/Tooltip/AllTalents/Gall=你和古每当达到非英雄天赋层时，获得该层所有天赋。
 Affix/Tooltip/Append/AllTalents=
-Affix/Name/OverwhelmingPower=压倒性力量
+Affix/Name/OverwhelmingPower=绝对力量
 Affix/Tooltip/OverwhelmingPower=<c val="#TooltipGreen">+20%</c> 法术强度、移动速度、攻击伤害和攻击速度。<n/><c val="#TooltipGreen">+50%</c> 基础技能冷却恢复速度<n/><c val="#TooltipGreen">+10%</c> 吸血
 Affix/Tooltip/Append/OverwhelmingPower=
 Affix/Name/SelfReliant=自力更生
@@ -796,7 +796,7 @@ Affix/Tooltip/Append/MercenaryLord=<n/><n/>当前总计：<n/><c val="#TooltipGr
 Affix/Name/Demolitionist=攻城专家
 Affix/Tooltip/Demolitionist=<c val="#TooltipGreen">+25%</c> <c val="747A84">（每层 +25%）</c> 所有友方英雄对建筑的伤害。
 Affix/Tooltip/Append/Demolitionist=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,AffixDemolitionistBehavior,Modification.DamageDealtAttributeMultiplier[Structure]*100" precision="0"/>%</c> 伤害
-Affix/Name/MinionKiller=小兵杀手
+Affix/Name/MinionKiller=爪牙克星
 Affix/Tooltip/MinionKiller=<c val="#TooltipGreen">+25%</c> <c val="747A84">（每层 +25%）</c> 所有友方英雄对小兵、雇佣兵、怪物和召唤物的伤害。
 Affix/Tooltip/Append/MinionKiller=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,AffixMinionKillerBehavior,Modification.DamageDealtAttributeMultiplier[Minion]*100" precision="0"/>%</c> 伤害
 Affix/Name/FirstAid=急救
@@ -832,7 +832,7 @@ Affix/Tooltip/Append/RingofRegeneration=<n/><n/>当前总计：<n/><c val="#Tool
 Affix/Name/RingofMagic=魔法之环
 Affix/Tooltip/RingofMagic=<c val="#TooltipGreen">+15%</c> <c val="747A84">（每层 +7.5%）</c> 友方英雄的技能恢复速度。
 Affix/Tooltip/Append/RingofMagic=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="$GalaxyVar:libAffx_RingofMagicModifierCurrent$*100" precision="0"/>%</c> 技能恢复速度
-Affix/Name/ThrallLightningRod=闪电棒
+Affix/Name/ThrallLightningRod=引雷针
 Affix/Tooltip/ThrallLightningRod=获得 <c val="#TooltipNumbers">时空利刃</c>、<c val="#TooltipNumbers">元素突袭</c> 和 <c val="#TooltipNumbers">元素动能</c>。<n/><n/>萨尔的普通攻击变为远程，并且远程专属恩赐变为可选。<n/><n/><c val="#TooltipGreen">+50%</c> 野性狼魂射程<n/><c val="#TooltipGreen">+50%</c> 闪电链施法距离<n/><n/><S val="TooltipSubscript">远程萨尔的攻击范围为 6。</S>
 Affix/Tooltip/Append/ThrallLightningRod=
 Affix/Name/ThrallQuestsGalore=任务连连
@@ -1038,7 +1038,7 @@ Affix/Tooltip/Append/ProbiusCannonRush=
 Affix/Name/ProbiusBackupPower=备用能量
 Affix/Tooltip/ProbiusBackupPower=<c val="#TooltipGreen">+5s</c> <c val="747A84">（每层 +5s）</c> 光子炮台持续时间
 Affix/Tooltip/Append/ProbiusBackupPower=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,ProbiusPhotonCannonTimedLifeBehavior,Duration-13"/>s</c> 持续时间
-Button/Tooltip/ProbiusGatherMineralsPhotonCannonQuestTalent=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">任务：</c>收集晶矿使光子炮台的生命值提高 <c val="#TooltipNumbers"><d ref="Accumulator,ProbiusPhotonCannonGatherMineralsQuestAccumulator,Scale"/></c>，最多 <c val="#TooltipNumbers"><d ref="Accumulator,ProbiusPhotonCannonGatherMineralsQuestAccumulator,Scale * Behavior,ProbiusPhotonCannonGatherMineralsQuestToken,Max"/></c>。<n/><n/></c><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">奖励：</c>收集 <c val="#TooltipNumbers">70</c> 晶矿后，光子炮台伤害提高 <c val="#TooltipNumbers"><d ref="Effect,ProbiusPhotonCannonWeaponDamage,MultiplicativeModifierArray[GatherMinerals].Modifier*100"/>%</c>。
+Button/Tooltip/ProbiusGatherMineralsPhotonCannonQuestTalent=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">任务：</c>采集晶体矿使光子炮台的生命值提高 <c val="#TooltipNumbers"><d ref="Accumulator,ProbiusPhotonCannonGatherMineralsQuestAccumulator,Scale"/></c>，最多 <c val="#TooltipNumbers"><d ref="Accumulator,ProbiusPhotonCannonGatherMineralsQuestAccumulator,Scale * Behavior,ProbiusPhotonCannonGatherMineralsQuestToken,Max"/></c>。<n/><n/></c><img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">奖励：</c>收集 <c val="#TooltipNumbers">70</c> 晶体矿后，光子炮台伤害提高 <c val="#TooltipNumbers"><d ref="Effect,ProbiusPhotonCannonWeaponDamage,MultiplicativeModifierArray[GatherMinerals].Modifier*100"/>%</c>。
 Affix/Name/ProbiusWarpSplit=折跃分裂
 Affix/Tooltip/ProbiusWarpSplit=折跃裂隙引爆后分裂为 <c val="#TooltipNumbers">2</c> 个折跃裂隙，这些裂隙不会再分裂。<n/><n/>敌人被拉向折跃裂隙中心。
 Affix/Tooltip/Append/ProbiusWarpSplit=
@@ -1046,14 +1046,14 @@ Affix/Name/ProbiusWarpTechnology=折跃科技
 Affix/Tooltip/ProbiusWarpTechnology=获得在折跃门附近消耗 <c val="#TooltipNumbers">5</c> 晶体矿折跃狂热者、<c val="#TooltipNumbers">10</c> 晶体矿折跃追猎者、<c val="#TooltipNumbers">30</c> 晶体矿折跃不朽者的能力。<n/><n/>游戏开始时拥有 <c val="#TooltipNumbers">50</c> 晶体矿。
 Affix/Tooltip/Append/ProbiusWarpTechnology=
 Button/Name/ProbiusWarpInZealots=折跃狂热者
-Button/Tooltip/ProbiusWarpInZealots=<c val="#TooltipNumbers">晶矿：<d ref="$GalaxyVar:libAffx_ProbiusZealotCost$"/></c><n/><n/>在折跃门附近折跃 <c val="#TooltipNumbers">1</c> 名狂热者。<n/><n/>狂热者每次攻击造成 <c val="#TooltipNumbers"><d ref="Effect,PsiBlades,Amount" precision="0" /></c> 点伤害。对雇佣兵、小兵和建筑造成 <c val="#TooltipNumbers">100%</c> 额外伤害。
+Button/Tooltip/ProbiusWarpInZealots=<c val="#TooltipNumbers">晶体矿：<d ref="$GalaxyVar:libAffx_ProbiusZealotCost$"/></c><n/><n/>在折跃门附近折跃 <c val="#TooltipNumbers">1</c> 名狂热者。<n/><n/>狂热者每次攻击造成 <c val="#TooltipNumbers"><d ref="Effect,PsiBlades,Amount" precision="0" /></c> 点伤害。对雇佣兵、小兵和建筑造成 <c val="#TooltipNumbers">100%</c> 额外伤害。
 Button/Name/ProbiusWarpInStalkers=折跃追猎者
-Button/Tooltip/ProbiusWarpInStalkers=<c val="#TooltipNumbers">晶矿：<d ref="$GalaxyVar:libAffx_ProbiusStalkerCost$"/></c><n/><n/>在折跃门附近折跃 <c val="#TooltipNumbers">1</c> 名追猎者。<n/><n/>追猎者每次攻击造成 <c val="#TooltipNumbers"><d ref="Effect,ParticleDisruptorsU,Amount" precision="0" /></c> 点伤害。对雇佣兵、小兵和建筑造成 <c val="#TooltipNumbers">100%</c> 额外伤害。
+Button/Tooltip/ProbiusWarpInStalkers=<c val="#TooltipNumbers">晶体矿：<d ref="$GalaxyVar:libAffx_ProbiusStalkerCost$"/></c><n/><n/>在折跃门附近折跃 <c val="#TooltipNumbers">1</c> 名追猎者。<n/><n/>追猎者每次攻击造成 <c val="#TooltipNumbers"><d ref="Effect,ParticleDisruptorsU,Amount" precision="0" /></c> 点伤害。对雇佣兵、小兵和建筑造成 <c val="#TooltipNumbers">100%</c> 额外伤害。
 Button/Name/ProbiusWarpInImmortals=折跃不朽者
-Button/Tooltip/ProbiusWarpInImmortals=<c val="#TooltipNumbers">晶矿：<d ref="$GalaxyVar:libAffx_ProbiusImmortalCost$"/></c><n/><n/>在折跃门附近折跃 <c val="#TooltipNumbers">1</c> 名不朽者。<n/><n/>不朽者每次攻击造成 <c val="#TooltipNumbers"><d ref="Effect,PhaseDisruptors,Amount" precision="0" /></c> 点伤害。对雇佣兵和小兵造成 <c val="#TooltipNumbers">100%</c> 额外伤害，对建筑造成 <c val="#TooltipNumbers">200%</c> 额外伤害。
+Button/Tooltip/ProbiusWarpInImmortals=<c val="#TooltipNumbers">晶体矿：<d ref="$GalaxyVar:libAffx_ProbiusImmortalCost$"/></c><n/><n/>在折跃门附近折跃 <c val="#TooltipNumbers">1</c> 名不朽者。<n/><n/>不朽者每次攻击造成 <c val="#TooltipNumbers"><d ref="Effect,PhaseDisruptors,Amount" precision="0" /></c> 点伤害。对雇佣兵和小兵造成 <c val="#TooltipNumbers">100%</c> 额外伤害，对建筑造成 <c val="#TooltipNumbers">200%</c> 额外伤害。
 Abil/ProbiusWarpInImmortals=<d ref="Abil,ProbiusWarpInImmortals,Cost.Charge.TimeUse" player="0"/> 秒
-Button/Name/ProbiusWarpTechnologyCounterToken=晶矿
-Button/Tooltip/ProbiusWarpTechnologyCounterToken=晶矿：<c val="#TooltipNumbers"><d ref="$BehaviorTokenCount:ProbiusWarpTechnologyCounterToken$" precision="0"/></c>
+Button/Name/ProbiusWarpTechnologyCounterToken=晶体矿
+Button/Tooltip/ProbiusWarpTechnologyCounterToken=晶体矿：<c val="#TooltipNumbers"><d ref="$BehaviorTokenCount:ProbiusWarpTechnologyCounterToken$" precision="0"/></c>
 Affix/Name/ProbiusBlackHole=黑洞
 Affix/Tooltip/ProbiusBlackHole=<c val="#TooltipGreen">+10%</c> <c val="747A84">（每层 +10%）</c> 折跃裂隙的施法距离与半径。
 Affix/Tooltip/Append/ProbiusBlackHole=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="((Effect,ProbiusWarpRiftDetonationSearch,AreaArray[0].Radius/3)-1)*100" player="1" precision="0"/>%</c> 施法距离与半径。
@@ -1072,7 +1072,7 @@ Affix/Tooltip/Append/ProbiusOperationalEfficiency=
 Affix/Name/ProbiusSolaritePowered=日能驱动
 Affix/Tooltip/ProbiusSolaritePowered=<c val="#TooltipGreen">+400</c> 最大法力值<n/><c val="#TooltipGreen">+25</c> 在水晶塔能量场外时的法力回复。
 Affix/Tooltip/Append/ProbiusSolaritePowered=
-Affix/Name/ProbiusMineralMagnet=晶矿磁铁
+Affix/Name/ProbiusMineralMagnet=晶体矿磁铁
 Affix/Tooltip/ProbiusMineralMagnet=<c val="#TooltipGreen">+10</c> 晶体矿收集范围
 Affix/Tooltip/Append/ProbiusMineralMagnet=
 Affix/Name/ProbiusLastingRift=持久裂隙
@@ -1088,7 +1088,7 @@ Affix/Name/ProbiusWidePulse=宽脉冲
 Affix/Tooltip/ProbiusWidePulse=<c val="#TooltipGreen">+50%</c> 干扰脉冲宽度
 Affix/Tooltip/Append/ProbiusWidePulse=
 Affix/Name/ProbiusPulsar=脉冲星
-Affix/Tooltip/ProbiusPulsar=获得 <c val="#TooltipNumbers">回荡脉冲</c>、<c val="#TooltipNumbers">粒子加速</c> 和 <c val="#TooltipNumbers">火力全开</c>。<n/><n/><c val="#TooltipGreen">-0.75s</c> 回荡脉冲延迟<n/><c val="#TooltipGreen">+1.5%</c> 火力全开的最大生命值伤害<n/><n/>粒子加速会在每个折跃裂隙上触发。
+Affix/Tooltip/ProbiusPulsar=获得 <c val="#TooltipNumbers">回荡脉冲</c>、<c val="#TooltipNumbers">粒子加速</c> 和 <c val="#TooltipNumbers">脉冲四射</c>。<n/><n/><c val="#TooltipGreen">-0.75s</c> 回荡脉冲延迟<n/><c val="#TooltipGreen">+1.5%</c> 脉冲四射的最大生命值伤害<n/><n/>粒子加速会在每个折跃裂隙上触发。
 Affix/Tooltip/Append/ProbiusPulsar=
 Affix/Name/ProbiusRapidFire=急速射击
 Affix/Tooltip/ProbiusRapidFire=<c val="#TooltipGreen">-3s</c> 光子炮台达到最大攻击速度加成所需的延迟。
@@ -1128,11 +1128,11 @@ Affix/Tooltip/ProbiusProtossArmor=<c val="#TooltipGreen">+25%</c> <c val="747A84
 Affix/Tooltip/Append/ProbiusProtossArmor=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,ProbiusProtossArmorBehavior,Modification.VitalMaxFractionArray[Life]*100" player="1"  precision="0"/>%</c> 最大生命值与护盾
 Affix/Name/ProbiusPassiveIncome=被动收入
 Affix/Tooltip/ProbiusPassiveIncome=每 <c val="#TooltipNumbers">8</c> 秒获得 <c val="#TooltipNumbers">1</c> <c val="747A84">（每层 +1）</c> 个晶体矿。
-Affix/Tooltip/Append/ProbiusPassiveIncome=<n/><n/>当前总计：每 <c val="#TooltipNumbers">8</c> 秒 <c val="#TooltipNumbers"><d ref="Effect,ProbiusPassiveIncomeCreatePersistent,PeriodCount" player="1" /></c> 个晶矿。
+Affix/Tooltip/Append/ProbiusPassiveIncome=<n/><n/>当前总计：每 <c val="#TooltipNumbers">8</c> 秒 <c val="#TooltipNumbers"><d ref="Effect,ProbiusPassiveIncomeCreatePersistent,PeriodCount" player="1" /></c> 个晶体矿。
 Affix/Name/ProbiusEfficientWarp=高效折跃
 Affix/Tooltip/ProbiusEfficientWarp=狂热者、追猎者与不朽者：<n/><c val="#TooltipGreen">-20%</c> 晶体矿消耗<n/><c val="#TooltipGreen">-50%</c> 冷却时间
 Affix/Tooltip/Append/ProbiusEfficientWarp=
-Affix/Name/ProbiusHardenedShield=硬化护盾
+Affix/Name/ProbiusHardenedShield=刚毅护盾
 Affix/Tooltip/ProbiusHardenedShield=不朽者仍有护盾时，超过 <c val="#TooltipNumbers"><d ref="Behavior,ImmortalHardenedShield,DamageResponse.ClampMaximum" player="1" precision="0" /></c> 点的伤害会被降低至 <c val="#TooltipNumbers"><d ref="Behavior,ImmortalHardenedShield,DamageResponse.ClampMaximum" player="1" precision="0" /></c> 点。<n/><n/>不影响法术伤害。
 Affix/Tooltip/Append/ProbiusHardenedShield=
 Affix/Name/ProbiusLongRangeDisruptors=远程干扰者
@@ -1144,7 +1144,7 @@ Affix/Tooltip/Append/ProbiusRapidDisruptors=
 Affix/Name/ProbiusReinforcedPowerSuit=强化动力装甲
 Affix/Tooltip/ProbiusReinforcedPowerSuit=<c val="#TooltipGreen">+50</c> 狂热者物理护甲
 Affix/Tooltip/Append/ProbiusReinforcedPowerSuit=
-Affix/Name/ProbiusWarpConduit=折跃管道
+Affix/Name/ProbiusWarpConduit=折跃导体
 Affix/Tooltip/ProbiusWarpConduit=<c val="#TooltipGreen">-4s</c> <c val="747A84">（每层 +4s）</c> 水晶塔折跃冷却时间
 Affix/Tooltip/Append/ProbiusWarpConduit=<n/><n/>当前总计：<c val="#TooltipGreen">-<d ref="14-Abil,ProbiusWarpInPylon,Cost.Cooldown.TimeUse" player="1" />s</c> 冷却时间
 Affix/Name/Strength=力量
@@ -1237,7 +1237,7 @@ Affix/Tooltip/Append/AurielGammaRayBurst=
 Affix/Name/AurielSearingLight=灼热之光
 Affix/Tooltip/AurielSearingLight=获得 <c val="#TooltipNumbers">灼热之光</c>。<n/><n/>天堂之光会对非英雄单位造成伤害，并治疗友方小兵、雇佣兵和召唤物。
 Affix/Tooltip/Append/AurielSearingLight=
-Affix/Name/AurielBurstingLight=迸发之光
+Affix/Name/AurielBurstingLight=闪耀光芒
 Affix/Tooltip/AurielBurstingLight=<c val="#TooltipGreen">-2s</c> 天堂之光冷却时间
 Affix/Tooltip/Append/AurielBurstingLight=
 Affix/Name/AurielWingsofHope=希望之翼
@@ -1247,10 +1247,10 @@ Affix/Name/AurielResAll=全体复活
 Affix/Tooltip/AurielResAll=获得 <c val="#TooltipNumbers">圣洁新生</c> 和 <c val="#TooltipNumbers">光速</c>。<n/><n/>圣洁新生获得无限射程。<n/><n/>对自己或友方使用圣洁新生时，会复活所有已阵亡的友方英雄。
 Affix/Tooltip/Append/AurielResAll=
 Affix/Name/BrightwingFaerieMist=仙灵之雾
-Affix/Tooltip/BrightwingFaerieMist=<c val="#TooltipGreen">-3s</c> 抚慰之雾被动冷却时间<n/><n/>抚慰之雾会治疗友方小兵、雇佣兵和召唤物，并对敌人造成 <c val="#TooltipNumbers"><d ref="Effect,BrightwingSoothingMistDamage,Amount" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">致命之雾同样会造成并提高该伤害。</S>
+Affix/Tooltip/BrightwingFaerieMist=<c val="#TooltipGreen">-3s</c> 抚慰之雾被动冷却时间<n/><n/>抚慰之雾会治疗友方小兵、雇佣兵和召唤物，并对敌人造成 <c val="#TooltipNumbers"><d ref="Effect,BrightwingSoothingMistDamage,Amount" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">救急之雾同样会造成并提高该伤害。</S>
 Affix/Tooltip/Append/BrightwingFaerieMist=
-Affix/Name/BrightwingGreaterPhaseShift=强化相位转移
-Affix/Tooltip/BrightwingGreaterPhaseShift=<c val="#TooltipGreen">-30s</c> 相位变换冷却时间<n/><n/>相位变换可以对友方小兵、雇佣兵和召唤物使用。<n/><n/>相位变换可以对敌人使用，造成相当于其最大生命值 <c val="#TooltipNumbers">25%</c> 的伤害。<n/><n/><S val="TooltipSubscript">超频转移会提高相位变换的伤害。</S>
+Affix/Name/BrightwingGreaterPhaseShift=强化相位变换
+Affix/Tooltip/BrightwingGreaterPhaseShift=<c val="#TooltipGreen">-30s</c> 相位变换冷却时间<n/><n/>相位变换可以对友方小兵、雇佣兵和召唤物使用。<n/><n/>相位变换可以对敌人使用，造成相当于其最大生命值 <c val="#TooltipNumbers">25%</c> 的伤害。<n/><n/><S val="TooltipSubscript">超级变换会提高相位变换的伤害。</S>
 Affix/Tooltip/Append/BrightwingGreaterPhaseShift=
 Affix/Name/BrightwingPolymorphic=变形强化
 Affix/Tooltip/BrightwingPolymorphic=<c val="#TooltipGreen">+0.5s</c> 变形术持续时间<n/><n/>每 <c val="#TooltipNumbers">7</c> 秒变形附近的一名敌人，优先选择英雄。<n/><n/><S val="TooltipSubscript">变形强化会在 7 码范围内搜索敌人。</S>
@@ -1265,10 +1265,10 @@ Affix/Name/BrightwingArcaneBarrage=奥术弹幕
 Affix/Tooltip/BrightwingArcaneBarrage=<c val="#TooltipGreen">+30%</c> 奥术闪耀飞弹速度<n/><n/>对自己施放时，奥术闪耀会立即命中。
 Affix/Tooltip/Append/BrightwingArcaneBarrage=
 Affix/Name/DeckardPoisonousPotion=剧毒药水
-Affix/Tooltip/DeckardPoisonousPotion=治疗药水对敌人造成 <c val="#TooltipNumbers"><d ref="Effect,DeckardPoisonousPotionDamage,Amount" /></c> 点伤害。<n/><n/>次级治疗药水对敌人造成 <c val="#TooltipNumbers"><d ref="Effect,DeckardLesserPoisonousPotionDamage,Amount" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">该伤害受振奋药水、超级治疗药水、究极治疗药水和复苏药水影响。</S>
+Affix/Tooltip/DeckardPoisonousPotion=治疗药水对敌人造成 <c val="#TooltipNumbers"><d ref="Effect,DeckardPoisonousPotionDamage,Amount" /></c> 点伤害。<n/><n/>次级治疗药水对敌人造成 <c val="#TooltipNumbers"><d ref="Effect,DeckardLesserPoisonousPotionDamage,Amount" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">该伤害受复苏药水、超级治疗药水、究极治疗药水和振奋药水影响。</S>
 Affix/Tooltip/Append/DeckardPoisonousPotion=
 Affix/Name/DeckardPotionSeller=卖药人
-Affix/Tooltip/DeckardPotionSeller=获得 <c val="#TooltipNumbers">复苏药水</c>。<n/><n/>治疗药水和次级治疗药水会治疗友方小兵、雇佣兵和召唤物。
+Affix/Tooltip/DeckardPotionSeller=获得 <c val="#TooltipNumbers">振奋药水</c>。<n/><n/>治疗药水和次级治疗药水会治疗友方小兵、雇佣兵和召唤物。
 Affix/Tooltip/Append/DeckardPotionSeller=
 Affix/Name/DeckardLegendaryGems=传奇宝石
 Affix/Tooltip/DeckardLegendaryGems=获得 <c val="#TooltipNumbers">蓝宝石</c>、<c val="#TooltipNumbers">红宝石</c>、<c val="#TooltipNumbers">绿宝石</c> 和 <c val="#TooltipNumbers">完美宝石</c>。<n/><n/>蓝宝石：<c val="#TooltipGreen">+10%</c> 减速<n/>红宝石：<c val="#TooltipGreen">+50s</c> 次级治疗药水持续时间<n/>绿宝石：<c val="#TooltipGreen">-25%</c> 受到的治疗量<n/><n/>蓝宝石、红宝石和绿宝石会同时作用于每个赫拉迪姆方块。
@@ -1348,7 +1348,7 @@ Affix/Tooltip/Append/MalfurionRampantGrowth=
 Affix/Name/MalfurionEnervate=衰弱
 Affix/Tooltip/MalfurionEnervate=激活可以对敌方英雄使用，使其沉默 <c val="#TooltipNumbers">3</c> 秒并偷取 <c val="#TooltipNumbers">20%</c> 的最大法力值，同时造成等量伤害。<n/><n/><S val="TooltipSubscript">无法对不使用法力值的英雄使用。</S>
 Affix/Tooltip/Append/MalfurionEnervate=
-Affix/Name/MalfurionStranglingVines=绞缠藤蔓
+Affix/Name/MalfurionStranglingVines=窒息之藤
 Affix/Tooltip/MalfurionStranglingVines=纠缠根须会影响非英雄敌人。
 Affix/Tooltip/Append/MalfurionStranglingVines=
 Affix/Name/MalfurionDreamstate=梦之境界
@@ -1367,7 +1367,7 @@ Affix/Name/RehgarAncestralCurse=先祖诅咒
 Affix/Tooltip/RehgarAncestralCurse=获得 <c val="#TooltipNumbers">先祖治疗</c> 和 <c val="#TooltipNumbers">先知的赐福</c>。<n/><n/>先祖治疗可以对敌方英雄使用，造成 <c val="#TooltipNumbers"><d ref="Effect,RehgarAncestralHealingDamage,Amount" /></c> 点伤害。附近的敌人会受到 <c val="#TooltipNumbers"><d ref="Effect,RehgarAncestralHealingFarseersBlessingDamage,Amount" /></c> 点伤害。
 Affix/Tooltip/Append/RehgarAncestralCurse=
 Affix/Name/StukovInfestation=感染
-Affix/Tooltip/StukovInfestation=医疗病原体可以对敌人使用并传播，在 <c val="#TooltipNumbers">4.5</c> 秒内造成 <c val="#TooltipNumbers"><d ref="Effect,StukovHealingPathogenDamage,Amount*6" /></c> 点伤害。<n/><n/>生化杀伤会对受到医疗病原体影响的敌人造成 <c val="#TooltipNumbers"><d ref="Effect,StukovBioKillSwitchDamage,Amount" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">该伤害受活力摄取、超级菌株、万能携带体和益向病变影响。</S>
+Affix/Tooltip/StukovInfestation=医疗病原体可以对敌人使用并传播，在 <c val="#TooltipNumbers">4.5</c> 秒内造成 <c val="#TooltipNumbers"><d ref="Effect,StukovHealingPathogenDamage,Amount*6" /></c> 点伤害。<n/><n/>生化杀伤会对受到医疗病原体影响的敌人造成 <c val="#TooltipNumbers"><d ref="Effect,StukovBioKillSwitchDamage,Amount" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">该伤害受活力摄取、超级菌株、万能携带体和强健治愈影响。</S>
 Affix/Tooltip/Append/StukovInfestation=
 Affix/Name/StukovActivePathogen=活性病原体
 Affix/Tooltip/StukovActivePathogen=医疗病原体可以对友方小兵、雇佣兵和召唤物使用，并会向他们传播。
@@ -1388,7 +1388,7 @@ Affix/Name/UtherSelflessHealer=无私治疗者
 Affix/Tooltip/UtherSelflessHealer=圣光术可以对友方小兵、雇佣兵和召唤物使用。圣光普照会治疗友方雇佣兵和召唤物。<n/><n/>对非英雄单位使用时，圣光术会返还 <c val="#TooltipNumbers">40</c> 点法力，冷却时间缩短 <c val="#TooltipNumbers">6</c> 秒。<n/><n/>虔诚会为友方非英雄单位提供护甲。
 Affix/Tooltip/Append/UtherSelflessHealer=
 Affix/Name/UtherShieldBreak=破盾
-Affix/Tooltip/UtherShieldBreak=获得 <c val="#TooltipNumbers">圣盾术</c> 和 <c val="#TooltipNumbers">光之壁垒</c>。<n/><n/>圣盾术：<n/><c val="#TooltipGreen">-40</c> 法力消耗<n/><c val="#TooltipGreen">-40s</c> 冷却时间<n/><n/>圣盾术可以对敌方英雄使用，对护盾造成 <c val="#TooltipNumbers"><d ref="Effect,UtherShieldBreakShieldDamage,Amount" /></c> 点伤害，使其护甲降低 <c val="#TooltipNumbers">75</c>，并减速 <c val="#TooltipNumbers">20%</c>，持续 <c val="#TooltipNumbers">4</c> 秒。<n/><n/><S val="TooltipSubscript">光之壁垒也会对附近敌人施加破盾效果。</S>
+Affix/Tooltip/UtherShieldBreak=获得 <c val="#TooltipNumbers">圣盾术</c> 和 <c val="#TooltipNumbers">圣光堡垒</c>。<n/><n/>圣盾术：<n/><c val="#TooltipGreen">-40</c> 法力消耗<n/><c val="#TooltipGreen">-40s</c> 冷却时间<n/><n/>圣盾术可以对敌方英雄使用，对护盾造成 <c val="#TooltipNumbers"><d ref="Effect,UtherShieldBreakShieldDamage,Amount" /></c> 点伤害，使其护甲降低 <c val="#TooltipNumbers">75</c>，并减速 <c val="#TooltipNumbers">20%</c>，持续 <c val="#TooltipNumbers">4</c> 秒。<n/><n/><S val="TooltipSubscript">圣光堡垒也会对附近敌人施加破盾效果。</S>
 Affix/Tooltip/Append/UtherShieldBreak=
 Abil/Name/UtherLightofDawn=黎明之光
 Button/Name/UtherLightofDawn=黎明之光
@@ -1445,8 +1445,8 @@ Affix/Tooltip/Append/SonyaSonyasFury=<n/><n/>当前总计：<c val="#TooltipGree
 Affix/Name/HoggerMad=狂怒
 Affix/Tooltip/HoggerMad=<c val="#TooltipGreen">+20</c> <c val="747A84">（每层 +20）</c> 最大怒气
 Affix/Tooltip/Append/HoggerMad=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,HoggerMadCarry,Modification.VitalMaxArray[Energy]" /></c> 最大怒气
-Affix/Name/ValeeraVigor=活力
-Affix/Tooltip/ValeeraVigor=获得 <c val="#TooltipNumbers">活力</c>。<n/><n/><c val="#TooltipGreen">+25</c> <c val="747A84">（每层 +25）</c> 最大能量
+Affix/Name/ValeeraVigor=精力
+Affix/Tooltip/ValeeraVigor=获得 <c val="#TooltipNumbers">精力</c>。<n/><n/><c val="#TooltipGreen">+25</c> <c val="747A84">（每层 +25）</c> 最大能量
 Affix/Tooltip/Append/ValeeraVigor=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,ValeeraVigorCarry,Modification.VitalMaxArray[Energy]" /></c> 最大能量
 Affix/Name/ZaryaCapacitor=电容器
 Affix/Tooltip/ZaryaCapacitor=<c val="#TooltipGreen">+10</c> <c val="747A84">（每层 +10）</c> 最大能量
@@ -1469,7 +1469,7 @@ Affix/Tooltip/Citadel=敌方建筑：<n/><c val="#TooltipRed">+150%</c> 最大�
 Affix/Tooltip/Append/Citadel=
 Affix/ShortTooltip/Citadel=敌方建筑更难被摧毁，敌方英雄获得护甲。
 Affix/Name/Bleeding=流血
-Affix/Tooltip/Bleeding=<c val="#TooltipRed">-100%</c> 受到的治疗量<n/><n/>在风暴大厅内或受到治疗泉水影响时，此效果不会生效。
+Affix/Tooltip/Bleeding=<c val="#TooltipRed">-100%</c> 受到的治疗量<n/><n/>在风暴大厅内或受到治疗之泉影响时，此效果不会生效。
 Affix/Tooltip/Append/Bleeding=
 Affix/ShortTooltip/Bleeding=受到的治疗量大幅降低。
 Affix/Name/LevelDisadvantage=等级劣势
@@ -1502,7 +1502,7 @@ Affix/Name/Invasion=入侵
 Affix/Tooltip/Invasion=敌方小兵：<n/><c val="#TooltipRed">+25%</c> 生成速度<n/><c val="#TooltipRed">-20%</c> 经验值<n/><n/>这些效果随敌方等级提高而增强，最高至 <c val="#TooltipNumbers">20</c> 级。<n/><n/>敌方达到 <c val="#TooltipNumbers">30</c> 级后，敌方小兵的最大生命值与伤害每分钟提高 <c val="#TooltipRed">+25%</c>。<n/><n/><S val="TooltipSubscript">敌方小兵的生成速度上限为 100%。</S><n/><S val="TooltipSubscript">敌方小兵的经验值下限为 -50%。</S>
 Affix/Tooltip/Append/Invasion=<n/><n/>当前总计：<n/><c val="#TooltipRed">+<d ref="$GalaxyVar:libAffx_InvasionSpawnRateDisplay$*100" precision="1"/>%</c> 生成速度<n/><c val="#TooltipRed">-<d ref="$GalaxyVar:libAffx_InvasionExpDisplay$*100" precision="1"/>%</c> 小兵经验值<n/><c val="#TooltipRed">+<d ref="Behavior,AffixInvasionBehavior,Modification.DamageDealtFraction[Ability]*100" precision="1" player="12" />%</c> 最大生命值与伤害
 Affix/ShortTooltip/Invasion=敌方小兵会变强、出现更频繁，并随时间提供更少的经验值。
-Affix/Name/Possession=支配
+Affix/Name/Possession=占据
 Affix/Tooltip/Possession=敌方领队小兵每 <c val="#TooltipNumbers">60</c> <c val="747A84">（每层 -20秒）</c> 秒将附近一个友方小兵转化为己方。
 Affix/Tooltip/Append/Possession=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="Behavior,AffixPossessionController,Period" player="12" precision="2"/></c> 秒
 Affix/Name/MemoryShortage=内存不足
@@ -1529,11 +1529,11 @@ Affix/Tooltip/Append/ChronoBoost=<n/><n/>当前总计：<c val="#TooltipRed">+<d
 Affix/Name/AlteracsLegacy=奥特兰克的遗产
 Affix/Tooltip/AlteracsLegacy=敌方要塞与要塞炮塔：<n/><c val="#TooltipRed">+20</c> 每座未被摧毁的敌方堡垒提供的护甲。
 Affix/Tooltip/Append/AlteracsLegacy=
-Affix/Name/RavenLordsFavor=乌鸦领主的青睐
-Affix/Tooltip/RavenLordsFavor=<c val="#TooltipRed">-1</c> 敌方队伍所需的渡鸦诅咒贡品数。<n/><c val="#TooltipRed">+50%</c> 我方被诅咒时渡鸦诅咒的持续时间。
+Affix/Name/RavenLordsFavor=乌鸦王的青睐
+Affix/Tooltip/RavenLordsFavor=<c val="#TooltipRed">-1</c> 敌方队伍所需的乌鸦王的诅咒贡品数。<n/><c val="#TooltipRed">+50%</c> 我方被诅咒时乌鸦王的诅咒的持续时间。
 Affix/Tooltip/Append/RavenLordsFavor=
-Affix/Name/QueenNightshadesTerrors=夜影女王的恐惧
-Affix/Tooltip/QueenNightshadesTerrors=<c val="#TooltipRed">-1</c> 敌方队伍所需的恐魔园种子数。<n/><n/>敌方恐魔的蔓生植物不再随时间流失生命值。
+Affix/Name/QueenNightshadesTerrors=龙葵女王的恐惧
+Affix/Tooltip/QueenNightshadesTerrors=<c val="#TooltipRed">-1</c> 敌方队伍所需的恐魔园种子数。<n/><n/>敌方花园恐魔的蔓生植物不再随时间流失生命值。
 Affix/Tooltip/Append/QueenNightshadesTerrors=
 Affix/Name/BlackheartsHoard=黑心船长的宝藏
 Affix/Tooltip/BlackheartsHoard=敌方英雄死亡时不掉落达布隆币，且敌方交币费用不再增加。
@@ -1613,11 +1613,11 @@ Affix/Tooltip/Append/Block=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d re
 Affix/Name/ExplosiveEnd=爆炸终结
 Affix/Tooltip/ExplosiveEnd=敌方英雄死亡时掉落 <c val="#TooltipNumbers">5</c> 枚手雷，<c val="#TooltipNumbers">0.75</c> 秒后爆炸，每枚对附近敌人造成 <c val="#TooltipNumbers"><d ref="Effect,JunkratTotalMayhemDamage,Amount" player="6" precision="0"/></c> 点伤害。对建筑造成 <c val="#TooltipNumbers">75%</c> 伤害。
 Affix/Tooltip/Append/ExplosiveEnd=
-Affix/Name/LavaWave=熔岩浪潮
-Affix/Tooltip/LavaWave=每 <c val="#TooltipNumbers">120</c> 秒，敌方队伍在随机一路释放熔岩浪潮，对路径上的非建筑敌人每秒造成 <d ref="Effect,RagnarosLavaWaveDamage,Amount * (1 / Effect,RagnarosLavaWaveTrail,Marker.Duration )" player="12"/></c> 点伤害，并立即击杀敌方小兵。对英雄伤害提高 <c val="#TooltipNumbers"><d ref="Effect,RagnarosLavaWaveDamage,AttributeFactor[Heroic] * 100"/>%</c>。
+Affix/Name/LavaWave=熔岩波浪
+Affix/Tooltip/LavaWave=每 <c val="#TooltipNumbers">120</c> 秒，敌方队伍在随机一路释放熔岩波浪，对路径上的非建筑敌人每秒造成 <d ref="Effect,RagnarosLavaWaveDamage,Amount * (1 / Effect,RagnarosLavaWaveTrail,Marker.Duration )" player="12"/></c> 点伤害，并立即击杀敌方小兵。对英雄伤害提高 <c val="#TooltipNumbers"><d ref="Effect,RagnarosLavaWaveDamage,AttributeFactor[Heroic] * 100"/>%</c>。
 Affix/Tooltip/Append/LavaWave=
 Affix/Name/DivineIntervention=神圣干预
-Affix/Tooltip/DivineIntervention=当敌方英雄生命值低于 <c val="#TooltipNumbers">25%</c> 时，对其施放神圣掌击。<n/><n/>该效果有 <c val="#TooltipNumbers">300</c> <c val="747A84">（每层 -60秒）</c> 秒冷却时间。
+Affix/Tooltip/DivineIntervention=当敌方英雄生命值低于 <c val="#TooltipNumbers">25%</c> 时，对其施放圣灵掌。<n/><n/>该效果有 <c val="#TooltipNumbers">300</c> <c val="747A84">（每层 -60秒）</c> 秒冷却时间。
 Affix/Tooltip/Append/DivineIntervention=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_DivineInterventionCooldownCurrent$" precision="0"/></c> 秒
 Affix/Name/MassCloak=群体隐身
 Affix/Tooltip/MassCloak=敌方英雄脱离战斗 <c val="#TooltipNumbers">3</c> 秒后进入隐身状态。
@@ -1635,7 +1635,7 @@ Affix/Name/Limitless=无限
 Affix/Tooltip/Limitless=敌方英雄现在可以超过 <c val="#TooltipNumbers">30</c> 级。
 Affix/Tooltip/Append/Limitless=
 Affix/Name/IllidanWheresIllidan=伊利丹在哪？
-Affix/Tooltip/IllidanWheresIllidan=玛维会周期性地短暂出现，并对你施放囚笼。<n/><n/><S val="TooltipSubscript">玛维每 50 到 250 秒出现一次。</S>
+Affix/Tooltip/IllidanWheresIllidan=玛维会周期性地短暂出现，并对你施放禁锢环刃。<n/><n/><S val="TooltipSubscript">玛维每 50 到 250 秒出现一次。</S>
 Affix/Tooltip/Append/IllidanWheresIllidan=
 Affix/Name/MuradinToyHammer=玩具锤
 Affix/Tooltip/MuradinToyHammer=<c val="#TooltipRed">-50%</c> 风暴之锤的眩晕几率。
@@ -1665,7 +1665,7 @@ Affix/Name/ExpensiveAttacks=昂贵攻击
 Affix/Tooltip/ExpensiveAttacks=<c val="#TooltipRed">+4</c> 普通攻击的法力消耗。
 Affix/Tooltip/Append/ExpensiveAttacks=
 Affix/Name/LastMoments=最后时刻
-Affix/Tooltip/LastMoments=当你生命值低于 <c val="#TooltipNumbers">35%</c> 时受到伤害，会对你施放终末圣礼。<n/><n/>此效果的冷却时间为 <c val="#TooltipNumbers">300</c> <c val="747A84">（每层 -60s）</c> 秒。<n/><n/><S val="TooltipSubscript">伤害随敌方核心成长。</S>
+Affix/Tooltip/LastMoments=当你生命值低于 <c val="#TooltipNumbers">35%</c> 时受到伤害，会对你施放断魂仪式。<n/><n/>此效果的冷却时间为 <c val="#TooltipNumbers">300</c> <c val="747A84">（每层 -60s）</c> 秒。<n/><n/><S val="TooltipSubscript">伤害随敌方核心成长。</S>
 Affix/Tooltip/Append/LastMoments=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_LastMomentsCooldownCurrent$" precision="0"/></c> 秒
 Affix/Name/ThrallSlowfury=慢怒
 Affix/Tooltip/ThrallSlowfury=<c val="#TooltipRed">-50%</c> 风怒攻击速度
@@ -1717,18 +1717,18 @@ Affix/Tooltip/SlivanReward=每局游戏开始时在你的队伍中召唤 <c val=
 Affix/Tooltip/Append/SlivanReward=
 Button/Name/SlivanQuest=斯利文
 Button/Tooltip/SlivanQuest=击败 <c val="#TooltipNumbers">斯利文</c>
-Abil/Name/AfxSlivanInfestedDrop=斯利文感染空投
-Button/Name/AfxSlivanInfestedDrop=斯利文感染空投
+Abil/Name/AfxSlivanInfestedDrop=斯利文异化空投
+Button/Name/AfxSlivanInfestedDrop=斯利文异化空投
 Button/Tooltip/AfxSlivanInfestedDrop=向附近区域轰炸包含巢虫的空投舱。
 Button/SimpleDisplayText/AfxSlivanInfestedDrop=向附近区域轰炸包含巢虫的空投舱。
 Abil/Name/AfxSlivanImpale=斯利文穿刺
 Button/Name/AfxSlivanImpale=斯利文穿刺
 Button/Tooltip/AfxSlivanImpale=对直线区域敌人造成伤害并击晕。
 Button/SimpleDisplayText/AfxSlivanImpale=对直线区域敌人造成伤害并击晕。
-Abil/Name/AfxSlivanBossSlimeSpit=斯利文黏液喷射
-Button/Name/AfxSlivanBossSlimeSpit=斯利文黏液喷射
-Button/Tooltip/AfxSlivanBossSlimeSpit=喷射一团黏液，对区域内的敌人造成持续伤害。
-Button/SimpleDisplayText/AfxSlivanBossSlimeSpit=喷射一团黏液，对区域内的敌人造成持续伤害。
+Abil/Name/AfxSlivanBossSlimeSpit=斯利文粘液喷射
+Button/Name/AfxSlivanBossSlimeSpit=斯利文粘液喷射
+Button/Tooltip/AfxSlivanBossSlimeSpit=喷射一团粘液，对区域内的敌人造成持续伤害。
+Button/SimpleDisplayText/AfxSlivanBossSlimeSpit=喷射一团粘液，对区域内的敌人造成持续伤害。
 Abil/Name/AfxSlivanBossDrawIn=斯利文牵引
 Button/Name/AfxSlivanBossDrawIn=斯利文牵引
 Button/Tooltip/AfxSlivanBossDrawIn=将斯利文周围圆形区域内的敌人拉近并击晕。
