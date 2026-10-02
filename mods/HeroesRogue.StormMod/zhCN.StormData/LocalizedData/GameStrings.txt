@@ -23,206 +23,209 @@ Param/Expression/AffixCurseSkipsMultipleEachStack=<n/><n/><c val="FFDE36">每层
 Param/Expression/Mythic=<n/><n/><c val="A84987">第 1 轮</c>：~A~<n/><c val="A84987">第 5 轮</c>：~B~<n/><c val="A84987">第 9 轮</c>：~C~<n/><c val="A84987">第 13 轮</c>：~D~<n/><c val="A84987">第 17 轮及之后</c>：~E~
 Param/Expression/AffixGameoverStats1=<c val="#TooltipNumbers">~M~</c><n/>恩赐总数：<c val="#TooltipNumbers">~A~</c><n/>    - <c val="ffffff">普通：</c> <c val="#TooltipNumbers">~C~</c><n/>    - <c val="00ff55">优秀：</c> <c val="#TooltipNumbers">~D~</c><n/>    - <c val="0070dd">稀有：</c> <c val="#TooltipNumbers">~E~</c><n/>    - <c val="a335ee">史诗：</c> <c val="#TooltipNumbers">~F~</c><n/>    - <c val="ff8000">传说：</c> <c val="#TooltipNumbers">~G~</c><n/>    - <c val="e6cc80">起始：</c> <c val="#TooltipNumbers">~H~</c><n/>    - <c val="01ffff">里程碑：</c> <c val="#TooltipNumbers">~I~</c><n/>诅咒总数：<c val="#TooltipNumbers">~B~</c><n/>    - <c val="c52020">诅咒：</c> <c val="#TooltipNumbers">~J~</c><n/>    - <c val="9B2400">挑战：</c> <c val="#TooltipNumbers">~K~</c><n/>    - <c val="A84987">神话：</c> <c val="#TooltipNumbers">~L~</c>
 Param/Expression/AffixGameoverStats2=恩赐重掷次数：<c val="#TooltipNumbers">~A~</c><n/>诅咒重掷次数：<c val="#TooltipNumbers">~B~</c><n/>禁用次数：<c val="#TooltipNumbers">~C~</c><n/>击杀小兵数：<c val="#TooltipNumbers">~F~</c><n/>雇佣兵捕获数：<c val="#TooltipNumbers">~G~</c><n/>恢复之球拾取数：<c val="#TooltipNumbers">~H~</c><n/>目标获胜数：<c val="#TooltipNumbers">~I~</c><n/>目标失败数：<c val="#TooltipNumbers">~J~</c><n/>跳过的诅咒数：<c val="#TooltipNumbers">~D~</c><n/>转化为恩赐的诅咒数：<c val="#TooltipNumbers">~E~</c><n/>最常见盟友：<c val="#TooltipNumbers">~K~ (~M~)</c><n/>最常见敌人：<c val="#TooltipNumbers">~L~ (~N~)</c>
-Param/Expression/AffixGameoverStats3=游戏时间：<c val="#TooltipNumbers">~L~</c><n/>总伤害输出：<c val="#TooltipNumbers">~A~</c><n/>法术伤害：<c val="#TooltipNumbers">~B~</c><n/>物理伤害：<c val="#TooltipNumbers">~C~</c><n/>治疗量：<c val="#TooltipNumbers">~D~</c><n/>承受伤害：<c val="#TooltipNumbers">~E~</c><n/>经验值：<c val="#TooltipNumbers">~F~</c><n/>击杀参与数：<c val="#TooltipNumbers">~G~</c><n/>击杀数：<c val="#TooltipNumbers">~H~</c><n/>助攻数：<c val="#TooltipNumbers">~I~</c><n/>死亡数：<c val="#TooltipNumbers">~J~</c><n/>KDA 比率：<c val="#TooltipNumbers">~K~</c>
+Param/Expression/AffixGameoverStats3=游戏时间：<c val="#TooltipNumbers">~L~</c><n/>攻城伤害输出：<c val="#TooltipNumbers">~M~</c><n/>英雄伤害输出：<c val="#TooltipNumbers">~N~</c><n/>总伤害输出：<c val="#TooltipNumbers">~A~</c><n/>法术伤害：<c val="#TooltipNumbers">~B~</c><n/>物理伤害：<c val="#TooltipNumbers">~C~</c><n/>治疗量：<c val="#TooltipNumbers">~D~</c><n/>承受伤害：<c val="#TooltipNumbers">~E~</c><n/>经验值：<c val="#TooltipNumbers">~F~</c><n/>击杀参与数：<c val="#TooltipNumbers">~G~</c><n/>击杀数：<c val="#TooltipNumbers">~H~</c><n/>助攻数：<c val="#TooltipNumbers">~I~</c><n/>死亡数：<c val="#TooltipNumbers">~J~</c><n/>KDA 比率：<c val="#TooltipNumbers">~K~</c>
 Param/Expression/AchievementEarned=获得成就：<c val="FFDE36">~A~~B~</c>
 Achievement/Tooltip/HighestDifficultyNormal=<n/><n/>最高难度：<c val="ffffff">普通</c>
 Achievement/Tooltip/HighestDifficultyHeroic=<n/><n/>最高难度：<c val="ff8000">英雄</c>
 Achievement/Tooltip/HighestDifficultyMythic=<n/><n/>最高难度：<c val="A84987">神话</c>
 Achievement/Tooltip/RoundNumber=<n/>最高轮数：<c val="#TooltipNumbers">~A~</c>
+Achievement/Tooltip/TimeNumber=<n/>最快用时：<c val="#TooltipNumbers">~A~</c>
 Achievement/Name/Abathur=阿巴瑟
-Achievement/Tooltip/Abathur=使用 <c val="#TooltipNumbers">阿巴瑟</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Abathur=使用 <c val="#TooltipNumbers">阿巴瑟</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Alarak=阿拉纳克
-Achievement/Tooltip/Alarak=使用 <c val="#TooltipNumbers">阿拉纳克</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Alarak=使用 <c val="#TooltipNumbers">阿拉纳克</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Alexstrasza=阿莱克丝塔萨
-Achievement/Tooltip/Alexstrasza=使用 <c val="#TooltipNumbers">阿莱克丝塔萨</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Alexstrasza=使用 <c val="#TooltipNumbers">阿莱克丝塔萨</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Ana=安娜
-Achievement/Tooltip/Ana=使用 <c val="#TooltipNumbers">安娜</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Ana=使用 <c val="#TooltipNumbers">安娜</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Anduin=安度因
-Achievement/Tooltip/Anduin=使用 <c val="#TooltipNumbers">安度因</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Anduin=使用 <c val="#TooltipNumbers">安度因</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Anubarak=阿努巴拉克
-Achievement/Tooltip/Anubarak=使用 <c val="#TooltipNumbers">阿努巴拉克</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Anubarak=使用 <c val="#TooltipNumbers">阿努巴拉克</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Artanis=阿塔尼斯
-Achievement/Tooltip/Artanis=使用 <c val="#TooltipNumbers">阿塔尼斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Artanis=使用 <c val="#TooltipNumbers">阿塔尼斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Arthas=阿尔萨斯
-Achievement/Tooltip/Arthas=使用 <c val="#TooltipNumbers">阿尔萨斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Arthas=使用 <c val="#TooltipNumbers">阿尔萨斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Auriel=奥莉尔
-Achievement/Tooltip/Auriel=使用 <c val="#TooltipNumbers">奥莉尔</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Auriel=使用 <c val="#TooltipNumbers">奥莉尔</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Azmodan=阿兹莫丹
-Achievement/Tooltip/Azmodan=使用 <c val="#TooltipNumbers">阿兹莫丹</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Azmodan=使用 <c val="#TooltipNumbers">阿兹莫丹</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Blaze=布雷泽
-Achievement/Tooltip/Blaze=使用 <c val="#TooltipNumbers">布雷泽</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Blaze=使用 <c val="#TooltipNumbers">布雷泽</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Brightwing=光明之翼
-Achievement/Tooltip/Brightwing=使用 <c val="#TooltipNumbers">光明之翼</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Brightwing=使用 <c val="#TooltipNumbers">光明之翼</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Cassia=卡西娅
-Achievement/Tooltip/Cassia=使用 <c val="#TooltipNumbers">卡西娅</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Cassia=使用 <c val="#TooltipNumbers">卡西娅</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Chen=陈
-Achievement/Tooltip/Chen=使用 <c val="#TooltipNumbers">陈</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Chen=使用 <c val="#TooltipNumbers">陈</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Chogall=古
-Achievement/Tooltip/Chogall=使用 <c val="#TooltipNumbers">古</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Chogall=使用 <c val="#TooltipNumbers">古</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Chromie=克罗米
-Achievement/Tooltip/Chromie=使用 <c val="#TooltipNumbers">克罗米</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Chromie=使用 <c val="#TooltipNumbers">克罗米</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/DVa=D.Va
-Achievement/Tooltip/DVa=使用 <c val="#TooltipNumbers">D.Va</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/DVa=使用 <c val="#TooltipNumbers">D.Va</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Deathwing=死亡之翼
-Achievement/Tooltip/Deathwing=使用 <c val="#TooltipNumbers">死亡之翼</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Deathwing=使用 <c val="#TooltipNumbers">死亡之翼</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Deckard=迪卡德
-Achievement/Tooltip/Deckard=使用 <c val="#TooltipNumbers">迪卡德</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Deckard=使用 <c val="#TooltipNumbers">迪卡德</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Dehaka=德哈卡
-Achievement/Tooltip/Dehaka=使用 <c val="#TooltipNumbers">德哈卡</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Dehaka=使用 <c val="#TooltipNumbers">德哈卡</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Diablo=迪亚波罗
-Achievement/Tooltip/Diablo=使用 <c val="#TooltipNumbers">迪亚波罗</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Diablo=使用 <c val="#TooltipNumbers">迪亚波罗</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/ETC=精英牛头人酋长
-Achievement/Tooltip/ETC=使用 <c val="#TooltipNumbers">精英牛头人酋长</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/ETC=使用 <c val="#TooltipNumbers">精英牛头人酋长</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Falstad=弗斯塔德
-Achievement/Tooltip/Falstad=使用 <c val="#TooltipNumbers">弗斯塔德</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Falstad=使用 <c val="#TooltipNumbers">弗斯塔德</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Fenix=菲尼克斯
-Achievement/Tooltip/Fenix=使用 <c val="#TooltipNumbers">菲尼克斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Fenix=使用 <c val="#TooltipNumbers">菲尼克斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Gall=加尔
-Achievement/Tooltip/Gall=使用 <c val="#TooltipNumbers">加尔</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Gall=使用 <c val="#TooltipNumbers">加尔</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Garrosh=加尔鲁什
-Achievement/Tooltip/Garrosh=使用 <c val="#TooltipNumbers">加尔鲁什</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Garrosh=使用 <c val="#TooltipNumbers">加尔鲁什</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Gazlowe=加兹鲁维
-Achievement/Tooltip/Gazlowe=使用 <c val="#TooltipNumbers">加兹鲁维</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Gazlowe=使用 <c val="#TooltipNumbers">加兹鲁维</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Genji=源氏
-Achievement/Tooltip/Genji=使用 <c val="#TooltipNumbers">源氏</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Genji=使用 <c val="#TooltipNumbers">源氏</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Greymane=格雷迈恩
-Achievement/Tooltip/Greymane=使用 <c val="#TooltipNumbers">格雷迈恩</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Greymane=使用 <c val="#TooltipNumbers">格雷迈恩</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Guldan=古尔丹
-Achievement/Tooltip/Guldan=使用 <c val="#TooltipNumbers">古尔丹</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Guldan=使用 <c val="#TooltipNumbers">古尔丹</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Hanzo=半藏
-Achievement/Tooltip/Hanzo=使用 <c val="#TooltipNumbers">半藏</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Hanzo=使用 <c val="#TooltipNumbers">半藏</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Hogger=霍格
-Achievement/Tooltip/Hogger=使用 <c val="#TooltipNumbers">霍格</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Hogger=使用 <c val="#TooltipNumbers">霍格</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Illidan=伊利丹
-Achievement/Tooltip/Illidan=使用 <c val="#TooltipNumbers">伊利丹</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Illidan=使用 <c val="#TooltipNumbers">伊利丹</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Imperius=英普瑞斯
-Achievement/Tooltip/Imperius=使用 <c val="#TooltipNumbers">英普瑞斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Imperius=使用 <c val="#TooltipNumbers">英普瑞斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Jaina=吉安娜
-Achievement/Tooltip/Jaina=使用 <c val="#TooltipNumbers">吉安娜</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Jaina=使用 <c val="#TooltipNumbers">吉安娜</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Johanna=乔汉娜
-Achievement/Tooltip/Johanna=使用 <c val="#TooltipNumbers">乔汉娜</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Johanna=使用 <c val="#TooltipNumbers">乔汉娜</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Junkrat=狂鼠
-Achievement/Tooltip/Junkrat=使用 <c val="#TooltipNumbers">狂鼠</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Junkrat=使用 <c val="#TooltipNumbers">狂鼠</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Kaelthas=凯尔萨斯
-Achievement/Tooltip/Kaelthas=使用 <c val="#TooltipNumbers">凯尔萨斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Kaelthas=使用 <c val="#TooltipNumbers">凯尔萨斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/KelThuzad=克尔苏加德
-Achievement/Tooltip/KelThuzad=使用 <c val="#TooltipNumbers">克尔苏加德</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/KelThuzad=使用 <c val="#TooltipNumbers">克尔苏加德</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Kerrigan=凯瑞甘
-Achievement/Tooltip/Kerrigan=使用 <c val="#TooltipNumbers">凯瑞甘</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Kerrigan=使用 <c val="#TooltipNumbers">凯瑞甘</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Kharazim=卡拉辛姆
-Achievement/Tooltip/Kharazim=使用 <c val="#TooltipNumbers">卡拉辛姆</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Kharazim=使用 <c val="#TooltipNumbers">卡拉辛姆</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Leoric=李奥瑞克
-Achievement/Tooltip/Leoric=使用 <c val="#TooltipNumbers">李奥瑞克</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Leoric=使用 <c val="#TooltipNumbers">李奥瑞克</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/LiLi=莉莉
-Achievement/Tooltip/LiLi=使用 <c val="#TooltipNumbers">莉莉</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/LiLi=使用 <c val="#TooltipNumbers">莉莉</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/LiMing=李敏
-Achievement/Tooltip/LiMing=使用 <c val="#TooltipNumbers">李敏</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/LiMing=使用 <c val="#TooltipNumbers">李敏</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/LostVikings=失落的维京人
-Achievement/Tooltip/LostVikings=使用 <c val="#TooltipNumbers">失落的维京人</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/LostVikings=使用 <c val="#TooltipNumbers">失落的维京人</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/LtMorales=莫拉莉斯中尉
-Achievement/Tooltip/LtMorales=使用 <c val="#TooltipNumbers">莫拉莉斯中尉</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/LtMorales=使用 <c val="#TooltipNumbers">莫拉莉斯中尉</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Lucio=卢西奥
-Achievement/Tooltip/Lucio=使用 <c val="#TooltipNumbers">卢西奥</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Lucio=使用 <c val="#TooltipNumbers">卢西奥</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Lunara=露娜拉
-Achievement/Tooltip/Lunara=使用 <c val="#TooltipNumbers">露娜拉</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Lunara=使用 <c val="#TooltipNumbers">露娜拉</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Maiev=玛维
-Achievement/Tooltip/Maiev=使用 <c val="#TooltipNumbers">玛维</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Maiev=使用 <c val="#TooltipNumbers">玛维</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/MalGanis=玛尔加尼斯
-Achievement/Tooltip/MalGanis=使用 <c val="#TooltipNumbers">玛尔加尼斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/MalGanis=使用 <c val="#TooltipNumbers">玛尔加尼斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Malfurion=玛法里奥
-Achievement/Tooltip/Malfurion=使用 <c val="#TooltipNumbers">玛法里奥</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Malfurion=使用 <c val="#TooltipNumbers">玛法里奥</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Malthael=马萨伊尔
-Achievement/Tooltip/Malthael=使用 <c val="#TooltipNumbers">马萨伊尔</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Malthael=使用 <c val="#TooltipNumbers">马萨伊尔</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Medivh=麦迪文
-Achievement/Tooltip/Medivh=使用 <c val="#TooltipNumbers">麦迪文</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Medivh=使用 <c val="#TooltipNumbers">麦迪文</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Mei=美
-Achievement/Tooltip/Mei=使用 <c val="#TooltipNumbers">美</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Mei=使用 <c val="#TooltipNumbers">美</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Mephisto=墨菲斯托
-Achievement/Tooltip/Mephisto=使用 <c val="#TooltipNumbers">墨菲斯托</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Mephisto=使用 <c val="#TooltipNumbers">墨菲斯托</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Muradin=穆拉丁
-Achievement/Tooltip/Muradin=使用 <c val="#TooltipNumbers">穆拉丁</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Muradin=使用 <c val="#TooltipNumbers">穆拉丁</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Murky=奔波尔霸
-Achievement/Tooltip/Murky=使用 <c val="#TooltipNumbers">奔波尔霸</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Murky=使用 <c val="#TooltipNumbers">奔波尔霸</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Nazeebo=纳兹波
-Achievement/Tooltip/Nazeebo=使用 <c val="#TooltipNumbers">纳兹波</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Nazeebo=使用 <c val="#TooltipNumbers">纳兹波</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Nova=诺娃
-Achievement/Tooltip/Nova=使用 <c val="#TooltipNumbers">诺娃</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Nova=使用 <c val="#TooltipNumbers">诺娃</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Orphea=奥菲娅
-Achievement/Tooltip/Orphea=使用 <c val="#TooltipNumbers">奥菲娅</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Orphea=使用 <c val="#TooltipNumbers">奥菲娅</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Probius=普罗比斯
-Achievement/Tooltip/Probius=使用 <c val="#TooltipNumbers">普罗比斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Probius=使用 <c val="#TooltipNumbers">普罗比斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Qhira=琪拉
-Achievement/Tooltip/Qhira=使用 <c val="#TooltipNumbers">琪拉</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Qhira=使用 <c val="#TooltipNumbers">琪拉</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Ragnaros=拉格纳罗斯
-Achievement/Tooltip/Ragnaros=使用 <c val="#TooltipNumbers">拉格纳罗斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Ragnaros=使用 <c val="#TooltipNumbers">拉格纳罗斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Raynor=雷诺
-Achievement/Tooltip/Raynor=使用 <c val="#TooltipNumbers">雷诺</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Raynor=使用 <c val="#TooltipNumbers">雷诺</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Rehgar=雷加尔
-Achievement/Tooltip/Rehgar=使用 <c val="#TooltipNumbers">雷加尔</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Rehgar=使用 <c val="#TooltipNumbers">雷加尔</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Rexxar=雷克萨
-Achievement/Tooltip/Rexxar=使用 <c val="#TooltipNumbers">雷克萨</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Rexxar=使用 <c val="#TooltipNumbers">雷克萨</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Samuro=萨穆罗
-Achievement/Tooltip/Samuro=使用 <c val="#TooltipNumbers">萨穆罗</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Samuro=使用 <c val="#TooltipNumbers">萨穆罗</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/SgtHammer=重锤军士
-Achievement/Tooltip/SgtHammer=使用 <c val="#TooltipNumbers">重锤军士</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/SgtHammer=使用 <c val="#TooltipNumbers">重锤军士</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Sonya=桑娅
-Achievement/Tooltip/Sonya=使用 <c val="#TooltipNumbers">桑娅</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Sonya=使用 <c val="#TooltipNumbers">桑娅</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Stitches=缝合怪
-Achievement/Tooltip/Stitches=使用 <c val="#TooltipNumbers">缝合怪</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Stitches=使用 <c val="#TooltipNumbers">缝合怪</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Stukov=斯托科夫
-Achievement/Tooltip/Stukov=使用 <c val="#TooltipNumbers">斯托科夫</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Stukov=使用 <c val="#TooltipNumbers">斯托科夫</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Sylvanas=希尔瓦娜斯
-Achievement/Tooltip/Sylvanas=使用 <c val="#TooltipNumbers">希尔瓦娜斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Sylvanas=使用 <c val="#TooltipNumbers">希尔瓦娜斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Tassadar=塔萨达尔
-Achievement/Tooltip/Tassadar=使用 <c val="#TooltipNumbers">塔萨达尔</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Tassadar=使用 <c val="#TooltipNumbers">塔萨达尔</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/TheButcher=屠夫
-Achievement/Tooltip/TheButcher=使用 <c val="#TooltipNumbers">屠夫</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/TheButcher=使用 <c val="#TooltipNumbers">屠夫</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Thrall=萨尔
-Achievement/Tooltip/Thrall=使用 <c val="#TooltipNumbers">萨尔</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Thrall=使用 <c val="#TooltipNumbers">萨尔</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Tracer=猎空
-Achievement/Tooltip/Tracer=使用 <c val="#TooltipNumbers">猎空</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Tracer=使用 <c val="#TooltipNumbers">猎空</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Tychus=泰凯斯
-Achievement/Tooltip/Tychus=使用 <c val="#TooltipNumbers">泰凯斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Tychus=使用 <c val="#TooltipNumbers">泰凯斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Tyrael=泰瑞尔
-Achievement/Tooltip/Tyrael=使用 <c val="#TooltipNumbers">泰瑞尔</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Tyrael=使用 <c val="#TooltipNumbers">泰瑞尔</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Tyrande=泰兰德
-Achievement/Tooltip/Tyrande=使用 <c val="#TooltipNumbers">泰兰德</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Tyrande=使用 <c val="#TooltipNumbers">泰兰德</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Uther=乌瑟尔
-Achievement/Tooltip/Uther=使用 <c val="#TooltipNumbers">乌瑟尔</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Uther=使用 <c val="#TooltipNumbers">乌瑟尔</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Valeera=瓦莉拉
-Achievement/Tooltip/Valeera=使用 <c val="#TooltipNumbers">瓦莉拉</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Valeera=使用 <c val="#TooltipNumbers">瓦莉拉</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Valla=维拉
-Achievement/Tooltip/Valla=使用 <c val="#TooltipNumbers">维拉</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Valla=使用 <c val="#TooltipNumbers">维拉</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Varian=瓦里安
-Achievement/Tooltip/Varian=使用 <c val="#TooltipNumbers">瓦里安</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Varian=使用 <c val="#TooltipNumbers">瓦里安</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Whitemane=怀特迈恩
-Achievement/Tooltip/Whitemane=使用 <c val="#TooltipNumbers">怀特迈恩</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Whitemane=使用 <c val="#TooltipNumbers">怀特迈恩</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Xul=祖尔
-Achievement/Tooltip/Xul=使用 <c val="#TooltipNumbers">祖尔</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Xul=使用 <c val="#TooltipNumbers">祖尔</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Yrel=伊瑞尔
-Achievement/Tooltip/Yrel=使用 <c val="#TooltipNumbers">伊瑞尔</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Yrel=使用 <c val="#TooltipNumbers">伊瑞尔</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Zagara=扎加拉
-Achievement/Tooltip/Zagara=使用 <c val="#TooltipNumbers">扎加拉</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Zagara=使用 <c val="#TooltipNumbers">扎加拉</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Zarya=查莉娅
-Achievement/Tooltip/Zarya=使用 <c val="#TooltipNumbers">查莉娅</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Zarya=使用 <c val="#TooltipNumbers">查莉娅</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Zeratul=泽拉图
-Achievement/Tooltip/Zeratul=使用 <c val="#TooltipNumbers">泽拉图</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Zeratul=使用 <c val="#TooltipNumbers">泽拉图</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Zuljin=祖尔金
-Achievement/Tooltip/Zuljin=使用 <c val="#TooltipNumbers">祖尔金</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Zuljin=使用 <c val="#TooltipNumbers">祖尔金</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Xalatath=萨拉塔斯
-Achievement/Tooltip/Xalatath=使用 <c val="#TooltipNumbers">萨拉塔斯</c> 赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Xalatath=使用 <c val="#TooltipNumbers">萨拉塔斯</c> 赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Deathless=不死之身
-Achievement/Tooltip/Deathless=在整场冒险中一次不死，赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Deathless=在整场冒险中一次不死，赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Objective=专注目标！
-Achievement/Tooltip/Objective=在整场冒险中不输掉任何地图目标，赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Objective=在整场冒险中不输掉任何地图目标，赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/NoRerolls=运气至上
-Achievement/Tooltip/NoRerolls=在整场冒险中不使用任何恩赐或诅咒重掷，赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/NoRerolls=在整场冒险中不使用任何恩赐或诅咒重掷，赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/NoBans=不可禁用
-Achievement/Tooltip/NoBans=在整场冒险中不使用任何禁用，赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/NoBans=在整场冒险中不使用任何禁用，赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Speedrun1=世界纪录
-Achievement/Tooltip/Speedrun1=在 <c val="#TooltipNumbers">1</c> 小时内赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Speedrun1=在 <c val="#TooltipNumbers">1</c> 小时内赢下第 <c val="#TooltipNumbers">14</c> 轮。
 Achievement/Name/Speedrun2=速通
-Achievement/Tooltip/Speedrun2=在 <c val="#TooltipNumbers">2</c> 小时内赢下第 <c val="#TooltipNumbers">20</c> 轮。
+Achievement/Tooltip/Speedrun2=在 <c val="#TooltipNumbers">2</c> 小时内赢下第 <c val="#TooltipNumbers">14</c> 轮。
+Achievement/Name/Round20=熟练者
+Achievement/Tooltip/Round20=赢下第 <c val="#TooltipNumbers">20</c> 轮。
 Achievement/Name/Round30=老手
 Achievement/Tooltip/Round30=赢下第 <c val="#TooltipNumbers">30</c> 轮。
 Achievement/Name/Round40=精英
@@ -236,20 +239,20 @@ LoadingScreen/Help05=带有金色边框的英雄拥有独特的起始恩赐，�
 LoadingScreen/Help06=你可以重掷不喜欢的恩赐或诅咒。
 LoadingScreen/Help07=每 4 局游戏获得一个强大的传说恩赐。
 LoadingScreen/Help08=你可以禁用恩赐或诅咒，使其在本次冒险中不再出现。
-LoadingScreen/Help09=在第 10 轮获得一个具有独特效果的里程碑恩赐。
+LoadingScreen/Help09=在第 7 轮获得一个具有独特效果的里程碑恩赐。 
 LoadingScreen/Help10=被跳过的 10 级及以下恩赐和诅咒，会在下一局中获得。
 LoadingScreen/Help11=挑战诅咒难以应对，但会提供丰厚奖励。
 LoadingScreen/Help12=达到第 20 轮并摧毁敌方核心即可获胜！之后你可以选择停止或继续无尽模式。
-LoadingScreen/Help13=在神话难度下，第 20 轮后完成目标将不再把诅咒替换为恩赐。
+LoadingScreen/Help13=在神话难度下，第 14 轮后完成目标将不再把诅咒替换为恩赐。
 UI/MapLoadingScreen/LibAffx/Description1=在整场冒险中获取强大、永久的恩赐，提升你和队伍的实力！
 UI/MapLoadingScreen/LibAffx/Description2=随着时间推移，游戏会变得更难，因为你将获得危险的诅咒。
-UI/MapLoadingScreen/LibAffx/Description3=胜利不是终点。继续进入新地图，保留你的恩赐和诅咒，尝试达到第 20 轮并获胜！
+UI/MapLoadingScreen/LibAffx/Description3=胜利不是终点。继续进入新地图，保留你的恩赐和诅咒，尝试达到第 14 轮并获胜！
 UI/MapLoadingScreen/LibAffx/Title1=恩赐
 UI/MapLoadingScreen/LibAffx/Title2=诅咒
 UI/MapLoadingScreen/LibAffx/Title3=进度延续
 Text/ExcludeChoGallForAIEffect=<n/><n/><c val="FFDE32">AI 队友效果不适用于古加尔。</c>
 Text/ExcludeChoGall=<n/><n/><c val="FFDE32">不适用于古加尔。</c>
-Text/Information=欢迎来到 Heroes Rogue！这是《风暴英雄》的单人肉鸽模组。在整个游戏过程中，你需要选择提供各种永久增益的 <c val="#TooltipNumbers">恩赐</c> 和使游戏更难的 <c val="c52020">诅咒</c>。摧毁敌方核心后，你的恩赐和诅咒会自动保存，并延续到下一局游戏。你可以随时退出，稍后再玩，并从上次中断的地方继续。达到第 <c val="#TooltipNumbers">20</c> 轮即为胜利！如果你的核心被摧毁，冒险结束，所有恩赐和诅咒将重置。<n/><n/>以下英雄与恩赐和诅咒有特殊互动：<n/>• <c val="#TooltipNumbers">失落的维京人、雷克萨、萨穆罗、诺娃：</c>恩赐和诅咒适用于所有控制的单位/克隆体。<n/>• <c val="#TooltipNumbers">阿巴瑟：</c>恩赐和诅咒适用于共生体（不包含宿主）和终极进化。<n/>• <c val="#TooltipNumbers">古加尔：</c>古和加尔共享所有恩赐和诅咒。<n/><n/><c val="FFDE36">金色英雄：</c>这些英雄除了所有英雄都能获得的通用恩赐和诅咒外，还能获得独特的恩赐和诅咒。<n/><n/><c val="#TooltipNumbers">恩赐：</c>在达到 <c val="#TooltipNumbers">1</c>、<c val="#TooltipNumbers">4</c>、<c val="#TooltipNumbers">7</c>、<c val="#TooltipNumbers">10</c> 级时获得。如果提前获胜并跳过了某些恩赐，这些被跳过的恩赐将在下一局中提供，最高到 <c val="#TooltipNumbers">10</c> 级恩赐。完成地图目标（例如在诅咒谷获得三个贡品）也会将后续诅咒替换为恩赐，每局一次。恩赐可分为 <c val="ffffff">普通</c>、<c val="00ff55">优秀</c>、<c val="0070dd">稀有</c>、<c val="a335ee">史诗</c> 或 <c val="ff8000">传说</c>，稀有度和力量递增。每局游戏开始时至少保证获得一个 <c val="0070dd">稀有恩赐</c>，每 <c val="#TooltipNumbers">4</c> 局游戏获得一个 <c val="ff8000">传说恩赐</c>。<n/><n/><c val="01ffff">里程碑恩赐：</c>这些是拥有独特效果的恩赐，在任何难度达到第 <c val="#TooltipNumbers">10</c> 轮时作为里程碑奖励获得。<n/><n/><c val="e6cc80">起始恩赐：</c>这些是强效恩赐，仅在游戏开始时获得。某些恩赐只在特定起始恩赐下出现。<n/><n/><c val="c52020">诅咒：</c>每当敌方队伍达到天赋层时获得，另外在 <c val="#TooltipNumbers">24</c>、<c val="#TooltipNumbers">27</c>、<c val="#TooltipNumbers">30</c> 级也会获得。如果提前获胜并跳过了某些诅咒，这些被跳过的诅咒将在下一局中提供，最高到 <c val="#TooltipNumbers">10</c> 级诅咒。<n/><n/><c val="A84987">神话诅咒：</c>这些是强大且独特的诅咒，在神话难度下于游戏开始时出现，之后每 <c val="#TooltipNumbers">4</c> 局出现一次。<n/><n/><c val="9B2400">挑战诅咒：</c>这些诅咒可能难以应对，但会提供丰厚奖励。<n/><n/><c val="FFDE36">重掷：</c>在冒险开始时获得 <c val="#TooltipNumbers">3</c> 次重掷，之后每局游戏开始时获得 <c val="#TooltipNumbers">1</c> 次额外重掷，可用于重掷恩赐和诅咒的选择。恩赐重掷和诅咒重掷是分开的。<n/><n/><c val="FC4747">禁用：</c>在冒险开始时获得 <c val="#TooltipNumbers">3</c> 次禁用，之后每局游戏开始时获得 <c val="#TooltipNumbers">1</c> 次额外禁用，可用于禁用恩赐和诅咒，使其在本次冒险中不再出现。无限恩赐/诅咒、起始恩赐、神话诅咒和里程碑恩赐不能被禁用。
+Text/Information=欢迎来到 Heroes Rogue！这是《风暴英雄》的单人肉鸽模组。在整个游戏过程中，你需要选择提供各种永久增益的 <c val="#TooltipNumbers">恩赐</c> 和使游戏更难的 <c val="c52020">诅咒</c>。摧毁敌方核心后，你的恩赐和诅咒会自动保存，并延续到下一局游戏。你可以随时退出，稍后再玩，并从上次中断的地方继续。达到第 <c val="#TooltipNumbers">20</c> 轮即为胜利！如果你的核心被摧毁，冒险结束，所有恩赐和诅咒将重置。<n/><n/>以下英雄与恩赐和诅咒有特殊互动：<n/>• <c val="#TooltipNumbers">失落的维京人、雷克萨、萨穆罗、诺娃：</c>恩赐和诅咒适用于所有控制的单位/克隆体。<n/>• <c val="#TooltipNumbers">阿巴瑟：</c>恩赐和诅咒适用于共生体（不包含宿主）和终极进化。<n/>• <c val="#TooltipNumbers">古加尔：</c>古和加尔共享所有恩赐和诅咒。<n/><n/><c val="FFDE36">金色英雄：</c>这些英雄除了所有英雄都能获得的通用恩赐和诅咒外，还能获得独特的恩赐和诅咒。<n/><n/><c val="#TooltipNumbers">恩赐：</c>在达到 <c val="#TooltipNumbers">1</c>、<c val="#TooltipNumbers">4</c>、<c val="#TooltipNumbers">7</c>、<c val="#TooltipNumbers">10</c> 级时获得。如果提前获胜并跳过了某些恩赐，这些被跳过的恩赐将在下一局中提供，最高到 <c val="#TooltipNumbers">10</c> 级恩赐。完成地图目标（例如在诅咒谷获得三个贡品）也会将后续诅咒替换为恩赐，每局一次。恩赐可分为 <c val="ffffff">普通</c>、<c val="00ff55">优秀</c>、<c val="0070dd">稀有</c>、<c val="a335ee">史诗</c> 或 <c val="ff8000">传说</c>，稀有度和力量递增。每局游戏开始时至少保证获得一个 <c val="0070dd">稀有恩赐</c>，每 <c val="#TooltipNumbers">4</c> 局游戏获得一个 <c val="ff8000">传说恩赐</c>。<n/><n/><c val="01ffff">里程碑恩赐：</c>这些是拥有独特效果的恩赐，在任何难度达到第 <c val="#TooltipNumbers">7</c> 轮时作为里程碑奖励获得。<n/><n/><c val="e6cc80">起始恩赐：</c>这些是强效恩赐，仅在游戏开始时获得。某些恩赐只在特定起始恩赐下出现。<n/><n/><c val="c52020">诅咒：</c>每当敌方队伍达到天赋层时获得，另外在 <c val="#TooltipNumbers">24</c>、<c val="#TooltipNumbers">27</c>、<c val="#TooltipNumbers">30</c> 级也会获得。如果提前获胜并跳过了某些诅咒，这些被跳过的诅咒将在下一局中提供，最高到 <c val="#TooltipNumbers">10</c> 级诅咒。<n/><n/><c val="A84987">神话诅咒：</c>这些是强大且独特的诅咒，在神话难度下于游戏开始时出现，之后每 <c val="#TooltipNumbers">4</c> 局出现一次。<n/><n/><c val="9B2400">挑战诅咒：</c>这些诅咒可能难以应对，但会提供丰厚奖励。<n/><n/><c val="FFDE36">重掷：</c>在冒险开始时获得 <c val="#TooltipNumbers">3</c> 次重掷，之后每局游戏开始时获得 <c val="#TooltipNumbers">1</c> 次额外重掷，可用于重掷恩赐和诅咒的选择。恩赐重掷和诅咒重掷是分开的。<n/><n/><c val="FC4747">禁用：</c>在冒险开始时获得 <c val="#TooltipNumbers">3</c> 次禁用，之后每局游戏开始时获得 <c val="#TooltipNumbers">1</c> 次额外禁用，可用于禁用恩赐和诅咒，使其在本次冒险中不再出现。无限恩赐/诅咒、起始恩赐、神话诅咒和里程碑恩赐不能被禁用。
 Label/Name/RarityCommon=<c val="ffffff">普通
 Label/Name/RarityUncommon=<c val="00ff55">优秀
 Label/Name/RarityRare=<c val="0070dd">稀有
@@ -298,7 +301,7 @@ Message/BoonNextGame1=<c val="FFDE36">上一局未获得 10 级恩赐，本次�
 Message/BoonNextGame2=<c val="FFDE36">上一局未获得 7 级和 10 级恩赐，本次补偿 2 项恩赐。</c>
 Message/BoonNextGame3=<c val="FFDE36">上一局未获得 4、7、10 级恩赐，本次补偿 3 项恩赐。</c>
 Message/CurseCursed=<c val="FC4747">因死亡 3 次，获得 1 项诅咒。</c>
-Message/MilestoneReached=<c val="FFDE36">因达到第 10 轮，获得 1 项里程碑恩赐！</c>
+Message/MilestoneReached=<c val="FFDE36">因达到第 7 轮，获得 1 项里程碑恩赐！</c>
 Message/Pacifism=<c val="FFDE36">因和平主义获得恩赐！</c>
 Message/GoldenBorder=金色英雄拥有独特的起始恩赐。
 Message/Ban=已禁用
@@ -354,7 +357,7 @@ Button/Name/Heroic=英雄
 Button/Name/Mythic=神话
 Button/Tooltip/Normal=无变化。
 Button/Tooltip/Heroic=敌方英雄：<n/><c val="#TooltipRed">+4%</c> 每轮的伤害、最大生命值、最大法力值、生命回复和法力回复。<n/><n/><S val="TooltipSubscript">这些属性以乘法叠加。</S>
-Button/Tooltip/Mythic=所有敌人：<n/><c val="#TooltipRed">+4%</c> <c val="747A84">（每轮 +1%）</c> 伤害、最大生命值、最大法力值、生命回复和法力回复，再乘以轮数。<n/><c val="#TooltipRed">+1%</c> 每轮经验获取。<n/><n/>第 <c val="#TooltipNumbers">20 轮</c>之后，诅咒不再转换为恩赐。<n/><n/>在游戏开始以及之后每 <c val="#TooltipNumbers">4</c> 局，获得一个强大的 <c val="A84987">神话诅咒</c>：
+Button/Tooltip/Mythic=所有敌人：<n/><c val="#TooltipRed">+4%</c> <c val="747A84">（每轮 +1%）</c> 伤害、最大生命值、最大法力值、生命回复和法力回复，再乘以轮数。<n/><c val="#TooltipRed">+1%</c> 每轮经验获取。<n/><n/>第 <c val="#TooltipNumbers">14 轮</c>之后，诅咒不再转换为恩赐。<n/><n/>在游戏开始以及之后每 <c val="#TooltipNumbers">4</c> 局，获得一个强大的 <c val="A84987">神话诅咒</c>：
 Button/Name/DoNothing=无效果
 Button/SimpleDisplayText/DoNothing=无任何效果。
 Button/Tooltip/DoNothing=无任何效果。
@@ -372,7 +375,7 @@ Affix/Name/DifficultyHeroic=英雄
 Affix/Tooltip/DifficultyHeroic=敌方英雄：<n/><c val="#TooltipRed">+4%</c> 每轮的伤害、最大生命值、最大法力值、生命回复和法力回复。<n/><n/><S val="TooltipSubscript">这些属性以乘法叠加。</S>
 Affix/Tooltip/Append/DifficultyHeroic=<n/><n/>当前总量：<n/><c val="#TooltipRed">+<d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0"/>%</c> 属性
 Affix/Name/DifficultyMythic=神话
-Affix/Tooltip/DifficultyMythic=所有敌人：<n/><c val="#TooltipRed">+4%</c> <c val="747A84">（每轮 +1%）</c> 伤害、最大生命值、最大法力值、生命回复和法力回复，再乘以轮数。<n/><c val="#TooltipRed">+1%</c> 每轮经验获取。<n/><n/>第 <c val="#TooltipNumbers">20 轮</c>之后，诅咒不再转换为恩赐。<n/><n/>在游戏开始以及之后每 <c val="#TooltipNumbers">4</c> 局，获得一个强大的 <c val="A84987">神话诅咒</c>。
+Affix/Tooltip/DifficultyMythic=所有敌人：<n/><c val="#TooltipRed">+4%</c> <c val="747A84">（每轮 +1%）</c> 伤害、最大生命值、最大法力值、生命回复和法力回复，再乘以轮数。<n/><c val="#TooltipRed">+1%</c> 每轮经验获取。<n/><n/>第 <c val="#TooltipNumbers">14 轮</c>之后，诅咒不再转换为恩赐。<n/><n/>在游戏开始以及之后每 <c val="#TooltipNumbers">4</c> 局，获得一个强大的 <c val="A84987">神话诅咒</c>。
 Affix/Tooltip/Append/DifficultyMythic=<n/><n/>当前总量：<n/><c val="#TooltipRed">+<d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0"/>%</c> 属性<n/><c val="#TooltipRed">+<d ref="($GalaxyVar:libAffx_mythicDifficultyXPModifier$)*100" precision="0"/>%</c> 经验获取
 Affix/Name/AffixNone=？？？
 Affix/Tooltip/AffixNone=？？？
@@ -513,8 +516,8 @@ Affix/Name/QuickMount=快速坐骑
 Affix/Tooltip/QuickMount=<c val="#TooltipGreen">+40%</c> 所有友方的坐骑速度。
 Affix/Tooltip/Append/QuickMount=
 Affix/Name/Experienced=经验丰富
-Affix/Tooltip/Experienced=<c val="#TooltipGreen">+15%</c> 所有友方的经验获取。
-Affix/Tooltip/Append/Experienced=
+Affix/Tooltip/Experienced=<c val="#TooltipGreen">+15%</c> <c val="747A84">（每层 +15%）</c> 所有友方的经验获取。
+Affix/Tooltip/Append/Experienced=<n/><n/>当前总量：<c val="#TooltipGreen">+<d ref="$GalaxyVar:libAffx_ExperiencedModifierCurrent$" precision="0" />%</c>
 Affix/Name/KillContract=击杀契约
 Affix/Tooltip/KillContract=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">任务：</c>英雄击杀参与提供 <c val="#TooltipNumbers">1</c> 层。进度在轮次之间会丢失。<n/><n/><c val="#TooltipQuest">奖励（25 层）：</c><n/><c val="#TooltipGreen">+1</c> <c val="ffffff">普通恩赐</c><n/><c val="#TooltipGreen">+1</c> <c val="00ff55">优秀恩赐</c>
 Affix/Tooltip/Append/KillContract=
@@ -785,7 +788,7 @@ Affix/Name/NazeeboGreatRitual=伟大仪式
 Affix/Tooltip/NazeeboGreatRitual=获得 <c val="#TooltipNumbers">邪恶感染</c>。<n/><n/><c val="#TooltipGreen">+100%</c> 任何来源的巫毒祭典礼数。
 Affix/Tooltip/Append/NazeeboGreatRitual=
 Affix/Name/Superiority=优越
-Affix/Tooltip/Superiority=<c val="#TooltipGreen">+30</c> <c val="747A84">（每层 +15）</c> 所有友方对非英雄单位的护甲。
+Affix/Tooltip/Superiority=<c val="#TooltipGreen">+30</c> <c val="747A84">（每层 +15）</c> 所有友方英雄对非英雄单位的护甲。
 Affix/Tooltip/Append/Superiority=<n/><n/>当前总量：<c val="#TooltipGreen">+<d ref="Behavior,AffixSuperiorityBehavior,ArmorModification.ArmorSet[Minion].ArmorMitigationTable[Basic]" precision="0"/></c> 护甲
 Affix/Name/MercenaryLord=佣兵统领
 Affix/Tooltip/MercenaryLord=友方雇佣兵：<n/><c val="#TooltipGreen">+25%</c> <c val="747A84">（每层 +25%）</c> 最大生命值<n/><c val="#TooltipGreen">+50%</c> <c val="747A84">（每层 +50%）</c> 伤害
@@ -815,7 +818,7 @@ Affix/Name/PhysicalLeech=物理吸血
 Affix/Tooltip/PhysicalLeech=<c val="#TooltipGreen">+10%</c> <c val="747A84">（每层 +10%）</c> 物理吸血
 Affix/Tooltip/Append/PhysicalLeech=<n/><n/>当前总量：<c val="#TooltipGreen">+<d ref="Behavior,AffixPhysicalLeechBehavior,Modification.VitalDamageLeechArray[Life].KindArray[Basic]*100" precision="0"/>%</c> 物理吸血
 Affix/Name/StormShield=风暴护盾
-Affix/Tooltip/StormShield=<c val="#TooltipGreen">+25%</c> <c val="747A84">（每层 +25%）</c> 最大生命值护盾
+Affix/Tooltip/StormShield=<c val="#TooltipGreen">+25%</c> <c val="747A84">（每层 +25%）</c> 最大生命值护盾<n/><n/><S val="TooltipSubscript">脱离战斗后，该护盾会在 5 秒内恢复。</S>
 Affix/Tooltip/Append/StormShield=<n/><n/>当前总量：<c val="#TooltipGreen">+<d ref="Behavior,AffixStormShieldBehavior,DamageResponse.ModifyLimitVitalMaxFractionArray[Life]*5*100" precision="0"/>%</c> 最大生命值护盾
 Affix/Name/SpellArmor=法术护甲
 Affix/Tooltip/SpellArmor=<c val="#TooltipGreen">+15</c> <c val="747A84">（每层 +10）</c> 法术护甲
@@ -1196,7 +1199,7 @@ Affix/Name/AlexstraszaCurseoftheRed=猩红诅咒
 Affix/Tooltip/AlexstraszaCurseoftheRed=获得 <c val="#TooltipNumbers">红龙祝福</c>。<n/><n/><c val="#TooltipGreen">-20s</c> 红龙祝福冷却时间<n/><n/>对敌方英雄使用红龙祝福时，会永久降低其 <c val="#TooltipNumbers">500</c> 点最大生命值。
 Affix/Tooltip/Append/AlexstraszaCurseoftheRed=
 Affix/Name/AlexstraszaDeathBinder=缚亡者
-Affix/Tooltip/AlexstraszaDeathBinder=获得 <c val="#TooltipNumbers">生命缚誓者</c> 和 <c val="#TooltipNumbers">生命仪式</c>。<n/><n/>对敌人使用生命缚誓者时，会在 <c val="#TooltipNumbers">6</c> 秒内造成 <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaLifebinderDoTTarget,Amount*8*3" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">生命缚誓者的生命值百分比效果不会作用于敌人。</S>
+Affix/Tooltip/AlexstraszaDeathBinder=获得 <c val="#TooltipNumbers">生命缚誓者</c> 和 <c val="#TooltipNumbers">生命仪式</c>。<n/><n/>对敌方英雄使用生命缚誓者时，会在 <c val="#TooltipNumbers">6</c> 秒内造成 <c val="#TooltipNumbers"><d ref="Effect,AlexstraszaLifebinderDoTTarget,Amount*8*3" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">生命缚誓者的生命值百分比效果不会作用于敌人。</S>
 Affix/Tooltip/Append/AlexstraszaDeathBinder=
 Affix/Name/AnaPoisonDart=毒镖
 Affix/Tooltip/AnaPoisonDart=治疗镖对敌人使用时造成 <c val="#TooltipNumbers"><d ref="Effect,AnaPoisonDartDamage,Amount" /></c> 点伤害。<n/><n/>瞄准射击激活期间，治疗镖会穿透所有敌人。<n/><n/><S val="TooltipSubscript">神射手和浓缩剂量会提高该伤害。</S>
@@ -1229,8 +1232,11 @@ Affix/Name/AurielBestowDespair=赐予绝望
 Affix/Tooltip/AurielBestowDespair=赐予希望可以对敌方英雄使用。
 Affix/Tooltip/Append/AurielBestowDespair=
 Affix/Name/AurielGammaRayBurst=伽马射线暴
-Affix/Tooltip/AurielGammaRayBurst=获得 <c val="#TooltipNumbers">灼热圣光</c> 和 <c val="#TooltipNumbers">希望之库</c>。<n/><n/>天堂之光会对非英雄单位造成伤害，并治疗友方小兵、雇佣兵和召唤物。<n/><n/>赢得游戏后，保留希望之库任务进度的 <c val="#TooltipNumbers">25%</c>。
+Affix/Tooltip/AurielGammaRayBurst=获得 <c val="#TooltipNumbers">希望之库</c>。<n/><n/><c val="#TooltipRed">-20</c> 每层希望之库的最大能量消耗。<n/><n/>赢得游戏后，保留希望之库任务进度的 <c val="#TooltipNumbers">50%</c>。
 Affix/Tooltip/Append/AurielGammaRayBurst=
+Affix/Name/AurielSearingLight=灼热圣光
+Affix/Tooltip/AurielSearingLight=获得 <c val="#TooltipNumbers">灼热圣光</c>。<n/><n/>天堂之光会对非英雄单位造成伤害，并治疗友方小兵、雇佣兵和召唤物。
+Affix/Tooltip/Append/AurielSearingLight=
 Affix/Name/AurielBurstingLight=迸发之光
 Affix/Tooltip/AurielBurstingLight=<c val="#TooltipGreen">-2s</c> 天堂之光冷却时间
 Affix/Tooltip/Append/AurielBurstingLight=
@@ -1241,20 +1247,23 @@ Affix/Name/AurielResAll=全体复活
 Affix/Tooltip/AurielResAll=获得 <c val="#TooltipNumbers">复活</c> 和 <c val="#TooltipNumbers">光速</c>。<n/><n/>复活获得无限射程。<n/><n/>对自己或友方使用复活时，会复活所有已阵亡的友方英雄。
 Affix/Tooltip/Append/AurielResAll=
 Affix/Name/BrightwingFaerieMist=仙灵之雾
-Affix/Tooltip/BrightwingFaerieMist=<c val="#TooltipGreen">-2s</c> 抚慰之雾被动冷却时间<n/><n/>抚慰之雾会治疗友方小兵、雇佣兵和召唤物，并对敌人造成 <c val="#TooltipNumbers"><d ref="Effect,BrightwingSoothingMistDamage,Amount" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">致命之雾同样会造成并提高该伤害。</S>
+Affix/Tooltip/BrightwingFaerieMist=<c val="#TooltipGreen">-3s</c> 抚慰之雾被动冷却时间<n/><n/>抚慰之雾会治疗友方小兵、雇佣兵和召唤物，并对敌人造成 <c val="#TooltipNumbers"><d ref="Effect,BrightwingSoothingMistDamage,Amount" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">致命之雾同样会造成并提高该伤害。</S>
 Affix/Tooltip/Append/BrightwingFaerieMist=
 Affix/Name/BrightwingGreaterPhaseShift=强化相位转移
-Affix/Tooltip/BrightwingGreaterPhaseShift=相位转移可以对友方小兵、雇佣兵和召唤物使用。<n/><n/>相位转移可以对敌人使用，造成相当于其最大生命值 <c val="#TooltipNumbers">25%</c> 的伤害。<n/><n/><S val="TooltipSubscript">超频转移会提高相位转移的伤害。</S>
+Affix/Tooltip/BrightwingGreaterPhaseShift=<c val="#TooltipGreen">-30s</c> 相位转移冷却时间<n/><n/>相位转移可以对友方小兵、雇佣兵和召唤物使用。<n/><n/>相位转移可以对敌人使用，造成相当于其最大生命值 <c val="#TooltipNumbers">25%</c> 的伤害。<n/><n/><S val="TooltipSubscript">超频转移会提高相位转移的伤害。</S>
 Affix/Tooltip/Append/BrightwingGreaterPhaseShift=
 Affix/Name/BrightwingPolymorphic=变形强化
 Affix/Tooltip/BrightwingPolymorphic=<c val="#TooltipGreen">+0.5s</c> 变形术持续时间<n/><n/>每 <c val="#TooltipNumbers">7</c> 秒变形附近的一名敌人，优先选择英雄。<n/><n/><S val="TooltipSubscript">变形强化会在 7 码范围内搜索敌人。</S>
 Affix/Tooltip/Append/BrightwingPolymorphic=
 Affix/Name/BrightwingGlyphofCrittermorph=变形雕文
-Affix/Tooltip/BrightwingGlyphofCrittermorph=对非英雄敌人使用时，变形术持续 <c val="#TooltipNumbers">60</c> 秒。
+Affix/Tooltip/BrightwingGlyphofCrittermorph=对非英雄敌人使用时，变形术会返还 <c val="#TooltipNumbers">50</c> 点法力，并持续 <c val="#TooltipNumbers">60</c> 秒。
 Affix/Tooltip/Append/BrightwingGlyphofCrittermorph=
 Affix/Name/BrightwingEtherealBlink=虚灵闪现
 Affix/Tooltip/BrightwingEtherealBlink=获得 <c val="#TooltipNumbers">闪烁治疗</c> 和 <c val="#TooltipNumbers">隐形伙伴</c>。<n/><n/>闪烁治疗：<n/><c val="#TooltipGreen">+3</c> 充能次数<n/><c val="#TooltipGreen">-6s</c> 冷却时间<n/><c val="#TooltipGreen">-1.5s</c> 充能之间的冷却时间<n/><c val="#TooltipGreen">-30</c> 法力消耗<n/><c val="#TooltipGreen">+50%</c> 射程<n/><n/>闪烁治疗会治疗友方小兵、雇佣兵和召唤物，也可以对敌人使用，造成 <c val="#TooltipNumbers"><d ref="Effect,BlinkHealInitialDamage,Amount" /></c> 点伤害。
 Affix/Tooltip/Append/BrightwingEtherealBlink=
+Affix/Name/BrightwingArcaneBarrage=奥术弹幕
+Affix/Tooltip/BrightwingArcaneBarrage=<c val="#TooltipGreen">+30%</c> 奥术闪耀飞弹速度<n/><n/>对自己施放时，奥术闪耀会立即命中。
+Affix/Tooltip/Append/BrightwingArcaneBarrage=
 Affix/Name/DeckardPoisonousPotion=剧毒药水
 Affix/Tooltip/DeckardPoisonousPotion=治疗药水对敌人造成 <c val="#TooltipNumbers"><d ref="Effect,DeckardPoisonousPotionDamage,Amount" /></c> 点伤害。<n/><n/>次级治疗药水对敌人造成 <c val="#TooltipNumbers"><d ref="Effect,DeckardLesserPoisonousPotionDamage,Amount" /></c> 点伤害。<n/><n/><S val="TooltipSubscript">该伤害受回复药水、超级治疗药水、究极治疗药水和复苏药水影响。</S>
 Affix/Tooltip/Append/DeckardPoisonousPotion=
@@ -1364,7 +1373,7 @@ Affix/Name/StukovActivePathogen=活性病原体
 Affix/Tooltip/StukovActivePathogen=治愈病原体可以对友方小兵、雇佣兵和召唤物使用，并会向他们传播。
 Affix/Tooltip/Append/StukovActivePathogen=
 Affix/Name/StukovUnstoppableShove=不可阻挡的推击
-Affix/Tooltip/StukovUnstoppableShove=获得 <c val="#TooltipNumbers">强力推击</c> 和 <c val="#TooltipNumbers">推波助澜</c>。<n/><n/>强力推击：<n/><c val="#TooltipGreen">+25</c> 护甲<n/><c val="#TooltipGreen">+2.5s</c> 眩晕持续时间<n/><n/>推击敌人时变为不可阻挡。
+Affix/Tooltip/StukovUnstoppableShove=获得 <c val="#TooltipNumbers">强力推击</c> 和 <c val="#TooltipNumbers">推波助澜</c>。<n/><n/>强力推击：<n/><c val="#TooltipGreen">+25</c> 护甲<n/><c val="#TooltipGreen">+2.5s</c> 眩晕持续时间<n/><n/>推击敌方英雄时变为不可阻挡。
 Affix/Tooltip/Append/StukovUnstoppableShove=
 Affix/Name/StukovLurkingDeep=潜伏深渊
 Affix/Tooltip/StukovLurkingDeep=获得 <c val="#TooltipNumbers">生长感染</c> 和 <c val="#TooltipNumbers">它饥饿了</c>。<n/><n/>潜伏之手获得无限射程，生长感染不再限制引导持续时间。
@@ -1406,7 +1415,7 @@ Affix/Name/WhitemaneCalmPlea=平静祈求
 Affix/Tooltip/WhitemaneCalmPlea=绝望祈求可以对友方小兵、雇佣兵和召唤物使用。<n/><n/><c val="#TooltipGreen">+52s</c> 对非英雄目标施加的 <c val="#WhitemaneZeal">狂热</c> 持续时间<n/><c val="#TooltipGreen">-3s</c> 对非英雄目标使用绝望祈求时的 <c val="#WhitemaneDesperation">绝望</c> 持续时间<n/><n/>对非英雄目标使用绝望祈求会返还 <c val="#TooltipNumbers">30</c> 点法力。
 Affix/Tooltip/Append/WhitemaneCalmPlea=
 Affix/Name/WhitemaneUnexpectedInquisition=意外审判
-Affix/Tooltip/WhitemaneUnexpectedInquisition=宽恕和审判不再共享冷却时间。<n/><n/>宽恕可以对友方小兵、雇佣兵和召唤物使用。<n/><n/>审判可以对非英雄敌人使用。
+Affix/Tooltip/WhitemaneUnexpectedInquisition=审判可以对非英雄敌人使用。<n/><n/>宽恕可以对友方小兵、雇佣兵和召唤物使用。<n/><n/>宽恕和审判不再共享冷却时间。
 Affix/Tooltip/Append/WhitemaneUnexpectedInquisition=
 Affix/Name/WhitemaneArdentZeal=热忱
 Affix/Tooltip/WhitemaneArdentZeal=拥有 <c val="#WhitemaneZeal">狂热</c> 的友方会获得治疗，治疗量相当于怀特迈恩对非英雄单位造成伤害的 <c val="#TooltipNumbers">25%</c>。
@@ -1545,7 +1554,7 @@ Affix/Name/Fortifications=防御工事
 Affix/Tooltip/Fortifications=地图上出现若干敌方塔楼。这些塔楼揭示范围内的所有视野。<n/><n/>额外层数增加地图上的塔楼数量。
 Affix/Tooltip/Append/Fortifications=<n/><n/>当前总量：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_FortificationsTotal$" precision="0"/></c> 座炮塔
 Affix/Name/SturdyTowers=坚固塔楼
-Affix/Tooltip/SturdyTowers=敌方后备塔楼在敌方堡垒被摧毁后仍然保留。
+Affix/Tooltip/SturdyTowers=敌方后备塔楼在敌方堡垒被摧毁后仍然保留。<n/><n/><S val="TooltipSubscript">小兵和雇佣兵会无视这些塔楼。</S>
 Affix/Tooltip/Append/SturdyTowers=
 Affix/Name/ManyHeroics=多重终极技能
 Affix/Tooltip/ManyHeroics=敌方英雄获得所有终极技能。
