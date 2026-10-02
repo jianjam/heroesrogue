@@ -41,7 +41,7 @@ bool libAffx_WhitemaneArdentZealAbilityDamageTracker (bool testConds, bool runAc
         if (UnitBehaviorCount(sourceUnit, "WhitemaneZealCasterBehavior") <= 0) {
             return false;
         }
-        if (damageEffect == "WhitemaneZealDamage") {
+        if (damageEffect == "WhitemaneZealDamage" || damageEffect == "AffixWeakPointDamage") {
             return false;
         }
         if (!UnitHasBehavior2(sourceUnit, "WhitemaneArdentZealCarry")) {
@@ -66,7 +66,7 @@ bool libAffx_WhitemaneArdentZealBasicDamageTracker (bool testConds, bool runActi
         if (UnitBehaviorCount(sourceUnit, "WhitemaneZealCasterBehavior") <= 0) {
             return false;
         }
-        if (damageEffect == "WhitemaneZealDamage") {
+        if (damageEffect == "WhitemaneZealDamage" || damageEffect == "AffixWeakPointDamage") {
             return false;
         }
         if (!UnitHasBehavior2(sourceUnit, "WhitemaneArdentZealCarry")) {

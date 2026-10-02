@@ -29,11 +29,19 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <Behavior value="WhitemanePermanentZealBehavior" />
   </CEffectApplyBehavior>
   <CBehaviorBuff id="WhitemanePermanentZealBehavior" parent="CarryBehaviorParent" >
+    <DisableValidatorArray value="TargetNotInvulnerable" />
+    <DisableValidatorArray value="TargetNotTimeStopped" />
+    <DisableValidatorArray value="TargetNotDead" />
+    <DisableValidatorArray value="TargetNotStasis" />
+    <DisableValidatorArray value="TargetNotSpecialDeathState" />
     <Period value="0.0625" />
     <PeriodicEffect value="WhitemanePermanentZealApplySet" />
   </CBehaviorBuff>
   <CEffectSet id="WhitemanePermanentZealApplySet">
     <ValidatorArray value="WhitemaneZealTargetDoesNotHaveZealBehavior" />
+    <EffectArray value="WhitemaneGuidingLightRemoveTrackedUnit" />
+    <EffectArray value="WhitemaneGuidingLightAddTrackedUnit" />
+    <EffectArray value="WhitemaneGuidingLightApplyDurationIncreaseBehavior" />
     <EffectArray value="WhitemaneZealApplyBehaviorSet" />
   </CEffectSet>
   

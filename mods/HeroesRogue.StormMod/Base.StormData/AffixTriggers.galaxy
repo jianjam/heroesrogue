@@ -79,6 +79,7 @@ fixed libAffx_RelentlessModifierCurrent;
 fixed libAffx_RingofMagicModifierCurrent;
 fixed libAffx_LastMomentsCooldownCurrent;
 fixed libAffx_MacGuffinModifierCurrent;
+fixed libAffx_ExperiencedModifierCurrent;
 
 int[libCore_gv_bALMaxPlayers + 1] libAffx_BuddyCount;
 int[libCore_gv_bALMaxPlayers + 1] libAffx_CurrentBuddyCount1;
@@ -932,6 +933,7 @@ bool libAffx_Experienced (bool testConds, bool runActions) {
     }
 
     libGame_xpModifier[libGame_gv_teamOrderIndex_C] += 0.15 * affixCount;
+    libAffx_ExperiencedModifierCurrent += 0.15 * affixCount;
 
     return true;
 }
@@ -1788,7 +1790,7 @@ bool libAffx_ResurgenceoftheStormHeroKilled (bool testConds, bool runActions) {
         if (UnitGetType(deadUnit) == "HeroMurky" && !((UnitIsAlive(libGame_gv_heroDeathMurkyRespawnEggs[deadPlayer]) == false) || (libGame_gv_heroDeathMurkyRespawnEggs[deadPlayer] == null))) {
             return false;
         }
-        if (libGame_UtherRedemptionIsReady(deadUnit)) {
+        if (UnitGetType(deadUnit) == "HeroUther" && PlayerHasTalent(deadPlayer, "UtherMasteryRedemption") && libGame_UtherRedemptionIsReady(deadUnit)) {
             return false;
         }
     }
@@ -4629,7 +4631,7 @@ bool libAffx_PrivateMedivacUnitDied (bool testConds, bool runActions) {
         if (UnitGetType(deadUnit) == "HeroMurky" && !((UnitIsAlive(libGame_gv_heroDeathMurkyRespawnEggs[deadPlayer]) == false) || (libGame_gv_heroDeathMurkyRespawnEggs[deadPlayer] == null))) {
             return false;
         }
-        if (PlayerHasTalent(deadPlayer, "UtherMasteryRedemption") && libGame_UtherRedemptionIsReady(deadUnit)) {
+        if (UnitGetType(deadUnit) == "HeroUther" && PlayerHasTalent(deadPlayer, "UtherMasteryRedemption") && libGame_UtherRedemptionIsReady(deadUnit)) {
             return false;
         }
     }

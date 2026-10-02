@@ -515,7 +515,7 @@ bool libAffx_TimerFinished(timer checkTimer) {
     return false;
 }
 
-string libAffx_GetTimeString(int time) {
+string libAffx_IntToTimeString(int time) {
     int hours = time / 3600;
     int minutes = (time % 3600) / 60;
     int seconds = time % 60;
@@ -539,6 +539,9 @@ string libAffx_GetTimeString(int time) {
     }
 
     return hoursText + ":" + minutesText + ":" + secondsText;
+}
+text libAffx_IntToTimeText(int time) {
+    return StringToText(libAffx_IntToTimeString(time));
 }
 
 // ============================================================
@@ -1358,9 +1361,13 @@ void libAffx_UpdateAchievementsDialog() {
                 overlayImage = libAffx_textureAchievementNormalOverlay;
                 appendTooltip += StringExternal("Achievement/Tooltip/HighestDifficultyNormal");
             }
-            if (libAffx_achievements[i].type == libAffx_achievementTypeWinOnHero && libAffx_achievements[i].round > 0) {
+            if (libAffx_AchievementHasRoundAndTimeNumber(i) && libAffx_achievements[i].round > 0) {
                 TextExpressionSetToken("Achievement/Tooltip/RoundNumber", "A", IntToText(libAffx_achievements[i].round));
                 appendTooltip += TextExpressionAssemble("Achievement/Tooltip/RoundNumber");
+            }
+            if (libAffx_AchievementHasRoundAndTimeNumber(i) && libAffx_achievements[i].time > 0) {
+                TextExpressionSetToken("Achievement/Tooltip/TimeNumber", "A", libAffx_IntToTimeText(libAffx_achievements[i].time));
+                appendTooltip += TextExpressionAssemble("Achievement/Tooltip/TimeNumber");
             }
             libAffx_SetDialogControlColor(libAffx_dialogAchievements.achievement[i].button, Color(100, 100, 100));
             libAffx_SetDialogControlColor(libAffx_dialogAchievements.achievement[i].label, labelColor);
@@ -1441,7 +1448,9 @@ void libAffx_UpdateGameoverDialog() {
     int deaths = libAffx_BankGetStats("Deaths") + FixedToInt(libGame_gv_scoreValues[libAffx_player].lv_deaths);
     int spellDamage = libAffx_BankGetStats("SpellDamage") + libGame_gv_scoreValues[libAffx_player].lv_spellDamage;
     int physicalDamage = libAffx_BankGetStats("PhysicalDamage") + libGame_gv_scoreValues[libAffx_player].lv_physicalDamage;
-    int healing = libAffx_BankGetStats("Healing") + libGame_gv_scoreValues[libAffx_player].lv_healing;
+    int heroDamage = libAffx_BankGetStats("HeroDamage") + FixedToInt(PlayerScoreValueGetAsFixed(libAffx_player, "HeroDamage"));
+    int siegeDamage = libAffx_BankGetStats("SiegeDamage") + FixedToInt(PlayerScoreValueGetAsFixed(libAffx_player, "SiegeDamage"));
+    int healing = libAffx_BankGetStats("Healing") + FixedToInt(PlayerScoreValueGetAsFixed(libAffx_player, "Healing"));
     int damageTaken = libAffx_BankGetStats("DamageTaken") + libGame_gv_scoreValues[libAffx_player].lv_damageTaken;
     int experience = libAffx_BankGetStats("Experience") + FixedToInt(libGame_gv_scoreValues[libAffx_player].lv_individualXPEarned);
     int regenGlobes = libAffx_BankGetStats("RegenGlobes") + libGame_gv_scoreValues[libAffx_player].lv_regenGlobes;
@@ -1501,46 +1510,48 @@ void libAffx_UpdateGameoverDialog() {
         kda = FixedToInt(takedowns / deaths);
     }
     TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "M", StringToText(StringCase(libAffx_GetCatalogDefaultValue("Hero," + libCore_gf_GetHeroFromIndex(libAffx_playersHeroIndex[libAffx_player]) + ",HyperlinkId"), true)));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "A", IntToText(boons));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "C", IntToText(boonsRarity[libAffx_rarityCommon]));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "D", IntToText(boonsRarity[libAffx_rarityUncommon]));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "E", IntToText(boonsRarity[libAffx_rarityRare]));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "F", IntToText(boonsRarity[libAffx_rarityEpic]));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "G", IntToText(boonsRarity[libAffx_rarityLegendary]));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "H", IntToText(boonsRarity[libAffx_rarityStarter]));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "I", IntToText(boonsRarity[libAffx_rarityMilestone]));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "B", IntToText(curses));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "J", IntToText(cursesRarity[libAffx_rarityCommon] + cursesRarity[libAffx_rarityUncommon] + cursesRarity[libAffx_rarityRare] + cursesRarity[libAffx_rarityEpic] + cursesRarity[libAffx_rarityLegendary]));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "K", IntToText(cursesRarity[libAffx_rarityChallenge]));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "L", IntToText(cursesRarity[libAffx_rarityMythic]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "A", FormatNumber(boons));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "C", FormatNumber(boonsRarity[libAffx_rarityCommon]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "D", FormatNumber(boonsRarity[libAffx_rarityUncommon]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "E", FormatNumber(boonsRarity[libAffx_rarityRare]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "F", FormatNumber(boonsRarity[libAffx_rarityEpic]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "G", FormatNumber(boonsRarity[libAffx_rarityLegendary]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "H", FormatNumber(boonsRarity[libAffx_rarityStarter]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "I", FormatNumber(boonsRarity[libAffx_rarityMilestone]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "B", FormatNumber(curses));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "J", FormatNumber(cursesRarity[libAffx_rarityCommon] + cursesRarity[libAffx_rarityUncommon] + cursesRarity[libAffx_rarityRare] + cursesRarity[libAffx_rarityEpic] + cursesRarity[libAffx_rarityLegendary]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "K", FormatNumber(cursesRarity[libAffx_rarityChallenge]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats1", "L", FormatNumber(cursesRarity[libAffx_rarityMythic]));
     libAffx_SetDialogControlText(libAffx_dialogGameover.leftStats, TextExpressionAssemble("Param/Expression/AffixGameoverStats1"));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "A", IntToText(rerollsUsed));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "B", IntToText(rerollsCurseUsed));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "C", IntToText(bansUsed));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "F", IntToText(minionKills));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "G", IntToText(mercs));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "H", IntToText(regenGlobes));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "I", IntToText(objectivesWon));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "J", IntToText(objectivesLost));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "D", IntToText(cursesSkipped));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "E", IntToText(cursesSwapped));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "A", FormatNumber(rerollsUsed));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "B", FormatNumber(rerollsCurseUsed));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "C", FormatNumber(bansUsed));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "F", FormatNumber(minionKills));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "G", FormatNumber(mercs));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "H", FormatNumber(regenGlobes));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "I", FormatNumber(objectivesWon));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "J", FormatNumber(objectivesLost));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "D", FormatNumber(cursesSkipped));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "E", FormatNumber(cursesSwapped));
     TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "K", StringToText(libAffx_GetCatalogDefaultValue("Hero," + libCore_gf_GetHeroFromIndex(mostHeroIndex[libAffx_teamOrderIndex]) + ",HyperlinkId")));
     TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "L", StringToText(libAffx_GetCatalogDefaultValue("Hero," + libCore_gf_GetHeroFromIndex(mostHeroIndex[libAffx_teamChaosIndex]) + ",HyperlinkId")));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "M", IntToText(mostHeroCounter[libAffx_teamOrderIndex]));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "N", IntToText(mostHeroCounter[libAffx_teamChaosIndex]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "M", FormatNumber(mostHeroCounter[libAffx_teamOrderIndex]));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats2", "N", FormatNumber(mostHeroCounter[libAffx_teamChaosIndex]));
     libAffx_SetDialogControlText(libAffx_dialogGameover.middleStats, TextExpressionAssemble("Param/Expression/AffixGameoverStats2"));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "L", StringToText(libAffx_GetTimeString(gameTime)));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "A", IntToText(spellDamage + physicalDamage));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "B", IntToText(spellDamage));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "C", IntToText(physicalDamage));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "D", IntToText(healing));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "E", IntToText(damageTaken));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "F", IntToText(experience));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "G", IntToText(takedowns));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "H", IntToText(kills));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "I", IntToText(assists));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "J", IntToText(deaths));
-    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "K", IntToText(kda));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "L", libAffx_IntToTimeText(gameTime));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "A", FormatNumber(spellDamage + physicalDamage));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "B", FormatNumber(spellDamage));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "C", FormatNumber(physicalDamage));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "M", FormatNumber(siegeDamage));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "N", FormatNumber(heroDamage));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "D", FormatNumber(healing));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "E", FormatNumber(damageTaken));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "F", FormatNumber(experience));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "G", FormatNumber(takedowns));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "H", FormatNumber(kills));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "I", FormatNumber(assists));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "J", FormatNumber(deaths));
+    TextExpressionSetToken("Param/Expression/AffixGameoverStats3", "K", FormatNumber(kda));
     libAffx_SetDialogControlText(libAffx_dialogGameover.rightStats, TextExpressionAssemble("Param/Expression/AffixGameoverStats3"));
 }
 void libAffx_ShowGameoverDialog(bool show) {
@@ -1709,6 +1720,11 @@ void libAffx_UpdateAffixSelectionDialogItem(int index) {
     libAffx_SetDialogControlText(libAffx_dialogAffixSelection.items[index].rarityLabel, StringExternal(libAffx_GetAffixRarityLabel(affix)) + StringExternal(libAffx_GetAffixStackLabel(affix)));
     libAffx_SetDialogControlPosition(libAffx_dialogAffixSelection.items[index].rarityLabel, c_anchorTop, offsetX + libAffx_affixItemRarityOffsetX, libAffx_affixItemOffsetY + rarityOffsetY);
     libAffx_SetDialogControlVisible(libAffx_dialogAffixSelection.items[index].banButton, bannable);
+    if (libAffx_bans <= 0) {
+        libAffx_SetDialogControlEnabled(libAffx_dialogAffixSelection.items[index].banButton, false);
+    } else {
+        libAffx_SetDialogControlEnabled(libAffx_dialogAffixSelection.items[index].banButton, true);
+    }
     libAffx_UpdateAffixSelectionPosDialogItem(index, offsetX, libAffx_affixItemOffsetY);
 }
 
@@ -1720,6 +1736,12 @@ void libAffx_UpdateAffixSelectionDialog() {
     libAffx_SetDialogControlVisible(libAffx_dialogAffixSelection.rerollButton, libAffx_IsCurrentQueueRerollable());
     libAffx_SetDialogControlVisible(libAffx_dialogAffixSelection.rerollLabel, libAffx_IsCurrentQueueRerollable());
     libAffx_SetDialogControlVisible(libAffx_dialogAffixSelection.banLabel, libAffx_IsAnyRolledAffixBannable());
+
+    if (libAffx_rerolls <= 0) {
+        libAffx_SetDialogControlEnabled(libAffx_dialogAffixSelection.rerollButton, false);
+    } else {
+        libAffx_SetDialogControlEnabled(libAffx_dialogAffixSelection.rerollButton, true);
+    }
 
     for (i = 1; i <= libAffx_maxAffixSelection; i += 1) {
         if (i <= libAffx_currentQueue.choiceCount && libAffx_rolledAffixes[i] != 0) {
@@ -2905,6 +2927,9 @@ void libAffx_ApplyCatalogModificationBaseMult(string reference, int player, stri
 void libAffx_ApplyCatalogModificationBase(string reference, int player, string valueString, fixed value, int stacks, int operation) {
     libAffx_ApplyCatalogModificationBaseMult(reference, player, valueString, value, stacks, operation, 0);
 }
+void libAffx_ApplyCatalogModificationString(string reference, int player, string value, int operation) {
+    CatalogReferenceModify(reference, player, value, operation);
+}
 void libAffx_ApplyCatalogModifications(int affix, int amount) {
     int i;
     int i2;
@@ -2937,12 +2962,17 @@ void libAffx_ApplyCatalogModifications(int affix, int amount) {
             } else {
                 catalogValueString = FixedToString(catalogValue, c_fixedPrecisionAny);
             }
+            if (libAffx_affixes[affix].catalogModifications[i].stringValue != "") {
+                catalogValueString = libAffx_affixes[affix].catalogModifications[i].stringValue;
+            }
             if (catalogPlayer == 0) {
                 for (i2 = 1; i2 <= 12; i2 += 1) {
                     if ((i2 == libAffx_choPlayer || i2 == libAffx_gallPlayer) && libAffx_affixes[affix].excludeChoGall) {
                         continue;
                     } else {
-                        if (catalogType == libAffx_catalogTypeBase) {
+                        if (catalogType == libAffx_catalogTypeString) {
+                            libAffx_ApplyCatalogModificationString(catalogReference, i2, catalogValueString, catalogOperation);
+                        } if (catalogType == libAffx_catalogTypeBase) {
                             libAffx_ApplyCatalogModificationBase(catalogReference, i2, catalogValueString, catalogValue, totalAmount, catalogOperation);
                         } else if (catalogType == libAffx_catalogTypeBaseDelta) {
                             libAffx_ApplyCatalogModificationBase(catalogReference, i2, catalogValueString, catalogValue, amount, catalogOperation);
@@ -2956,7 +2986,9 @@ void libAffx_ApplyCatalogModifications(int affix, int amount) {
             } else if ((catalogPlayer == libAffx_choPlayer || catalogPlayer == libAffx_gallPlayer) && libAffx_affixes[affix].excludeChoGall) {
                 continue;
             } else if (catalogPlayer >= 1 && catalogPlayer <= 12) {
-                if (catalogType == libAffx_catalogTypeBase) {
+                if (catalogType == libAffx_catalogTypeString) {
+                    libAffx_ApplyCatalogModificationString(catalogReference, catalogPlayer, catalogValueString, catalogOperation);
+                } else if (catalogType == libAffx_catalogTypeBase) {
                     libAffx_ApplyCatalogModificationBase(catalogReference, catalogPlayer, catalogValueString, catalogValue, totalAmount, catalogOperation);
                 } else if (catalogType == libAffx_catalogTypeBaseDelta) {
                     libAffx_ApplyCatalogModificationBase(catalogReference, catalogPlayer, catalogValueString, catalogValue, amount, catalogOperation);
@@ -3329,6 +3361,7 @@ void libAffx_SaveBankAchievements() {
         if (libAffx_achievements[i].earned) {
             BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionAchievements, "AchievementEarned_" + libAffx_achievements[i].name, libAffx_achievements[i].difficulty);
             BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionAchievements, "AchievementEarnedRound_" + libAffx_achievements[i].name, libAffx_achievements[i].round);
+            BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionAchievements, "AchievementEarnedTime_" + libAffx_achievements[i].name, libAffx_achievements[i].time);
         }
     }
     BankSave(BankLastCreated());
@@ -3344,12 +3377,14 @@ void libAffx_SaveBank() {
     BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "Takedowns", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "Takedowns") + FixedToInt(libGame_gv_scoreValues[libAffx_player].lv_takedowns));
     BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "Kills", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "Kills") + FixedToInt(libGame_gv_scoreValues[libAffx_player].lv_kills));
     BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "Assists", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "Assists") + FixedToInt(libGame_gv_scoreValues[libAffx_player].lv_assists));
-    BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "SpellDamage", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "SpellDamage") + libGame_gv_scoreValues[libAffx_player].lv_spellDamage);
     BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "RegenGlobes", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "RegenGlobes") + libGame_gv_scoreValues[libAffx_player].lv_regenGlobes);
+    BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "SpellDamage", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "SpellDamage") + libGame_gv_scoreValues[libAffx_player].lv_spellDamage);
     BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "PhysicalDamage", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "PhysicalDamage") + libGame_gv_scoreValues[libAffx_player].lv_physicalDamage);
+    BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "HeroDamage", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "HeroDamage") + FixedToInt(PlayerScoreValueGetAsFixed(libAffx_player, "HeroDamage")));
+    BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "SiegeDamage", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "SiegeDamage") + FixedToInt(PlayerScoreValueGetAsFixed(libAffx_player, "SiegeDamage")));
     BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "MinionKills", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "MinionKills") + libGame_gv_scoreValues[libAffx_player].lv_minionKills);
     BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "Experience", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "Experience") + FixedToInt(libGame_gv_scoreValues[libAffx_player].lv_individualXPEarned));
-    BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "Healing", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "Healing") + libGame_gv_scoreValues[libAffx_player].lv_healing);
+    BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "Healing", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "Healing") + FixedToInt(PlayerScoreValueGetAsFixed(libAffx_player, "Healing")));
     BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "Deaths", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "Deaths") + FixedToInt(libGame_gv_scoreValues[libAffx_player].lv_deaths));
     BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "DamageTaken", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "DamageTaken") + libGame_gv_scoreValues[libAffx_player].lv_damageTaken);
     BankValueSetFromInt(BankLastCreated(), libAffx_BankSectionStats, "MercCaptures", BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionStats, "MercCaptures") + libGame_gv_scoreValues[libAffx_player].lv_creepCampsCaptured);
@@ -3388,7 +3423,7 @@ void libAffx_SaveBank() {
             }
         }
         for (i2 = 1; i2 <= libAffx_maxQuests; i2 += 1) {
-            if (libAffx_affixes[i].questRetain[i2].tokenBehavior != "" && libAffx_affixes[i].questRetain[i2].tokenBehavior != null) {
+            if (libAffx_affixes[i].questRetain[i2].tokenBehavior != "" && libAffx_affixes[i].questRetain[i2].tokenBehavior != null && libAffx_affixes[i].count > 0) {
                 groupCount = UnitGroupCount(heroGroup, c_unitCountAll);
                 for (;; groupCount -= 1) {
                     heroUnit = UnitGroupUnitFromEnd(heroGroup, groupCount);
@@ -3466,6 +3501,9 @@ void libAffx_LoadBank() {
         }
         if (BankKeyExists(BankLastCreated(), libAffx_BankSectionAchievements, "AchievementEarnedRound_" + libAffx_achievements[i].name)) {
             libAffx_achievements[i].round = BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionAchievements, "AchievementEarnedRound_" + libAffx_achievements[i].name);
+        }
+        if (BankKeyExists(BankLastCreated(), libAffx_BankSectionAchievements, "AchievementEarnedTime_" + libAffx_achievements[i].name)) {
+            libAffx_achievements[i].time = BankValueGetAsInt(BankLastCreated(), libAffx_BankSectionAchievements, "AchievementEarnedTime_" + libAffx_achievements[i].name);
         }
     }
 
@@ -3690,6 +3728,7 @@ bool libAffx_AffixFailsRequirements(int affix) {
     int count;
     int max;
     string requiredTalent;
+    int requiredAffixesMet = libAffx_affixes[affix].requiredCount;
 
     for (i = 1; i <= libAffx_currentAffixSelection; i += 1) {
         if (libAffx_rolledAffixes[i] == affix) {
@@ -3706,13 +3745,16 @@ bool libAffx_AffixFailsRequirements(int affix) {
         affixToCheck = libAffx_affixes[affix].requiredAffixes[i];
         count = libAffx_affixes[affixToCheck].count;
         max = libAffx_affixes[affixToCheck].max;
-        if (libAffx_affixes[affixToCheck].requiresMaxStacks && max != 0) {
+        if (libAffx_affixes[affix].requiresMaxStacks && max != 0) {
             if (count < max) {
-                return true;
+                requiredAffixesMet -= 1;
             }
         } else if (count < 1) {
-            return true;
+            requiredAffixesMet -= 1;
         }
+    }
+    if (requiredAffixesMet < libAffx_affixes[affix].requiredCount) {
+        return true;
     }
     for (i = 1; i <= libAffx_affixes[affix].requiredTalentsCount; i += 1) {
         requiredTalent = libAffx_affixes[affix].requiredTalents[i];
@@ -4735,7 +4777,7 @@ bool libAffx_BoonsCursesLevelUp_Func (bool testConds, bool runActions) {
             if ((libAffx_currentRun - 1) % 4 == 0 && libAffx_difficulty == libAffx_difficultyMythic) {
                 libAffx_QueueMythicCurse(1);
             }
-            if (libAffx_currentRun == 10) {
+            if (libAffx_currentRun == libAffx_milestoneRound) {
                 libAffx_QueueBoon(libAffx_rarityMilestone, 1, true, true);
                 libAffx_DisplayChatMessage(StringExternal("Message/MilestoneReached"));
             }
@@ -5145,14 +5187,33 @@ void libAffx_GrantAchievement(int achievement) {
     libAffx_achievements[achievement].earned = true;
     libAffx_achievements[achievement].difficulty = libAffx_difficulty;
     libAffx_achievements[achievement].round = libAffx_currentRun;
+    libAffx_achievements[achievement].time = FixedToInt(TimerGetElapsed(libGame_gv_gameTimer));
     TextExpressionSetToken("Param/Expression/AchievementEarned", "A", StringExternal("Achievement/Name/" + libAffx_achievements[achievement].name));
     TextExpressionSetToken("Param/Expression/AchievementEarned", "B", StringToText(libAffx_GetDifficultyLabel(libAffx_achievements[achievement].difficulty)));
     libAffx_DisplayChatMessage(TextExpressionAssemble("Param/Expression/AchievementEarned"));
     libAffx_SaveBankAchievements();
 }
 
+bool libAffx_AchievementHasRoundAndTimeNumber(int achievement) {
+    int type = libAffx_achievements[achievement].type;
+    if (type == libAffx_achievementTypeWinOnHero || type == libAffx_achievementTypeWinNoDeaths || type == libAffx_achievementTypeWinNoObjLost ||
+    type == libAffx_achievementTypeWinNoRerolls || type == libAffx_achievementTypeWinNoBans || type == libAffx_achievementTypeWinTimer || type == libAffx_achievementTypeWinRound) {
+        return true;
+    }
+    return false;
+}
 void libAffx_UpdateAchievementRoundNumber(int achievement) {
+    if (libAffx_achievements[achievement].difficulty < libAffx_difficulty || !libAffx_achievements[achievement].earned) {
+        return;
+    }
     libAffx_achievements[achievement].round = libAffx_currentRun;
+    libAffx_SaveBankAchievements();
+}
+void libAffx_UpdateAchievementTime(int achievement) {
+    if (libAffx_achievements[achievement].difficulty < libAffx_difficulty || !libAffx_achievements[achievement].earned) {
+        return;
+    }
+    libAffx_achievements[achievement].time = FixedToInt(TimerGetElapsed(libGame_gv_gameTimer));
     libAffx_SaveBankAchievements();
 }
 
@@ -5160,9 +5221,6 @@ void libAffx_EvaluateAchievement(int achievement) {
     if (libAffx_achievements[achievement].type == libAffx_achievementTypeWinOnHero && libAffx_achievements[achievement].hero == libAffx_playersHeroIndex[libAffx_player]) {
         if (libGame_winningTeam == libAffx_teamOrderIndex && libAffx_currentRun == libAffx_winningRound) {
             libAffx_GrantAchievement(achievement);
-        }
-        if (libAffx_achievements[achievement].round < libAffx_currentRun) {
-            libAffx_UpdateAchievementRoundNumber(achievement);
         }
     } else if (libAffx_achievements[achievement].type == libAffx_achievementTypeWinNoDeaths && libGame_winningTeam == libAffx_teamOrderIndex &&
         libAffx_currentRun == libAffx_winningRound && (libAffx_BankGetStats("Deaths") + FixedToInt(libGame_gv_scoreValues[libAffx_player].lv_deaths) <= 0)) {
@@ -5182,6 +5240,14 @@ void libAffx_EvaluateAchievement(int achievement) {
     } else if (libAffx_achievements[achievement].type == libAffx_achievementTypeWinRound && libGame_winningTeam == libAffx_teamOrderIndex &&
         libAffx_currentRun >= libAffx_achievements[achievement].roundRequired) {
         libAffx_GrantAchievement(achievement);
+    }
+    if (libAffx_AchievementHasRoundAndTimeNumber(achievement)) {
+        if (libAffx_achievements[achievement].round < libAffx_currentRun) {
+            libAffx_UpdateAchievementRoundNumber(achievement);
+        }
+        if (libAffx_achievements[achievement].time > FixedToInt(TimerGetElapsed(libGame_gv_gameTimer))) {
+            libAffx_UpdateAchievementTime(achievement);
+        }
     }
 }
 
@@ -5222,6 +5288,8 @@ void libAffx_InitAchievements() {
     libAffx_achievements[libAffx_LastRegisteredAchievement()].timeRequired = 3600;
     libAffix_RegisterAchievement("Speedrun2", libAffx_achievementTypeWinTimer);
     libAffx_achievements[libAffx_LastRegisteredAchievement()].timeRequired = 7200;
+    libAffix_RegisterAchievement("Round20", libAffx_achievementTypeWinRound);
+    libAffx_achievements[libAffx_LastRegisteredAchievement()].roundRequired = 20;
     libAffix_RegisterAchievement("Round30", libAffx_achievementTypeWinRound);
     libAffx_achievements[libAffx_LastRegisteredAchievement()].roundRequired = 30;
     libAffix_RegisterAchievement("Round40", libAffx_achievementTypeWinRound);
@@ -5953,6 +6021,11 @@ void libAffx_InitAffixes () {
                         libAffx_affixes[i].catalogModifications[i2].operation = c_upgradeOperationMultiply;
                     } else if (catalogModificationOperation == "divide" || catalogModificationOperation == "/") {
                         libAffx_affixes[i].catalogModifications[i2].operation = c_upgradeOperationDivide;
+                    } else if (catalogModificationOperation == "string") {
+                        libAffx_affixes[i].catalogModifications[i2].type = libAffx_catalogTypeString;
+                        libAffx_affixes[i].catalogModifications[i2].operation = c_upgradeOperationSet;
+                        libAffx_affixes[i].catalogModifications[i2].value = 0;
+                        libAffx_affixes[i].catalogModifications[i2].stringValue = StringWord(catalogModification, 5);
                     }
                 }
             }

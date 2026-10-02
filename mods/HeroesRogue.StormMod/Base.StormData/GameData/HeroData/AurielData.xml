@@ -44,21 +44,21 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   </CAccumulatorVitals>
 
   <CEffectEnumArea id="AurielRayOfHeavenAngelicLightHighHealingStoredSearch">
-    <ValidatorArray value="AurielHasGammaRayBurst" />
+    <ValidatorArray value="AurielHasSearingLight" />
     <SearchFilters value="-;Heroic,Structure,Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Benign" />
     <AreaArray Effect="AurielRayOfHeavenHighHealingStoredSearchImpactSet">
       <Radius value="3" />
     </AreaArray>
   </CEffectEnumArea>
   <CEffectEnumArea id="AurielRayOfHeavenAngelicLightMaxHealingStoredSearch">
-    <ValidatorArray value="AurielHasGammaRayBurst" />
+    <ValidatorArray value="AurielHasSearingLight" />
     <SearchFilters value="-;Heroic,Structure,Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Benign" />
     <AreaArray Effect="AurielRayOfHeavenMaxHealingStoredSearchImpactSet">
       <Radius value="3" />
     </AreaArray>
   </CEffectEnumArea>
   <CEffectEnumArea id="AurielRayOfHeavenAngelicLightLowHealingStoredSearch">
-    <ValidatorArray value="AurielHasGammaRayBurst" />
+    <ValidatorArray value="AurielHasSearingLight" />
     <SearchFilters value="-;Heroic,Structure,Neutral,Enemy,ImmuneToFriendlyAbilities,Missile,Stasis,Dead,Benign" />
     <AreaArray Effect="AurielRayOfHeavenLowHealingStoredSearchImpactSet">
       <Radius value="3" />
@@ -92,7 +92,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   </CEffectSet>
 
   <CEffectEnumArea id="AurielGammaRayBurstDamageSearchArea">
-    <ValidatorArray value="AurielHasGammaRayBurst" />
+    <ValidatorArray value="AurielHasSearingLight" />
     <SearchFilters value="-;Self,Player,Ally,Neutral,ImmuneToAOE,Missile,Stasis,Dead,Hidden,Invulnerable" />
     <AreaArray Effect="AurielGammaRayBurstDamageImpactSet">
       <Radius value="3" />
@@ -171,7 +171,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   </CValidatorUnitCompareBehaviorCount>
   
   <CEffectEnumArea id="AurielRayOfHeavenSearingLightSearchArea">
-    <ValidatorArray value="AurielDoesNotHaveGammaRayBurst" />
+    <ValidatorArray value="AurielDoesNotHaveSearingLight" />
   </CEffectEnumArea>
 
   <CBehaviorAbility id="AffixAurielCrystalAegisBehaviorAbility">
@@ -180,6 +180,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
 
   <CBehaviorBuff id="AurielBestowDespairCarry" parent="CarryBehaviorParent" />
   <CBehaviorBuff id="AurielGammaRayBurstCarry" parent="CarryBehaviorParent" />
+  <CBehaviorBuff id="AurielSearingLightCarry" parent="CarryBehaviorParent" />
 
   <CValidatorUnitCompareBehaviorCount id="AurielHasBestowDespair">
     <WhichUnit Value="Caster" />
@@ -195,6 +196,16 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <WhichUnit Value="Caster" />
     <Value value="0" />
     <Behavior value="AurielGammaRayBurstCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="AurielHasSearingLight">
+    <WhichUnit Value="Caster" />
+    <Compare value="GT" />
+    <Behavior value="AurielSearingLightCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  <CValidatorUnitCompareBehaviorCount id="AurielDoesNotHaveSearingLight">
+    <WhichUnit Value="Caster" />
+    <Value value="0" />
+    <Behavior value="AurielSearingLightCarry" />
   </CValidatorUnitCompareBehaviorCount>
 
   <CValidatorCombine id="AurielBestowHopeValidOrBestowDespairValidCombine">

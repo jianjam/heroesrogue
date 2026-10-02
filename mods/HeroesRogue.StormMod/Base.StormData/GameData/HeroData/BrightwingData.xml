@@ -284,6 +284,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
 
   <CEffectSet id="PolymorphSet">
     <EffectArray value="PolymorphApplyGlyphofCrittermorphBehavior" />
+    <EffectArray value="BrightwingPolymorphGlyphofCrittermorphCreateManaHealer" />
   </CEffectSet>
   <CEffectModifyUnit id="BrightwingPolymorphicModifyWeaponCooldownDummy">
     <ImpactUnit Value="Caster" />
@@ -294,6 +295,13 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <ImpactEffect value="BrightwingPolymorphicSet" />
     <AmmoUnit value="FaerieDragonPolymorphMissile" />
   </CEffectLaunchMissile>
+  
+  <CEffectCreateHealer id="BrightwingPolymorphGlyphofCrittermorphCreateManaHealer" parent="StormManaRestore">
+    <ValidatorArray value="BrightwingHasGlyphofCrittermorph" />
+    <ValidatorArray value="TargetIsNotHeroic" />
+    <ImpactUnit Value="Caster" />
+    <RechargeVitalRate value="50" />
+  </CEffectCreateHealer>
   
   <CEffectApplyBehavior id="PolymorphApplyGlyphofCrittermorphBehavior">
     <ValidatorArray value="BrightwingHasGlyphofCrittermorph" />
@@ -309,6 +317,42 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   <CBehaviorAbility id="AffixFaerieDragonEmeraldWindBehaviorAbility">
     <Buttons Face="FaerieDragonEmeraldWind" Type="AbilCmd" AbilCmd="FaerieDragonEmeraldWind,Execute" />
   </CBehaviorAbility>
+  
+  <CMoverMissile id="FaerieDragonArcaneFlareCloseFast">
+    <MotionPhases>
+      <Driver value="Ballistic" />
+      <Acceleration value="3200" />
+      <Gravity value="45" />
+      <ActorTracking value="Actual" />
+      <Outro value="-0.5,-0.2" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <YawPitchRoll value="5759.6484" />
+      <FlightTime value="0.49" />
+      <OutroAltitude value="-0.3,-0.1" />
+    </MotionPhases>
+    <MotionPhases Driver="Guidance" MaxSpeed="40" YawPitchRoll="MAX" />
+  </CMoverMissile>
+  <CMoverMissile id="FaerieDragonArcaneFlareLobMissileFast">
+    <MotionPhases>
+      <Driver value="Ballistic" />
+      <Acceleration value="-1" />
+      <Gravity value="30" />
+      <Outro value="-0.25,-0.1" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <YawPitchRoll value="5759.6484" />
+      <FlightTime value="0.49,-1" />
+    </MotionPhases>
+    <MotionPhases>
+      <Driver value="Guidance" />
+      <MaxSpeed value="40" />
+      <ThrowBandYaw value="-360,-360,-360,-360" />
+      <ThrowBandPitch value="-360,-360,-360,-360" />
+      <YawPitchRoll value="5759.6484" />
+    </MotionPhases>
+  </CMoverMissile>
+
 
   <CValidatorCombine id="BrightwingPolymorphHeroicOrNonHeroicValid">
     <CombineArray value="BrightwingPolymorphHeroicValid" />

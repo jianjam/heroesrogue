@@ -8,7 +8,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   </CAbilEffectTarget>
 
   <CEffectSet id="StukovHealingPathogenInitialCastSet">
-    <ValidatorArray value="StukovHealingPathogenValidOrInStukovHealingPathogenValidatorCombinefestationValid" />
+    <ValidatorArray value="StukovHealingPathogenValidatorCombine" />
   </CEffectSet>
   
   <CEffectSet id="StukovHealingPathogenMissileImpactSet">

@@ -2,7 +2,7 @@
 // Heroes Rogue
 // ============================================================
 
-const string libAffx_version = "0.17.0";
+const string libAffx_version = "0.17.1";
 
 const int libAffx_player = 1; // Player ID
 const int libAffx_enemy = 6; // First enemy player ID
@@ -29,10 +29,11 @@ const int libAffx_maxEligibleAffixes = libAffx_maxAffixes; // Maximum affixes th
 const int libAffx_maxAffixSelection = 5;
 const int libAffx_maxAffixTypes = 2;
 const int libAffx_maxOptionDialogs = 20;
-const int libAffx_maxAchievements = libAffx_maxHeroes + 8;
+const int libAffx_maxAchievements = libAffx_maxHeroes + 9;
 const int libAffx_maxSaveValues = 10;
 
-const int libAffx_winningRound = 20;
+const int libAffx_milestoneRound = 7;
+const int libAffx_winningRound = 14;
 
 // ============================================================
 // Affix Types IDs
@@ -124,6 +125,7 @@ const int libAffx_catalogTypePerStackDeltaExclFirst      =   4;     // Value * a
 const int libAffx_catalogTypeBase                        =   5;     // Catalog base value (operation) value * total stacks
 const int libAffx_catalogTypeBaseDelta                   =   6;     // Catalog base value (operation) value * added stacks
 const int libAffx_catalogTypeBaseMult                    =   7;     // Catalog base value (operation) 1 + (value * total stacks)
+const int libAffx_catalogTypeString                      =   8;     // Sets catalog value to a string
 
 // ============================================================
 // Bank / Events
@@ -456,6 +458,7 @@ struct libAffx_CatalogModification {
     int operation;
     string reference;
     fixed value;
+    string stringValue;
 };
 
 struct libAffx_Behavior {
@@ -502,6 +505,7 @@ struct libAffx_Achievement {
     int hero;
     string icon;
     int round;
+    int time;
     int timeRequired;
     int roundRequired;
 };
@@ -841,7 +845,8 @@ void libAffx_SyncBehaviors(unit sourceUnit, unit targetUnit);
 void libAffx_Wait(fixed duration, int inTimeType); // Elapses time when game is not paused.
 bool libAffx_GateIsOpen();
 bool libAffx_TimerFinished(timer checkTimer); // Check if a timer ran and finished
-string libAffx_GetTimeString(int time);
+string libAffx_IntToTimeString(int time);
+text libAffx_IntToTimeText(int time);
 void libAffx_Pause(bool pause); // Pauses various game systems.
 string libAffx_GetAffixRarityLabel(int affix);
 string libAffx_GetAffixStackLabel(int affix);
@@ -970,6 +975,7 @@ void libAffx_CatalogReferenceModify (string reference, int player, string value,
 void libAffx_ApplyTalents(int affix);
 void libAffx_ApplyCatalogModificationBaseMult(string reference, int player, string valueString, fixed value, int stacks, int operation, fixed mult);
 void libAffx_ApplyCatalogModificationBase(string reference, int player, string valueString, fixed value, int stacks, int operation);
+void libAffx_ApplyCatalogModificationString(string reference, int player, string value, int operation);
 void libAffx_ApplyCatalogModifications(int affix, int amount);
 void libAffx_RemoveBehaviors(int affix);
 void libAffx_ApplyBehaviors(int affix, int amount);
@@ -1029,6 +1035,9 @@ void libAffx_SetGoldenHero(string hero);
 int libAffx_GetAchievementId(string achievementName);
 void libAffx_ResetAllAchievements();
 void libAffx_GrantAchievement(int achievement);
+bool libAffx_AchievementHasRoundAndTimeNumber(int achievement);
+void libAffx_UpdateAchievementRoundNumber(int achievement);
+void libAffx_UpdateAchievementTime(int achievement);
 void libAffx_EvaluateAchievement(int achievement);
 void libAffx_EvaluateAllAchievements();
 int libAffx_LastRegisteredAchievement();

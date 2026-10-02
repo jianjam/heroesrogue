@@ -22,7 +22,7 @@ Singleplayer rogue-like mod for Heroes of the Storm.
 
 # **Info**
 
-Welcome to Heroes Rogue! This is a singleplayer rogue-like mod for Heroes of the Storm. Throughout the game, you will have to choose Boons providing various permanent buffs and Curses which make the game more difficult. Your boons and curses are automatically saved after destroying the enemy Core, carrying them over into the next game. The game can be quit and played at another time, and will resume where you left off. You win by getting to round **20**! If your Core gets destroyed, the run ends and all boons and curses are reset.
+Welcome to Heroes Rogue! This is a singleplayer rogue-like mod for Heroes of the Storm. Throughout the game, you will have to choose Boons providing various permanent buffs and Curses which make the game more difficult. Your boons and curses are automatically saved after destroying the enemy Core, carrying them over into the next game. The game can be quit and played at another time, and will resume where you left off. You win by getting to round **14**! If your Core gets destroyed, the run ends and all boons and curses are reset.
 
 The following Heroes have special interactions with boons and curses:<br>
 - **Lost Vikings, Rexxar, Samuro, and Nova:** Boons and curses apply to all controlled units/clones.<br>
@@ -33,7 +33,7 @@ The following Heroes have special interactions with boons and curses:<br>
 
 **Boons:** Obtained when reaching level 1, 4, 7, and 10. If you win early and skip any boons, those skipped boons will be offered in the next game, up to the level 10 boons. Completing a map objective (for example getting three tributes on Cursed Hollow) also replaces a future curse with a boon, once per game. Boons can be Common, Uncommon, Rare, Epic, or Legendary, increasing in rarity and power. You are guaranteed at least a Rare Boon at the start of every game, and a Legendary Boon every 4 games.
 
-**Milestone Boons:** These are boons with unique effects that are obtained when reaching round 10 on any difficulty as a milestone reward.
+**Milestone Boons:** These are boons with unique effects that are obtained when reaching round 7 on any difficulty as a milestone reward.
 
 **Starter Boons:** These are potent boons that can only be obtained at the start of the game. Some boons only show up with specific starter boons.
 
