@@ -1,6 +1,8 @@
 # Heroes Rogue
 Singleplayer rogue-like mod for Heroes of the Storm.
 
+**简体中文说明 / Simplified Chinese: [README.zh-CN.md](README.zh-CN.md)**
+
 <img width="1919" height="1080" alt="heroesrogue" src="https://github.com/user-attachments/assets/25dcc8fc-9d86-49cf-ac81-ccc224881242" />
 
 
