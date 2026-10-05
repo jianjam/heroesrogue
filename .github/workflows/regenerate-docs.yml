@@ -1,0 +1,82 @@
+name: Regenerate Docs
+
+# 中文恩赐/诅咒图鉴自动重建。
+# 站点源码在 docs/，生成器在 scripts/build_spa.py，输入是 mod 自带的游戏数据 +
+# 本仓库的汉化文件（zhCN/.../GameStrings.txt）。汉化更新后自动重建并提交。
+#
+# 图鉴的 416 个图标是一次性从 mod 贴图与暴雪游戏素材中提取后放入 docs/icons/ 的，
+# Actions 不会重新生成图标 —— 只有 mod 新增了引用新图标的恩赐时才需要手动补。
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      # 汉化文本更新（最常见的触发源）
+      - "mods/HeroesRogue.StormMod/zhCN.StormData/LocalizedData/GameStrings.txt"
+      # 英文原版更新（作者同步后，我们还没跟进汉化时也会触发）
+      - "mods/HeroesRogue.StormMod/enUS.StormData/LocalizedData/GameStrings.txt"
+      # 恩赐/诅咒定义变化
+      - "mods/HeroesRogue.StormMod/Base.StormData/GameData/AffixData.xml"
+      # 生成器自身改动
+      - "scripts/**"
+
+permissions:
+  contents: write
+
+# 与 Errorb0t 的同名工作流保持一致：同一时间只跑一个，不打断进行中的任务
+concurrency:
+  group: write-master
+  cancel-in-progress: false
+
+jobs:
+  regenerate:
+    # 机器人自己推的提交不再触发，避免死循环
+    if: github.event_name == 'workflow_dispatch' || github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out master
+        uses: actions/checkout@v4
+        with:
+          # 必须是完整历史：build_spa.py 用 `git describe --tags` 取 mod 版本号写进页面标题，
+          # 浅克隆拿不到 tag，版本号会退化成 0.0.0。
+          fetch-depth: 0
+          ref: master
+
+      - name: Fetch all tags
+        # checkout 默认 fetch-tags: false，只能拿到「最近一次 fetch 时存在的 tag」。
+        # 本仓库的 v0.17.0 / v0.17.1 是在仓库建好之后才打的，runner 上不可见，
+        # `git describe` 会退回更早的 v0.16.5 —— 页面标题版本号因此长期落后。
+        # 必须显式拉全量 tag，否则版本号不可信。
+        run: git fetch --tags --force origin
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Verify version tag resolution
+        # 失败即中止：宁可 workflow 报错，也不要静默生成一个版本号错误的站点。
+        run: |
+          echo "tags fetched: $(git tag -l | wc -l)"
+          echo "describe    : $(git describe --tags --abbrev=0 --match 'v[0-9]*')"
+
+      - name: Regenerate docs
+        run: python3 scripts/build_spa.py --output docs
+
+      - name: Configure Git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Commit and push docs
+        run: |
+          git add docs
+          if git diff --cached --quiet; then
+            echo "No docs changes to commit."
+            exit 0
+          fi
+          git commit -m "docs: regenerate zhCN affix compendium"
+          git push origin master
