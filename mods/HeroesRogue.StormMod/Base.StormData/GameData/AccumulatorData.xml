@@ -2,5 +2,25 @@
 <Catalog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/HeroesOfTheStorm_Gamedata/master/xsd/latest.xsd">
 
-
+  <CAccumulatorToken id="AffixWeakPointAccumulator1" parent="BaseTokenAccumulator">
+    <MinAccumulation value="0" />
+    <MaxAccumulation value="10000" />
+    <ApplicationRule value="Add" />
+    <TokenId value="AffixWeakPointTokenCounter1" />
+    <Scale value="0.25" />
+  </CAccumulatorToken>
+  <CAccumulatorToken id="AffixWeakPointAccumulator2" parent="BaseTokenAccumulator">
+    <MinAccumulation value="0" />
+    <MaxAccumulation value="10000" />
+    <ApplicationRule value="Add" />
+    <TokenId value="AffixWeakPointTokenCounter2" />
+    <Scale value="0.25" />
+  </CAccumulatorToken>
+  <CAccumulatorToken id="AffixWeakPointAccumulator3" parent="BaseTokenAccumulator">
+    <MinAccumulation value="0" />
+    <MaxAccumulation value="10000" />
+    <ApplicationRule value="Add" />
+    <TokenId value="AffixWeakPointTokenCounter3" />
+    <Scale value="0.25" />
+  </CAccumulatorToken>
 </Catalog>

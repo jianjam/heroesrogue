@@ -1,22 +1,16 @@
 include "AffixTriggers"
 
-// ---------------------------------------------------------------
+// ============================================================
 // Lightning Rod
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_ThrallLightningRodExecuteOncePerGame (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_AffixSetHero(libAffx_GetAffixId("NexusRange"), "Thrall", true);
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Quests Galore
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_ThrallQuestsGaloreExecuteOncePerGame (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     TalentTreeSetSelectedHeroTalent(libAffx_player, 4, 1);
     libGame_gf_TalentsUpdateChoicePanelForPlayer(libAffx_player);
     return true;

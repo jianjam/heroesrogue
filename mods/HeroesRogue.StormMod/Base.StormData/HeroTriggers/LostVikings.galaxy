@@ -1,18 +1,8 @@
 include "AffixTriggers"
 
-// ---------------------------------------------------------------
-// Button Masher
-// ---------------------------------------------------------------
-bool libAffx_LostVikingsButtonMasher (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
-    return true;
-}
-
-// ---------------------------------------------------------------
+// ============================================================
 // Great Viking Hoard
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_LostVikingsGreatVikingHoardHeroKilled (bool testConds, bool runActions) {
     int i;
     unit deadUnit = libGame_gf_HeroKilledUnit();
@@ -27,9 +17,6 @@ bool libAffx_LostVikingsGreatVikingHoardHeroKilled (bool testConds, bool runActi
         if (UnitTestState(deadUnit, c_unitStateHallucination)) {
             return false;
         }
-    }
-    if (!runActions) {
-        return true;
     }
     for (i = 1; i <= 3; i += 1) {
         UnitCreate(1, "RegenGlobe", 0, libAffx_teamOrder, PointWithOffsetPolar(UnitGetPosition(deadUnit), 1.5, 120 * i), 0, null);
@@ -50,9 +37,6 @@ bool libAffx_LostVikingsGreatVikingHoardUnitDiedStructure (bool testConds, bool 
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     UnitCreate(1, "RegenGlobe", 0, libAffx_teamOrder, UnitGetPosition(deadUnit), 0, null);
     UnitBehaviorRemove(UnitLastCreated(), "RegenGlobeTimedLifeInitial", 1);
     UnitBehaviorAdd(UnitLastCreated(), "RegenGlobeTimedLife", UnitLastCreated(), 1);
@@ -60,18 +44,13 @@ bool libAffx_LostVikingsGreatVikingHoardUnitDiedStructure (bool testConds, bool 
               
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Specialized Vikings
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_LostVikingsSpecializedVikings (bool testConds, bool runActions) {
     int i;
-    unitgroup unitGroup;
-    int unitGroupCount;
-    if (!runActions) {
-        return true;
-    }
-    unitGroup = libGame_gv_players[libAffx_player].lv_heroUnitGroup;
-    unitGroupCount = UnitGroupCount(unitGroup, c_unitCountAll);
+    unitgroup unitGroup = libGame_gv_players[libAffx_player].lv_heroUnitGroup;
+    int unitGroupCount = UnitGroupCount(unitGroup, c_unitCountAll);
     for (i = unitGroupCount; i > 0; i -= 1) {
         if (UnitGetType(UnitGroupUnitFromEnd(unitGroup, i)) == "HeroErik") {
             UnitBehaviorAdd(UnitGroupUnitFromEnd(unitGroup, i), "LostVikingsSpecializedErikBehavior", UnitGroupUnitFromEnd(unitGroup, i), 1);
@@ -85,14 +64,11 @@ bool libAffx_LostVikingsSpecializedVikings (bool testConds, bool runActions) {
     return true;
 }
 
-// ---------------------------------------------------------------
+// ============================================================
 // Truly Lost
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_LostVikingsTrulyLostPeriodic (bool testConds, bool runActions) {
     int i;
-    if (!runActions) {
-        return true;
-    }
     libGame_gf_ShareUnshareVisionOfAlliesForPlayer(false, libAffx_player);
     for (i = 2; i <= 5; i += 1) {
         PlayerSetAlliance(i, c_allianceIdSeekHelp, libAffx_player, false);
@@ -105,21 +81,18 @@ bool libAffx_LostVikingsTrulyLostPeriodic (bool testConds, bool runActions) {
     return true;
 }
 
-// ---------------------------------------------------------------
+// ============================================================
 // Trilogy
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_LostVikingsTrilogyAffixAdded (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libGDHL_gv_data_LostVikingsTheSequelDeathTimeReduction[libAffx_player] = 0.8;
 
     return true;
 }
 
-// ---------------------------------------------------------------
+// ============================================================
 // Beyblade
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_LostVikingsBeybladeScaling (bool testConds, bool runActions) {
     int player = libGame_gf_HeroLevelUpPlayer();
     if (testConds) {

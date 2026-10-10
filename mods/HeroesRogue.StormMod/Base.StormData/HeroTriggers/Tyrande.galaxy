@@ -3,9 +3,9 @@ include "AffixTriggers"
 unit libAffx_NightElfBondMalfurion;
 unit libAffx_NightElfBondTyrande;
 
-// ---------------------------------------------------------------
+// ============================================================
 // Night Elf Bond
-// ---------------------------------------------------------------
+// ============================================================
 void libAffx_TyrandeNightElfBondSpawnMalfurion () {
     fixed sharedHealth;
     if (libAffx_NightElfBondMalfurion == null || !UnitIsAlive(libAffx_NightElfBondMalfurion)) {
@@ -31,9 +31,6 @@ bool libAffx_TyrandeNightElfBondDamageTaken (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     if (eventUnit == libAffx_NightElfBondTyrande) {
         //UnitSetPropertyFixed(libAffx_NightElfBondTyrande, c_unitPropLife, UnitGetPropertyFixed(libAffx_NightElfBondTyrande, c_unitPropLife, true) + incomingDamage / 2);
         UnitSetPropertyFixed(libAffx_NightElfBondMalfurion, c_unitPropLife, UnitGetPropertyFixed(libAffx_NightElfBondTyrande, c_unitPropLife, true));
@@ -55,9 +52,6 @@ bool libAffx_TyrandeNightElfBondHealed (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     if (eventUnit == libAffx_NightElfBondTyrande) {
         //UnitSetPropertyFixed(libAffx_NightElfBondTyrande, c_unitPropLife, UnitGetPropertyFixed(libAffx_NightElfBondTyrande, c_unitPropLife, true) - healingReceived / 2);
         UnitSetPropertyFixed(libAffx_NightElfBondMalfurion, c_unitPropLife, UnitGetPropertyFixed(libAffx_NightElfBondTyrande, c_unitPropLife, true));
@@ -68,15 +62,9 @@ bool libAffx_TyrandeNightElfBondHealed (bool testConds, bool runActions) {
     return true;
 }
 bool libAffx_TyrandeNightElfBondOncePerGame (bool testConds, bool runActions) {
-    trigger damageEvent;
-    trigger healEvent;
-    if (!runActions) {
-        return true;
-    }
+    trigger damageEvent = TriggerCreate("libAffx_TyrandeNightElfBondDamageTaken");
+    trigger healEvent = TriggerCreate("libAffx_TyrandeNightElfBondHealed");
     libGame_AddAbilityEffectMapping("TyrandeNightElfBond", "NightElfBondDamage");
-
-    damageEvent = TriggerCreate("libAffx_TyrandeNightElfBondDamageTaken");
-    healEvent = TriggerCreate("libAffx_TyrandeNightElfBondHealed");
 
     TriggerAddDamageEvent(damageEvent, null, "HeroTyrande", c_unitDamageTypeAny, c_unitDamageEither, null);
     TriggerAddDamageEvent(damageEvent, null, "HeroMalfurion", c_unitDamageTypeAny, c_unitDamageEither, null);
@@ -84,9 +72,6 @@ bool libAffx_TyrandeNightElfBondOncePerGame (bool testConds, bool runActions) {
     return true;
 }
 bool libAffx_TyrandeNightElfBondAffixAdded (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_TyrandeNightElfBondSpawnMalfurion();
     return true;
 }
@@ -96,9 +81,6 @@ bool libAffx_TyrandeNightElfBondRespawn (bool testConds, bool runActions) {
         if (player != libAffx_player) {
             return false;
         }
-    }
-    if (!runActions) {
-        return true;
     }
     libAffx_TyrandeNightElfBondSpawnMalfurion();
 
@@ -111,9 +93,6 @@ bool libAffx_TyrandeNightElfBondUnitDied (bool testConds, bool runActions) {
         if (deadPlayer != libAffx_player && deadUnit != libAffx_NightElfBondMalfurion) {
             return false;
         }
-    }
-    if (!runActions) {
-        return true;
     }
     if (deadPlayer == libAffx_player) {
         UnitKill(libAffx_NightElfBondMalfurion);
@@ -133,9 +112,6 @@ bool libAffx_TyrandeNightElfBondPeriodic (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     if ((DistanceBetweenPoints(UnitGetPosition(libAffx_NightElfBondMalfurion), UnitGetPosition(libAffx_NightElfBondTyrande)) >= 24)) {
         UnitSetPosition(libAffx_NightElfBondMalfurion, PointWithOffsetPolar(UnitGetPosition(libAffx_NightElfBondTyrande), 1.5, RandomFixed(0, 360)), false);
         UnitIssueOrder(libAffx_NightElfBondMalfurion, Order(AbilityCommand("stop", 0)), c_orderQueueReplace);
@@ -148,9 +124,9 @@ bool libAffx_TyrandeNightElfBondPeriodic (bool testConds, bool runActions) {
     return true;
 }
 
-// ---------------------------------------------------------------
+// ============================================================
 // Flyby Attack
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_TyrandeFlybyAttackScaling (bool testConds, bool runActions) {
     int player = libGame_gf_HeroLevelUpPlayer();
     if (testConds) {
@@ -158,17 +134,11 @@ bool libAffx_TyrandeFlybyAttackScaling (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     libAffx_SetDefaultLevelScaling("Effect,SentinelShotDamagePvE,Amount", player);
 
     return true;
 }
 bool libAffx_TyrandeFlybyAttackAffixAdded (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     if (PlayerHasTalent(libAffx_player, "TyrandeRanger")) {
         libAffx_CatalogReferenceModify("Effect,SentinelShotMissileSearchPvE,AreaArray[0].RectangleWidth", libAffx_player, "1.25", c_upgradeOperationAdd);
     }
@@ -177,11 +147,13 @@ bool libAffx_TyrandeFlybyAttackAffixAdded (bool testConds, bool runActions) {
 bool libAffx_TyrandeFlybyAttackEffectUsed (bool testConds, bool runActions) {
     unit caster =  EventPlayerEffectUsedUnit(c_effectUnitCaster);
     point casterPoint = EventPlayerEffectUsedPoint(c_effectLocationTargetPoint);
-    if (!runActions) {
-        return true;
+    int player = UnitGetOwner(caster);
+    if (testConds) {
+        if (player != libAffx_player) {
+            return false;
+        }
     }
     UnitCreateEffectPoint(caster, "SentinelShotMissileSearchPvE", casterPoint);
-
     return true;
 }
 bool libAffx_TyrandeFlybyAttackTalentGained (bool testConds, bool runActions) {
@@ -195,9 +167,6 @@ bool libAffx_TyrandeFlybyAttackTalentGained (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     libAffx_CatalogReferenceModify("Effect,SentinelShotMissileSearchPvE,AreaArray[0].RectangleWidth", libAffx_player, "1.25", c_upgradeOperationAdd);
 
     return true;
@@ -209,19 +178,13 @@ bool libAffx_TyrandeFlybyAttackTalentGained (bool testConds, bool runActions) {
 
 bool libAffx_TyrandeShadowstalkerEffectUsed (bool testConds, bool runActions) {
     unit caster = EventPlayerEffectUsedUnit(c_effectUnitCaster);
-    unit unitVar;
-    unitfilter shadowstalkerFilter = UnitFilter(0, 0, (1 << c_targetFilterStructure) | (1 << c_targetFilterHeroic) | (1 << c_targetFilterNeutral) |
-    (1 << c_targetFilterEnemy) | (1 << c_targetFilterCreep) | (1 << c_targetFilterMissile), (1 << (c_targetFilterDead - 32)) |
-    (1 << (c_targetFilterHidden - 32)));
-    unitgroup unitGroup = UnitGroup(null, c_playerAny, RegionEntireMap(), shadowstalkerFilter, 0);
-    int i = UnitGroupCount(unitGroup, c_unitCountAll);
-    for (;; i -= 1) {
-        if (i <= 0) { break; }
-        unitVar = UnitGroupUnitFromEnd(unitGroup, i);
-        if (unitVar == null) { continue; }
-        UnitCreateEffectUnit(caster, "TyrandeShadowstalkApplyHealingBehavior", unitVar);
+    int player = UnitGetOwner(caster);
+    if (testConds) {
+        if (player != libAffx_player) {
+            return false;
+        }
     }
-
+    libAffx_UnitCreateEffectUnitToAllFilter(caster, "TyrandeShadowstalkApplyHealingBehavior", libAffx_filterAlliedMinions);
     return true;
 }
 
@@ -234,9 +197,6 @@ bool libAffx_TyrandeElunesWrathScaling (bool testConds, bool runActions) {
         if (player != libAffx_player) {
             return false;
         }
-    }
-    if (!runActions) {
-        return true;
     }
     libAffx_SetDefaultLevelScaling("Effect,LightofEluneDamageTarget,Amount", player);
 

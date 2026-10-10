@@ -356,6 +356,25 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
     <Filters value="-;Player,Ally,Neutral" />
     <WhichUnit Value="Source" />
   </CValidatorUnitFilters>
+  
+  <CValidatorUnitCompareBehaviorCount id="CasterDoesNotHaveSlowWalk">
+    <WhichUnit Value="Caster" />
+    <Value value="0" />
+    <Behavior value="AffixSlowWalkCarry" />
+  </CValidatorUnitCompareBehaviorCount>
+  
+  <CValidatorUnitCompareTokenCount id="CasterHasGT1WeakPointToken1">
+    <Compare value="GT" />
+    <TokenId value="AffixWeakPointTokenCounter1" />
+  </CValidatorUnitCompareTokenCount>
+  <CValidatorUnitCompareTokenCount id="CasterHasGT1WeakPointToken2">
+    <Compare value="GT" />
+    <TokenId value="AffixWeakPointTokenCounter2" />
+  </CValidatorUnitCompareTokenCount>
+  <CValidatorUnitCompareTokenCount id="CasterHasGT1WeakPointToken3">
+    <Compare value="GT" />
+    <TokenId value="AffixWeakPointTokenCounter3" />
+  </CValidatorUnitCompareTokenCount>
 
 
 </Catalog>

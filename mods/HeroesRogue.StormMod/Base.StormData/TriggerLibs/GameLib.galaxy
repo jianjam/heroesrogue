@@ -11142,6 +11142,18 @@ void libGame_gf_PlayerTurnMountCostsOnOffForPlayer (int lp_player, bool lp_onOff
         CatalogFieldValueSet(c_gameCatalogAbil, "IllidanMetamorphosisMountCustom", "CastIntroTime[" + IntToString(0) + "]", lp_player, "0");
         CatalogFieldValueSet(c_gameCatalogAbil, "IllidanMetamorphosisMountCustom", "Cost[" + IntToString(0) + "].Cooldown.TimeUse", lp_player, "0");
     }
+    libGame_SendMountCostsChanged(lp_player, lp_onOff);
+}
+void libGame_SendMountCostsChanged (int player, bool onOff) {
+    DataTableSetInt(false, TriggerEventParamName(libGame_mountCostsChangedEventName, libGame_mountCostsChangedParam1), player);
+    DataTableSetBool(false, TriggerEventParamName(libGame_mountCostsChangedEventName, libGame_mountCostsChangedParam2), onOff);
+    TriggerSendEvent(libGame_mountCostsChangedEventName);
+}
+int libGame_EventMountCostsChangedPlayer() {
+    return DataTableGetInt(false, TriggerEventParamName(libGame_mountCostsChangedEventName, libGame_mountCostsChangedParam1));
+}
+bool libGame_EventMountCostsChangedOnOff() {
+    return DataTableGetBool(false, TriggerEventParamName(libGame_mountCostsChangedEventName, libGame_mountCostsChangedParam2));
 }
 
 void libGame_gf_PlayerResetMountCostsForPlayers () {

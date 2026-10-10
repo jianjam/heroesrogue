@@ -262,7 +262,7 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   <CBehaviorBuff id="AffixQuickMountBehavior" parent="CarryBehaviorParent">
     <DisableValidatorArray value="IsMounted" />
     <Modification>
-      <UnifiedMoveSpeedFactor value="0.7" />
+      <UnifiedMoveSpeedFactor value="0.5" />
     </Modification>
   </CBehaviorBuff>
   <CBehaviorAbility id="AffixGladiatorsMedallion">
@@ -729,8 +729,8 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
 
 <CBehaviorBuff id="AffixRingofRegenerationBehavior" parent="CarryBehaviorParent">
   <Modification>
-    <VitalMaxArray index="Life" value="100" />
-    <VitalRegenArray index="Life" value="8" />
+    <VitalMaxArray index="Life" value="250" />
+    <VitalRegenArray index="Life" value="12" />
   </Modification>
 </CBehaviorBuff>
 <CBehaviorBuff id="AffixRingofMagicBehavior" parent="CarryBehaviorParent" />
@@ -1246,7 +1246,41 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   </CBehaviorBuff>
   
   <CBehaviorBuff id="AffixWeakPointController" parent="CarryBehaviorParent" />
-  
+  <CBehaviorBuff id="AffixWeakPointDoT1" parent="StormDot">
+    <RemoveValidatorArray index="AffixWeakPoint" value="CasterHasGT1WeakPointToken1" />
+    <Duration value="4" />
+    <Period value="1" />
+    <PeriodicEffect value="AffixWeakPointDamage1" />
+    <PeriodicDisplayEffect value="AffixWeakPointDamage1" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="AffixWeakPointDoT2" parent="StormDot">
+    <RemoveValidatorArray index="AffixWeakPoint" value="CasterHasGT1WeakPointToken2" />
+    <Duration value="4" />
+    <Period value="1" />
+    <PeriodicEffect value="AffixWeakPointDamage2" />
+    <PeriodicDisplayEffect value="AffixWeakPointDamage2" />
+  </CBehaviorBuff>
+  <CBehaviorBuff id="AffixWeakPointDoT3" parent="StormDot">
+    <RemoveValidatorArray index="AffixWeakPoint" value="CasterHasGT1WeakPointToken3" />
+    <Duration value="4" />
+    <Period value="1" />
+    <PeriodicEffect value="AffixWeakPointDamage3" />
+    <PeriodicDisplayEffect value="AffixWeakPointDamage3" />
+  </CBehaviorBuff>
+
+  <CBehaviorTokenCounter id="AffixWeakPointTokenCounter1" parent="StormGenericToken">
+    <InfoFlags index="Hidden" value="1" />
+    <Max value="10000" />
+  </CBehaviorTokenCounter>
+  <CBehaviorTokenCounter id="AffixWeakPointTokenCounter2" parent="StormGenericToken">
+    <InfoFlags index="Hidden" value="1" />
+    <Max value="10000" />
+  </CBehaviorTokenCounter>
+  <CBehaviorTokenCounter id="AffixWeakPointTokenCounter3" parent="StormGenericToken">
+    <InfoFlags index="Hidden" value="1" />
+    <Max value="10000" />
+  </CBehaviorTokenCounter>
+
   <CBehaviorBuff id="AffixInvasionBehavior" parent="CarryBehaviorParent">
     <Modification>
       <HealDealtAdditiveMultiplier index="Life" value="0" />
@@ -1362,5 +1396,13 @@ xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/jamiephan/Heroe
   
   <CBehaviorBuff id="MedivacMoving" />
   
+  <CBehaviorBuff id="AffixSlowWalkCarry" parent="CarryBehaviorParent">
+    <Modification>
+      <BehaviorLinkDisableArray value="Mount" />
+    </Modification>
+    <Period value="0.5" />
+    <InitialEffect value="AffixSlowWalkEffectSet" />
+    <PeriodicEffect value="AffixSlowWalkEffectSet" />
+  </CBehaviorBuff>
 
 </Catalog>

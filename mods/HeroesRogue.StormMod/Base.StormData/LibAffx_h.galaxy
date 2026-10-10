@@ -2,7 +2,7 @@
 // Heroes Rogue
 // ============================================================
 
-const string libAffx_version = "0.17.1";
+const string libAffx_version = "0.17.2";
 
 const int libAffx_player = 1; // Player ID
 const int libAffx_enemy = 6; // First enemy player ID
@@ -32,9 +32,6 @@ const int libAffx_maxOptionDialogs = 20;
 const int libAffx_maxAchievements = libAffx_maxHeroes + 9;
 const int libAffx_maxSaveValues = 10;
 
-const int libAffx_milestoneRound = 7;
-const int libAffx_winningRound = 14;
-
 // ============================================================
 // Affix Types IDs
 // ============================================================
@@ -45,6 +42,8 @@ const int libAffx_affixTypeCurse    = 2;
 // ============================================================
 // Rarity IDs
 // ============================================================
+
+const int libAffx_maxRarities       =   9;
 
 const int libAffx_rarityCommon      =   1;
 const int libAffx_rarityUncommon    =   2;
@@ -144,6 +143,9 @@ const string libAffx_eventAffixAddedParam2 = "AmountAdded";
 // Config
 // ============================================================
 
+const int libAffx_milestoneRound = 7;
+const int libAffx_winningRound = 14;
+
 const int libAffx_rerollsStart = 3;
 const int libAffx_rerollsPerGame = 1; 
 const int libAffx_bansStart = 3; 
@@ -152,6 +154,12 @@ const int libAffx_bansPerGame = 1;
 const fixed libAffx_gameStartDelay = 2.25; // Wait for Heroes to finish spawning in
 const fixed libAffx_disableHotkeysDuration = 0.25; // How long hotkeys such as picking affixes are disableed for
 const fixed libAffx_disableDialogControlDuration = 0.25; // How long dialog controls such as picking/banning affixes buttons are disabled for
+
+const fixed libAffx_mythicModifier = 0.04;
+const fixed libAffx_mythicModifierXP = 0.02;
+const fixed libAffx_mythicModifierPerRound = 0.01;
+const fixed libAffx_heroicModifier = 0.04;
+const fixed libAffx_heroicModifierXP = 0.01;
 
 // ============================================================
 // Dialog Variables
@@ -584,6 +592,7 @@ struct libAffx_AffixData {
     bool cooldownHidden;
 
     fixed customValue;
+    int customInt;
     bool customBool;
 
     int lastSeen;
@@ -648,6 +657,7 @@ int libAffx_currentAffixSelection = 3; // Number of affixes the player can pick 
 int libAffx_maxAffixesFromObjectives = 1; // How many curses can be turned into boons per game from winning the Objective
 
 fixed libAffx_mythicDifficultyXPModifier;
+fixed libAffx_heroicDifficultyXPModifier;
 
 int libAffx_rerolls; // Number of rerolls available.
 int libAffx_rerollsCurse; // Number of curse rerolls available.
@@ -941,14 +951,15 @@ void libAffx_AddRequiredUnitTypeFilter(structref<libAffx_Filter> filter, string 
 void libAffx_AddExcludedUnitTypeFilter(structref<libAffx_Filter> filter, string unitType);
 bool libAffx_UnitIsMinion(unit unitVar);
 bool libAffx_UnitMatchesType(unit unitVar, structref<libAffx_Filter> filter);
-bool libAffx_UnitMatchesCriteria(unit unitVar, structref<libAffx_Filter> filter); // Check whether a unit matches the given criteria.
-void libAffx_AddUnitBehaviorCriteria(unit unitVar, string behavior, int stacks, structref<libAffx_Filter> filter); // Add a behavior to a unit if it matches criteria.
-void libAffx_UpdateUnitBehaviorCriteria(unit unitVar, string behavior, int stacks, structref<libAffx_Filter> filter); // Add a behavior to a unit if it matches criteria, and removes it if it doesn't.
-void libAffx_SetUnitPropertyCriteria(unit unitVar, int inProp, fixed value, structref<libAffx_Filter> filter);
-void libAffx_UnitCreateEffectUnitCriteriaAll (unit caster, string effect, structref<libAffx_Filter> filter);
-void libAffx_SetUnitPropertyCriteriaAll (int inProp, fixed value, structref<libAffx_Filter> filter);
-void libAffx_AddUnitBehaviorCriteriaAll (string behavior, int stacks, structref<libAffx_Filter> filter);
-void libAffx_RemoveUnitBehaviorCriteriaAll (string behavior, int stacks, structref<libAffx_Filter> filter);
+bool libAffx_UnitMatchesFilter(unit unitVar, structref<libAffx_Filter> filter); // Check whether a unit matches the given filter.
+void libAffx_AddUnitBehaviorFilter(unit unitVar, string behavior, int stacks, structref<libAffx_Filter> filter); // Add a behavior to a unit if it matches the filter.
+void libAffx_UpdateUnitBehaviorFilter(unit unitVar, string behavior, int stacks, structref<libAffx_Filter> filter); // Add a behavior to a unit if it matches the filter, and removes it if it doesn't.
+void libAffx_SetUnitPropertyFilter(unit unitVar, int inProp, fixed value, structref<libAffx_Filter> filter);
+void libAffx_UnitCreateEffectUnitToAllFilter (unit caster, string effect, structref<libAffx_Filter> filter);
+void libAffx_UnitSetPropertyFixedToAllFilter (int inProp, fixed value, structref<libAffx_Filter> filter);
+void libAffx_AddUnitBehaviorToAllFilter (string behavior, int stacks, structref<libAffx_Filter> filter);
+void libAffx_RemoveUnitBehaviorFromAllFilter (string behavior, int stacks, structref<libAffx_Filter> filter);
+void libAffx_SendActorMessageToPlayer(int player, string actorMessage);
 void libAffx_SetPlayerPropertyFixed (int player, int inProp, fixed value, bool applyToAllUnits);
 void libAffx_AddUnitPropertyFixed (unit unitVar, int inProp, fixed value);
 void libAffx_AddPlayerPropertyFixed (int player, int inProp, fixed value, bool applyToAllUnits);
@@ -969,6 +980,7 @@ void libAffx_SetLevelScalingAndValue(string reference, int player, fixed scaling
 void libAffx_SetLevelScaling(string reference, int player, fixed scaling); // Modify catalog with specified scaling scaling
 void libAffx_SetDefaultLevelScaling(string reference, int player); // Modify catalog with default 4% scaling
 string libAffx_GetCatalogDefaultValue(string reference);
+fixed libAffx_CatalogReferenceGetAsFixed(string reference, int player);
 void libAffx_CatalogFieldValueSetFixed(int catalog, string entry, string fieldPath, int player, fixed value);
 void libAffx_CatalogReferenceSet (string reference, int player, string value);
 void libAffx_CatalogReferenceModify (string reference, int player, string value, int operation);
@@ -1041,7 +1053,7 @@ void libAffx_UpdateAchievementTime(int achievement);
 void libAffx_EvaluateAchievement(int achievement);
 void libAffx_EvaluateAllAchievements();
 int libAffx_LastRegisteredAchievement();
-int libAffix_RegisterAchievement(string name, int achievementType);
+int libAffx_RegisterAchievement(string name, int achievementType);
 void libAffx_InitAchievements();
 void libAffx_InitBlankAffix();
 void libAffx_AffixAddExclusion(int affix, int excludeAffix);

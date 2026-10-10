@@ -1,26 +1,23 @@
 include "AffixTriggers"
 
 int libAffx_IllidanTalentTier16Counter;
-int[8] libAffx_IllidanTalents;
+int[libCore_gv_talents_MaxTiers_C + 1] libAffx_IllidanTalents;
 
 int libAffx_WheresIllidanIndex;
 
-// ---------------------------------------------------------------
+// ============================================================
 // Illidan - Add an empty talent when all level 16 talents are unavailable
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_IllidanTalent16 (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_IllidanTalents[6] += 1;
     if (libAffx_IllidanTalents[6] == 3) {
         libAffx_ShowTalent("DoNothing16", true);
     }
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Illidan Evasive
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_IllidanEvasiveUnitCreated (bool testConds, bool runActions) {
     int player = UnitGetOwner(EventUnitCreatedUnit());
     if (testConds) {
@@ -28,16 +25,13 @@ bool libAffx_IllidanEvasiveUnitCreated (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     libAffx_AddPlayerBehavior(libAffx_player, "IllidanEvasion", 1, true);
     libAffx_AddPlayerBehavior(libAffx_player, "IllidanEvasionSpellArmor", 1, true);
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Legally Blind
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_IllidanLegallyBlindBehaviorChangeCategory (bool testConds, bool runActions) {
     unit unitVar = EventUnit();
     string behavior = EventUnitBehavior();
@@ -49,9 +43,6 @@ bool libAffx_IllidanLegallyBlindBehaviorChangeCategory (bool testConds, bool run
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
 
     UnitBehaviorRemove(unitVar, behavior, 1);
     if ((behaviorDuration > 0.0)) {
@@ -60,13 +51,10 @@ bool libAffx_IllidanLegallyBlindBehaviorChangeCategory (bool testConds, bool run
     
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Wheres Illidan
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_WheresIllidanAffixAdded (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_WheresIllidanIndex = libAffx_EventAffix();
     libAffx_affixes[libAffx_WheresIllidanIndex].cooldown = RandomInt(50, 250);
     return true;
@@ -83,9 +71,6 @@ bool libAffx_WheresIllidanPeriodic (bool testConds, bool runActions) {
         if (!libAffx_GateIsOpen()) {
             return false;
         }
-    }
-    if (!runActions) {
-        return true;
     }
 
     if (libAffx_affixes[libAffx_WheresIllidanIndex].cooldown <= 0 && UnitIsAlive(libGame_gv_players[libAffx_player].lv_heroUnit)) {

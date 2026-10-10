@@ -1942,6 +1942,14 @@ fixed[libCore_gv_bALMaxTeams + 1] libGame_xpModifier;
 fixed[libCore_gv_bALMaxTeams + 1] libGame_xpModifierMinion;
 fixed[libCore_gv_bALMaxTeams + 1] libGame_xpModifierTrickle;
 
+string libGame_mountCostsChangedEventName = "MountCostsChanged";
+string libGame_mountCostsChangedParam1 = "Player";
+string libGame_mountCostsChangedParam2 = "OnOff";
+
+void libGame_SendMountCostsChanged (int player, bool onOff);
+int libGame_EventMountCostsChangedPlayer();
+bool libGame_EventMountCostsChangedOnOff();
+
 // Library Initialization
 void libGame_InitVariables ();
 

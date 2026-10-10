@@ -1,24 +1,18 @@
 include "AffixTriggers"
 
-// ---------------------------------------------------------------
+// ============================================================
 // Machine Gunner
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_SgtHammerMachineGunnerOncePerGame (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_CatalogReferenceSet("Weapon,HeroSgtHammer,Period", libAffx_player, "0.125");
     libAffx_CatalogReferenceModify("Effect,SgtHammerTankAttackDamage,Amount", libAffx_player, "0.25", c_upgradeOperationMultiply);
 
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Artillery
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_SgtHammerArtilleryOncePerGame (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_AffixSetHero(libAffx_GetAffixId("NexusRange"), "SgtHammer", false);
 
     libAffx_CatalogReferenceSet("Effect,SiegeWeaponSplashSearch,AreaArray[0].Radius", libAffx_player, "3");
@@ -33,13 +27,10 @@ bool libAffx_SgtHammerArtilleryOncePerGame (bool testConds, bool runActions) {
 
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Big Guns
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_SgtHammerBigGunsOncePerGame (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_CatalogReferenceSet("Abil,SgtHammerBluntForceGun,Cost[0].Cooldown.TimeUse", libAffx_player, "0.5");
     libAffx_CatalogReferenceSet("Abil,SgtHammerBluntForceGun,Cost[0].Vital[Energy]", libAffx_player, "0");
     libAffx_CatalogReferenceSet("Abil,SgtHammerBluntForceGun,Cost[0].Charge.TimeUse", libAffx_player, "10");
@@ -49,13 +40,10 @@ bool libAffx_SgtHammerBigGunsOncePerGame (bool testConds, bool runActions) {
 
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Blaster
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_SgtHammerBlasterAffixAdded (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     if (PlayerHasTalent(libAffx_player, "SgtHammerBarricade")) {
         libAffx_CatalogReferenceSet("Abil,SgtHammerConcussiveBlast,Cost[0].Cooldown.TimeUse", libAffx_player, "0.5");
         libAffx_CatalogReferenceSet("Abil,SgtHammerConcussiveBlast,Cost[0].Charge.TimeUse", libAffx_player, "8");
@@ -69,9 +57,6 @@ bool libAffx_SgtHammerBlasterGainTalent (bool testConds, bool runActions) {
         if (talent != "SgtHammerBarricade") {
             return false;
         }
-    }
-    if (!runActions) {
-        return true;
     }
     libAffx_CatalogReferenceSet("Abil,SgtHammerConcussiveBlast,Cost[0].Cooldown.TimeUse", libAffx_player, "0.5");
     libAffx_CatalogReferenceSet("Abil,SgtHammerConcussiveBlast,Cost[0].Charge.TimeUse", libAffx_player, "8");

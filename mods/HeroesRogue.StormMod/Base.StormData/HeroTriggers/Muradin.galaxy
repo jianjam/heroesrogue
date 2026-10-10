@@ -1,18 +1,15 @@
 include "AffixTriggers"
 
 
-// ---------------------------------------------------------------
+// ============================================================
 // Unstoppable Avatar
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_MuradinUnstoppableAvatarRespawn (bool testConds, bool runActions) {
     unit respawnedUnit = libGame_gf_HeroRespawnUnit();
     if (testConds) {
         if (UnitGetOwner(respawnedUnit) != libAffx_player) {
             return false;
         }
-    }
-    if (!runActions) {
-        return true;
     }
     libAffx_AddPlayerBehavior(libAffx_player, "MuradinAvatarInitialDelay", 1, true);
     UnitCreateEffectUnit(respawnedUnit, "MuradinAvatarApplyBehaviorsSet", respawnedUnit);
@@ -21,9 +18,6 @@ bool libAffx_MuradinUnstoppableAvatarRespawn (bool testConds, bool runActions) {
     return true;
 }
 bool libAffx_MuradinUnstoppableAvatar (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     CatalogFieldValueSet(c_gameCatalogBehavior, "MuradinAvatarHealthBuff", "Modification.VitalMaxArray[" + IntToString(0) + "]", libAffx_player, CatalogFieldValueGet(c_gameCatalogBehavior, "MuradinAvatar", "Modification.VitalMaxArray[" + IntToString(0) + "]", libAffx_player));
     
     libAffx_AddPlayerBehavior(libAffx_player, "MuradinAvatarInitialDelay", 1, true);
@@ -40,20 +34,14 @@ bool libAffx_MuradinUnstoppableAvatarLevelUp (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     CatalogFieldValueSet(c_gameCatalogBehavior, "MuradinAvatarHealthBuff", "Modification.VitalMaxArray[" + IntToString(0) + "]", libAffx_player, CatalogFieldValueGet(c_gameCatalogBehavior, "MuradinAvatar", "Modification.VitalMaxArray[" + IntToString(0) + "]", libAffx_player));
     return true;
 }
 
-// ---------------------------------------------------------------
+// ============================================================
 // Dual Hammer
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_MuradinDualHammerAffixAdded (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_CatalogReferenceSet("Abil,MuradinStormBolt,Cost.Charge.CountMax", libAffx_player, "2");
     libAffx_CatalogReferenceSet("Abil,MuradinStormBolt,Cost.Charge.CountStart", libAffx_player, "2");
     libAffx_CatalogReferenceSet("Abil,MuradinStormBolt,Cost.Charge.CountUse", libAffx_player, "1");
@@ -79,10 +67,27 @@ bool libAffx_MuradinDualHammerTalentGained (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     libAffx_CatalogReferenceModify("Abil,MuradinStormBolt,Cost.Charge.TimeUse", libAffx_player, "1.5", c_upgradeOperationSubtract);
+
+    return true;
+}
+
+// ============================================================
+// Fast Punch
+// ============================================================
+bool libAffx_MuradinFastPunchTalentGained (bool testConds, bool runActions) {
+    string talent = libGame_gf_HeroGainTalentGainedTalent();
+    int player = libGame_gf_HeroGainTalentPlayer();
+    if (testConds) {
+        if (player != libAffx_player) {
+            return false;
+        }
+        if (talent != "MuradinMasteryHaymakerGrandSlam") {
+            return false;
+        }
+    }
+
+    libAffx_CatalogReferenceModify("Abil,MuradinHaymaker,Cost.Charge.HideCount", libAffx_player, "0", c_upgradeOperationSet);
 
     return true;
 }

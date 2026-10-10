@@ -1,6 +1,6 @@
 include "AffixTriggers"
 
-int[8] libAffx_NazeeboTalents;
+int[libCore_gv_talents_MaxTiers_C + 1] libAffx_NazeeboTalents;
 fixed libAffx_NazeeboZombieHandlerRange = 12;
 fixed libAffx_NazeeboZombieHandlerChance = 0.5;
 fixed libAffx_NazeeboZombieHandlerAdditionalChance = 0;
@@ -9,22 +9,20 @@ fixed libAffx_NazeeboHardyBonesModifier;
 int libAffx_NazeeboManyRitualsTotal;
 int libAffx_NazeeboRitualOfBoonsIndex;
 fixed libAffx_NazeeboMasterWebweaverChance = 0.5;
-// ---------------------------------------------------------------
+
+// ============================================================
 // Nazeebo - Add an empty talent when all talents on a tier are unavailable
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_NazeeboTalent7 (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_NazeeboTalents[3] += 1;
     if (libAffx_NazeeboTalents[3] == 3) {
         libAffx_ShowTalent("DoNothing7", true);
     }
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Diseased Zombies
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_NazeeboDiseasedZombiesUnitDied (bool testConds, bool runActions) {
     unit deadUnit = EventUnit();
     int owner = UnitGetOwner(deadUnit);
@@ -40,18 +38,15 @@ bool libAffx_NazeeboDiseasedZombiesUnitDied (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    } 
     random = RandomInt(1, 100);
     if (random <= libAffx_NazeeboMasterWebweaverChance * 100) {
         UnitCreateEffectUnit(libGame_gv_players[libAffx_player].lv_heroUnit, "NazeeboCorpseSpidersSpawnImpactSet", deadUnit);
     }
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Diseased Toads
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_NazeeboDiseasedToadsUnitDied (bool testConds, bool runActions) {
     unit deadUnit = EventUnit();
     int owner = UnitGetOwner(deadUnit);
@@ -64,9 +59,6 @@ bool libAffx_NazeeboDiseasedToadsUnitDied (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    } 
     random = RandomInt(1, 100);
     if (random <= libAffx_NazeeboMasterWebweaverChance * 100) {
         UnitCreateEffectUnit(libGame_gv_players[libAffx_player].lv_heroUnit, "NazeeboCorpseSpidersSpawnImpactSet", deadUnit);
@@ -74,9 +66,9 @@ bool libAffx_NazeeboDiseasedToadsUnitDied (bool testConds, bool runActions) {
     return true;
 }
 
-// ---------------------------------------------------------------
+// ============================================================
 // Power Ritual
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_NazeeboPowerRitualScaling (bool testConds, bool runActions) {
     int player = libGame_gf_HeroLevelUpPlayer();
     int level = libGame_gf_HeroLevelUpLevel();
@@ -85,21 +77,15 @@ bool libAffx_NazeeboPowerRitualScaling (bool testConds, bool runActions) {
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     libAffx_SetDefaultLevelScaling("Effect,WitchDoctorHeroWeaponDamageSplash,Amount", player);
 
     return true;
 }
 
-// ---------------------------------------------------------------
+// ============================================================
 // Zombie Handler
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_NazeeboZombieHandlerAffixAdded (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_CatalogReferenceSet("Sound,WitchDoctor_Zombie_AttackLaunch,Volume", libAffx_player, "-20,-20");
     libAffx_CatalogReferenceSet("Sound,WitchDoctor_Zombie_Attack_Impact,Volume", libAffx_player, "-20,-20");
     libAffx_CatalogReferenceSet("Sound,WitchDoctor_Zombie_Birth,Volume", libAffx_player, "-8,-8");
@@ -142,38 +128,29 @@ bool libAffx_NazeeboZombieHandlerUnitDied (bool testConds, bool runActions) {
     }
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Hardy Bones
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_NazeeboHardyBonesAffixAdded (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_NazeeboHardyBonesModifier = 0.25 * libAffx_EventAffixCount();
     
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Never Ending Swarm
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_NazeeboNeverEndingSwarmAffixAdded (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_NazeeboZombieHandlerChance = 1;
     libAffx_NazeeboZombieHandlerAllowFriendlies = true;
     
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Many Rituals
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_NazeeboManyRitualsAffixAdded (bool testConds, bool runActions) {
     unit heroUnit = libGame_gv_players[libAffx_player].lv_heroUnit;
     int amount = 20 * libAffx_EventAffixCountAdded();
-    if (!runActions) {
-        return true;
-    }
 
     if (libAffx_EventAffixCount() == libAffx_EventAffixCountAdded()) {
         amount += 20;
@@ -189,21 +166,15 @@ bool libAffx_NazeeboManyRitualsAffixAdded (bool testConds, bool runActions) {
     
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Ritual of Boons
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_NazeeboRitualofBoonsAffixAdded (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_NazeeboRitualOfBoonsIndex = libAffx_EventAffix();
     
     return true;
 }
 bool libAffx_NazeeboRitualofBoons (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_AddPlayerBehavior(libAffx_player, "WitchDoctorRitualofBoonsQuestToken", 1, false);
     
     return true;
@@ -214,22 +185,16 @@ bool libAffx_NazeeboRitualofBoonsQuestComplete (bool testConds, bool runActions)
             return false;
         }
     }
-    if (!runActions) {
-        return true;
-    }
     libAffx_QueueBoon(libAffx_rarityUncommon, 1, false, true);
     libAffx_QueueBoon(libAffx_rarityRare, 1, false, true);
     libAffx_affixes[libAffx_NazeeboRitualOfBoonsIndex].quest.questDone = true;
     
     return true;
 }
-// ---------------------------------------------------------------
+// ============================================================
 // Toad Master
-// ---------------------------------------------------------------
+// ============================================================
 bool libAffx_NazeeboToadMasterMilestone (bool testConds, bool runActions) {
-    if (!runActions) {
-        return true;
-    }
     libAffx_CatalogReferenceModify("Effect,WitchDoctorPlagueofToadsInitialPersistent,PeriodCount", libAffx_player, "2", c_upgradeOperationAdd);
     
     return true;
