@@ -46,7 +46,7 @@ def render_condition_sentence_html(
             hero_name = value[:-5] if value.endswith(" only") else value
             return f"Appears for {render_footer_highlight(hero_name)} only."
         if key == "hero-tag":
-            return f"Appears for {highlighted_value}."
+            return f"Appears for {highlighted_value} only."
         if key == "heroes-excluded":
             return f"Does not appear for {highlighted_value}."
         if key == "map-specific":
@@ -87,7 +87,9 @@ def render_condition_sentence_html(
         hero_name = value[:-5] if value.endswith(" only") else value
         return f"仅对 {render_footer_highlight(hero_name)} 生效。"
     if key == "hero-tag":
-        return f"生效英雄：{highlighted_value}。"
+        # ★ 2026-10-11：原先输出「生效英雄：仅非起始英雄。」，「生效英雄」+「仅」重复且
+        #   冒号句式与同层的「仅对 X 生效。」不一致。改为与 hero-specific 同一句式。
+        return f"仅对 {render_footer_highlight(value)} 生效。"
     if key == "heroes-excluded":
         return f"对 {highlighted_value} 不生效。"
     if key == "map-specific":

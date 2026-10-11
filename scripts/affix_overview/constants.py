@@ -40,6 +40,9 @@ MAP_NAME_OVERRIDES_PATH = CONFIG_DIR / "map_names.json"
 # ★ 英文侧地图名（2026-10-04 补）：原先英文条件复用中文表 → 英文段落里出现「毁灭之塔」等中文
 MAP_NAME_OVERRIDES_EN_PATH = CONFIG_DIR / "map_names_en.json"
 AFFIX_OVERVIEW_CONFIG_PATH = CONFIG_DIR / "overview_config.json"
+# ★ 「本版本新增/修改」清单。由 scripts/classify_changes.py 对比上游 tag 自动生成，
+#   不要手改。缺失时图鉴只是不显示标记，功能不受影响。
+VERSION_CHANGES_PATH = CONFIG_DIR / "version_changes.json"
 
 RARITY_ORDER = [
     "Starter",
@@ -109,31 +112,41 @@ STORM_COLORS = {
 }
 FIELD_VALUE_ATTRIBUTES = ("String", "Int", "value", "Value")
 # key 必须保持英文（用于匹配 mod 源数据），只汉化右侧显示文本
+# ★ 右侧不带「仅」前缀：render_affixes 的 hero-tag 分支统一组装成「仅对 X 生效。」
 HERO_TAG_LABELS = {
-    "mana": "仅法力英雄",
-    "!mana": "仅非法力英雄",
-    "melee": "仅近战英雄",
-    "!melee": "仅非近战英雄",
-    "ranged": "仅远程英雄",
-    "!ranged": "仅非远程英雄",
+    "mana": "法力英雄",
+    "!mana": "非法力英雄",
+    "melee": "近战英雄",
+    "!melee": "非近战英雄",
+    "ranged": "远程英雄",
+    "!ranged": "非远程英雄",
     "all": "所有英雄",
     "!all": "无英雄",
-    "starter": "仅起始英雄",
-    "!starter": "仅非起始英雄",
+    "starter": "起始英雄",
+    "!starter": "非起始英雄",
+    # ★ 2026-10-11 补：上游 AffixData.xml 的 SlowWalk 用 `mount` 限定
+    #   「仅对能骑乘的英雄生效」（判定见 LibAffx.galaxy libAffx_AffixSetHeroUsesMount）。
+    #   原先漏了这条映射 → 图鉴直接漏出英文 "生效英雄：mount。"
+    "mount": "可骑乘英雄",
+    "!mount": "不可骑乘英雄",
 }
 # ★ 英文侧标签（2026-10-04 补）：原先英文条件也复用上面的中文表，
 #   导致图鉴英文段落里出现「仅非起始英雄」等中文。
+# ★ 2026-10-11：与中文表对齐去掉 "only" 后缀（hero-tag 英文分支同样统一组装），
+#   并补上漏掉的 mount / !mount。
 HERO_TAG_LABELS_EN = {
-    "mana": "Mana heroes only",
-    "!mana": "Non-Mana heroes only",
-    "melee": "Melee heroes only",
-    "!melee": "Non-Melee heroes only",
-    "ranged": "Ranged heroes only",
-    "!ranged": "Non-Ranged heroes only",
+    "mana": "Mana heroes",
+    "!mana": "Non-Mana heroes",
+    "melee": "Melee heroes",
+    "!melee": "Non-Melee heroes",
+    "ranged": "Ranged heroes",
+    "!ranged": "Non-Ranged heroes",
     "all": "All heroes",
     "!all": "No heroes",
-    "starter": "Starter heroes only",
-    "!starter": "Non-Starter heroes only",
+    "starter": "Starter heroes",
+    "!starter": "Non-Starter heroes",
+    "mount": "Mount-capable heroes",
+    "!mount": "Heroes without a mount",
 }
 GITHUB_URL = "https://github.com/sobbyellow/heroesrogue"
 NAV_ITEMS = [

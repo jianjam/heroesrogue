@@ -357,8 +357,8 @@ Button/Name/Normal=普通
 Button/Name/Heroic=英雄
 Button/Name/Mythic=神话
 Button/Tooltip/Normal=无变化。
-Button/Tooltip/Heroic=敌方英雄：<n/><c val="#TooltipRed">+4%</c> 每轮的伤害、最大生命值、最大法力值、生命回复和法力回复。<n/><n/><S val="TooltipSubscript">这些属性以乘法叠加。</S>
-Button/Tooltip/Mythic=所有敌人：<n/><c val="#TooltipRed">+4%</c> <c val="747A84">（每轮 +1%）</c> 伤害、最大生命值、最大法力值、生命回复和法力回复，再乘以轮数。<n/><c val="#TooltipRed">+1%</c> 每轮经验获取。<n/><n/>第 <c val="#TooltipNumbers">14 轮</c>之后，诅咒不再转换为恩赐。<n/><n/>在游戏开始以及之后每 <c val="#TooltipNumbers">4</c> 局，将有一个强大的 <c val="A84987">神话诅咒</c>降临：
+Button/Tooltip/Heroic=敌方英雄：<n/><c val="#TooltipRed">+4%</c> 每轮的伤害、最大生命值、最大法力值、生命回复和法力回复。<n/><c val="#TooltipRed">+1%</c> 每轮经验获取。<n/><n/><S val="TooltipSubscript">这些属性以乘法叠加。</S>
+Button/Tooltip/Mythic=所有敌人：<n/><c val="#TooltipRed">+4%</c> <c val="747A84">（每轮 +1%）</c> 伤害、最大生命值、最大法力值、生命回复和法力回复，再乘以轮数。<n/><c val="#TooltipRed">+2%</c> 每轮经验获取。<n/><n/>第 <c val="#TooltipNumbers">14 轮</c>之后，诅咒不再转换为恩赐。<n/><n/>在游戏开始以及之后每 <c val="#TooltipNumbers">4</c> 局，将有一个强大的 <c val="A84987">神话诅咒</c>降临：
 Button/Name/DoNothing=无效果
 Button/SimpleDisplayText/DoNothing=无任何效果。
 Button/Tooltip/DoNothing=无任何效果。
@@ -373,10 +373,10 @@ Affix/Name/DifficultyNormal=普通
 Affix/Tooltip/DifficultyNormal=无变化。
 Affix/Tooltip/Append/DifficultyNormal=
 Affix/Name/DifficultyHeroic=英雄
-Affix/Tooltip/DifficultyHeroic=敌方英雄：<n/><c val="#TooltipRed">+4%</c> 每轮的伤害、最大生命值、最大法力值、生命回复和法力回复。<n/><n/><S val="TooltipSubscript">这些属性以乘法叠加。</S>
-Affix/Tooltip/Append/DifficultyHeroic=<n/><n/>当前总计：<n/><c val="#TooltipRed">+<d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0"/>%</c> 属性
+Affix/Tooltip/DifficultyHeroic=敌方英雄：<n/><c val="#TooltipRed">+4%</c> 每轮的伤害、最大生命值、最大法力值、生命回复和法力回复。<n/><c val="#TooltipRed">+1%</c> 每轮经验获取。<n/><n/><S val="TooltipSubscript">这些属性以乘法叠加。</S>
+Affix/Tooltip/Append/DifficultyHeroic=<n/><n/>当前总计：<n/><c val="#TooltipRed">+<d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0"/>%</c> 属性<n/><c val="#TooltipRed">+<d ref="($GalaxyVar:libAffx_heroicDifficultyXPModifier$)*100" precision="0"/>%</c> 经验获取
 Affix/Name/DifficultyMythic=神话
-Affix/Tooltip/DifficultyMythic=所有敌人：<n/><c val="#TooltipRed">+4%</c> <c val="747A84">（每轮 +1%）</c> 伤害、最大生命值、最大法力值、生命回复和法力回复，再乘以轮数。<n/><c val="#TooltipRed">+1%</c> 每轮经验获取。<n/><n/>第 <c val="#TooltipNumbers">14 轮</c>之后，诅咒不再转换为恩赐。<n/><n/>在游戏开始以及之后每 <c val="#TooltipNumbers">4</c> 局，将有一个强大的 <c val="A84987">神话诅咒</c>降临。
+Affix/Tooltip/DifficultyMythic=所有敌人：<n/><c val="#TooltipRed">+4%</c> <c val="747A84">（每轮 +1%）</c> 伤害、最大生命值、最大法力值、生命回复和法力回复，再乘以轮数。<n/><c val="#TooltipRed">+2%</c> 每轮经验获取。<n/><n/>第 <c val="#TooltipNumbers">14 轮</c>之后，诅咒不再转换为恩赐。<n/><n/>在游戏开始以及之后每 <c val="#TooltipNumbers">4</c> 局，将有一个强大的 <c val="A84987">神话诅咒</c>降临。
 Affix/Tooltip/Append/DifficultyMythic=<n/><n/>当前总计：<n/><c val="#TooltipRed">+<d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0"/>%</c> 属性<n/><c val="#TooltipRed">+<d ref="($GalaxyVar:libAffx_mythicDifficultyXPModifier$)*100" precision="0"/>%</c> 经验获取
 Affix/Name/AffixNone=？？？
 Affix/Tooltip/AffixNone=？？？
@@ -456,12 +456,12 @@ Affix/Name/NanoBoost=纳米激素
 Affix/Tooltip/NanoBoost=<c val="#TooltipGreen">+15%</c> <c val="747A84">（每层 +15%）</c> 法术强度<n/><c val="#TooltipGreen">+75%</c> <c val="747A84">（每层 +75%）</c> 基础技能冷却恢复速度<n/><c val="#TooltipGreen">+2</c> <c val="747A84">（每层 +2）</c> 法力回复
 Affix/Tooltip/NanoBoost/NoMana=<c val="#TooltipGreen">+15%</c> <c val="747A84">（每层 +15%）</c> 法术强度<n/><c val="#TooltipGreen">+75%</c> <c val="747A84">（每层 +75%）</c> 基础技能冷却恢复速度
 Affix/Tooltip/NanoBoost/Probius=<c val="#TooltipGreen">+15%</c> <c val="747A84">（每层 +15%）</c> 法术强度<n/><c val="#TooltipGreen">+75%</c> <c val="747A84">（每层 +75%）</c> 基础技能冷却恢复速度
-Affix/Tooltip/Append/NanoBoost=<n/><n/>当前总计：<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixNanoBoost,Modification.DamageDealtFraction[Ability]*100" precision="1"/>%</c> 法术强度<n/><c val="#TooltipGreen">+<d ref="$GalaxyVar:libAffx_NanoBoostCDRModifierCurrent$*100"precision="1"/>%</c> 基础技能冷却恢复速度<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixNanoBoostMana,Modification.VitalRegenArray[Energy]" precision="1"/></c> 法力回复
+Affix/Tooltip/Append/NanoBoost=<n/><n/>当前总计：<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixNanoBoost,Modification.DamageDealtFraction[Ability]*100" precision="1"/>%</c> 法术强度<n/><c val="#TooltipGreen">+<d ref="$GalaxyVar:libAffx_NanoBoostCurrentCDRModifier$*100"precision="1"/>%</c> 基础技能冷却恢复速度<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixNanoBoostMana,Modification.VitalRegenArray[Energy]" precision="1"/></c> 法力回复
 Affix/Name/BlessingoftheDragons=巨龙祝福
 Affix/Tooltip/BlessingoftheDragons=AI 队友：<n/><c val="#TooltipGreen">+500</c> <c val="747A84">（每层 +500）</c> 最大生命值<n/><c val="#TooltipGreen">+20%</c> <c val="747A84">（每层 +20%）</c> 移动速度<n/><c val="#TooltipGreen">+35%</c> <c val="747A84">（每层 +35%）</c> 基础技能冷却恢复速度
 Affix/Tooltip/BlessingoftheDragons/Cho=AI 队友：<n/><c val="#TooltipGreen">+500</c> <c val="747A84">（每层 +500）</c> 最大生命值<n/><c val="#TooltipGreen">+20%</c> <c val="747A84">（每层 +20%）</c> 移动速度<n/><c val="#TooltipGreen">+35%</c> <c val="747A84">（每层 +35%）</c> 基础技能冷却恢复速度<n/><n/>同样作用于古。
 Affix/Tooltip/BlessingoftheDragons/Gall=AI 队友：<n/><c val="#TooltipGreen">+500</c> <c val="747A84">（每层 +500）</c> 最大生命值<n/><c val="#TooltipGreen">+20%</c> <c val="747A84">（每层 +20%）</c> 移动速度<n/><c val="#TooltipGreen">+35%</c> <c val="747A84">（每层 +35%）</c> 基础技能冷却恢复速度<n/><n/>同样作用于加尔。
-Affix/Tooltip/Append/BlessingoftheDragons=<n/><n/>当前总计：<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixBlessingoftheDragons,Modification.VitalMaxArray[Life]" precision="1"/></c> 最大生命值<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixBlessingoftheDragons,Modification.UnifiedMoveSpeedFactor*100" precision="1"/>%</c> 移动速度<n/><c val="#TooltipGreen"><d ref="$GalaxyVar:libAffx_BlessingoftheDragonsCDRModifierCurrent$*100"precision="1"/>%</c> 基础技能冷却恢复速度
+Affix/Tooltip/Append/BlessingoftheDragons=<n/><n/>当前总计：<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixBlessingoftheDragons,Modification.VitalMaxArray[Life]" precision="1"/></c> 最大生命值<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixBlessingoftheDragons,Modification.UnifiedMoveSpeedFactor*100" precision="1"/>%</c> 移动速度<n/><c val="#TooltipGreen"><d ref="$GalaxyVar:libAffx_BlessingoftheDragonsCurrentCDRModifier$*100"precision="1"/>%</c> 基础技能冷却恢复速度
 Affix/Name/NexusRange=时空射程
 Affix/Tooltip/NexusRange=<c val="#TooltipGreen">+1.1</c> <c val="747A84">（每层 +0.5）</c> 攻击范围
 Affix/Tooltip/NexusRange/Greymane=<c val="#TooltipGreen">+1.1</c> <c val="747A84">（每层 +0.5）</c> <c val="f9e79f">人类</c> 攻击范围
@@ -514,11 +514,11 @@ Affix/Name/FastFeet=无影步
 Affix/Tooltip/FastFeet=<c val="#TooltipGreen">+8%</c> <c val="747A84">（每层 +8%）</c> 所有友方的移动速度。
 Affix/Tooltip/Append/FastFeet=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,AffixFastFeetBehavior,Modification.UnifiedMoveSpeedFactor*100" precision="0"/>%</c> 移动速度
 Affix/Name/QuickMount=快速坐骑
-Affix/Tooltip/QuickMount=<c val="#TooltipGreen">+40%</c> 所有友方的坐骑速度。
+Affix/Tooltip/QuickMount=友方英雄：<n/><c val="#TooltipGreen">+20%</c> 坐骑速度<n/><c val="#TooltipGreen">-50%</c> 坐骑施法时间与冷却时间
 Affix/Tooltip/Append/QuickMount=
 Affix/Name/Experienced=经验丰富
 Affix/Tooltip/Experienced=<c val="#TooltipGreen">+15%</c> <c val="747A84">（每层 +15%）</c> 所有友方的经验获取。
-Affix/Tooltip/Append/Experienced=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="$GalaxyVar:libAffx_ExperiencedModifierCurrent$" precision="0" />%</c>
+Affix/Tooltip/Append/Experienced=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="$GalaxyVar:libAffx_ExperiencedCurrentModifier$*100" precision="0" />%</c>
 Affix/Name/KillContract=击杀契约
 Affix/Tooltip/KillContract=<img path="@UI/StormTalentInTextQuestIcon" alignment="uppermiddle" color="B48E4C" width="20" height="22"/><c val="#TooltipQuest">任务：</c>英雄击杀参与提供 <c val="#TooltipNumbers">1</c> 层。进度在轮次之间会丢失。<n/><n/><c val="#TooltipQuest">奖励（25 层）：</c><n/><c val="#TooltipGreen">+1</c> <c val="ffffff">普通恩赐</c><n/><c val="#TooltipGreen">+1</c> <c val="00ff55">优秀恩赐</c>
 Affix/Tooltip/Append/KillContract=
@@ -561,10 +561,10 @@ Affix/Tooltip/ResurgenceoftheStorm=死亡后，经过 <c val="#TooltipNumbers">5
 Affix/Tooltip/ResurgenceoftheStorm/Rexxar=死亡后，经过 <c val="#TooltipNumbers">5</c> 秒在祭坛复活。该效果有 <c val="#TooltipNumbers">300</c> <c val="747A84">（每层 -60秒）</c> 秒冷却时间。<n/><n/>米莎的冷却时间减半。
 Affix/Tooltip/ResurgenceoftheStorm/LostVikings=死亡后，经过 <c val="#TooltipNumbers">5</c> 秒在祭坛复活。该效果有 <c val="#TooltipNumbers">180</c> <c val="747A84">（每层 -60秒）</c> 秒冷却时间。
 Affix/Tooltip/ResurgenceoftheStorm/Murky=死亡后，经过 <c val="#TooltipNumbers">5</c> 秒在祭坛复活。该效果有 <c val="#TooltipNumbers">300</c> <c val="747A84">（每层 -60秒）</c> 秒冷却时间。<n/><n/>在蛋存活时不会触发。
-Affix/Tooltip/Append/ResurgenceoftheStorm=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_ResurgenceoftheStormCooldownCurrent$" precision="2"/></c> 秒
+Affix/Tooltip/Append/ResurgenceoftheStorm=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_ResurgenceoftheStormCurrentCooldown$" precision="2"/></c> 秒
 Affix/Name/Bribery=贿赂
 Affix/Tooltip/Bribery=每 <c val="#TooltipNumbers">300</c> <c val="747A84">（每层 -60秒）</c> 秒自动贿赂一个中立雇佣兵营地为己方。以此方式占领的营地重生速度加快 <c val="#TooltipNumbers">50%</c>。不对首领生效。
-Affix/Tooltip/Append/Bribery=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_BriberyCooldownCurrent$" precision="2"/></c> 秒
+Affix/Tooltip/Append/Bribery=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_BriberyCurrentCooldown$" precision="2"/></c> 秒
 Affix/Name/BriberyDeepPockets=财大气粗
 Affix/Tooltip/BriberyDeepPockets=<c val="#TooltipNumbers">贿赂</c> 可对首领、哨兵和支援营地生效，并优先于普通营地。<n/><n/><c val="#TooltipGreen">+50%</c> 贿赂冷却恢复速度
 Affix/Tooltip/Append/BriberyDeepPockets=
@@ -628,7 +628,7 @@ Affix/Tooltip/ConvenientPortals=在上路和下路之间创建一个永久传送
 Affix/Tooltip/Append/ConvenientPortals=
 Affix/Name/GlobeHuffer=球痴
 Affix/Tooltip/GlobeHuffer=每 <c val="#TooltipNumbers">12</c> <c val="747A84">（每层 -4秒）</c> 秒在随机友方英雄附近生成一个恢复之球，你被选中的概率翻倍。<n/><n/><c val="#AbilityPassive">被动：</c>蓝色恢复之球变为中立的时间延长 <c val="#TooltipNumbers">100%</c>。
-Affix/Tooltip/Append/GlobeHuffer=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_GlobeHufferCooldownCurrent$" precision="2"/></c> 秒
+Affix/Tooltip/Append/GlobeHuffer=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_GlobeHufferCurrentCooldown$" precision="2"/></c> 秒
 Affix/Name/IllidanUnendingHatred=血海深仇
 Affix/Tooltip/IllidanUnendingHatred=获得 <c val="#TooltipNumbers">时空利刃</c> 和 <c val="#TooltipNumbers">无尽仇恨</c>。<n/><n/><c val="#TooltipGreen">+25%</c> 任何来源的无尽仇恨层数。<n/><n/>赢得游戏后保留 <c val="#TooltipNumbers">50%</c> 任务进度。
 Affix/Tooltip/Append/IllidanUnendingHatred=
@@ -832,7 +832,7 @@ Affix/Tooltip/RingofRegeneration=友方英雄：<n/><c val="#TooltipGreen">+12</
 Affix/Tooltip/Append/RingofRegeneration=<n/><n/>当前总计：<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixRingofRegenerationBehavior,Modification.VitalRegenArray[Life]" precision="0"/></c> 生命回复<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixRingofRegenerationBehavior,Modification.VitalMaxArray[Life]" precision="0"/></c> 最大生命值
 Affix/Name/RingofMagic=魔法之环
 Affix/Tooltip/RingofMagic=<c val="#TooltipGreen">+15%</c> <c val="747A84">（每层 +7.5%）</c> 友方英雄的技能恢复速度。
-Affix/Tooltip/Append/RingofMagic=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="$GalaxyVar:libAffx_RingofMagicModifierCurrent$*100" precision="0"/>%</c> 技能恢复速度
+Affix/Tooltip/Append/RingofMagic=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="$GalaxyVar:libAffx_RingofMagicCurrentModifier$*100" precision="0"/>%</c> 技能恢复速度
 Affix/Name/ThrallLightningRod=引雷针
 Affix/Tooltip/ThrallLightningRod=获得 <c val="#TooltipNumbers">时空利刃</c>、<c val="#TooltipNumbers">元素突袭</c> 和 <c val="#TooltipNumbers">元素动能</c>。<n/><n/>萨尔的普通攻击变为远程，并且远程专属恩赐变为可选。<n/><n/><c val="#TooltipGreen">+50%</c> 野性狼魂射程<n/><c val="#TooltipGreen">+50%</c> 闪电链施法距离<n/><n/><S val="TooltipSubscript">远程萨尔的攻击范围为 6。</S>
 Affix/Tooltip/Append/ThrallLightningRod=
@@ -928,9 +928,9 @@ Affix/Tooltip/Append/NazeeboRitualofBoons=
 Button/Name/WitchDoctorRitualofBoonsQuestToken=恩赐仪式
 Button/Tooltip/WitchDoctorRitualofBoonsQuestToken=<c val="#TooltipQuest">巫毒祭典礼数：<c val="#TooltipNumbers"><d ref="$BehaviorStackCount:WitchDoctorRitualofBoonsQuestToken$"/> / <d ref="Behavior,WitchDoctorRitualofBoonsQuestToken,Max"/></c>
 Affix/Name/SharedPower=共享力量
-Affix/Tooltip/SharedPower=AI 队友的属性随难度成长。<n/><n/>当前属性成长：<c val="#TooltipNumbers"><d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0" />%</c>
-Affix/Tooltip/SharedPower/Cho=AI 队友的属性随难度成长。<n/><n/>当前属性成长：<c val="#TooltipNumbers"><d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0" />%</c><n/><n/>不影响加尔。
-Affix/Tooltip/SharedPower/Gall=AI 队友的属性随难度成长。<n/><n/>当前属性成长：<c val="#TooltipNumbers"><d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0" />%</c><n/><n/>不影响古。
+Affix/Tooltip/SharedPower=AI 队友：<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0" />%</c> 伤害<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixDifficultyBehavior,Modification.VitalMaxFractionArray[Life]*100" precision="0" />%</c> 最大生命值<n/><n/>此数值等同于难度的属性成长系数。
+Affix/Tooltip/SharedPower/Cho=AI 队友：<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0" />%</c> 伤害<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixDifficultyBehavior,Modification.VitalMaxFractionArray[Life]*100" precision="0" />%</c> 最大生命值<n/><n/>此数值等同于难度的属性成长系数。<n/><n/>不影响加尔。
+Affix/Tooltip/SharedPower/Gall=AI 队友：<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixDifficultyBehavior,Modification.DamageDealtFraction[Ability]*100" precision="0" />%</c> 伤害<n/><c val="#TooltipGreen">+<d ref="Behavior,AffixDifficultyBehavior,Modification.VitalMaxFractionArray[Life]*100" precision="0" />%</c> 最大生命值<n/><n/>此数值等同于难度的属性成长系数。<n/><n/>不影响古。
 Affix/Tooltip/Append/SharedPower=
 Affix/Name/GiantKiller=巨人克星
 Affix/Tooltip/GiantKiller=<c val="#TooltipGreen">+2%</c> <c val="747A84">（每层 +1%）</c> 普通攻击对英雄造成的最大生命值伤害。
@@ -944,7 +944,7 @@ Affix/Tooltip/AncientBlessings=普通攻击额外造成 <c val="#TooltipNumbers"
 Affix/Tooltip/Append/AncientBlessings=
 Affix/Name/MacGuffin=麦高芬
 Affix/Tooltip/MacGuffin=<c val="#TooltipGreen">-50%</c> <c val="747A84">（每层 -25%）</c> 所有友方的目标引导时间。
-Affix/Tooltip/Append/MacGuffin=<n/><n/>当前总计：<c val="#TooltipGreen">-<d ref="$GalaxyVar:libAffx_MacGuffinModifierCurrent$*100" precision="1"/>%</c> 目标引导时间
+Affix/Tooltip/Append/MacGuffin=<n/><n/>当前总计：<c val="#TooltipGreen">-<d ref="$GalaxyVar:libAffx_MacGuffinCurrentModifier$*100" precision="1"/>%</c> 目标引导时间
 Affix/Name/DVaCrashStress=崩溃应激
 Affix/Tooltip/DVaCrashStress=D.Va 的机甲被摧毁时，你会被减速 <c val="#TooltipNumbers">40%</c>、护甲降低 <c val="#TooltipNumbers">15</c>，且视野大幅缩减，持续 <c val="#TooltipNumbers">5</c> 秒。
 Affix/Tooltip/Append/DVaCrashStress=
@@ -1153,7 +1153,7 @@ Affix/Tooltip/Strength=<c val="#TooltipGreen">+25%</c> <c val="747A84">（每层
 Affix/Tooltip/Append/Strength=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,AffixStrength,Modification.DamageDealtFraction[Basic]*100" player="1" precision="0" />%</c> 伤害
 Affix/Name/AutoMULE=自动矿骡
 Affix/Tooltip/AutoMULE=自动在随机受损友方建筑附近空投矿骡，每秒修复该建筑最大生命值的 <c val="#TooltipNumbers">10%</c>。<n/><n/>该效果有 <c val="#TooltipNumbers">60</c> <c val="747A84">（每层 -20秒）</c> 秒冷却时间。
-Affix/Tooltip/Append/AutoMULE=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_AutoMULECooldownCurrent$"/></c> 秒
+Affix/Tooltip/Append/AutoMULE=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_AutoMULECurrentCooldown$"/></c> 秒
 Affix/Name/SecondWind=复苏之风
 Affix/Tooltip/SecondWind=受到致命伤害时，获得 <c val="#TooltipNumbers">4</c> 秒保护。<n/><n/>该效果有 <c val="#TooltipNumbers">300</c> 秒冷却时间。
 Affix/Tooltip/Append/SecondWind=
@@ -1452,6 +1452,9 @@ Affix/Tooltip/Append/ValeeraVigor=<n/><n/>当前总计：<c val="#TooltipGreen">
 Affix/Name/ZaryaCapacitor=电容器
 Affix/Tooltip/ZaryaCapacitor=<c val="#TooltipGreen">+10</c> <c val="747A84">（每层 +10）</c> 最大能量
 Affix/Tooltip/Append/ZaryaCapacitor=<n/><n/>当前总计：<c val="#TooltipGreen">+<d ref="Behavior,ZaryaCapacitorCarry,Modification.VitalMaxArray[Energy]" /></c> 最大能量
+Affix/Name/Weaken=虚弱
+Affix/Tooltip/Weaken=<c val="#TooltipGreen">-10%</c> <c val="747A84">（每层 -10%）</c> 敌方小兵起始生命值。
+Affix/Tooltip/Append/Weaken=<n/><n/>当前总计：<c val="#TooltipGreen">-<d ref="$GalaxyVar:libAffx_WeakenCurrentModifier$*100" precision="0" />%</c> 起始生命值
 Affix/Name/MoreOptions=更多选项
 Affix/Tooltip/MoreOptions=<c val="#TooltipGreen">+1</c> 选择恩赐或诅咒时的可选数量。<n/><c val="#TooltipGreen">+2</c> 恩赐与诅咒重掷次数。
 Affix/Tooltip/Append/MoreOptions=
@@ -1514,7 +1517,7 @@ Affix/Tooltip/NoFountain=你所有治疗之泉被摧毁。
 Affix/Tooltip/Append/NoFountain=
 Affix/Name/BadBargain=亏本交易
 Affix/Tooltip/BadBargain=<c val="#TooltipRed">+50%</c> <c val="747A84">（每层 +50%）</c> 所有友方英雄的重生计时。
-Affix/Tooltip/Append/BadBargain=<n/><n/>当前总计：<c val="#TooltipRed">+<d ref="$GalaxyVar:libAffx_BadBargainModifierCurrent$*100" precision="1"/>%</c> 重生计时
+Affix/Tooltip/Append/BadBargain=<n/><n/>当前总计：<c val="#TooltipRed">+<d ref="$GalaxyVar:libAffx_BadBargainCurrentModifier$*100" precision="1"/>%</c> 重生计时
 Affix/Name/FaultyCatapults=故障投石车
 Affix/Tooltip/FaultyCatapults=友方投石车：<n/><c val="#TooltipRed">-50%</c> 攻击速度<n/><c val="#TooltipRed">-3</c> 攻击范围
 Affix/Tooltip/Append/FaultyCatapults=
@@ -1526,7 +1529,7 @@ Affix/Tooltip/Resilience=<c val="#TooltipRed">+15%</c> <c val="747A84">（每层
 Affix/Tooltip/Append/Resilience=<n/><n/>当前总计：<c val="#TooltipRed">+<d ref="Behavior,AffixResilienceBehavior,Modification.VitalMaxFractionArray[Life]*100" precision="0"/>%</c> 最大生命值
 Affix/Name/ChronoBoost=时空加速
 Affix/Tooltip/ChronoBoost=所有敌人：<n/><c val="#TooltipRed">+10%</c> <c val="747A84">（每层 +10%）</c> 移动速度<n/><c val="#TooltipRed">+20%</c> <c val="747A84">（每层 +20%）</c> 技能恢复速度
-Affix/Tooltip/Append/ChronoBoost=<n/><n/>当前总计：<c val="#TooltipRed">+<d ref="Behavior,AffixChronoBoostBehavior,Modification.UnifiedMoveSpeedFactor*100" precision="0"/>%</c> 移动速度<n/><c val="#TooltipRed">+<d ref="$GalaxyVar:libAffx_ChronoBoostCDRModifierCurrent$*100" precision="1"/>%</c> 技能恢复速度
+Affix/Tooltip/Append/ChronoBoost=<n/><n/>当前总计：<c val="#TooltipRed">+<d ref="Behavior,AffixChronoBoostBehavior,Modification.UnifiedMoveSpeedFactor*100" precision="0"/>%</c> 移动速度<n/><c val="#TooltipRed">+<d ref="$GalaxyVar:libAffx_ChronoBoostCurrentCDRModifier$*100" precision="1"/>%</c> 技能恢复速度
 Affix/Name/AlteracsLegacy=奥特兰克的遗产
 Affix/Tooltip/AlteracsLegacy=敌方要塞与要塞炮塔：<n/><c val="#TooltipRed">+20</c> 每座未被摧毁的敌方要塞提供的护甲。
 Affix/Tooltip/Append/AlteracsLegacy=
@@ -1562,7 +1565,7 @@ Affix/Tooltip/ManyHeroics=敌方英雄获得全部终极技能。
 Affix/Tooltip/Append/ManyHeroics=
 Affix/Name/ChainedDown=束缚
 Affix/Tooltip/ChainedDown=<c val="#TooltipRed">+25%</c> <c val="747A84">（每层 +25%）</c> 对友方英雄的眩晕、减速、定身和沉默持续时间。
-Affix/Tooltip/Append/ChainedDown=<n/><n/>当前总计：<c val="#TooltipRed">+<d ref="$GalaxyVar:libAffx_ChainedDownModifierCurrent$*100" precision="1"/>%</c> 控制效果持续时间
+Affix/Tooltip/Append/ChainedDown=<n/><n/>当前总计：<c val="#TooltipRed">+<d ref="$GalaxyVar:libAffx_ChainedDownCurrentModifier$*100" precision="1"/>%</c> 控制效果持续时间
 Affix/Name/Overleveled=等级压制
 Affix/Tooltip/Overleveled=<c val="#TooltipRed">+1</c> 敌方等级
 Affix/Tooltip/Append/Overleveled=
@@ -1619,7 +1622,7 @@ Affix/Tooltip/LavaWave=每 <c val="#TooltipNumbers">120</c> 秒，敌方队伍�
 Affix/Tooltip/Append/LavaWave=
 Affix/Name/DivineIntervention=神圣干预
 Affix/Tooltip/DivineIntervention=当敌方英雄生命值低于 <c val="#TooltipNumbers">25%</c> 时，对其施放圣灵掌。<n/><n/>该效果有 <c val="#TooltipNumbers">300</c> <c val="747A84">（每层 -60秒）</c> 秒冷却时间。
-Affix/Tooltip/Append/DivineIntervention=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_DivineInterventionCooldownCurrent$" precision="0"/></c> 秒
+Affix/Tooltip/Append/DivineIntervention=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_DivineInterventionCurrentCooldown$" precision="0"/></c> 秒
 Affix/Name/MassCloak=群体隐身
 Affix/Tooltip/MassCloak=敌方英雄脱离战斗 <c val="#TooltipNumbers">3</c> 秒后进入隐身状态。
 Affix/Tooltip/Append/MassCloak=
@@ -1658,7 +1661,7 @@ Affix/Tooltip/Injury=<c val="#TooltipRed">-10%</c> 受到的治疗量<n/><n/>你
 Affix/Tooltip/Append/Injury=
 Affix/Name/Relentless=百折不挠
 Affix/Tooltip/Relentless=<c val="#TooltipRed">-15%</c> <c val="747A84">（每层 -15%）</c> 敌方英雄受到的眩晕、减速、定身和沉默持续时间缩短。
-Affix/Tooltip/Append/Relentless=<n/><n/>当前总计：<c val="#TooltipRed">-<d ref="$GalaxyVar:libAffx_RelentlessModifierCurrent$*100" precision="1"/>%</c> 控制效果持续时间
+Affix/Tooltip/Append/Relentless=<n/><n/>当前总计：<c val="#TooltipRed">-<d ref="$GalaxyVar:libAffx_RelentlessCurrentModifier$*100" precision="1"/>%</c> 控制效果持续时间
 Affix/Name/Dodge=躲闪
 Affix/Tooltip/Dodge=<c val="#TooltipRed">+5%</c> <c val="747A84">（每层 +5%）</c> 敌方英雄的闪避几率。<n/><n/><S val="TooltipSubscript">敌人在躲避攻击或法术时不会受到伤害。</S>
 Affix/Tooltip/Append/Dodge=<n/><n/>当前总计：<c val="#TooltipRed">+<d ref="Behavior,AffixDodgeController,DamageResponse.Chance*100" player="6" precision="0"/>%</c> 闪避几率
@@ -1667,7 +1670,7 @@ Affix/Tooltip/ExpensiveAttacks=<c val="#TooltipRed">+4</c> 普通攻击的法力
 Affix/Tooltip/Append/ExpensiveAttacks=
 Affix/Name/LastMoments=最后时刻
 Affix/Tooltip/LastMoments=生命值低于 <c val="#TooltipNumbers">35%</c> 时受到伤害，便会被施放断魂仪式。<n/><n/>此效果的冷却时间为 <c val="#TooltipNumbers">300</c> <c val="747A84">（每层 -60s）</c> 秒。<n/><n/><S val="TooltipSubscript">伤害随敌方核心成长。</S>
-Affix/Tooltip/Append/LastMoments=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_LastMomentsCooldownCurrent$" precision="0"/></c> 秒
+Affix/Tooltip/Append/LastMoments=<n/><n/>冷却时间：<c val="#TooltipNumbers"><d ref="$GalaxyVar:libAffx_LastMomentsCurrentCooldown$" precision="0"/></c> 秒
 Affix/Name/ThrallSlowfury=慢怒
 Affix/Tooltip/ThrallSlowfury=<c val="#TooltipRed">-50%</c> 风怒攻击速度
 Affix/Tooltip/Append/ThrallSlowfury=
@@ -1750,3 +1753,12 @@ Affix/Tooltip/Append/ARAM=
 Affix/Name/NotYourGlobes=不是你的球！
 Affix/Tooltip/NotYourGlobes=敌方领队小兵掉落红色恢复之球。
 Affix/Tooltip/Append/NotYourGlobes=
+Affix/Name/SlowWalk=慢点走
+Affix/Tooltip/SlowWalk=你将无法再使用坐骑。
+Affix/Tooltip/Append/SlowWalk=
+Affix/Name/TrueStealth=隐形
+Affix/Tooltip/TrueStealth=敌方英雄不会显示在小地图上。
+Affix/Tooltip/Append/TrueStealth=
+Affix/Name/Reckless=鲁莽
+Affix/Tooltip/Reckless=隐藏你英雄上方的状态栏。
+Affix/Tooltip/Append/Reckless=

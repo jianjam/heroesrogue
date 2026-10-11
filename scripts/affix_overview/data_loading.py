@@ -144,6 +144,55 @@ def load_hidden_affix_ids(path: Path) -> set[str]:
     return {affix_id.strip() for affix_id in hidden_affixes if affix_id.strip()}
 
 
+def load_version_changes(path: Path) -> dict[str, dict[str, list[str]]]:
+    """读「本版本新增/修改」清单。
+
+    返回 {affix_id: {"status": "added"|"modified", "fields": [...]}}。
+    文件缺失或格式不对时返回空 dict —— 标记是增强功能，
+    不能因为它坏了就让整个图鉴生成失败。
+    """
+    if not path.exists():
+        return {}
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+    if not isinstance(raw, dict):
+        return {}
+
+    result: dict[str, dict[str, list[str]]] = {}
+    for affix_id in raw.get("added", []) or []:
+        if isinstance(affix_id, str) and affix_id.strip():
+            result[affix_id.strip()] = {"status": "added", "fields": []}
+    modified = raw.get("modified", {}) or {}
+    if isinstance(modified, dict):
+        for affix_id, fields in modified.items():
+            if not isinstance(affix_id, str) or not affix_id.strip():
+                continue
+            clean = [f for f in fields if isinstance(f, str)] if isinstance(fields, list) else []
+            # added 与 modified 同时命中时，以 added 为准（对玩家更醒目）
+            if affix_id.strip() in result:
+                continue
+            result[affix_id.strip()] = {"status": "modified", "fields": clean}
+    return result
+
+
+def load_version_labels(path: Path) -> tuple[str, str]:
+    """返回 (对比基准版本, 当前版本)，缺失时 ("", "")。"""
+    if not path.exists():
+        return "", ""
+    try:
+        raw = json.loads(path.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return "", ""
+    if not isinstance(raw, dict):
+        return "", ""
+    return (
+        str(raw.get("baseline_version", "") or ""),
+        str(raw.get("version", "") or ""),
+    )
+
+
 def extract_function_body(path: Path, signature: str) -> str:
     text = path.read_text(encoding="utf-8")
     start = text.find(signature)
@@ -360,6 +409,25 @@ def instance_field_lists(instance: ET.Element | None) -> dict[str, list[str]]:
 def is_affix_enabled(fields: dict[str, str]) -> bool:
     enabled_value = fields.get("Enabled", "1").strip()
     return enabled_value not in {"", "0"}
+
+
+def is_ignored_for_stats(fields: dict[str, str]) -> bool:
+    """IgnoredForStats=true 的条目不是玩家可选内容，不该出现在图鉴。
+
+    典型是 3 个难度条目（普通/英雄/神话）。它们 Curse=1，若不过滤就会
+    混进「诅咒」列表 —— 但难度本身已有独立视图展示，且这几条的tooltip
+    描述的是难度规则，不是诅咒效果。
+
+    🔴 **不能用 NoRoll 判据**：10 条神话诅咒（Sabotage/Citadel/Bleeding…）
+    也带 NoRoll=1，但它们是正规游戏内容，必须显示。
+
+    历史上 overview_config.json 曾写死 DifficultyEasy/DifficultyNormal/
+    DifficultyHard，但上游 v0.17.x 已把 id 改成
+    DifficultyNormal/DifficultyHeroic/DifficultyMythic，导致两个难度漏过滤。
+    改用字段判定后，上游再改命名也不会失效。
+    """
+    value = fields.get("IgnoredForStats", "").strip()
+    return value not in {"", "0"}
 
 
 def parse_int_field(
@@ -666,12 +734,20 @@ def load_affixes(
         field_lists = instance_field_lists(instance)
         if not is_affix_enabled(fields):
             continue
+        if is_ignored_for_stats(fields):
+            continue
 
         name_key = f"Affix/Name/{affix_id}"
         tooltip_key = f"Affix/Tooltip/{affix_id}"
+        # ★ 2026-10-10修复：中文缺 key 时整个恩赐被跳过 → 新恩赐/新诅咒完全不进图鉴。
+        #   改为中文缺失时回落到英文（英文也缺才跳过），保证图鉴始终收录 mod 里定义的条目。
         name = strings.get(name_key)
         tooltip = strings.get(tooltip_key)
-        if name is None or tooltip is None:
+        if name is None:
+            name = en_strings.get(name_key, "")
+        if tooltip is None:
+            tooltip = en_strings.get(tooltip_key, "")
+        if not name or not tooltip:
             continue
 
         tooltip_html, tooltip_plain, tooltip_footnotes = convert_storm_markup(

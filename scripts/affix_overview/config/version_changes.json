@@ -1,0 +1,81 @@
+{
+  "_comment": [
+    "「本版本新增 / 修改」的 affix 清单。",
+    "由 scripts/classify_changes.py 对比上游 tag 自动生成，不要手改：",
+    "  python scripts/classify_changes.py v0.17.1 v0.17.2 --out scripts/affix_overview/config/version_changes.json",
+    "",
+    "判据：仅「数值/效果/触发器」变动才算 modified；纯英文文案改写不算",
+    "（用户 2026-10-10 定：玩家能感知的变化才值得提示）。",
+    "modified 的值是改动涉及的字段名，仅用于说明改动性质。"
+  ],
+  "baseline_version": "v0.17.1",
+  "version": "v0.17.2",
+  "added": [
+    "Reckless",
+    "SlowWalk",
+    "TrueStealth",
+    "Weaken"
+  ],
+  "modified": {
+    "AmplifiedHealing": [
+      "CatalogModification",
+      "Trigger"
+    ],
+    "Bribery": [
+      "Trigger"
+    ],
+    "GatheringPower": [
+      "CatalogModification",
+      "Trigger"
+    ],
+    "LostVikingsButtonMasher": [
+      "Trigger"
+    ],
+    "MercenaryLord": [
+      "CatalogModification"
+    ],
+    "MuradinFastPunch": [
+      "Trigger"
+    ],
+    "NexusFrenzy": [
+      "CatalogModification"
+    ],
+    "PhysicalArmor": [
+      "CatalogModification",
+      "Max"
+    ],
+    "QuickMount": [
+      "Trigger"
+    ],
+    "ReinforcedWalls": [
+      "Trigger"
+    ],
+    "RingofRegeneration": [
+      "CatalogModification",
+      "Trigger"
+    ],
+    "SearingAttacks": [
+      "CatalogModification",
+      "Trigger"
+    ],
+    "SpellArmor": [
+      "CatalogModification",
+      "Max"
+    ],
+    "WeakPoint": [
+      "Trigger"
+    ]
+  },
+  "text_only": [
+    "ByeBye",
+    "DifficultyHeroic",
+    "DifficultyMythic",
+    "Experienced",
+    "GlobeCollector",
+    "LeagueofHeroes",
+    "MacGuffin",
+    "PassiveAdvantage",
+    "SharedPower"
+  ],
+  "removed": []
+}

@@ -23,6 +23,19 @@ rem  tested 2026-10-05: gh-proxy.com ~24 MB/s (fast), ghfast.top works but slow 
 rem  gh-proxy.cc / ghproxy.net / mirror.ghproxy.com all failed, keep them out
 set "PROXIES=https://gh-proxy.com/ https://ghfast.top/"
 
+rem  ==== installer self-update ====
+rem  SELF_VER is this script's own version. Bump it whenever a new installer is
+rem  published; it is compared against this repo's latest "installer-vX.Y" tag.
+rem  No state file on disk: the version lives in the script and nowhere else.
+set "SELF_VER=0.1"
+rem  SU_CHECKED is set once the version check has run at least once, so the
+rem  header can say so instead of showing an empty state.
+rem  SU_LATEST holds the version reported by the release feed once checked;
+set "SU_CHECKED="
+set "SU_LATEST="
+set "SU_CHECKED="
+set "SELFAPI=https://api.github.com/repos/jianjam/heroesrogue/releases/latest"
+
 rem  The folder holding this script IS the game install folder
 set "GAMEDIR=%~dp0"
 if "!GAMEDIR:~-1!"=="\" set "GAMEDIR=!GAMEDIR:~0,-1!"
@@ -47,6 +60,10 @@ if not exist "%GAMEDIR%\Mods" goto noperm
 if not exist "%GAMEDIR%\maps" goto noperm
 if defined PROBE_MODS rd "%GAMEDIR%\Mods" >nul 2>&1
 if defined PROBE_MAPS rd "%GAMEDIR%\maps" >nul 2>&1
+
+rem  Swap in a newer build before showing the menu. Silent, and never fatal:
+rem  any failure here just keeps the current build.
+call :check_self_update
 
 :menu
 call :refresh_state
@@ -168,7 +185,6 @@ rem ============================================================
 rem  screen
 rem ============================================================
 
-
 rem ============================================================
 rem  ascii art logo, shown on every screen
 rem ============================================================
@@ -192,9 +208,41 @@ echo  !LG6!
 echo  ===================================================================
 exit /b 0
 
+:show_selfupdate_line
+rem  Build SULINE for the menu, then print the same news under the title
+set "SULINE=安装器 v!SELF_VER!"
+if defined SU_LATEST goto su_line_have
+if defined SU_CHECKED goto su_line_fail
+goto su_line_print
+:su_line_have
+if "!SU_LATEST!"=="!SELF_VER!" (
+  set "SULINE=安装器 v!SELF_VER!（已是最新）"
+) else (
+  set "SULINE=安装器 v!SELF_VER!  发现新版本 v!SU_LATEST!，本次运行结束后自动更新"
+)
+goto su_line_print
+:su_line_fail
+set "SULINE=安装器 v!SELF_VER!（检查更新失败，继续使用当前版本）"
+:su_line_print
+if defined SU_LATEST goto su_p_new
+if defined SU_CHECKED goto su_p_fail
+echo    安装器 v!SELF_VER!
+exit /b 0
+:su_p_new
+if "!SU_LATEST!"=="!SELF_VER!" goto su_p_plain
+echo    发现新版本 v!SU_LATEST!，本次运行结束后自动更新
+exit /b 0
+:su_p_fail
+echo    检查更新失败，将继续使用当前版本 v!SELF_VER!
+exit /b 0
+:su_p_plain
+echo    安装器 v!SELF_VER!（已是最新）
+exit /b 0
+
 :show_header
 call :show_logo
-echo    Heroes Rogue  简体中文安装器
+call :show_selfupdate_line
+echo    Heroes Rogue  简体中文安装器                     安装器版本 v!SELF_VER!
 exit /b 0
 
 :build_status
@@ -210,6 +258,7 @@ exit /b 0
 
 :show_menu
 echo   当前状态：!LOCSTATE!   最新版本：!NETSTATE!   中文：!ZHSTATE!
+echo   !SULINE!
 echo   游戏目录：!GAMEDIR!
 echo.
 echo  -------------------------------------------------------------------
@@ -361,8 +410,8 @@ rem ============================================================
 
 :fetch
 rem  %1 = target file   %2.. = candidate URLs tried in order
-rem  MODE=bar shows a progress bar (big files), MODE=plain stays quiet (small files)
-set "FTOUT=%~1"
+rem  MODE=bar shows a progress bar (big), MODE=plain stays quiet (small),
+rem  defining FETCHQUIET also hides the "trying..." banner (self-update)
 set "FTOK="
 shift
 :fetch_loop
@@ -370,15 +419,15 @@ if "%~1"=="" goto fetch_end
 if not defined FTOK (
   echo.
   set "FURL=%~1"
-  echo         正在尝试：!FURL!
-  echo         --------------------------------------------
+  if not defined FETCHQUIET echo         正在尝试：!FURL!
+  if not defined FETCHQUIET echo         --------------------------------------------
   del /f /q "%FTOUT%" >nul 2>&1
   if /i "!FETCHMODE!"=="bar" (
     curl -L -f -S --connect-timeout 15 --retry 1 --progress-bar -o "%FTOUT%" "%~1"
   ) else (
     curl -L -f -sS --connect-timeout 15 --retry 1 -o "%FTOUT%" "%~1" >nul 2>&1
   )
-  echo         --------------------------------------------
+  if not defined FETCHQUIET echo         --------------------------------------------
   if not errorlevel 1 (
     if exist "%FTOUT%" for %%F in ("%FTOUT%") do if %%~zF GTR 0 set "FTOK=1"
   )
@@ -389,6 +438,120 @@ goto fetch_loop
 if defined FTOK exit /b 0
 del /f /q "%FTOUT%" >nul 2>&1
 exit /b 1
+
+rem ============================================================
+rem  installer self-update
+rem ============================================================
+
+rem  A running batch file cannot delete or overwrite itself (cmd holds the
+rem  handle open), so the swap is done by a detached helper that waits a
+rem  moment and then copies the new file over this one. cmd reads scripts
+rem  line by line, so the current run finishes normally and the new build
+rem  takes effect on the next launch.
+rem
+rem  Silent by design: this is an installer, not an app. Nothing is printed
+rem  unless something goes wrong, and even then the old build still works.
+
+:check_self_update
+set "SU_VER="
+set "SU_TAG="
+set "SU_FNEW=%TMPD%\hr_selfupdate.bat"
+if not exist "%TMPD%" mkdir "%TMPD%" >nul 2>&1
+if exist "%SU_FNEW%" del /f /q "%SU_FNEW%" >nul 2>&1
+
+rem  ask github which installer is the current one; proxy first, direct last
+set "SU_APIF=%TMPD%\hr_self_api.json"
+if exist "%SU_APIF%" del /f /q "%SU_APIF%" >nul 2>&1
+for %%P in (%PROXIES%) do if not exist "%SU_APIF%" curl -L -f -sS --connect-timeout 8 -o "%SU_APIF%" "%%P%SELFAPI%" >nul 2>&1
+if not exist "%SU_APIF%" curl -L -f -sS --connect-timeout 8 -o "%SU_APIF%" "%SELFAPI%" >nul 2>&1
+if not exist "%SU_APIF%" goto su_fail
+
+rem  pull tag_name out of the json, e.g.  "tag_name": "installer-v0.2",
+set "SU_RAW="
+for /f "usebackq delims=" %%L in (`findstr /c:"tag_name" "%SU_APIF%" 2^>nul`) do call :su_takeline "%%L"
+del /f /q "%SU_APIF%" >nul 2>&1
+if not defined SU_RAW goto su_fail
+
+rem  installer-v0.2 -> 0.2, then compare against our own version
+call :su_parseref
+if errorlevel 1 goto su_fail
+set "SU_LATEST=!SU_VER!"
+if "!SU_VER!"=="!SELF_VER!" exit /b 0
+
+rem  fetch the newer build
+set "SU_URL=https://github.com/jianjam/heroesrogue/releases/download/!SU_TAG!/heroesrogue_install-zhcn.bat"
+set "FETCHQUIET=1"
+set "FETCHMODE=plain"
+for %%P in (%PROXIES%) do if not exist "%SU_FNEW%" call :fetch "%SU_FNEW%" "%%P%SU_URL%"
+if not exist "%SU_FNEW%" call :fetch "%SU_FNEW%" "%SU_URL%"
+set "FETCHQUIET="
+if not exist "%SU_FNEW%" goto su_dlfail
+call :verify_selfupdate "%SU_FNEW%"
+if errorlevel 1 goto su_badfile
+
+rem  A copy /Y over a file cmd is currently reading can fail, so hold off
+rem  until this run is done reading. ping -n 4 waits about 3 s.
+rem  NOTE: build the helper path in its own variable. "%VAR:~0,-4%.tmp"
+rem  does NOT work, a substring modifier cannot be followed by literal text.
+rem  The helper must end in .cmd -- start cannot execute a .tmp file.
+set "SU_HELP=%TMPD%\hr_selfreplace.cmd"
+if exist "%SU_HELP%" del /f /q "%SU_HELP%" >nul 2>&1
+> "%SU_HELP%" echo @echo off
+>> "%SU_HELP%" echo ping -n 4 127.0.0.1 ^>nul
+>> "%SU_HELP%" echo copy /y "%SU_FNEW%" "%~f0" ^>nul 2^>^&1
+start "" /b "%SU_HELP%"
+set "SU_CHECKED=1"
+exit /b 0
+
+:su_fail
+rem  no usable answer from the release feed, keep the current build
+set "SU_LATEST="
+set "SU_CHECKED=1"
+exit /b 0
+
+:su_dlfail
+rem  a newer build was announced but the download never arrived
+set "SU_CHECKED=1"
+echo.
+echo   【注意】发现新版本 v!SU_VER!，但下载失败，请检查网络后重试。
+exit /b 0
+
+:su_badfile
+rem  the download was not a real installer, throw it away
+del /f /q "%SU_FNEW%" >nul 2>&1
+set "SU_CHECKED=1"
+exit /b 0
+
+:su_takeline
+rem  keep only the first tag_name line, stripped of json punctuation
+if defined SU_RAW exit /b 0
+set "SU_L=%~1"
+set "SU_L=!SU_L:"=!"
+set "SU_L=!SU_L:tag_name:=!"
+set "SU_L=!SU_L:,=!"
+set "SU_L=!SU_L: =!"
+set "SU_RAW=!SU_L!"
+exit /b 0
+
+:su_parseref
+rem  turn "installer-v0.2" into SU_VER=0.2 ; errorlevel 1 when it is not ours
+set "SU_VER="
+set "SU_TAG=!SU_RAW!"
+set "SU_PRE=!SU_TAG:~0,11!"
+if /i not "!SU_PRE!"=="installer-v" exit /b 1
+set "SU_VER=!SU_TAG:~11!"
+if not defined SU_VER exit /b 1
+exit /b 0
+
+:verify_selfupdate
+set "VU=%~1"
+if not exist "%VU%" exit /b 1
+for %%F in ("%VU%") do if %%~zF LSS 10000 exit /b 1
+findstr /c:"Heroes of the Storm.exe" "%VU%" >nul 2>&1
+if errorlevel 1 exit /b 1
+findstr /c:"SELF_VER" "%VU%" >nul 2>&1
+if errorlevel 1 exit /b 1
+exit /b 0
 
 rem ============================================================
 rem  version
@@ -526,8 +689,6 @@ exit /b 0
 rem ============================================================
 rem  files
 rem ============================================================
-
-
 
 rem  Check the download really is GameStrings.txt.
 rem  1) big enough (real file ~200 KB, an HTML error page is a few KB)

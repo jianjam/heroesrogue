@@ -1,7 +1,15 @@
 {
-  "hidden_affixes": [
-    "DifficultyEasy",
-    "DifficultyNormal",
-    "DifficultyHard"
-  ]
+  "_comment": [
+    "不在图鉴中显示的 affix id（人工例外，一般留空）。",
+    "",
+    "历史：这里曾写死 DifficultyEasy/DifficultyNormal/DifficultyHard，",
+    "但上游 v0.17.x 已把难度 id 改成 DifficultyNormal/DifficultyHeroic/DifficultyMythic，",
+    "导致「英雄难度」「神话难度」两条混进诅咒列表",
+    "（它们 Curse=1，但不是玩家可选的恩赐/诅咒）。",
+    "",
+    "现在改由 build_spa.py 自动排除 AffixData.xml 中 IgnoredForStats=true 的条目 ——",
+    "该字段精确命中内部 [Default] + 3 个难度（共 4 条），不误伤任何正常内容。",
+    "按NoRoll 排除是错的：10 条神话诅咒也带 NoRoll，但它们是正规游戏内容。"
+  ],
+  "hidden_affixes": []
 }
