@@ -1,11 +1,26 @@
 name: Regenerate Docs
 
-# 中文恩赐/诅咒图鉴自动重建。
-# 站点源码在 docs/，生成器在 scripts/build_spa.py，输入是 mod 自带的游戏数据 +
-# 本仓库的汉化文件（zhCN/.../GameStrings.txt）。汉化更新后自动重建并提交。
+# 中文恩赐/诅咒图鉴的**兜底**重建。
 #
-# 图鉴的 416 个图标是一次性从 mod 贴图与暴雪游戏素材中提取后放入 docs/icons/ 的，
-# Actions 不会重新生成图标 —— 只有 mod 新增了引用新图标的恩赐时才需要手动补。
+# 🔴 **本workflow 不是站点上线的前提条件**（2026-10-12 核实）：
+#    站点走 GitHub Pages 经典模式（源 = master 分支的 /docs 目录，
+#    `gh api repos/jianjam/heroesrogue/pages` → build_type: legacy），
+#    只要 docs/index.html 在仓库里就一直是活的，与本文件无关。
+#
+#    上游 Errorb0t 之所以需要它：他是英文站，原作者改 enUS GameStrings.txt，
+#    机器直接重建即可，全程无人值守。
+#    我们不同 —— 汉化必须人工逐条翻译，翻译过程中本来就会打开
+#    build_spa.py 校对，产物顺手就出来了。所以**日常流程是本地重建 + 推产物**。
+#
+#    本workflow 的唯一价值：**兜底**「改了脚本/汉化但忘记重建」这种失误。
+#    没有它，站点会静默停留在旧内容上，且没有任何提示。
+#
+# 为避免干扰日常推送，提交前会**忽略构建时间戳**做比对：
+# 产物里有两处运行时时间戳，若不归一化，每次跑都判定「有改动」→
+# 产生一个纯时间戳的提交，让本地后续 push 被拒。
+#
+# 图鉴的 321 个图标是一次性从 mod 贴图与暴雪游戏素材中提取后放入 docs/icons/ 的，
+# 本workflow 不会重新生成图标 —— 只有 mod 新增了引用新图标的恩赐时才需要手动补。
 
 on:
   workflow_dispatch:
@@ -21,6 +36,10 @@ on:
       - "mods/HeroesRogue.StormMod/Base.StormData/GameData/AffixData.xml"
       # 生成器自身改动
       - "scripts/**"
+      # 🔴 docs/** 刻意**不在**列表里（2026-10-12 定）：
+      #    我们自己推产物，如果这里也监听，Actions 会与我们抢写入权 ——
+      #    它只认 checkout 到的那份源码，可能用旧版本覆盖我们刚推的内容。
+      #    兜底只针对「改了脚本/数据却忘了重建产物」，纯产物变更不需要它。
 
 permissions:
   contents: write
@@ -72,10 +91,39 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Commit and push docs
+        # 🔴 **忽略构建时间戳再判断有无变化**（2026-10-12 加）
+        #
+        # 为什么：产物里有两处时间戳（页头 window.__BUILT_AT 与页脚
+        # 「本页生成于 ...built-at」），它们由运行时决定，**每次都不同**。
+        # 直接 `git diff --cached --quiet` 会永远判定「有改动」→
+        # 哪怕内容一字未变也会提交一次 → 产生一个纯时间戳的提交，
+        # 让本地后续 push 被拒（要先 merge）。
+        #
+        # 🔴 为什么不用 `git diff -w` 或 `--ignore-matching-lines`：
+        #   时间戳与「本页生成于」文字在**同一行**内，
+        #   这两个选项都只作用于「整行匹配」，对它无效。
+        #   正解：把暂存区那份的时间戳原地改成 HEAD 里的值再比较。
         run: |
-          git add docs
+          # 把暂存区 index.html 里的时间戳替换成 HEAD 版本里的值。
+          # 两个占位符（页头/页脚）都要处理。
+          HEAD_STAMP=""
+          if git cat-file -e HEAD:docs/index.html 2>/dev/null; then
+            HEAD_STAMP=$(git show HEAD:docs/index.html \
+              | grep -oE '__BUILT_AT = "[^"]*"' \
+              | head -1 | sed 's/.*"\(.*\)"/\1/')
+          fi
+          if [ -n "$HEAD_STAMP" ]; then
+            NEW_STAMP=$(grep -oE '__BUILT_AT = "[^"]*"' docs/index.html \
+              | head -1 | sed 's/.*"\(.*\)"/\1/')
+            if [ -n "$NEW_STAMP" ] && [ "$NEW_STAMP" != "$HEAD_STAMP" ]; then
+              sed -i "s/${NEW_STAMP}/${HEAD_STAMP}/g" docs/index.html
+              echo "Normalized build stamp ${NEW_STAMP} -> ${HEAD_STAMP}"
+              git add docs
+            fi
+          fi
+
           if git diff --cached --quiet; then
-            echo "No docs changes to commit."
+            echo "No substantive docs changes — skipping commit."
             exit 0
           fi
           git commit -m "docs: regenerate zhCN affix compendium"

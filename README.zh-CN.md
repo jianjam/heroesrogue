@@ -7,7 +7,11 @@
 
 ## 中文恩赐 / 诅咒图鉴
 
-**[https://jianjam.github.io/heroesrogue/](https://jianjam.github.io/heroesrogue/)** —— 全 510 条恩赐、诅咒、难度与成就词条，中英对照，支持搜索与筛选。
+**[https://jianjam.github.io/heroesrogue/](https://jianjam.github.io/heroesrogue/)** —— 全 **512** 条恩赐、诅咒、成就与难度词条，中英对照，支持搜索与筛选。
+
+- **恩赐 323 · 诅咒 86 · 成就 100 · 难度 3**
+- 可按类型、适用英雄、稀有度、叠加上限、生效范围筛选
+- 键盘操作：<kbd>/</kbd> 聚焦搜索框，<kbd>1</kbd> <kbd>2</kbd> <kbd>3</kbd> 切换页签
 
 本站点基于 [Errorb0t 的英文图鉴](https://errorb0t.github.io/heroesrogue/) 汉化改进而成，感谢他做出的原始版本。
 
@@ -21,7 +25,7 @@
 |---|---|---|
 | **① 脚本**（推荐） | 大多数人 | 下载 [Releases 里的 `heroesrogue_install-zhcn.bat`](https://github.com/jianjam/heroesrogue/releases) → 放进游戏安装目录（有 `Heroes of the Storm.exe` 那一层）→ 右键**以管理员身份运行** → 按菜单提示操作 |
 | **② 整合包** | 不想用脚本 | 仓库页面 `Code` → `Download ZIP`，解压到游戏目录。**已含简体中文**，装完直接是中文 |
-| **③ 补单个文件** | 已装好英文原版 | 只需下载这一个文件：[GameStrings.txt（加速）](https://gh-proxy.com/https://raw.githubusercontent.com/jianjam/heroesrogue/master/mods/HeroesRogue.StormMod/zhCN.StormData/LocalizedData/GameStrings.txt)，放到游戏的 `mods\HeroesRogue.StormMod\` 下新建 `zhCN.StormData\LocalizedData\` 里（与 `enUS.StormData` 并列） |
+| **③ 补单个文件** | 已装好英文原版 | 只需下载这一个文件（按顺序试，哪个通用哪个）：<br>· [gh-proxy.com 加速](https://gh-proxy.com/https://raw.githubusercontent.com/jianjam/heroesrogue/master/mods/HeroesRogue.StormMod/zhCN.StormData/LocalizedData/GameStrings.txt)<br>· [ghfast.top 加速](https://ghfast.top/https://raw.githubusercontent.com/jianjam/heroesrogue/master/mods/HeroesRogue.StormMod/zhCN.StormData/LocalizedData/GameStrings.txt)<br>· [直连 raw.githubusercontent.com](https://raw.githubusercontent.com/jianjam/heroesrogue/master/mods/HeroesRogue.StormMod/zhCN.StormData/LocalizedData/GameStrings.txt)（需要能连 GitHub）<br>下载后放到游戏的 `mods\HeroesRogue.StormMod\` 下新建 `zhCN.StormData\LocalizedData\` 里（与 `enUS.StormData` 并列） |
 
 > 不知道游戏装在哪？右键桌面快捷方式 →「打开文件所在的位置」，或战网客户端点游戏旁的齿轮 →「在资源管理器中显示」。
 
