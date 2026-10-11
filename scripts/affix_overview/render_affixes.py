@@ -85,18 +85,29 @@ def render_condition_sentence_html(
     highlighted_value = render_footer_highlight(value)
     if key == "hero-specific":
         hero_name = value[:-5] if value.endswith(" only") else value
-        return f"仅对 {render_footer_highlight(hero_name)} 生效。"
+        # 🔴 2026-10-12（用户定稿）：统一用「仅适用于 X」，不用「仅对 X 生效」。
+        #   原句式读起来像在描述「作用对象」，但这里说的是**出现范围**——
+        #   玩家关心的是「这条恩赐给谁/在哪出现」，不是「它作用于谁」。
+        return f"仅适用于{render_footer_highlight(hero_name)}。"
     if key == "hero-tag":
         # ★ 2026-10-11：原先输出「生效英雄：仅非起始英雄。」，「生效英雄」+「仅」重复且
         #   冒号句式与同层的「仅对 X 生效。」不一致。改为与 hero-specific 同一句式。
-        return f"仅对 {render_footer_highlight(value)} 生效。"
+        # ⚠️ 英文保持原作者原文（"Appears for ... only."），只汉化中文 ——
+        #   图鉴的英文段是上游权威，不擅自改写。
+        # 🔴 2026-10-12：`!starter` 的措辞定为「仅适用于非特殊起始英雄」（用户定稿）。
+        #   ⚠️ 用「仅」不用「只」—— 与同层句式统一，也更书面。
+        #   它与其余四种 tag 语义不同 —— 那四种（!ranged / mana / !melee / mount）
+        #   是**英雄属性限制**；`!starter` 说的是
+        #   「没有专属起始恩赐的英雄才从这批里选」。
+        return f"仅适用于{render_footer_highlight(value)}。"
     if key == "heroes-excluded":
-        return f"对 {highlighted_value} 不生效。"
+        return f"不适用于 {highlighted_value}。"
     if key == "map-specific":
         map_name = value[:-5] if value.endswith(" only") else value
-        return f"仅在 {render_footer_highlight(map_name)} 出现。"
+        # 🔴 2026-10-12（用户定稿）：地图限定也统一为「仅适用于 X」。
+        return f"仅适用于{render_footer_highlight(map_name)}。"
     if key == "maps-excluded":
-        return f"不在 {highlighted_value} 出现。"
+        return f"不适用于 {highlighted_value}。"
     if key == "affixes-required":
         return f"需要 {highlighted_value}。"
     if key == "affixes-excluded":

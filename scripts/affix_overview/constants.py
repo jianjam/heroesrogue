@@ -114,7 +114,9 @@ FIELD_VALUE_ATTRIBUTES = ("String", "Int", "value", "Value")
 # key 必须保持英文（用于匹配 mod 源数据），只汉化右侧显示文本
 # ★ 右侧不带「仅」前缀：render_affixes 的 hero-tag 分支统一组装成「仅对 X 生效。」
 HERO_TAG_LABELS = {
-    "mana": "法力英雄",
+    # 🔴 2026-10-12（用户定稿）：「法力英雄」太干，且「法力值」才是游戏内的说法
+    #   ——玩家看到的是「拥有法力值的英雄」，不是被分类过的「法力英雄」。
+    "mana": "拥有法力值的英雄",
     "!mana": "非法力英雄",
     "melee": "近战英雄",
     "!melee": "非近战英雄",
@@ -123,7 +125,16 @@ HERO_TAG_LABELS = {
     "all": "所有英雄",
     "!all": "无英雄",
     "starter": "起始英雄",
-    "!starter": "非起始英雄",
+    # 🔴 `!starter` 不是「非起始英雄」（那是个自造概念，游戏里没这说法），
+    #   也不是「排除起始英雄」。查 LibAffx.galaxy 的判定（!starter 分支）：
+    #     libAffx_AffixSetHeroAll(true) + libAffx_AffixSetHeroStartersOnly(false)
+    #   即「对所有英雄开放」+「解除只限起始恩赐的标记」。
+    #   对照：萨尔的 ThrallLightningRod 是 Rarity=Starter + HeroSpecific=Thrall，
+    #   那才是「英雄专属的起始恩赐」。两者都占起始位，区别在于限定方式。
+    #   用户定稿措辞：「非特殊起始英雄」—— 指没有专属起始恩赐的那批英雄
+    #   （阿尔萨斯、安度因、雷诺等）。别再改成「通用起始恩赐位」那类
+    #   描述机制的写法，**要站在玩家视角说「谁能用」**。
+    "!starter": "非特殊起始英雄",
     # ★ 2026-10-11 补：上游 AffixData.xml 的 SlowWalk 用 `mount` 限定
     #   「仅对能骑乘的英雄生效」（判定见 LibAffx.galaxy libAffx_AffixSetHeroUsesMount）。
     #   原先漏了这条映射 → 图鉴直接漏出英文 "生效英雄：mount。"
