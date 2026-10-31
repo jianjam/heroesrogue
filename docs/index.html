@@ -7,8 +7,8 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- 供页脚/调试显示"本页生成于" -->
-<script>window.__BUILT_AT = "2026-10-12 01:53:47";</script>
+<!-- 构建时间戳（仅调试用）。workflow 与 rebuild_compendium 比对产物时按它识别并忽略时间差异 -->
+<script>window.__BUILT_AT = "2026-10-20 20:27:42";</script>
 <title>Heroes Rogue 图鉴 v0.17.2</title>
 <style>
 *,*::before,*::after { box-sizing: border-box; }
@@ -304,6 +304,16 @@ body:not([data-view="affixes"]) .filters { display: none; }
 /* 「本次更新」筛选：金色，与飘带贴纸同色 */
 .fbtn-change[aria-pressed="true"] { background: #d9a441; border-color: #d9a441; color: #1a1206; }
 .fbtn-change[aria-pressed="true"] .fbtn-n { opacity: .85; }
+
+/* 稀有度筛选按下时用**该品级自己的颜色**（--rc 由生成器逐按钮注入，
+   与卡片上 chip-rarity 的颜色同源，改 RARITY_COLORS 两边一起变）。
+   🔴 文字一律压深：品级色从近白（Common #f2f5f8）到深粉（Mythic #d86caf），
+      只有深字能在全部 8 色上保持可读；白字在 Common 上会完全消失。
+   规则放在通用选中态之后，靠 specificity 覆盖 --accent 蓝底。 */
+.fbtn[data-rarity][aria-pressed="true"] {
+  background: var(--rc); border-color: var(--rc); color: #08111d;
+}
+.fbtn[data-rarity][aria-pressed="true"] .fbtn-n { opacity: .82; }
 
 /* ---- 「更多条件」折叠区 ----
    grid-template-rows: 0fr → 1fr 是纯 CSS 的高度过渡，
@@ -694,15 +704,15 @@ footer.foot {
         <div class="fgroup">
           <span class="flabel">稀有度<i>Rarity</i></span>
           <div class="fbtns">
-            <button class="fbtn" type="button" data-rarity="Starter" aria-pressed="false">起始<i>Starter</i><span class="fbtn-n">30</span></button>
-            <button class="fbtn" type="button" data-rarity="Common" aria-pressed="false">普通<i>Common</i><span class="fbtn-n">67</span></button>
-            <button class="fbtn" type="button" data-rarity="Uncommon" aria-pressed="false">优秀<i>Uncommon</i><span class="fbtn-n">59</span></button>
-            <button class="fbtn" type="button" data-rarity="Rare" aria-pressed="false">稀有<i>Rare</i><span class="fbtn-n">109</span></button>
-            <button class="fbtn" type="button" data-rarity="Epic" aria-pressed="false">史诗<i>Epic</i><span class="fbtn-n">81</span></button>
-            <button class="fbtn" type="button" data-rarity="Legendary" aria-pressed="false">传说<i>Legendary</i><span class="fbtn-n">49</span></button>
-            <button class="fbtn" type="button" data-rarity="Milestone" aria-pressed="false">里程碑<i>Milestone</i><span class="fbtn-n">3</span></button>
-            <button class="fbtn" type="button" data-rarity="Mythic" aria-pressed="false">神话<i>Mythic</i><span class="fbtn-n">10</span></button>
-            <button class="fbtn" type="button" data-rarity="Challenge" aria-pressed="false">挑战<i>Challenge</i><span class="fbtn-n">1</span></button>
+            <button class="fbtn" type="button" data-rarity="Starter" aria-pressed="false" style="--rc:#e6cc80">起始<i>Starter</i><span class="fbtn-n">30</span></button>
+            <button class="fbtn" type="button" data-rarity="Common" aria-pressed="false" style="--rc:#f2f5f8">普通<i>Common</i><span class="fbtn-n">67</span></button>
+            <button class="fbtn" type="button" data-rarity="Uncommon" aria-pressed="false" style="--rc:#3de26d">优秀<i>Uncommon</i><span class="fbtn-n">59</span></button>
+            <button class="fbtn" type="button" data-rarity="Rare" aria-pressed="false" style="--rc:#4f95ff">稀有<i>Rare</i><span class="fbtn-n">109</span></button>
+            <button class="fbtn" type="button" data-rarity="Epic" aria-pressed="false" style="--rc:#d26dff">史诗<i>Epic</i><span class="fbtn-n">81</span></button>
+            <button class="fbtn" type="button" data-rarity="Legendary" aria-pressed="false" style="--rc:#ff9d3a">传说<i>Legendary</i><span class="fbtn-n">49</span></button>
+            <button class="fbtn" type="button" data-rarity="Milestone" aria-pressed="false" style="--rc:#01ffff">里程碑<i>Milestone</i><span class="fbtn-n">3</span></button>
+            <button class="fbtn" type="button" data-rarity="Mythic" aria-pressed="false" style="--rc:#d86caf">神话<i>Mythic</i><span class="fbtn-n">10</span></button>
+            <button class="fbtn" type="button" data-rarity="Challenge" aria-pressed="false" style="--rc:#e05a28">挑战<i>Challenge</i><span class="fbtn-n">1</span></button>
           </div>
         </div>
         <div class="fgroup">
@@ -1377,7 +1387,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">黑心船长的宝藏</span><span class="lang-en">Blackheart&#x27;s Hoard</span></h3>
   <div class="card-desc"><span class="lang-zh">敌方英雄死亡时不再掉落达布隆币，且敌方上交费用不再增加。</span><span class="lang-en">Enemy Heroes do not drop Doubloons on death and enemy turn-in cost does not increase.</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">黑心湾</span>。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Blackheart&#x27;s Bay</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">黑心湾</span>。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Blackheart&#x27;s Bay</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card" data-rarity="Rare"
          data-curse="false"
@@ -2528,7 +2538,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">末日缠身</span><span class="lang-en">Doomed</span></h3>
   <div class="card-desc"><span class="lang-zh"><span>-10</span> 你的核心最大生命值。<br><span>+1</span> 敌方核心每分钟的生命回复。<br><br>末日缠身仅在末日塔生效。</span><span class="lang-en"><span>-10</span> Maximum Health for your Core.<br><span>+1</span> Health Regeneration per minute for the enemy Core.<br><br>Doomed only applies on Towers of Doom.</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">末日塔</span>。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Towers of Doom</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">末日塔</span>。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Towers of Doom</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card" data-rarity="Rare"
          data-curse="false"
@@ -3415,7 +3425,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">防御工事</span><span class="lang-en">Fortifications</span></h3>
   <div class="card-desc"><span class="lang-zh">地图上出现若干敌方塔楼。这些塔楼揭示范围内的所有视野。<br><br>额外层数增加地图上的塔楼数量。</span><span class="lang-en">Several enemy Towers appear around the map. These Towers reveal everything in range.<br><br>Additional stacks increases the amount of Towers on the map.</span></div>
-  <div class="card-notes"><span class="lang-zh">最多叠加 <span class="footer-highlight">3</span> 层。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Stacks up to <span class="footer-highlight">3</span>. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">最多叠加 <span class="footer-highlight">3</span> 层。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Stacks up to <span class="footer-highlight">3</span>. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card" data-rarity="Epic"
          data-curse="false"
@@ -4149,7 +4159,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">炼狱惩罚</span><span class="lang-en">Infernal Punishment</span></h3>
   <div class="card-desc"><span class="lang-zh"><span>-15</span> 敌方队伍所需的惩罚者圣坛小兵数。<br><span>+25%</span> 敌方惩罚者的伤害。<br><br>敌方惩罚者获得强奥、冰冻与轰炮技能。</span><span class="lang-en"><span>-15</span> Punisher Shrine Minions required for the enemy Team.<br><span>+25%</span> Damage for enemy Punisher.<br><br>Enemy Punisher gains Arcane, Frozen, and Mortar Abilities.</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">炼狱圣坛</span>。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Infernal Shrines</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">炼狱圣坛</span>。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Infernal Shrines</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card" data-rarity="Epic"
          data-curse="false"
@@ -4299,7 +4309,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">卡的力量</span><span class="lang-en">Ka&#x27;s Power</span></h3>
   <div class="card-desc"><span class="lang-zh"><span>+50%</span> 敌方控制的神殿射击速度。</span><span class="lang-en"><span>+50%</span> Fire Rate for enemy controlled Temples.</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">天空殿</span>。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Sky Temple</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">天空殿</span>。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Sky Temple</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card" data-rarity="Epic"
          data-curse="false"
@@ -5212,7 +5222,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">尼西斯之怒</span><span class="lang-en">Neithis&#x27;s Wrath</span></h3>
   <div class="card-desc"><span class="lang-zh"><span>-20</span> 敌方队伍所需的织网者宝石数。<br><br>敌方织网者：<br><span>-75%</span> 技能施法时间<br><span>+2</span> 召唤的蜘蛛<br><br>敌方的上交费用不再增加。</span><span class="lang-en"><span>-20</span> Webweaver Gems required for the enemy Team.<br><br>Enemy Webweavers:<br><span>-75%</span> Ability Cast Time<br><span>+2</span> Summoned Spiders<br><br>Enemy turn-in cost no longer increases.</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">蛛后墓</span>。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Tomb of the Spider Queen</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">蛛后墓</span>。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Tomb of the Spider Queen</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card" data-rarity="Epic"
          data-curse="false"
@@ -5502,7 +5512,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">等级压制</span><span class="lang-en">Overleveled</span></h3>
   <div class="card-desc"><span class="lang-zh"><span>+1</span> 敌方等级</span><span class="lang-en"><span>+1</span> Enemy Level</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅在 <span class="footer-highlight">最高 26 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears <span class="footer-highlight">up to level 26</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅在敌方 <span class="footer-highlight">26</span> 级及以下时出现。</span><span class="lang-en">Doesn't stack. Appears <span class="footer-highlight">up to level 26</span> only.</span></div>
 </article>
 <article class="card" data-rarity="Starter"
          data-curse="false"
@@ -6211,7 +6221,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">龙葵女王的恐惧</span><span class="lang-en">Queen Nightshade&#x27;s Terrors</span></h3>
   <div class="card-desc"><span class="lang-zh"><span>-1</span> 敌方队伍所需的恐魔园种子数。<br><br>敌方花园恐魔的蔓生植物不再随时间流失生命值。</span><span class="lang-en"><span>-1</span> Garden Terror Seed required for the enemy Team.<br><br>The enemy Garden Terror&#x27;s overgrowth plants no longer lose Health over time.</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">恐魔园</span>。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Garden of Terror</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">恐魔园</span>。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Garden of Terror</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card" data-rarity="Starter"
          data-curse="false"
@@ -6325,7 +6335,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">芮娜之骑士</span><span class="lang-en">Raena&#x27;s Knight</span></h3>
   <div class="card-desc"><span class="lang-zh">敌方龙骑士：<br><span>+50%</span> 持续时间<br><span>-3s</span> 龙息冷却时间<br><br>我方控制的圣坛会在 <span style="color: #ffd96a">45</span> 秒后变为中立。中立圣坛会在 <span style="color: #ffd96a">45</span> 秒后被敌方控制。</span><span class="lang-en">Enemy Dragon Knight:<br><span>+50%</span> Duration<br><span>-3s</span> Dragon&#x27;s Breath Cooldown<br><br>Shrines under your team&#x27;s control become neutral after <span style="color: #ffd96a">45</span> seconds. Neutral Shrines become enemy-controlled after <span style="color: #ffd96a">45</span> seconds.</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">巨龙镇</span>。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Dragon Shire</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">巨龙镇</span>。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Dragon Shire</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card" data-rarity="Legendary"
          data-curse="false"
@@ -6496,7 +6506,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">乌鸦王的青睐</span><span class="lang-en">Raven Lord&#x27;s Favor</span></h3>
   <div class="card-desc"><span class="lang-zh"><span>-1</span> 敌方队伍所需的乌鸦王的诅咒贡品数。<br><span>+50%</span> 我方被诅咒时乌鸦王的诅咒的持续时间。</span><span class="lang-en"><span>-1</span> Raven&#x27;s Curse Tribute required for the enemy Team.<br><span>+50%</span> Raven&#x27;s Curse Duration when your Team is cursed.</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">诅咒谷</span>。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Cursed Hollow</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">诅咒谷</span>。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Cursed Hollow</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card card-curse" data-rarity="Epic"
          data-curse="true"
@@ -7181,7 +7191,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">颅骨储备</span><span class="lang-en">Skull Stockpile</span></h3>
   <div class="card-desc"><span class="lang-zh"><span>+15</span> 敌方队伍的初始骷髅数。<br><span>-75%</span> 敌方墓穴魔像的定身冷却时间。<br><br>初始骷髅会在每个目标阶段生效。</span><span class="lang-en"><span>+15</span> Starting Skulls for the enemy Team.<br><span>-75%</span> Root Cooldown for enemy Grave Golems.<br><br>Starting Skulls apply to every objective phase.</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">鬼灵矿</span>。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Haunted Mines</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅适用于<span class="footer-highlight">鬼灵矿</span>。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Doesn't stack. Appears on <span class="footer-highlight">Haunted Mines</span> only. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card card-curse" data-rarity="Challenge"
          data-curse="true"
@@ -7202,7 +7212,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">斯利凡</span><span class="lang-en">Slivan</span></h3>
   <div class="card-desc"><span class="lang-zh">在敌方队伍中召唤 <span style="color: #ffd96a">永恒之母斯利凡</span>，一名拥有多种能力的敌方首领。<br><br><span class="storm-inline-icon" aria-hidden="true">◆</span><span style="color: #99d0ff">任务：</span>击败 <span style="color: #ffd96a">斯利凡</span>。<br><br><span style="color: #99d0ff">奖励：</span>该诅咒失效。每局游戏开始时在你的队伍中召唤一名友方 <span style="color: #ffd96a">斯利凡</span>。</span><span class="lang-en">Summons <span style="color: #ffd96a">Slivan the Eternal Mother</span> on the enemy Team, an enemy boss with various abilities.<br><br><span class="storm-inline-icon" aria-hidden="true">◆</span><span style="color: #99d0ff">Quest:</span> Defeat <span style="color: #ffd96a">Slivan</span>.<br><br><span style="color: #99d0ff">Reward:</span> This curse becomes inactive. Summons a friendly <span style="color: #ffd96a">Slivan</span> on your Team at the start of every game.</span></div>
-  <div class="card-notes"><span class="lang-zh">不可叠加。 仅在 <span class="footer-highlight">1-7 级</span> 出现。</span><span class="lang-en">Doesn't stack. Appears at <span class="footer-highlight">levels 1-7</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">不可叠加。 仅在敌方 <span class="footer-highlight">1-7</span> 级之间时出现。</span><span class="lang-en">Doesn't stack. Appears at <span class="footer-highlight">levels 1-7</span> only.</span></div>
 </article>
 <article class="card" data-rarity="Legendary"
          data-curse="false"
@@ -7236,7 +7246,7 @@ ai 队友也获得属于他们的伙伴。
   </div>
   <h3 class="card-name"><span class="lang-zh">慢启动</span><span class="lang-en">Slow Start</span></h3>
   <div class="card-desc"><span class="lang-zh">AI 队友会被时间停止 <span style="color: #ffd96a">40</span> <span style="color: #747A84">（每层 +60s）</span> 秒。</span><span class="lang-en">AI Teammates are Time Stopped for <span style="color: #ffd96a">40</span> <span style="color: #747A84">(+60s per stack)</span> seconds.</span></div>
-  <div class="card-notes"><span class="lang-zh">最多叠加 <span class="footer-highlight">3</span> 层。 仅在 <span class="footer-highlight">1-4 级</span> 出现。</span><span class="lang-en">Stacks up to <span class="footer-highlight">3</span>. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
+  <div class="card-notes"><span class="lang-zh">最多叠加 <span class="footer-highlight">3</span> 层。 仅在敌方 <span class="footer-highlight">1-4</span> 级之间时出现。</span><span class="lang-en">Stacks up to <span class="footer-highlight">3</span>. Appears at <span class="footer-highlight">levels 1-4</span> only.</span></div>
 </article>
 <article class="card card-curse" data-rarity="Uncommon"
          data-curse="true"
@@ -9167,12 +9177,8 @@ ai 队友也获得属于他们的伙伴。
   <div class="empty" id="empty" hidden>没有匹配的内容</div>
 
   <footer class="foot">
-    本图鉴由程序自动生成，共 512 条，可能存在错误。Heroes Rogue 为玩家自制项目，
-    与暴雪娱乐无关，亦未获得其认可。本模组在本地运行，不与暴雪服务器交互。
-    所有原始游戏素材、角色及知识产权均归暴雪娱乐所有。
-    <br>本站点基于 Errorb0t 的<a href="https://errorb0t.github.io/heroesrogue/">英文恩赐/ 诅咒图鉴</a>汉化改进而成，保留其数据与结构。
-    <br>Generated programmatically from the Heroes Rogue mod data (v0.17.2).
-    <br><span style="color:#4a5a72">本页生成于 <span id="built-at">2026-10-12 01:53:47</span></span>
+    本站基于 Errorb0t 的<a href="https://errorb0t.github.io/heroesrogue/">英文图鉴</a>汉化改进。
+    Heroes Rogue 为玩家自制项目，与暴雪娱乐无关，原始游戏素材与角色版权均归暴雪娱乐所有。
   </footer>
 </main>
 

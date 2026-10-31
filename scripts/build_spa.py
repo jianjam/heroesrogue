@@ -579,6 +579,16 @@ body:not([data-view="affixes"]) .filters { display: none; }
 .fbtn-change[aria-pressed="true"] { background: #d9a441; border-color: #d9a441; color: #1a1206; }
 .fbtn-change[aria-pressed="true"] .fbtn-n { opacity: .85; }
 
+/* 稀有度筛选按下时用**该品级自己的颜色**（--rc 由生成器逐按钮注入，
+   与卡片上 chip-rarity 的颜色同源，改 RARITY_COLORS 两边一起变）。
+   🔴 文字一律压深：品级色从近白（Common #f2f5f8）到深粉（Mythic #d86caf），
+      只有深字能在全部 8 色上保持可读；白字在 Common 上会完全消失。
+   规则放在通用选中态之后，靠 specificity 覆盖 --accent 蓝底。 */
+.fbtn[data-rarity][aria-pressed="true"] {
+  background: var(--rc); border-color: var(--rc); color: #08111d;
+}
+.fbtn[data-rarity][aria-pressed="true"] .fbtn-n { opacity: .82; }
+
 /* ---- 「更多条件」折叠区 ----
    grid-template-rows: 0fr → 1fr 是纯 CSS 的高度过渡，
    不用 JS 量高度、也不用 max-height 猜数值（那两种都会在内容变化时失准）。 */
@@ -1008,7 +1018,8 @@ def build_html(affixes, difficulties, achievements, version) -> str:
     rarity_counts = {r: sum(1 for a in affixes if a.rarity == r) for r in ordered}
 
     rar_chips = [
-        f'<button class="fbtn" type="button" data-rarity="{html.escape(r)}" aria-pressed="false">'
+        f'<button class="fbtn" type="button" data-rarity="{html.escape(r)}" aria-pressed="false"'
+        f' style="--rc:{html.escape(RARITY_COLORS.get(r, "#c8d4e6"))}">'
         f'{html.escape(RARITY_DISPLAY_NAMES.get(r, r))}'
         f'<i>{html.escape(RARITY_DISPLAY_NAMES_EN.get(r, r))}</i>'
         f'<span class="fbtn-n">{rarity_counts[r]}</span></button>'
@@ -1076,8 +1087,6 @@ def build_html(affixes, difficulties, achievements, version) -> str:
           </div>"""
         for label, label_en, items in more_rows
     )
-    total = len(affixes) + len(difficulties) + len(achievements)
-
     def cards(items, fn):
         return "\n".join(fn(x) for x in items)
 
@@ -1090,7 +1099,7 @@ def build_html(affixes, difficulties, achievements, version) -> str:
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<!-- 供页脚/调试显示"本页生成于" -->
+<!-- 构建时间戳（仅调试用）。workflow 与 rebuild_compendium 比对产物时按它识别并忽略时间差异 -->
 <script>window.__BUILT_AT = "{build_stamp}";</script>
 <title>Heroes Rogue 图鉴 v{html.escape(version)}</title>
 <style>{STYLES}</style>
@@ -1157,12 +1166,8 @@ def build_html(affixes, difficulties, achievements, version) -> str:
   <div class="empty" id="empty" hidden>没有匹配的内容</div>
 
   <footer class="foot">
-    本图鉴由程序自动生成，共 {total} 条，可能存在错误。Heroes Rogue 为玩家自制项目，
-    与暴雪娱乐无关，亦未获得其认可。本模组在本地运行，不与暴雪服务器交互。
-    所有原始游戏素材、角色及知识产权均归暴雪娱乐所有。
-    <br>本站点基于 Errorb0t 的<a href="https://errorb0t.github.io/heroesrogue/">英文恩赐/ 诅咒图鉴</a>汉化改进而成，保留其数据与结构。
-    <br>Generated programmatically from the Heroes Rogue mod data (v{html.escape(version)}).
-    <br><span style="color:#4a5a72">本页生成于 <span id="built-at">{html.escape(build_stamp)}</span></span>
+    本站基于 Errorb0t 的<a href="https://errorb0t.github.io/heroesrogue/">英文图鉴</a>汉化改进。
+    Heroes Rogue 为玩家自制项目，与暴雪娱乐无关，原始游戏素材与角色版权均归暴雪娱乐所有。
   </footer>
 </main>
 

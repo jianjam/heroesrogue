@@ -38,7 +38,7 @@ def render_mythic_order_html(affix: AffixRecord, lang: str = "zh") -> str:
 
 
 def render_condition_sentence_html(
-    key: str, value: str, lang: str = "zh"
+    key: str, value: str, lang: str = "zh", is_curse: bool = False
 ) -> str:
     if lang == "en":
         highlighted_value = render_footer_highlight(value)
@@ -116,10 +116,27 @@ def render_condition_sentence_html(
         return f"需要天赋 {highlighted_value}。"
     if key == "level-range":
         # ★ 与 data_loading.format_level_condition 产出的中文文本配套
-        if value.startswith("最高 "):
-            return f"仅在 {highlighted_value} 出现。"
-        if value.endswith(" 级"):
-            return f"仅在 {highlighted_value} 出现。"
+        # 🔴 2026-10-14（用户定稿）：原文「仅在 最高 26 级 出现。」有两处歧义 ——
+        #   ① 「最高 X 级」语序别扭（应为「X 级及以下」）；
+        #   ② 没说清是**谁的**等级。源码判据：诅咒走 libAffx_QueueCurse，
+        #   传入的是敌方英雄等级（UnitLevel(players[libAffx_enemy])）；
+        #   恩赐走 libAffx_QueueBoon，传入的是自己等级。故按 is_curse 补主语。
+        #   英文侧保持上游原文不改。
+        # ⚠️ 四种形态必须逐一显式判定（data_loading.format_level_condition 产出）：
+        #   「仅 N 级」= min==max ｜ 「N-M 级」= 区间 ｜ 「N 级以上」= 仅 min ｜ 「最高 N 级」= 仅 max。
+        #   曾踩坑：先用 endswith(" 级") 兜底会把「10-15 级」误判成「10 级」。
+        level_text = value.removeprefix("最高 ").removesuffix(" 级")
+        match = re.search(r"\d+(?:-\d+)?", level_text)
+        level_html = render_footer_highlight(match.group(0) if match else level_text)
+        subject = "敌方" if is_curse else "你"
+        if value.startswith("最高 "):  # 仅 LevelMax
+            return f"仅在{subject} {level_html} 级及以下时出现。"
+        if value.endswith(" 级以上"):  # 仅 LevelMin
+            return f"仅在{subject} {level_html} 级及以上时出现。"
+        if value.startswith("仅 "):  # LevelMin == LevelMax
+            return f"仅在{subject} {level_html} 级时出现。"
+        if "-" in level_text:  # 区间
+            return f"仅在{subject} {level_html} 级之间时出现。"
         return f"出现在 {highlighted_value}。"
     return render_footer_highlight(value if value.endswith(".") else f"{value}.")
 
@@ -132,7 +149,9 @@ def render_footer_summary_html(affix: AffixRecord, lang: str = "zh") -> str:
         parts.append(mythic_order_html)
     parts.append(render_stackability_html(affix, lang))
     parts.extend(
-        render_condition_sentence_html(condition.key, condition.value, lang)
+        render_condition_sentence_html(
+            condition.key, condition.value, lang, is_curse=affix.negative
+        )
         for condition in conditions
     )
     return " ".join(parts)
